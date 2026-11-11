@@ -1,0 +1,50 @@
+{
+  "design": {
+    "studies": 60,
+    "scenarios_per_study": 8,
+    "parameters": 30,
+    "within_study_flip_rate": 0.0,
+    "matched_draws": 30,
+    "replicates": 100,
+    "seed": 42
+  },
+  "H0_repeated_panels_only": {
+    "full_ratio": {
+      "median": 1.581261359176691,
+      "q025": 1.1066256436117736,
+      "q975": 1.865680471068193,
+      "mean": 1.5609211669589507
+    },
+    "collapsed_ratio": {
+      "median": 0.9954687935623561,
+      "q025": 0.8875379117187325,
+      "q975": 1.0999506750259938,
+      "mean": 1.0003194303502425
+    },
+    "pct_collapsed_within_0.95_1.05": 68.0
+  },
+  "H1_planted_study": {
+    "full_ratio": {
+      "median": 1.5036576139512614,
+      "q025": 1.123540428989859,
+      "q975": 1.8137603168536685,
+      "mean": 1.4971134901563212
+    },
+    "collapsed_ratio": {
+      "median": 1.0057449120998077,
+      "q025": 0.9145619331735547,
+      "q975": 1.099275197259594,
+      "mean": 1.0035595711246654
+    },
+    "planted_collapsed_ratio": {
+      "median": 4.659137950421111,
+      "q025": 1.353505609410894,
+      "q975": 11.53272692061348,
+      "mean": 5.034733504872304
+    },
+    "planted_top1_pct": 43.0,
+    "planted_top3_pct": 63.0,
+    "planted_rank_percentile_median": 98.30508474576271,
+    "planted_above_2x_pct": 90.0
+  }
+}
