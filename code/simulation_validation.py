@@ -40,6 +40,7 @@ DRAWS = int(os.environ.get("SIM_DRAWS", 30))  # matched draws per study
 REPS = int(os.environ.get("SIM_REPS", 100))   # synthetic corpora per scenario
 FLIP = float(os.environ.get("SIM_FLIP", 0.0))  # within-study bit flips
 OUT = os.path.join(ROOT, "results", "post_audit")
+SIM_OUT = os.environ.get("SIM_OUT", "simulation_validation.json")
 
 
 def simulate(rng, planted=False):
@@ -183,7 +184,7 @@ def main():
         },
     }
     os.makedirs(OUT, exist_ok=True)
-    with open(os.path.join(OUT, "simulation_validation.json"), "w",
+    with open(os.path.join(OUT, SIM_OUT), "w",
               encoding="utf-8") as fh:
         json.dump(out, fh, indent=2)
     print(json.dumps(out, indent=2))

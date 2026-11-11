@@ -1,12 +1,14 @@
-# repeated-panel-audit-code
+# p2-deletion-audit-code
+
+GitHub remote: `repeated-panel-audit-code` (unchanged; the manuscript cites that URL).
 
 Code and data for:
 
 > **Repeated panels inflate apparent study-block influence in a pooled coverage ordination.**
 > Wibowo, P., Veesommai Sillberg, C., & Kiyoki, Y. (2026).
-> *Environmental and Ecological Statistics*, in review.
+> *Environmental and Ecological Statistics*; manuscript prepared for submission.
 
-This repository contains the code, coverage matrix, event tables, and audit summaries needed to reproduce the reported checks. The manuscript source and submission package are available from the corresponding author.
+This repository is the **check package** for the reported audit. It contains the coverage matrix, event tables, and audit summaries needed to reproduce the reported checks. The full analysis pipeline (composition, calibration, per-donor-capped, and 3-D checks) is in `ordination-stability-audit` (tag `code-v1.15`). The manuscript source and submission package are available from the corresponding author.
 
 ## Contents
 
@@ -14,7 +16,7 @@ This repository contains the code, coverage matrix, event tables, and audit summ
 |---|---|
 | `code/` | Audit scripts. See `code/README.md`. |
 | `data/` | Coverage matrix, event tables, and audit JSONs. |
-| `docs/extraction/` | Source extraction CSVs required by `revision_layers.py`. |
+| `docs/extraction/` | Stage-A presence CSV (the stage-B value layer is restricted and not included). |
 | `results/post_audit/` | Current JSON summaries for the 2×2 decomposition, density/PC2 check, and synthetic validation. |
 
 ## Quick start
@@ -34,8 +36,10 @@ The scripts write to `results/post_audit/`. The committed JSONs are the publishe
 `simulation_validation.py` runs 100 synthetic corpora by default (about 6 minutes). For a quick check:
 
 ```bash
-SIM_REPS=10 python3 code/simulation_validation.py
+SIM_REPS=10 SIM_OUT=simulation_validation_quick.json python3 code/simulation_validation.py
 ```
+
+This writes the quick check to a separate file and does not overwrite the published 100-replicate summary.
 
 ## What each script does
 
@@ -56,7 +60,7 @@ SIM_REPS=10 python3 code/simulation_validation.py
 - `data/collapsed_block.csv`, `data/collapsed_matched.csv` — unique-configuration audit events.
 - `data/weighted_matched_block.csv`, `data/weighted_matched_matched.csv` — weighted control events.
 - `data/core.json`, `data/extra.json`, `data/water.json`, `data/pcoa_summary.json`, `data/pcoa_collapsed_summary.json` — audit summaries.
-- `docs/extraction/stageA/matrix_presence_v2.csv`, `docs/extraction/stageB/matrix_values_v2.csv` — source extraction CSVs.
+- `docs/extraction/stageA/matrix_presence_v2.csv` — presence layer. The stage-B value layer is restricted and is **not** included in this repository.
 
 Coverage codes reported-present and examined-absent as 1, not-reported as 0. Standard/regulatory rows are excluded from the analysis sets.
 
