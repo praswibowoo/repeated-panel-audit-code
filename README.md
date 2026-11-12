@@ -54,7 +54,7 @@ This writes the quick check to a separate file and does not overwrite the publis
 | `pc2_density_check.py` | PC1/PC2/joint class flips under row-level and study-density-matched donors. |
 | `simulation_validation.py` | Synthetic panel-structure validation: H0 repeated panels only; H1 planted study-level effect. |
 | `core_revision_checks.py` | Shared data loader and audit helpers. |
-| `revision_layers.py` | Canonical coverage/value layers and source CSV loader. |
+| `revision_layers.py` | Provenance-only coverage/value builder; requires the restricted value layer and is not needed for the quick start. |
 
 `clean_primary_audit.py`, `ees_post_audit_extra.py`, and `ees_revision_checks.py` are included for provenance but require the full legacy pipeline; they are not standalone. The event tables they produced are included in `data/`, so the published numbers can be checked without rerunning them.
 
