@@ -22,6 +22,11 @@ This repository is the **check package** for the reported audit. It contains the
 ## Quick start
 
 ```bash
+# Option 1: conda
+conda env create -f environment.yml
+conda activate p2-deletion-audit
+
+# Option 2: pip
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -66,7 +71,11 @@ Coverage codes reported-present and examined-absent as 1, not-reported as 0. Sta
 
 ## Historical release note
 
-Tag `v1.0.0` included `docs/extraction/stageB/matrix_values_v2.csv`. The current release, `v1.0.1`, excludes it. `v1.0.0` is retained for provenance only; cite `v1.0.1` for the reported checks.
+Tag `v1.0.0` included `docs/extraction/stageB/matrix_values_v2.csv`. The current release, `v1.0.2`, excludes it. `v1.0.0` is retained for provenance only; cite `v1.0.2` for the reported checks.
+
+## Citation
+
+If you use this code, cite the paper and this repository. A `CITATION.cff` is included.
 
 ## License
 

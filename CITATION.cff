@@ -1,0 +1,30 @@
+cff-version: 1.2.1
+message: "If you use this code, cite the paper and this repository."
+title: "Repeated panels inflate apparent study-block influence in a pooled coverage ordination"
+abstract: "Check package for the repeated-panel coverage audit: coverage matrix, event tables, panel decomposition, density/PC2 check, and synthetic validation."
+type: software
+authors:
+  - family-names: Wibowo
+    given-names: Prasetyo
+    orcid: "https://orcid.org/0000-0002-2738-744X"
+    affiliation: "Musashino University; Politeknik Elektronika Negeri Surabaya"
+  - family-names: Veesommai Sillberg
+    given-names: Chalisa
+    orcid: "https://orcid.org/0000-0001-8400-7469"
+    affiliation: "Tampere University"
+  - family-names: Kiyoki
+    given-names: Yasushi
+    affiliation: "Musashino University"
+version: 1.0.2
+date-released: "2026-11-12"
+doi: "10.5281/zenodo.23973301"
+url: "https://github.com/praswibowoo/repeated-panel-audit-code"
+repository-code: "https://github.com/praswibowoo/repeated-panel-audit-code"
+license: MIT
+keywords:
+  - repeated panels
+  - leave-one-study-out
+  - Procrustes
+  - binary PCA
+  - coverage matrix
+  - ordination stability
