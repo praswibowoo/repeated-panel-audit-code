@@ -8,7 +8,7 @@ Code and data for:
 > Wibowo, P., Veesommai Sillberg, C., & Kiyoki, Y. (2026).
 > *Environmental and Ecological Statistics*; manuscript prepared for submission.
 
-This repository is the **check package** for the reported audit. It contains the coverage matrix, event tables, and audit summaries needed to reproduce the reported checks. The full analysis pipeline (composition, calibration, and 3-D checks) is in `ordination-stability-audit` (tag `code-v1.15`). The manuscript source and submission package are available from the corresponding author.
+This repository is the **check package** for the reported audit. It contains the coverage matrix, event tables, and audit summaries needed to reproduce the reported checks. The full analysis pipeline (composition, calibration, and 3-D checks) is in `ordination-stability-audit` (archived at submission). The manuscript source and submission package are available from the corresponding author.
 
 ## Contents
 
@@ -78,7 +78,7 @@ Coverage codes reported-present and examined-absent as 1, not-reported as 0. Sta
 
 ## Historical release note
 
-Tag `v1.0.0` included `docs/extraction/stageB/matrix_values_v2.csv`. The current release, `v1.0.4`, excludes it. `v1.0.0` is retained for provenance only; cite `v1.0.4` for the reported checks.
+Tag `v1.0.0` included `docs/extraction/stageB/matrix_values_v2.csv`. The current package excludes it; the earlier public release is retained for provenance only. Cite the current repository for the reported checks.
 
 ## Citation
 
