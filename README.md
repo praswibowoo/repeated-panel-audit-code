@@ -69,6 +69,9 @@ This writes the quick check to a separate file and does not overwrite the publis
 - `data/collapsed_block.csv`, `data/collapsed_matched.csv` — unique-configuration audit events.
 - `data/weighted_matched_block.csv`, `data/weighted_matched_matched.csv` — weighted control events.
 - `data/core.json`, `data/extra.json`, `data/water.json`, `data/pcoa_summary.json`, `data/pcoa_collapsed_summary.json` — audit summaries.
+- `data/core_checks.json` — coarsened nearest-configuration control and exact-subset CIs.
+- `data/coverage_events.csv`, `data/composition_matched_control.csv` — full-pipeline inputs for `core_revision_checks.py`.
+- `data/coverage_3d_model.csv` — three-component coverage block model (curated 3-D block factor 1.17).
 - `docs/extraction/stageA/matrix_presence_v2.csv` — presence layer. The stage-B value layer is restricted and is **not** included in this repository.
 
 Coverage codes reported-present and examined-absent as 1, not-reported as 0. Standard/regulatory rows are excluded from the analysis sets.
