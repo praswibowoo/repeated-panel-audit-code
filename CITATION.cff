@@ -1,6 +1,6 @@
 cff-version: 1.2.1
 message: "If you use this code, cite the paper and this repository."
-title: "Repeated panels inflate apparent study-block influence in a pooled coverage ordination"
+title: "Repeated panels inflate apparent study-block influence in pooled parameter-coverage ordinations"
 abstract: "Check package for the repeated-panel coverage audit: coverage matrix, event tables, panel decomposition, density/PC2 check, and synthetic validation."
 type: software
 authors:
