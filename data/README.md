@@ -41,3 +41,5 @@ The current 2×2, density/PC2, and synthetic-validation summaries are in `result
 ## Source extraction
 
 `docs/extraction/stageA/matrix_presence_v2.csv` is the presence layer. The stage-B value layer (`matrix_values_v2.csv`) is **not** included in this repository; it remains restricted in the Zenodo data record. The coverage matrix is included in full, so the reported coverage audit can be rerun without the value layer.
+
+Historical release note: tag `v1.0.0` included `docs/extraction/stageB/matrix_values_v2.csv`; the current release `v1.0.1` does not. Cite `v1.0.1`.

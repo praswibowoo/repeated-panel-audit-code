@@ -64,6 +64,10 @@ This writes the quick check to a separate file and does not overwrite the publis
 
 Coverage codes reported-present and examined-absent as 1, not-reported as 0. Standard/regulatory rows are excluded from the analysis sets.
 
+## Historical release note
+
+Tag `v1.0.0` included `docs/extraction/stageB/matrix_values_v2.csv`. The current release, `v1.0.1`, excludes it. `v1.0.0` is retained for provenance only; cite `v1.0.1` for the reported checks.
+
 ## License
 
 Code: MIT. Data: CC BY 4.0. Third-party source papers are not included. See `LICENSE`.
