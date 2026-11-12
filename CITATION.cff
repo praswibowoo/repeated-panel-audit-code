@@ -15,9 +15,12 @@ authors:
   - family-names: Kiyoki
     given-names: Yasushi
     affiliation: "Musashino University"
-version: 1.0.2
+version: 1.0.4
 date-released: "2026-11-12"
-doi: "10.5281/zenodo.23973301"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23973301"
+    description: "Data record for the corpus (restricted during review)"
 url: "https://github.com/praswibowoo/repeated-panel-audit-code"
 repository-code: "https://github.com/praswibowoo/repeated-panel-audit-code"
 license: MIT

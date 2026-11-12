@@ -16,7 +16,7 @@ python3 code/pc2_density_check.py
 python3 code/simulation_validation.py
 ```
 
-`core_revision_checks.py` is the shared coverage loader; the runnable scripts import it. It reads `data/coverage_matrix.csv` directly and does not require the restricted value layer.
+`core_revision_checks.py` is both the shared coverage loader and a runnable check for the coarsened nearest-configuration control and exact-subset CIs. It reads `data/coverage_matrix.csv`, `data/coverage_events.csv`, and `data/composition_matched_control.csv` directly and does not require the restricted value layer.
 
 ## Provenance only
 
@@ -37,6 +37,6 @@ The event tables they produced are included in `data/`, so the published numbers
 
 ## Repositories
 
-- Check package (this repository): `repeated-panel-audit-code`, tag `v1.0.2`.
-- Full analysis pipeline: `ordination-stability-audit`, tag `code-v1.15` — composition, calibration, per-donor-capped, and 3-D checks.
+- Check package (this repository): `repeated-panel-audit-code`, tag `v1.0.4`.
+- Full analysis pipeline: `ordination-stability-audit`, tag `code-v1.15` — composition, calibration, and 3-D checks.
 

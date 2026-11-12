@@ -33,7 +33,8 @@ sys.path.insert(0, os.path.join(ROOT, "code"))
 
 SEED = 42
 EXCLUDE = ("B175", "B111", "B095", "B182", "B239")
-RESULTS = os.path.join(ROOT, "results", "wp3_clean")
+DATA = os.path.join(ROOT, "data")
+RESULTS = DATA if os.path.exists(os.path.join(DATA, "coverage_events.csv")) else os.path.join(ROOT, "results", "wp3_clean")
 OUT = os.path.join(ROOT, "results", "core_revision")
 os.makedirs(OUT, exist_ok=True)
 

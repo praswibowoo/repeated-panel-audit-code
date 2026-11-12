@@ -23,6 +23,10 @@ Standard/regulatory rows are excluded. The full extraction has 764 data rows; th
 | `collapsed_matched.csv` | Unique-configuration matched draws. |
 | `weighted_matched_block.csv` | Weighted-fit block-deletion events. |
 | `weighted_matched_matched.csv` | Weighted-fit matched draws. |
+| `coverage_events.csv` | Row-level coverage audit events from the full pipeline (used by `core_revision_checks.py`). |
+| `composition_matched_control.csv` | Composition-matched control events from the full pipeline (used by `core_revision_checks.py`). |
+| `coverage_3d_model.csv` | Three-component coverage block model (curated 3-D block factor 1.17). |
+| `core_checks.json` | Coarsened nearest-configuration control, exact-subset CIs, and same-size percentile checks. |
 
 Each event table includes the paper identifier, arm, draw, number of rows deleted, median Procrustes drift, and the PC1/PC2/joint class-flip metrics where available.
 
@@ -36,10 +40,10 @@ Each event table includes the paper identifier, arm, draw, number of rows delete
 | `pcoa_summary.json` | Full-set Jaccard PCoA audit. |
 | `pcoa_collapsed_summary.json` | Collapsed Jaccard PCoA audit. |
 
-The current 2×2, density/PC2, and synthetic-validation summaries are in `results/post_audit/`.
+The current 2×2, density/PC2, synthetic-validation, and multi-configuration sensitivity summaries are in `results/post_audit/`.
 
 ## Source extraction
 
 `docs/extraction/stageA/matrix_presence_v2.csv` is the presence layer. The stage-B value layer (`matrix_values_v2.csv`) is **not** included in this repository; it remains restricted in the Zenodo data record. The coverage matrix is included in full, so the reported coverage audit can be rerun without the value layer.
 
-Historical release note: tag `v1.0.0` included `docs/extraction/stageB/matrix_values_v2.csv`; the current release `v1.0.2` does not. Cite `v1.0.2`.
+Historical release note: tag `v1.0.0` included `docs/extraction/stageB/matrix_values_v2.csv`; the current release `v1.0.4` does not. Cite `v1.0.4`.

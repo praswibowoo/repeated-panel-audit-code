@@ -1,0 +1,103 @@
+{
+  "description": "Within-study configuration heterogeneity sensitivity for the synthetic panel-structure validation. Same design as simulation_validation.json (60 studies, 8 scenarios, 30 parameters, 30 matched draws, 100 replicates, seed 42), with within-study bit flips added to H0.",
+  "flip_0.01": {
+    "design": {
+      "studies": 60,
+      "scenarios_per_study": 8,
+      "parameters": 30,
+      "within_study_flip_rate": 0.01,
+      "matched_draws": 30,
+      "replicates": 100,
+      "seed": 42
+    },
+    "H0_repeated_panels_only": {
+      "full_ratio": {
+        "median": 1.5126613663045396,
+        "q025": 1.2182354615988695,
+        "q975": 1.762889954782916,
+        "mean": 1.5148885213398124
+      },
+      "collapsed_ratio": {
+        "median": 0.9589322046688034,
+        "q025": 0.7245205344611795,
+        "q975": 1.1329396096201794,
+        "mean": 0.946007686970486
+      },
+      "pct_collapsed_within_0.95_1.05": 33.0
+    },
+    "H1_planted_study": {
+      "full_ratio": {
+        "median": 1.4681022778724269,
+        "q025": 1.1377551346874357,
+        "q975": 1.7663758137412455,
+        "mean": 1.46967141619108
+      },
+      "collapsed_ratio": {
+        "median": 0.9624421231541095,
+        "q025": 0.7620167662473946,
+        "q975": 1.2018751527965201,
+        "mean": 0.9693257794115614
+      },
+      "planted_collapsed_ratio": {
+        "median": 3.7545153059162715,
+        "q025": 0.49731696132709946,
+        "q975": 11.91955868637085,
+        "mean": 4.672798847604436
+      },
+      "planted_top1_pct": 36.0,
+      "planted_top3_pct": 56.00000000000001,
+      "planted_rank_percentile_median": 96.61016949152543,
+      "planted_above_2x_pct": 75.0
+    }
+  },
+  "flip_0.05": {
+    "design": {
+      "studies": 60,
+      "scenarios_per_study": 8,
+      "parameters": 30,
+      "within_study_flip_rate": 0.05,
+      "matched_draws": 30,
+      "replicates": 100,
+      "seed": 42
+    },
+    "H0_repeated_panels_only": {
+      "full_ratio": {
+        "median": 1.4157915176310585,
+        "q025": 1.046099284556268,
+        "q975": 1.6723907799980042,
+        "mean": 1.420420547026298
+      },
+      "collapsed_ratio": {
+        "median": 1.3375282346274628,
+        "q025": 1.0948039521687303,
+        "q975": 1.547040861475068,
+        "mean": 1.3392995985894651
+      },
+      "pct_collapsed_within_0.95_1.05": 0.0
+    },
+    "H1_planted_study": {
+      "full_ratio": {
+        "median": 1.3582383953428776,
+        "q025": 0.9957226684393748,
+        "q975": 1.648399085001216,
+        "mean": 1.3580754482150255
+      },
+      "collapsed_ratio": {
+        "median": 1.2823690665084575,
+        "q025": 1.0105000672364155,
+        "q975": 1.4945016811344694,
+        "mean": 1.2690381319676423
+      },
+      "planted_collapsed_ratio": {
+        "median": 4.79149458253726,
+        "q025": 1.19098026853131,
+        "q975": 13.100478251925479,
+        "mean": 5.375685609075488
+      },
+      "planted_top1_pct": 36.0,
+      "planted_top3_pct": 65.0,
+      "planted_rank_percentile_median": 98.30508474576271,
+      "planted_above_2x_pct": 85.0
+    }
+  }
+}

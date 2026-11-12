@@ -1,0 +1,12 @@
+{
+  "seed": 42,
+  "papers": 25,
+  "claims": 50,
+  "mappable_claims": 24,
+  "VERIFIED": 18,
+  "FOUND_ELSEWHERE": 32,
+  "REVIEW": 0,
+  "verified_pct": 36.0,
+  "mappable_pct": 48.0,
+  "review_papers": []
+}
