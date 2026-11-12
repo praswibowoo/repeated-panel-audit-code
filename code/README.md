@@ -37,6 +37,6 @@ The event tables they produced are included in `data/`, so the published numbers
 
 ## Repositories
 
-- Check package (this repository): `repeated-panel-audit-code`, commit `960276e`.
+- Check package (this repository): `repeated-panel-audit-code`.
 - Full analysis pipeline: `ordination-stability-audit`, archived at submission — composition, calibration, and 3-D checks.
 
