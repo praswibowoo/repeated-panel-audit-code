@@ -32,17 +32,27 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-python3 code/verify_package.py          # fast package self-check
-python3 code/panel_decomposition.py
-python3 code/pc2_density_check.py
-python3 code/simulation_validation.py
-python3 code/multiconfig_sensitivity.py   # 1% and 5% within-study flips (~12 min)
-python3 code/all_paper_audit.py           # all-paper 730/122 ratio (~2 min)
-# optional: core revision checks (coarsened control, exact-subset CIs)
-python3 code/core_revision_checks.py
+python3 code/run_all.py --quick         # ~2 min: fast end-to-end check
+python3 code/run_all.py                 # ~22 min: every analysis, then self-check
+python3 code/run_all.py --list          # show the steps
 ```
 
-The scripts write to `results/post_audit/`. The committed JSONs are the published outputs; rerunning them should reproduce the same values.
+`run_all.py` runs the analyses in order and finishes with `verify_package.py`.
+Use `--only panel,pc2` (or any comma-separated subset) to run a few steps.
+
+Individual steps are also runnable on their own:
+
+```bash
+python3 code/panel_decomposition.py
+python3 code/pc2_density_check.py
+python3 code/core_revision_checks.py
+python3 code/all_paper_audit.py
+python3 code/simulation_validation.py
+python3 code/multiconfig_sensitivity.py
+python3 code/verify_package.py
+```
+
+The scripts write to `results/post_audit/` (and `results/core_revision/`). The committed JSONs are the published outputs; rerunning them should reproduce the same values.
 
 `simulation_validation.py` runs 100 synthetic corpora by default (about 6 minutes). For a quick check:
 
@@ -65,6 +75,8 @@ This writes the quick check to a separate file and does not overwrite the publis
 | `all_paper_audit.py` | All-paper (730/122) coverage audit; reproduces the Table 4 ratio 1.34 (1.11–1.60). |
 | `core_revision_checks.py` | Coarsened nearest-configuration control, exact-subset CIs, and same-size percentile checks. |
 | `verify_package.py` | Fast self-check: file inventory, matrix agreement, and committed summary values. |
+| `run_all.py` | One entry point: runs the analyses in order, then the self-check (`--quick`, `--only`, `--list`). |
+| `common.py` | Shared helpers: PCA, Procrustes drift, paired ratio, bootstrap, unique mask, seed convention, loaders. |
 | `code/legacy/revision_layers.py` | Provenance-only coverage/value builder; requires the restricted value layer and is not needed for the quick start. |
 
 `code/legacy/` holds `clean_primary_audit.py`, `ees_post_audit_extra.py`, `ees_revision_checks.py`, and `revision_layers.py`; they require the archived pipeline (and, for two of them, the restricted value layer) and are not standalone. The event tables they produced are included in `data/`, so the published numbers can be checked without rerunning them.

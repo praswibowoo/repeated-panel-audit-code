@@ -19,77 +19,25 @@ from __future__ import annotations
 import json
 import os
 import sys
-import zlib
 from collections import Counter
 
 import numpy as np
 import pandas as pd
 from scipy import stats
-from scipy.spatial import procrustes
 from sklearn.decomposition import PCA
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "code"))
 
-SEED = 42
-EXCLUDE = ("B175", "B111", "B095", "B182", "B239")
+from common import (  # noqa: E402
+    SEED, DRAWS, N_BOOT, EXCLUDED, fit, drift, median_ci, seed_for, load_curated,
+)
+
+EXCLUDE = EXCLUDED
 DATA = os.path.join(ROOT, "data")
 RESULTS = DATA if os.path.exists(os.path.join(DATA, "coverage_events.csv")) else os.path.join(ROOT, "results", "wp3_clean")
 OUT = os.path.join(ROOT, "results", "core_revision")
 os.makedirs(OUT, exist_ok=True)
-
-DRAWS = 100
-N_BOOT = 10000
-
-COVERAGE_CANDIDATES = (
-    os.path.join(ROOT, "data", "coverage_matrix.csv"),
-    os.path.join(ROOT, "manuscript", "ees", "reproducibility", "coverage_matrix.csv"),
-)
-
-
-def _coverage_path():
-    for path in COVERAGE_CANDIDATES:
-        if os.path.exists(path):
-            return path
-    raise FileNotFoundError(
-        "coverage_matrix.csv not found; expected data/coverage_matrix.csv "
-        "or manuscript/ees/reproducibility/coverage_matrix.csv"
-    )
-
-
-def load_curated():
-    """Load the curated coverage layer from the deposited coverage matrix.
-
-    The matrix is already curated: standard rows are excluded, the
-    B111/B175 pair and the single-row exceptions B095, B182, and B239 are
-    removed, and the five-paper exclusions are applied. Reading the
-    deposited matrix avoids requiring the restricted value layer.
-    """
-    df = pd.read_csv(_coverage_path())
-    params = [c for c in df.columns if c not in ("paper", "row", "rho")]
-    if len(params) != 44:
-        raise RuntimeError(f"expected 44 coverage parameters, found {len(params)}")
-    X = df[params].to_numpy(float)
-    rho = X.mean(axis=1)
-    paper = df["paper"].to_numpy()
-    keep = ~np.isin(paper, EXCLUDE)
-    X, rho, paper = X[keep], rho[keep], paper[keep]
-    assert X.shape == (716, 44), X.shape
-    assert len(set(paper)) == 117
-    return X, rho, paper
-
-
-def drift(ref, red):
-    a, b, _ = procrustes(ref, red)
-    return np.linalg.norm(b - a, axis=1)
-
-
-def fit(X):
-    return PCA(n_components=2, random_state=SEED).fit_transform(X)
-
-
-def seed_for(paper_id):
-    return SEED + zlib.crc32(paper_id.encode()) % 100000
 
 
 def capped_draw(donors, n, cap, paper, rng):
@@ -148,20 +96,6 @@ def coarsened_draw(idx_p, donor_rows, H, rho, paper, cap, rng):
         used[j] = True
         counts[paper[j]] += 1
     return np.asarray(chosen, int), np.asarray(focal, int)
-
-
-def median_ci(values, n_boot=N_BOOT, seed=SEED):
-    x = np.asarray(values, float)
-    rng = np.random.default_rng(seed)
-    boot = np.empty(n_boot)
-    for i in range(n_boot):
-        boot[i] = np.median(x[rng.integers(0, len(x), len(x))])
-    return {
-        "median": float(np.median(x)),
-        "ci_lo": float(np.quantile(boot, 0.025)),
-        "ci_hi": float(np.quantile(boot, 0.975)),
-        "n": int(len(x)),
-    }
 
 
 def paired_stats(a, b):

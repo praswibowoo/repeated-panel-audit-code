@@ -22,86 +22,19 @@ from collections import Counter
 
 import numpy as np
 from scipy import stats
-from scipy.spatial import procrustes
-from sklearn.decomposition import PCA
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "code"))
 
-from core_revision_checks import load_curated  # noqa: E402
+from common import (  # noqa: E402
+    DRAWS, fit, weighted_pca, row_weights, median_ci,
+    unique_mask, common_ratio, load_curated, seed_for,
+)
 
-SEED = 42
-DRAWS = 100
-N_BOOT = 10000
 OUT = os.path.join(ROOT, "results", "post_audit")
 DATA = OUT
 if not os.path.exists(os.path.join(DATA, "baseline_block.csv")):
     DATA = os.path.join(ROOT, "data")
-
-
-def fit(X, dims=2):
-    return PCA(n_components=dims, random_state=SEED).fit_transform(X)
-
-
-def weighted_pca(X, w, dims=2):
-    w = np.asarray(w, float)
-    w = w / w.sum()
-    mu = (X * w[:, None]).sum(0)
-    Xc = X - mu
-    Xw = Xc * np.sqrt(w[:, None])
-    U, S, _ = np.linalg.svd(Xw, full_matrices=False)
-    return U[:, :dims] * S[:dims]
-
-
-def row_weights(X, paper):
-    counts = Counter()
-    for p, row in zip(paper, X):
-        counts[(p, tuple(row.astype(int)))] += 1
-    return np.asarray([1.0 / counts[(p, tuple(row.astype(int)))]
-                       for p, row in zip(paper, X)], float)
-
-
-def drift(ref, red):
-    a, b, _ = procrustes(ref, red)
-    return np.linalg.norm(b - a, axis=1)
-
-
-def median_ci(values, n_boot=N_BOOT, seed=SEED):
-    x = np.asarray(values, float)
-    rng = np.random.default_rng(seed)
-    boot = np.empty(n_boot)
-    for i in range(n_boot):
-        boot[i] = np.median(x[rng.integers(0, len(x), len(x))])
-    return {
-        "median": float(np.median(x)),
-        "ci_lo": float(np.quantile(boot, 0.025)),
-        "ci_hi": float(np.quantile(boot, 0.975)),
-        "n": int(len(x)),
-    }
-
-
-def unique_mask(X, paper):
-    mask = np.zeros(len(X), bool)
-    for p in sorted(set(paper)):
-        seen = set()
-        for i in np.where(paper == p)[0]:
-            key = tuple(X[i].astype(int))
-            if key not in seen:
-                mask[i] = True
-                seen.add(key)
-    return mask
-
-
-def common_ratio(S_ref, S_block, block_rows, S_match, match_rows, keep_mask):
-    """Median block/matched drift ratio on the rows retained in both fits."""
-    idx = np.where(keep_mask)[0]
-    if len(idx) < 3:
-        return np.nan
-    pb = np.searchsorted(block_rows, idx)
-    pm = np.searchsorted(match_rows, idx)
-    db = drift(S_ref[idx], S_block[pb])
-    dm = drift(S_ref[idx], S_match[pm])
-    return float(np.median(db) / np.median(dm))
 
 
 def run_decomposition(X, rho, paper):
@@ -137,7 +70,7 @@ def run_decomposition(X, rho, paper):
 
         donors = np.where(paper != p)[0]
         donors_c = np.where(paper_c != p)[0]
-        base = SEED + __import__("zlib").crc32(str(p).encode()) % 100000
+        base = seed_for(str(p))
 
         ratios = {k: [] for k in out}
         for dr in range(DRAWS):
@@ -212,7 +145,7 @@ def density_matched_collapsed(X, rho, paper):
         if len(pool_rows) < n_u:
             pool_rows = np.where(paper_c != p)[0]
 
-        base = SEED + __import__("zlib").crc32(("dens" + p).encode()) % 100000
+        base = seed_for("dens" + p)
         ratios = []
         for dr in range(DRAWS):
             rng = np.random.default_rng(base + 7919 * dr)

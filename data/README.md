@@ -43,7 +43,7 @@ Each event table includes the paper identifier, arm, draw, number of rows delete
 | `pcoa_summary.json` | Full-set Jaccard PCoA audit. |
 | `pcoa_collapsed_summary.json` | Collapsed Jaccard PCoA audit. |
 
-The current 2×2, density/PC2, synthetic-validation, and multi-configuration sensitivity summaries are in `results/post_audit/`.
+The current 2×2, density/PC2, synthetic-validation, multi-configuration sensitivity, and all-paper summaries are in `results/post_audit/`.
 
 Additional summaries: `p0_composition_percentile.csv` (block percentile and tails), `presence_misclassification_summary.csv` (over-marking perturbation), `preprocessing_block_factor.csv`, `composition_matched_summary.csv`, `composition_vs_density.csv`, `composition_exact_subset.csv`, `coverage_volume_bins.csv`, `row_count_sensitivity.csv`, `review_findings.json`, and the SI calibration tables (`calibration_*.csv`, `sim_calibration_*.csv`).
 

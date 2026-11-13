@@ -62,6 +62,9 @@ Status codes:
 ## Reproducing
 
 ```
+python3 code/run_all.py                 # every analysis + self-check (~22 min)
+python3 code/run_all.py --quick         # fast end-to-end check (~2 min)
+
 python3 code/verify_package.py          # check every deposited value (~10 s)
 python3 code/panel_decomposition.py     # ~60 s
 python3 code/pc2_density_check.py       # ~15 s

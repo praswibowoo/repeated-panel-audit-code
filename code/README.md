@@ -2,6 +2,18 @@
 
 Run from the repository root (`p2-deletion-audit-code/`).
 
+## One command
+
+```bash
+python3 code/run_all.py            # every analysis, then the self-check
+python3 code/run_all.py --quick    # two simulation replicates, no multiconfig
+python3 code/run_all.py --list
+```
+
+`run_all.py` imports each module and calls its `main()`. `common.py` holds the
+shared estimator pieces (PCA, drift, bootstrap, seed convention, loaders); the
+analysis modules contain only their own design choices.
+
 ## Runnable
 
 | Script | Purpose | Output |
@@ -11,8 +23,9 @@ Run from the repository root (`p2-deletion-audit-code/`).
 | `code/simulation_validation.py` | Synthetic panel-structure validation (H0 repeated panels; H1 planted study). | `results/post_audit/simulation_validation.json` |
 | `code/multiconfig_sensitivity.py` | 1% and 5% within-study bit-flip sensitivity; runs the simulation twice and merges. | `results/post_audit/multiconfig_sensitivity.json` |
 | `code/all_paper_audit.py` | All-paper 730/122 audit; Table 4 ratio 1.34 (1.11--1.60). | `results/post_audit/all_paper_audit.json` |
-| `code/core_revision_checks.py` | Coarsened nearest-configuration control, exact-subset CIs, same-size percentile; also the shared coverage loader. | `results/core_revision/core_checks.json` |
+| `code/core_revision_checks.py` | Coarsened nearest-configuration control, exact-subset CIs, same-size percentile. | `results/core_revision/core_checks.json` |
 | `code/verify_package.py` | Fast self-check: file inventory, matrix agreement, committed values. | console |
+| `code/run_all.py` | Runs every step in order, then the self-check. | console |
 
 ```bash
 python3 code/verify_package.py            # ~10 s

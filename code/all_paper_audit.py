@@ -19,29 +19,15 @@ from __future__ import annotations
 
 import json
 import os
-import zlib
 
 import numpy as np
 import pandas as pd
-from scipy.spatial import procrustes
-from sklearn.decomposition import PCA
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
+from common import DRAWS, N_BOOT, SEED, fit, median_drift, seed_for  # noqa: E402
+
 OUT = os.path.join(ROOT, "results", "post_audit")
-
-SEED = 42
-DRAWS = 100
-N_BOOT = 10000
-
-
-def fit(X: np.ndarray) -> np.ndarray:
-    return PCA(n_components=2, random_state=SEED).fit_transform(X)
-
-
-def drift(reference: np.ndarray, reduced: np.ndarray) -> float:
-    a, b, _ = procrustes(reference, reduced)
-    return float(np.median(np.linalg.norm(b - a, axis=1)))
 
 
 def main() -> None:
@@ -61,16 +47,16 @@ def main() -> None:
         idx = np.where(paper == p)[0]
         n_p = len(idx)
         keep = paper != p
-        block = drift(full[keep], fit(X[keep]))
+        block = median_drift(full[keep], fit(X[keep]))
 
-        base = SEED + zlib.crc32(str(p).encode()) % 100000
+        base = seed_for(str(p))
         draws = []
         for d in range(DRAWS):
             rng = np.random.default_rng(base + 7919 * d)
             drop = rng.choice(np.where(paper != p)[0], size=n_p, replace=False)
             keep_match = np.ones(n, bool)
             keep_match[drop] = False
-            draws.append(drift(full[keep_match], fit(X[keep_match])))
+            draws.append(median_drift(full[keep_match], fit(X[keep_match])))
 
         block_drift.append(block)
         matched_median.append(float(np.median(draws)))

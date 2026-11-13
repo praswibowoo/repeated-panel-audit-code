@@ -30,7 +30,7 @@ import numpy as np
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "code"))
 
-from panel_decomposition import fit, unique_mask, common_ratio  # noqa: E402
+from common import fit, unique_mask, common_ratio  # noqa: E402
 
 SEED = int(os.environ.get("SIM_SEED", 42))
 S = int(os.environ.get("SIM_S", 60))       # studies per synthetic corpus

@@ -21,8 +21,7 @@ from scipy import stats
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "code"))
 
-from core_revision_checks import load_curated  # noqa: E402
-from panel_decomposition import fit, unique_mask, SEED, DRAWS  # noqa: E402
+from common import DRAWS, SEED, fit, load_curated, unique_mask, seed_for  # noqa: E402
 
 OUT = os.path.join(ROOT, "results", "post_audit")
 
@@ -46,18 +45,6 @@ def class_flips(ref, red_common):
     joint = 100.0 * float(np.mean((out[0][0] != out[0][1]) |
                                   (out[1][0] != out[1][1])))
     return pc1, pc2, joint
-
-
-def median_ci(values, n_boot=10000, seed=SEED):
-    x = np.asarray(values, float)
-    rng = np.random.default_rng(seed)
-    boot = np.empty(n_boot)
-    for i in range(n_boot):
-        boot[i] = np.median(x[rng.integers(0, len(x), len(x))])
-    return {"median": float(np.median(x)),
-            "ci_lo": float(np.quantile(boot, 0.025)),
-            "ci_hi": float(np.quantile(boot, 0.975)),
-            "n": int(len(x))}
 
 
 def main():
@@ -87,7 +74,7 @@ def main():
         if len(pool_rows) < n_u:
             pool_rows = np.where(paper_c != p)[0]
 
-        base = SEED + __import__("zlib").crc32(("pc2" + p).encode()) % 100000
+        base = seed_for("pc2" + p)
         per_draw = {k: [] for k in diffs}
         for dr in range(DRAWS):
             rng = np.random.default_rng(base + 7919 * dr)
