@@ -54,6 +54,7 @@ FILES = [
 ]
 
 POST_FILES = [
+    "all_paper_audit.json",
     "panel_decomposition.json",
     "pc2_density_check.json",
     "simulation_validation.json",
@@ -169,6 +170,11 @@ def main() -> int:
     mc = json.load(open(os.path.join(POST, "multiconfig_sensitivity.json"), encoding="utf-8"))
     check("flip 1%", mc["flip_0.01"]["H0_repeated_panels_only"]["collapsed_ratio"]["median"], 0.9589, 1e-3)
     check("flip 5%", mc["flip_0.05"]["H0_repeated_panels_only"]["collapsed_ratio"]["median"], 1.3375, 1e-3)
+
+    ap = json.load(open(os.path.join(POST, "all_paper_audit.json"), encoding="utf-8"))
+    check("all-paper ratio", ap["paired_ratio"]["median"], 1.3428, 1e-3)
+    check("all-paper CI low", ap["paired_ratio"]["ci_lo"], 1.1096, 5e-3)
+    check("all-paper CI high", ap["paired_ratio"]["ci_hi"], 1.5957, 5e-3)
 
     water = load_json("water.json")
     check("water full", water["full"]["water_full_ratio"]["median"], 1.3820, 1e-3)

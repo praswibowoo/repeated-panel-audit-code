@@ -45,7 +45,7 @@ Status codes:
 | Water-only 1.38 / 1.04 | `water.json` | summary |
 | PCoA 1.39 / 0.99 | `pcoa_summary.json`, `pcoa_collapsed_summary.json` | summary |
 | 3-D 1.17 (curated) | `coverage_3d_model.csv` | summary |
-| All-paper 1.34 (1.11–1.60) | `coverage_matrix_all_paper.csv` | derived (ratio reproducible with the per-paper seed convention; block factor ≈1.42 under that convention vs 1.40 archived, a Monte Carlo difference) |
+| All-paper 1.34 (1.11–1.60) | `coverage_matrix_all_paper.csv`; `results/post_audit/all_paper_audit.json` | recomputed (`all_paper_audit.py`); block factor 1.40 archived vs ≈1.42 on a fresh draw, a Monte Carlo difference |
 | Include-standard 1.10 | `coverage_matrix_full_extraction.csv` | derived (same caveat) |
 | Over-marking perturbation 1.30–1.33 and 1.09–1.16 | `presence_misclassification_summary.csv`, `extra.json` | summary |
 | 11.1% over-marking rate | `presence_misclassification_summary.csv` | derived |

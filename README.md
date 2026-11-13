@@ -37,6 +37,7 @@ python3 code/panel_decomposition.py
 python3 code/pc2_density_check.py
 python3 code/simulation_validation.py
 python3 code/multiconfig_sensitivity.py   # 1% and 5% within-study flips (~12 min)
+python3 code/all_paper_audit.py           # all-paper 730/122 ratio (~2 min)
 # optional: core revision checks (coarsened control, exact-subset CIs)
 python3 code/core_revision_checks.py
 ```
@@ -61,6 +62,7 @@ This writes the quick check to a separate file and does not overwrite the publis
 | `pc2_density_check.py` | PC1/PC2/joint class flips under row-level and study-density-matched donors. |
 | `simulation_validation.py` | Synthetic panel-structure validation: H0 repeated panels only; H1 planted study-level effect. |
 | `multiconfig_sensitivity.py` | Within-study configuration-heterogeneity sensitivity (1% and 5% flips); wraps `simulation_validation.py` and merges both runs. |
+| `all_paper_audit.py` | All-paper (730/122) coverage audit; reproduces the Table 4 ratio 1.34 (1.11–1.60). |
 | `core_revision_checks.py` | Coarsened nearest-configuration control, exact-subset CIs, and same-size percentile checks. |
 | `verify_package.py` | Fast self-check: file inventory, matrix agreement, and committed summary values. |
 | `revision_layers.py` | Provenance-only coverage/value builder; requires the restricted value layer and is not needed for the quick start. |
