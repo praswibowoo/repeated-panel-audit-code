@@ -15,7 +15,7 @@ authors:
   - family-names: Kiyoki
     given-names: Yasushi
     affiliation: "Musashino University"
-version: 1.0.7
+version: 1.0.8
 date-released: "2026-11-13"
 # The Zenodo record 10.5281/zenodo.23973301 deposits the corpus data, not this
 # software; it is cited in the manuscript and is not a software DOI.

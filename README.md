@@ -18,7 +18,7 @@ This repository is the **check package** for the reported audit. It contains the
 | `data/` | Coverage matrix, event tables, and audit JSONs. |
 | `docs/extraction/` | Stage-A presence CSV (the stage-B value layer is restricted and not included). |
 | `DATA_PROVENANCE.md` | Every reported quantity mapped to its file and script. |
-| `results/post_audit/` | Current JSON summaries for the 2×2 decomposition, density/PC2 check, synthetic validation, and multi-configuration sensitivity. |
+| `results/post_audit/` | JSON summaries: 2×2 decomposition, density/PC2 check, synthetic validation, multi-configuration sensitivity, and all-paper audit. |
 
 ## Quick start
 
@@ -80,6 +80,11 @@ This writes the quick check to a separate file and does not overwrite the publis
 - `data/coverage_events.csv`, `data/composition_matched_control.csv` — full-pipeline inputs for `core_revision_checks.py`.
 - `data/coverage_3d_model.csv` — three-component coverage block model (curated 3-D block factor 1.17).
 - `docs/extraction/stageA/matrix_presence_v2.csv` — presence layer. The stage-B value layer is restricted and is **not** included in this repository.
+- `data/coverage_matrix_all_paper.csv` (730 rows / 122 papers) and `data/coverage_matrix_full_extraction.csv` (764 / 122) — the all-paper and full-extraction coverage sets.
+- `data/corpus_manifest.csv` — 138-paper manifest with data status and row counts.
+- `data/composition_matched_summary.csv`, `composition_vs_density.csv`, `composition_exact_subset.csv`, `p0_composition_percentile.csv` — composition and percentile summaries.
+- `data/presence_misclassification_summary.csv`, `preprocessing_block_factor.csv`, `coverage_volume_bins.csv`, `row_count_sensitivity.csv`, `review_findings.json` — sensitivity summaries.
+- `data/calibration_*.csv`, `sim_calibration_*.csv` — SI calibration tables.
 
 Coverage codes reported-present and examined-absent as 1, not-reported as 0. Standard/regulatory rows are excluded from the analysis sets.
 
