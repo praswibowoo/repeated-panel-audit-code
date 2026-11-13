@@ -65,9 +65,9 @@ This writes the quick check to a separate file and does not overwrite the publis
 | `all_paper_audit.py` | All-paper (730/122) coverage audit; reproduces the Table 4 ratio 1.34 (1.11–1.60). |
 | `core_revision_checks.py` | Coarsened nearest-configuration control, exact-subset CIs, and same-size percentile checks. |
 | `verify_package.py` | Fast self-check: file inventory, matrix agreement, and committed summary values. |
-| `revision_layers.py` | Provenance-only coverage/value builder; requires the restricted value layer and is not needed for the quick start. |
+| `code/legacy/revision_layers.py` | Provenance-only coverage/value builder; requires the restricted value layer and is not needed for the quick start. |
 
-`clean_primary_audit.py`, `ees_post_audit_extra.py`, and `ees_revision_checks.py` are included for provenance but require the full legacy pipeline; they are not standalone. The event tables they produced are included in `data/`, so the published numbers can be checked without rerunning them.
+`code/legacy/` holds `clean_primary_audit.py`, `ees_post_audit_extra.py`, `ees_revision_checks.py`, and `revision_layers.py`; they require the archived pipeline (and, for two of them, the restricted value layer) and are not standalone. The event tables they produced are included in `data/`, so the published numbers can be checked without rerunning them.
 
 ## Data
 

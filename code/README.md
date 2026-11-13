@@ -30,10 +30,10 @@ python3 code/all_paper_audit.py           # ~2 min
 
 | Script | Why it is not standalone |
 |---|---|
-| `revision_layers.py` | Rebuilds coverage and value layers from `docs/extraction/stageA` and the restricted `stageB/matrix_values_v2.csv`; the value layer is not in this repository. |
-| `clean_primary_audit.py` | Imports `ees_revision_checks`, which imports `experiment_H_volumematch` and `ees_rank_matched`; those are not in this repository. |
-| `ees_post_audit_extra.py` | Imports `ees_post_audit`, which imports `experiment_H_volumematch`. |
-| `ees_revision_checks.py` | Imports `experiment_H_volumematch` and `ees_rank_matched`. |
+| `legacy/revision_layers.py` | Rebuilds coverage and value layers from `docs/extraction/stageA` and the restricted `stageB/matrix_values_v2.csv`; the value layer is not in this repository. |
+| `legacy/clean_primary_audit.py` | Imports `ees_revision_checks`, which imports `experiment_H_volumematch` and `ees_rank_matched`; those are not in this repository. |
+| `legacy/ees_post_audit_extra.py` | Imports `ees_post_audit`, which imports `experiment_H_volumematch`. |
+| `legacy/ees_revision_checks.py` | Imports `experiment_H_volumematch` and `ees_rank_matched`. |
 
 The event tables they produced are included in `data/`, so the published numbers can be checked without rerunning the legacy pipeline.
 
