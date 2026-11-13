@@ -5,6 +5,9 @@ Derived tables and audit summaries for the repeated-panel coverage audit.
 ## Coverage matrix
 
 `coverage_matrix.csv` — 716 curated coverage rows from 117 papers.
+`coverage_matrix_all_paper.csv` — 730 rows from 122 papers (curated set plus the five excluded papers).
+`coverage_matrix_full_extraction.csv` — 764 rows from 122 papers (before exclusion of the 34 standard rows).
+`corpus_manifest.csv` — 138-paper manifest with data status and row counts.
 
 - `paper` — paper identifier.
 - `row` — within-paper row index.
@@ -41,6 +44,10 @@ Each event table includes the paper identifier, arm, draw, number of rows delete
 | `pcoa_collapsed_summary.json` | Collapsed Jaccard PCoA audit. |
 
 The current 2×2, density/PC2, synthetic-validation, and multi-configuration sensitivity summaries are in `results/post_audit/`.
+
+Additional summaries: `p0_composition_percentile.csv` (block percentile and tails), `presence_misclassification_summary.csv` (over-marking perturbation), `preprocessing_block_factor.csv`, `composition_matched_summary.csv`, `composition_vs_density.csv`, `composition_exact_subset.csv`, `coverage_volume_bins.csv`, `row_count_sensitivity.csv`, `review_findings.json`, and the SI calibration tables (`calibration_*.csv`, `sim_calibration_*.csv`).
+
+Every reported number is mapped to its file in `DATA_PROVENANCE.md`. Run `python3 code/verify_package.py` to check the package in about ten seconds.
 
 ## Source extraction
 

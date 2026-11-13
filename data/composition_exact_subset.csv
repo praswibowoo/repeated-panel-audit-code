@@ -1,0 +1,2 @@
+n_papers,n_events,block_factor,block_ci_lo,block_ci_hi,mean_exact_fraction,definition
+21,2121,1.07102,0.98397,1.16973,0.612698,studies with at least one exact configuration match

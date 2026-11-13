@@ -1,0 +1,3 @@
+arm,n_papers,block_med,matched_med,ratio_of_medians,median_paired_ratio,paired_ci_lo,paired_ci_hi,wilcoxon_p,block_factor,block_ci_lo,block_ci_hi,mean_exact_fraction,min_exact_fraction,n_papers_with_exact,n_papers_zero_exact,mean_cap,mean_distinct_donor_studies,mean_donor_studies_available,max_donor_rows,max_donor_fraction,max_donor_fraction_multi,n_unique_assignments,n_papers_with_varying_assignments,n_events
+composition_matched,117,0.000222573,0.000203717,1.09256,1.25507,1.12275,1.47192,1.81081e-07,1.30973,1.18214,1.45418,0.109972,0,21,96,3.2906,4.1406,116,9,1,0.666667,11145,117,11817
+density_only,117,0.000222573,0.000198453,1.12155,1.33629,1.21279,1.47017,7.74482e-08,1.31598,1.18669,1.45963,0.0294886,0,9,108,3.2906,4.22214,116,10,1,0.666667,11252,117,11817

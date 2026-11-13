@@ -1,0 +1,5 @@
+arm,n_papers,median_percentile,above95_n,above95_pct,below5_n,below5_pct
+volume_matched (manuscript),117,76.0,34,29.06,7,5.98
+composition_matched,117,0.84,42,35.8974358974359,19,16.23931623931624
+density_only,117,0.84,40,34.18803418803419,12,10.256410256410257
+exact_match_subset,21,0.51,3,14.285714285714286,6,28.571428571428573

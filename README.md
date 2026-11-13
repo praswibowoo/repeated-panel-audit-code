@@ -17,6 +17,7 @@ This repository is the **check package** for the reported audit. It contains the
 | `code/` | Audit scripts. See `code/README.md`. |
 | `data/` | Coverage matrix, event tables, and audit JSONs. |
 | `docs/extraction/` | Stage-A presence CSV (the stage-B value layer is restricted and not included). |
+| `DATA_PROVENANCE.md` | Every reported quantity mapped to its file and script. |
 | `results/post_audit/` | Current JSON summaries for the 2×2 decomposition, density/PC2 check, synthetic validation, and multi-configuration sensitivity. |
 
 ## Quick start
@@ -31,6 +32,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
+python3 code/verify_package.py          # fast package self-check
 python3 code/panel_decomposition.py
 python3 code/pc2_density_check.py
 python3 code/simulation_validation.py
@@ -60,6 +62,7 @@ This writes the quick check to a separate file and does not overwrite the publis
 | `simulation_validation.py` | Synthetic panel-structure validation: H0 repeated panels only; H1 planted study-level effect. |
 | `multiconfig_sensitivity.py` | Within-study configuration-heterogeneity sensitivity (1% and 5% flips); wraps `simulation_validation.py` and merges both runs. |
 | `core_revision_checks.py` | Coarsened nearest-configuration control, exact-subset CIs, and same-size percentile checks. |
+| `verify_package.py` | Fast self-check: file inventory, matrix agreement, and committed summary values. |
 | `revision_layers.py` | Provenance-only coverage/value builder; requires the restricted value layer and is not needed for the quick start. |
 
 `clean_primary_audit.py`, `ees_post_audit_extra.py`, and `ees_revision_checks.py` are included for provenance but require the full legacy pipeline; they are not standalone. The event tables they produced are included in `data/`, so the published numbers can be checked without rerunning them.

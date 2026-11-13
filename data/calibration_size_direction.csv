@@ -1,0 +1,3 @@
+sigma_paper,gamma,n_rep,contrast_pct,rej_lower_row,rej_two_row,rej_lower_block,rej_two_block,delta_rho
+0.884,0.0,1000,0.0,0.242,0.396,0.05,0.047,0.09611742424242425
+1.052,0.0,1000,0.0,0.244,0.403,0.033,0.033,0.09611742424242425
