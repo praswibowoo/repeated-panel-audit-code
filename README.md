@@ -4,7 +4,7 @@ GitHub remote: `repeated-panel-audit-code` (unchanged; the manuscript cites that
 
 Code and data for:
 
-> **Repeated panels inflate apparent study-block influence in pooled parameter-coverage ordinations.**
+> **Repeated panels can inflate apparent study-block influence in pooled parameter-coverage ordinations.**
 > Wibowo, P., Veesommai Sillberg, C., & Kiyoki, Y. (2026).
 > *Environmental and Ecological Statistics*; manuscript prepared for submission.
 
@@ -34,6 +34,7 @@ pip install -r requirements.txt
 python3 code/panel_decomposition.py
 python3 code/pc2_density_check.py
 python3 code/simulation_validation.py
+python3 code/multiconfig_sensitivity.py   # 1% and 5% within-study flips (~12 min)
 # optional: core revision checks (coarsened control, exact-subset CIs)
 python3 code/core_revision_checks.py
 ```
@@ -57,6 +58,7 @@ This writes the quick check to a separate file and does not overwrite the publis
 | `panel_decomposition.py` | 2×2 decomposition of fit, evaluation set, and matched control; duplication quartiles; study-density-matched collapsed audit. |
 | `pc2_density_check.py` | PC1/PC2/joint class flips under row-level and study-density-matched donors. |
 | `simulation_validation.py` | Synthetic panel-structure validation: H0 repeated panels only; H1 planted study-level effect. |
+| `multiconfig_sensitivity.py` | Within-study configuration-heterogeneity sensitivity (1% and 5% flips); wraps `simulation_validation.py` and merges both runs. |
 | `core_revision_checks.py` | Coarsened nearest-configuration control, exact-subset CIs, and same-size percentile checks. |
 | `revision_layers.py` | Provenance-only coverage/value builder; requires the restricted value layer and is not needed for the quick start. |
 
