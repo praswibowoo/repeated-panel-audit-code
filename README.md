@@ -102,7 +102,7 @@ Coverage codes reported-present and examined-absent as 1, not-reported as 0. Sta
 
 ## Historical release note
 
-Tag `v1.0.0` included `docs/extraction/stageB/matrix_values_v2.csv`. The current package excludes it; the earlier public release is retained for provenance only. Cite the current repository for the reported checks.
+An early tag carried `docs/extraction/stageB/matrix_values_v2.csv`. On 2026-11-13 the repository history was rewritten to remove that file so the value layer stays restricted; existing clones should be re-cloned. Cite the current repository for the reported checks.
 
 ## Citation
 

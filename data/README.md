@@ -53,4 +53,4 @@ Every reported number is mapped to its file in `DATA_PROVENANCE.md`. Run `python
 
 `docs/extraction/stageA/matrix_presence_v2.csv` is the presence layer. The stage-B value layer (`matrix_values_v2.csv`) is **not** included in this repository; it remains restricted in the Zenodo data record. The coverage matrix is included in full, so the reported coverage audit can be rerun without the value layer.
 
-Historical release note: An earlier public release included `docs/extraction/stageB/matrix_values_v2.csv`; the current package does not.
+The value layer is not included in this repository. An earlier tag that carried it was removed by a history rewrite on 2026-11-13.
