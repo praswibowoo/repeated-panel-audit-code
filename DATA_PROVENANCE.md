@@ -64,7 +64,7 @@ Status codes:
 | Exact-subset descriptive means (4.52/6.47 rows; 0.58/0.74 duplicate fraction; 0.155/0.223 density) | `tail_audit.json` (`exact_subset`) | recomputed (`supplementary_checks.py`) |
 | Hamming distribution (54 pairs; 16/11/5 at 1/2/3 bits; 32 ≤3) | `tail_audit.json` (`hamming`) | recomputed (`supplementary_checks.py`) |
 | Tail proportions (collapsed 19/117 >2; density-matched 14/117 >2) | `tail_audit.json` (`tail`) | recomputed (`supplementary_checks.py`) |
-| Permutation null by configuration count: k=1 q95 4.28, 16/97 above 2 vs 15.8 expected; k≥2 q95 2.71, 3/20 above 4 vs 0.1 expected | `results/post_audit/tail_null.json` | recomputed (`tail_null.py`) |
+| Permutation null by configuration count: k=1 q95 4.28, 16/97 above 2 vs 15.8 expected; k≥2 q95 2.71, 3/20 above 4 vs 0.15 expected | `results/post_audit/tail_null.json` | recomputed (`tail_null.py`) |
 | Common-evaluation recomputation 21/117 above 2, 13/117 above 3 | `tail_null.json` (`common_evaluation_sensitivity`) | recomputed (`tail_null.py`) |
 | Per-study ratios reproduce exactly from the matrix (per-study \|diff\| = 0, corr 1.000) | `baseline_*.csv`, `collapsed_*.csv` | recomputed (`rebuild_events.py`) |
 | Estimator: block arm median drift on its own retained rows over the median of 100 matched draws; common-evaluation variant reported separately | `common.py` (`median_drift`, `common_ratio`) | derived |

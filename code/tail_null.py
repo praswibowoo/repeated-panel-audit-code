@@ -38,6 +38,11 @@ OUT = os.path.join(ROOT, "results", "post_audit")
 THRESH = (1.5, 2.0, 3.0, 4.0)
 
 
+def _num(v: float) -> str:
+    """One decimal, unless the value is below 1 (then two, e.g. 0.15)."""
+    return f"{v:.1f}" if v >= 1 else f"{v:.2f}"
+
+
 def _summ(x, observed_n):
     """Null tail summary for one group and the binomial test against it."""
     x = np.asarray(x, float)
@@ -147,7 +152,7 @@ def main() -> None:
         print(f"{name:6} n={g['n']:3}  q95={g['q95']:.2f}  "
               + "  ".join(f">{t:g} {g['thresholds'][f'{t:g}']['null_pct']:.1f}%"
                           f" (obs {g['observed'][f'{t:g}']['n']}, "
-                          f"exp {g['thresholds'][f'{t:g}']['expected']:.1f})"
+                          f"exp {_num(g['thresholds'][f'{t:g}']['expected'])})"
                           for t in THRESH))
     print("common-evaluation sensitivity: median %.3f, >2 %d/117, >3 %d/117" % (
         result["common_evaluation_sensitivity"]["median"],
