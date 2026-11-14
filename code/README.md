@@ -26,6 +26,7 @@ analysis modules contain only their own design choices.
 | `code/core_revision_checks.py` | Coarsened nearest-configuration control, exact-subset CIs, same-size percentile. | `results/core_revision/core_checks.json` |
 | `code/supplementary_checks.py` | Hamming distribution, tail proportions, subgroup, exact-subset means, block-percentile IQR, study-level model, two-level bootstrap. | `results/post_audit/tail_audit.json`, `tail_decomposition.csv`, `data/study_level_model.json` |
 | `code/tail_null.py` | Permutation null for the per-study collapsed ratio by configuration count, with the common-evaluation recomputation. | `results/post_audit/tail_null.json` |
+| `code/table_checks.py` | Exact-subset block factor, top-25/Spearman differences, and row-level PC2 summary for Tables S3, S5, and S13. | `results/post_audit/table_checks.json` |
 | `code/rebuild_events.py` | Regenerates the four primary event tables from `coverage_matrix.csv` and reports the difference; does not overwrite them. | `results/rebuild/` |
 | `code/coherence_control.py` | Coherence-matched control for the 20 multi-configuration papers. | `results/post_audit/coherence_control.json` |
 | `code/three_d_models.py` | Three-component block models for the curated, all-paper, and include-standard matrices. | `data/coverage_3d_models.csv`, `results/post_audit/three_d_models.json` |

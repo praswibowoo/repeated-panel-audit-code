@@ -74,6 +74,7 @@ POST_FILES = [
     "three_d_models.json",
     "coherence_control.json",
     "tail_null.json",
+    "table_checks.json",
 ]
 
 EXCLUDED = ("B175", "B111", "B095", "B182", "B239")
@@ -166,6 +167,10 @@ def main() -> int:
     check("tail-null multi q95", tn["groups"]["multi"]["q95"], 2.71, 6e-3)
     check("tail-null single observed >2", tn["groups"]["single"]["observed"]["2"]["n"], 16, 0)
     check("tail-null multi observed >4", tn["groups"]["multi"]["observed"]["4"]["n"], 3, 0)
+    tc = json.load(open(os.path.join(POST, "table_checks.json"), encoding="utf-8"))
+    check("exact block factor", tc["exact_subset_block_factor"]["median"], 0.879, 2e-3)
+    check("top-25 difference", tc["pc1_top25"]["median_diff"], -0.0056, 2e-3)
+    check("pc2 row-level mean", tc["pc2_rowlevel_collapsed"]["mean"], 1.44, 1e-2)
 
     cc = load_json("core_checks.json")
     check("exact subset n", cc["exact"]["n"], 21)

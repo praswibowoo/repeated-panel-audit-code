@@ -66,6 +66,7 @@ Status codes:
 | Tail proportions (collapsed 19/117 >2; density-matched 14/117 >2) | `tail_audit.json` (`tail`) | recomputed (`supplementary_checks.py`) |
 | Permutation null by configuration count: k=1 q95 4.28, 16/97 above 2 vs 15.8 expected; k≥2 q95 2.71, 3/20 above 4 vs 0.15 expected | `results/post_audit/tail_null.json` | recomputed (`tail_null.py`) |
 | Common-evaluation recomputation 21/117 above 2, 13/117 above 3 | `tail_null.json` (`common_evaluation_sensitivity`) | recomputed (`tail_null.py`) |
+| Exact-subset block factor 0.88 (0.75--1.02); top-25 -0.006 and Spearman -0.00010 differences; PC2 row-level 1.44, 49.6/26.5/23.9 | `results/post_audit/table_checks.json` | recomputed (`table_checks.py`) |
 | Per-study ratios reproduce exactly from the matrix (per-study \|diff\| = 0, corr 1.000) | `baseline_*.csv`, `collapsed_*.csv` | recomputed (`rebuild_events.py`) |
 | Estimator: block arm median drift on its own retained rows over the median of 100 matched draws; common-evaluation variant reported separately | `common.py` (`median_drift`, `common_ratio`) | derived |
 | Coherence-matched control (median 1.01; B063 8.95, B166 7.29, B201 3.40) | `coherence_control.json`; `tail_audit.json` (`coherence_control`) | recomputed (`coherence_control.py`) |

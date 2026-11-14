@@ -39,6 +39,7 @@ STEPS: dict[str, tuple[str, str, str]] = {
     "threed": ("three_d_models", "three-component models for the three coverage sets", "~7 min"),
     "tail": ("supplementary_checks", "Hamming, tail, subgroup, and study-level checks", "~2 min"),
     "tailnull": ("tail_null", "permutation null for the per-study collapsed ratio", "~10 s"),
+    "table": ("table_checks", "table-level summaries for S3, S5, and S13", "~10 s"),
     "rebuild": ("rebuild_events", "regenerate the primary event tables from the matrix", "~20 s"),
     "verify": ("verify_package", "package self-check", "~10 s"),
 }
