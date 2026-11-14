@@ -4,7 +4,7 @@ GitHub remote: `repeated-panel-audit-code` (unchanged; the manuscript cites that
 
 Code and data for:
 
-> **Repeated panels can inflate apparent study-block influence in pooled parameter-coverage ordinations.**
+> **Repeated coverage configurations can inflate apparent study influence in pooled ordinations.**
 > Wibowo, P., Veesommai Sillberg, C., & Kiyoki, Y. (2026).
 > *Environmental and Ecological Statistics*; manuscript prepared for submission.
 
