@@ -1,0 +1,16 @@
+{
+  "curated": {
+    "median": 1.4160349965734413,
+    "ci_lo": 1.2439360057919193,
+    "ci_hi": 1.6052761178967234,
+    "n": 117,
+    "model": "log(d) ~ 1 + log(rows_c) + block; study-cluster bootstrap"
+  },
+  "all_paper": {
+    "median": 1.4209275212092694,
+    "ci_lo": 1.2624470776750334,
+    "ci_hi": 1.5989299218113895,
+    "n": 122,
+    "model": "log(d) ~ 1 + log(rows_c) + block; study-cluster bootstrap"
+  }
+}

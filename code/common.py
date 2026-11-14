@@ -29,6 +29,25 @@ N_BOOT = 10000
 EXCLUDED = ("B175", "B111", "B095", "B182", "B239")
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+DATA_CANDIDATES = (
+    os.path.join(ROOT, "data"),
+    os.path.join(ROOT, "manuscript", "ees", "reproducibility"),
+)
+
+
+def data_dir() -> str:
+    """Return the directory holding the coverage matrices and event tables.
+
+    The check package keeps them in ``data/``; the manuscript source package
+    keeps them in ``manuscript/ees/reproducibility/``. One resolver keeps the
+    two layouts on the same code path, so the scripts cannot drift.
+    """
+    for candidate in DATA_CANDIDATES:
+        if os.path.isdir(candidate):
+            return candidate
+    return DATA_CANDIDATES[0]
+
 COVERAGE_CANDIDATES = (
     os.path.join(ROOT, "data", "coverage_matrix.csv"),
     os.path.join(ROOT, "manuscript", "ees", "reproducibility", "coverage_matrix.csv"),

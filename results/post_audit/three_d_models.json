@@ -1,0 +1,29 @@
+{
+  "curated": {
+    "n_rows": 716,
+    "n_papers": 117,
+    "block_at_mean_volume": 1.166925167231784,
+    "ci_lo": 1.003017451914033,
+    "ci_hi": 1.3818027301650284,
+    "set": "curated",
+    "note": "archived 1.17 (1.00--1.37)"
+  },
+  "all_paper": {
+    "n_rows": 730,
+    "n_papers": 122,
+    "block_at_mean_volume": 1.1865973552491116,
+    "ci_lo": 1.0214643134121992,
+    "ci_hi": 1.3757257397425418,
+    "set": "all_paper",
+    "note": "archived 1.19 (1.01--1.40)"
+  },
+  "include_standard": {
+    "n_rows": 764,
+    "n_papers": 122,
+    "block_at_mean_volume": 1.0999176196906457,
+    "ci_lo": 0.9208707236170196,
+    "ci_hi": 1.3165515554775886,
+    "set": "include_standard",
+    "note": "archived 1.10 (0.91--1.33)"
+  }
+}

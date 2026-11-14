@@ -4,3 +4,4 @@ __pycache__/
 .DS_Store
 results/core_revision/
 results/post_audit/*_quick.json
+results/rebuild/

@@ -7,10 +7,10 @@ binary PCA on the 44 coverage columns, leave-one-study-out block deletion,
 median per-study block/matched ratio with a study-level bootstrap interval.
 
 The archived row also reports a log-linear block factor of 1.40 (1.25--1.58).
-That summary is computed on the archived draw sequence; rerunning the model on
-the draws below gives about 1.42, a draw-level Monte Carlo difference that the
-manuscript already flags (Section 5.3). The paired ratio and its interval are
-reproduced exactly.
+That summary is computed on the archived draw sequence; the study-level model
+on the draws below gives 1.42 (1.26--1.60), a draw-level Monte Carlo difference
+recorded in ``data/study_level_model.json`` and in the Table 4 note. The paired
+ratio and its interval are reproduced exactly.
 
 Writes results/post_audit/all_paper_audit.json.
 Run: python3 code/all_paper_audit.py   (about 2 minutes)
@@ -24,8 +24,10 @@ import numpy as np
 import pandas as pd
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(ROOT, "data")
-from common import DRAWS, N_BOOT, SEED, fit, median_drift, seed_for  # noqa: E402
+from common import (DRAWS, N_BOOT, SEED, data_dir, fit,  # noqa: E402
+                    median_drift, seed_for)
+
+DATA = data_dir()
 
 OUT = os.path.join(ROOT, "results", "post_audit")
 
@@ -82,8 +84,8 @@ def main() -> None:
         },
         "block_factor_note": (
             "Archived log-linear block factor for this row is 1.40 (1.25--1.58); "
-            "the model on these draws gives about 1.42, a draw-level Monte Carlo "
-            "difference flagged in Section 5.3."
+            "the study-level model on these draws gives 1.42 (1.26--1.60), a "
+            "draw-level Monte Carlo difference recorded in data/study_level_model.json."
         ),
         "per_paper": {
             p: {"rows": int(r), "block": float(b), "matched_median": float(m),

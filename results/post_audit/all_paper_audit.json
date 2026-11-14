@@ -10,7 +10,7 @@
     "ci_hi": 1.5956665876710157,
     "n": 122
   },
-  "block_factor_note": "Archived log-linear block factor for this row is 1.40 (1.25--1.58); the model on these draws gives about 1.42, a draw-level Monte Carlo difference flagged in Section 5.3.",
+  "block_factor_note": "Archived log-linear block factor for this row is 1.40 (1.25--1.58); the study-level model on these draws gives 1.42 (1.26--1.60), a draw-level Monte Carlo difference recorded in data/study_level_model.json.",
   "per_paper": {
     "B001": {
       "rows": 12,

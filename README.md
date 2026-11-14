@@ -8,7 +8,7 @@ Code and data for:
 > Wibowo, P., Veesommai Sillberg, C., & Kiyoki, Y. (2026).
 > *Environmental and Ecological Statistics*; manuscript prepared for submission.
 
-This repository is the **check package** for the reported audit. It contains the coverage matrix, event tables, and audit summaries needed to reproduce the reported checks. The full analysis pipeline (composition, calibration, and 3-D checks) is in `ordination-stability-audit` (archived at submission). The manuscript source and submission package are available from the corresponding author.
+This repository is the **check package** for the reported audit. It contains the coverage matrix, event tables, and audit summaries needed to reproduce the reported checks, including the composition, coherence, 3-D, study-level, and tail-null analyses. The archived full pipeline in `ordination-stability-audit` generated the deposited event tables; `code/rebuild_events.py` regenerates them from the coverage matrix and reports the difference.
 
 ## Contents
 
@@ -18,7 +18,7 @@ This repository is the **check package** for the reported audit. It contains the
 | `data/` | Coverage matrix, event tables, and audit JSONs. |
 | `docs/extraction/` | Stage-A presence CSV (the stage-B value layer is restricted and not included). |
 | `DATA_PROVENANCE.md` | Every reported quantity mapped to its file and script. |
-| `results/post_audit/` | JSON summaries: 2×2 decomposition, density/PC2 check, synthetic validation, multi-configuration sensitivity, and all-paper audit. |
+| `results/post_audit/` | JSON summaries: design decomposition, density/PC2 check, synthetic validation, multi-configuration sensitivity, all-paper audit, and the tail/coherence checks. |
 
 ## Quick start
 
@@ -49,6 +49,9 @@ python3 code/core_revision_checks.py
 python3 code/all_paper_audit.py
 python3 code/simulation_validation.py
 python3 code/multiconfig_sensitivity.py
+python3 code/coherence_control.py
+python3 code/three_d_models.py
+python3 code/supplementary_checks.py
 python3 code/verify_package.py
 ```
 
@@ -68,12 +71,17 @@ This writes the quick check to a separate file and does not overwrite the publis
 
 | Script | Purpose |
 |---|---|
-| `panel_decomposition.py` | 2×2 decomposition of fit, evaluation set, and matched control; duplication quartiles; study-density-matched collapsed audit. |
+| `panel_decomposition.py` | Four-row design decomposition of fit, evaluation set, and matched control; duplication quartiles; study-density-matched collapsed audit. |
 | `pc2_density_check.py` | PC1/PC2/joint class flips under row-level and study-density-matched donors. |
 | `simulation_validation.py` | Synthetic panel-structure validation: H0 repeated panels only; H1 planted study-level effect. |
 | `multiconfig_sensitivity.py` | Within-study configuration-heterogeneity sensitivity (1% and 5% flips); wraps `simulation_validation.py` and merges both runs. |
 | `all_paper_audit.py` | All-paper (730/122) coverage audit; reproduces the Table 4 ratio 1.34 (1.11–1.60). |
 | `core_revision_checks.py` | Coarsened nearest-configuration control, exact-subset CIs, and same-size percentile checks. |
+| `supplementary_checks.py` | Hamming distribution, tail proportions, one- vs multi-configuration subgroup, exact-subset means, block-percentile IQR, study-level block factor, and two-level bootstrap. |
+| `coherence_control.py` | Coherence-matched deletion control for the 20 multi-configuration papers. |
+| `tail_null.py` | Permutation null for the per-study collapsed ratio, stratified by configuration count; common-evaluation recomputation. |
+| `rebuild_events.py` | Regenerates the four primary event tables from `coverage_matrix.csv` and reports the difference from the deposited tables. |
+| `three_d_models.py` | Three-component block models for the curated, all-paper, and include-standard matrices. |
 | `verify_package.py` | Fast self-check: file inventory, matrix agreement, and committed summary values. |
 | `run_all.py` | One entry point: runs the analyses in order, then the self-check (`--quick`, `--only`, `--list`). |
 | `common.py` | Shared helpers: PCA, Procrustes drift, paired ratio, bootstrap, unique mask, seed convention, loaders. |
@@ -89,7 +97,12 @@ This writes the quick check to a separate file and does not overwrite the publis
 - `data/weighted_matched_block.csv`, `data/weighted_matched_matched.csv` — weighted control events.
 - `data/core.json`, `data/extra.json`, `data/water.json`, `data/pcoa_summary.json`, `data/pcoa_collapsed_summary.json` — audit summaries.
 - `data/core_checks.json` — coarsened nearest-configuration control and exact-subset CIs.
+- `data/coverage_3d_models.csv` — three-component block models for curated/all-paper/include-standard sets.
+- `data/study_level_model.json` — study-level block factor for the curated and all-paper sets.
 - `data/coverage_events.csv`, `data/composition_matched_control.csv` — full-pipeline inputs for `core_revision_checks.py`.
+- `results/post_audit/tail_audit.json`, `tail_decomposition.csv` — Hamming, tail, subgroup, exact-subset, two-level bootstrap, and top-12 decomposition.
+- `results/post_audit/tail_null.json` — permutation null for the per-study collapsed ratio, by configuration count, with the observed tail and binomial tests.
+- `results/post_audit/panel_decomposition_draws.json` — per-draw collapsed and density-matched ratios for the two-level bootstrap and the common-evaluation check.
 - `data/coverage_3d_model.csv` — three-component coverage block model (curated 3-D block factor 1.17).
 - `docs/extraction/stageA/matrix_presence_v2.csv` — presence layer. The stage-B value layer is restricted and is **not** included in this repository.
 - `data/coverage_matrix_all_paper.csv` (730 rows / 122 papers) and `data/coverage_matrix_full_extraction.csv` (764 / 122) — the all-paper and full-extraction coverage sets.

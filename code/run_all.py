@@ -11,10 +11,11 @@ Examples
 Each analysis writes its summary under ``results/``.  The last step is the
 package self-check, so a green run means the committed values were reproduced.
 
-The long steps are the synthetic validation (~6 min) and the multi-configuration
-sensitivity (~12 min, which runs the synthetic validation twice).  ``--quick``
-runs the synthetic validation with two replicates and skips the
-multi-configuration step, so it never overwrites a published summary.
+The long steps are the synthetic validation (~6 min), the multi-configuration
+sensitivity (~12 min, which runs the synthetic validation twice), the coherence control (~1 min), the three-set
+3-D models (~7 min), and the tail checks (~2 min).  ``--quick`` runs the
+synthetic validation with two replicates and skips the multi-configuration,
+coherence, 3-D, and tail steps, so it does not overwrite their published summaries.
 """
 from __future__ import annotations
 
@@ -34,10 +35,15 @@ STEPS: dict[str, tuple[str, str, str]] = {
     "allpaper": ("all_paper_audit", "all-paper 730/122 audit", "~2 min"),
     "simulation": ("simulation_validation", "synthetic panel-structure validation", "~6 min"),
     "multiconfig": ("multiconfig_sensitivity", "1% and 5% within-study flips", "~12 min"),
+    "coherence": ("coherence_control", "coherence-matched control", "~1 min"),
+    "threed": ("three_d_models", "three-component models for the three coverage sets", "~7 min"),
+    "tail": ("supplementary_checks", "Hamming, tail, subgroup, and study-level checks", "~2 min"),
+    "tailnull": ("tail_null", "permutation null for the per-study collapsed ratio", "~10 s"),
+    "rebuild": ("rebuild_events", "regenerate the primary event tables from the matrix", "~20 s"),
     "verify": ("verify_package", "package self-check", "~10 s"),
 }
 
-ORDER = ["panel", "pc2", "core", "allpaper", "simulation", "multiconfig", "verify"]
+ORDER = ["panel", "pc2", "core", "allpaper", "simulation", "multiconfig", "coherence", "threed", "tail", "tailnull", "rebuild", "verify"]
 
 
 def run_step(name: str) -> None:
@@ -55,7 +61,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Run the P2 reproducibility package.")
     parser.add_argument("--only", help="comma-separated step names (see --list)")
     parser.add_argument("--quick", action="store_true",
-                        help="two simulation replicates; skips the multi-configuration step")
+                        help="two simulation replicates; skips the multi-configuration, coherence, 3-D, and tail steps")
     parser.add_argument("--list", action="store_true", help="show steps and exit")
     args = parser.parse_args()
 

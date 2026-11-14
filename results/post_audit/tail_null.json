@@ -1,0 +1,181 @@
+{
+ "method": "matched draw as pseudo-block at the paper's deletion count; pooled within configuration-count group; 100 draws per paper",
+ "estimator": "block arm median drift on its own retained rows, divided by the median of 100 matched draws, each on its own retained rows",
+ "groups": {
+  "single": {
+   "n": 97,
+   "q95": 4.276249383377595,
+   "q99": 6.063923568383482,
+   "median": 1.0,
+   "thresholds": {
+    "1.5": {
+     "null_pct": 27.45360824742268,
+     "expected": 26.63,
+     "observed": 31
+    },
+    "2": {
+     "null_pct": 16.24742268041237,
+     "expected": 15.76,
+     "observed": 16
+    },
+    "3": {
+     "null_pct": 8.804123711340207,
+     "expected": 8.54,
+     "observed": 8
+    },
+    "4": {
+     "null_pct": 5.690721649484536,
+     "expected": 5.5200000000000005,
+     "observed": 3
+    }
+   },
+   "observed": {
+    "1.5": {
+     "n": 31,
+     "pct": 31.95876288659794,
+     "p_binom": 0.1882299588870761
+    },
+    "2": {
+     "n": 16,
+     "pct": 16.49484536082474,
+     "p_binom": 0.5160937500362137
+    },
+    "3": {
+     "n": 8,
+     "pct": 8.24742268041237,
+     "p_binom": 0.6287453014911094
+    },
+    "4": {
+     "n": 3,
+     "pct": 3.0927835051546393,
+     "p_binom": 0.9190044195643785
+    }
+   },
+   "above_null_q95": 2
+  },
+  "multi": {
+   "n": 20,
+   "q95": 2.7059202172572263,
+   "q99": 3.796542202307201,
+   "median": 1.0,
+   "thresholds": {
+    "1.5": {
+     "null_pct": 22.8,
+     "expected": 4.5600000000000005,
+     "observed": 4
+    },
+    "2": {
+     "null_pct": 12.65,
+     "expected": 2.5300000000000002,
+     "observed": 3
+    },
+    "3": {
+     "null_pct": 3.1,
+     "expected": 0.62,
+     "observed": 3
+    },
+    "4": {
+     "null_pct": 0.75,
+     "expected": 0.15,
+     "observed": 3
+    }
+   },
+   "observed": {
+    "1.5": {
+     "n": 4,
+     "pct": 20.0,
+     "p_binom": 0.7012147795234841
+    },
+    "2": {
+     "n": 3,
+     "pct": 15.0,
+     "p_binom": 0.4729505558742044
+    },
+    "3": {
+     "n": 3,
+     "pct": 15.0,
+     "p_binom": 0.022887418513746243
+    },
+    "4": {
+     "n": 3,
+     "pct": 15.0,
+     "p_binom": 0.00043708789623130896
+    }
+   },
+   "above_null_q95": 3
+  },
+  "all": {
+   "n": 117,
+   "q95": 3.917758843429911,
+   "q99": 5.922797333896361,
+   "median": 1.0,
+   "thresholds": {
+    "1.5": {
+     "null_pct": 26.658119658119656,
+     "expected": 31.189999999999998,
+     "observed": 35
+    },
+    "2": {
+     "null_pct": 15.632478632478634,
+     "expected": 18.29,
+     "observed": 19
+    },
+    "3": {
+     "null_pct": 7.829059829059829,
+     "expected": 9.16,
+     "observed": 11
+    },
+    "4": {
+     "null_pct": 4.846153846153846,
+     "expected": 5.67,
+     "observed": 6
+    }
+   },
+   "observed": {
+    "1.5": {
+     "n": 35,
+     "pct": 29.914529914529915,
+     "p_binom": 0.2418443066321624
+    },
+    "2": {
+     "n": 19,
+     "pct": 16.23931623931624,
+     "p_binom": 0.467057474991964
+    },
+    "3": {
+     "n": 11,
+     "pct": 9.401709401709402,
+     "p_binom": 0.30886334204648475
+    },
+    "4": {
+     "n": 6,
+     "pct": 5.128205128205129,
+     "p_binom": 0.5027752907626437
+    }
+   },
+   "above_null_q95": 6
+  }
+ },
+ "common_evaluation_sensitivity": {
+  "estimator": "common evaluation set (rows retained in both arms)",
+  "median": 0.9851461495725207,
+  "tail": {
+   "1.5": {
+    "n": 32,
+    "pct": 27.350427350427353
+   },
+   "2": {
+    "n": 21,
+    "pct": 17.94871794871795
+   },
+   "3": {
+    "n": 13,
+    "pct": 11.11111111111111
+   },
+   "4": {
+    "n": 7,
+    "pct": 5.982905982905983
+   }
+  }
+ }
+}

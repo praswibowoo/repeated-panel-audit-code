@@ -27,14 +27,12 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "code"))
 
 from common import (  # noqa: E402
-    DRAWS, fit, weighted_pca, row_weights, median_ci,
+    DRAWS, data_dir, fit, weighted_pca, row_weights, median_ci,
     unique_mask, common_ratio, load_curated, seed_for,
 )
 
 OUT = os.path.join(ROOT, "results", "post_audit")
-DATA = OUT
-if not os.path.exists(os.path.join(DATA, "baseline_block.csv")):
-    DATA = os.path.join(ROOT, "data")
+DATA = data_dir()
 
 
 def run_decomposition(X, rho, paper):
@@ -54,6 +52,7 @@ def run_decomposition(X, rho, paper):
     out = {k: {} for k in ("full_all", "full_unique",
                             "weighted_all", "weighted_unique",
                             "collapsed_unique")}
+    draws = {"collapsed_unique": {}}
 
     for p in papers:
         idx_p = np.where(paper == p)[0]
@@ -112,10 +111,12 @@ def run_decomposition(X, rho, paper):
                 common_ratio(S_full_c, S_block_c, block_rows_c,
                              S_match_c, match_rows_c, common_c))
 
+        draws["collapsed_unique"][p] = [float(x) for x in ratios["collapsed_unique"]]
         for k in out:
             out[k][p] = float(np.median(ratios[k]))
 
-    return {k: median_ci(list(v.values())) for k, v in out.items()}, out
+    return ({k: median_ci(list(v.values())) for k, v in out.items()},
+            out, draws)
 
 
 def density_matched_collapsed(X, rho, paper):
@@ -130,6 +131,7 @@ def density_matched_collapsed(X, rho, paper):
 
     S_full_c = fit(Xc)
     out = {}
+    draws = {"density_matched": {}}
     for p in papers:
         keep_block_c = paper_c != p
         block_rows_c = np.where(keep_block_c)[0]
@@ -175,16 +177,17 @@ def density_matched_collapsed(X, rho, paper):
             common_c = keep_block_c & keep_match_c
             ratios.append(common_ratio(S_full_c, S_block_c, block_rows_c,
                                        S_match_c, match_rows_c, common_c))
+        draws["density_matched"][p] = [float(x) for x in ratios]
         out[p] = float(np.median(ratios))
-    return median_ci(list(out.values())), out, qbin
+    return median_ci(list(out.values())), out, qbin, draws
 
 
 def main():
     X, rho, paper = load_curated()
     print("loaded", X.shape, len(set(paper)), "unique", unique_mask(X, paper).sum())
 
-    dec, per_paper = run_decomposition(X, rho, paper)
-    dens, dens_per_paper, qbin = density_matched_collapsed(X, rho, paper)
+    dec, per_paper, dec_draws = run_decomposition(X, rho, paper)
+    dens, dens_per_paper, qbin, dens_draws = density_matched_collapsed(X, rho, paper)
 
     # Duplication quartiles from the deposited event tables.
     import pandas as pd
@@ -250,6 +253,8 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, "panel_decomposition.json"), "w", encoding="utf-8") as fh:
         json.dump(result, fh, indent=2)
+    with open(os.path.join(OUT, "panel_decomposition_draws.json"), "w", encoding="utf-8") as fh:
+        json.dump({**dec_draws, **dens_draws}, fh)
     print(json.dumps({k: v for k, v in result.items()
                       if k not in ("decomposition_per_paper",
                                    "density_matched_collapsed_per_paper",

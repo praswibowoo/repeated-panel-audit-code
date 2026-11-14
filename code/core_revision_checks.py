@@ -30,11 +30,12 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "code"))
 
 from common import (  # noqa: E402
-    SEED, DRAWS, N_BOOT, EXCLUDED, fit, drift, median_ci, seed_for, load_curated,
+    SEED, DRAWS, N_BOOT, EXCLUDED, data_dir, fit, drift, median_ci, seed_for,
+    load_curated,
 )
 
 EXCLUDE = EXCLUDED
-DATA = os.path.join(ROOT, "data")
+DATA = data_dir()
 RESULTS = DATA if os.path.exists(os.path.join(DATA, "coverage_events.csv")) else os.path.join(ROOT, "results", "wp3_clean")
 OUT = os.path.join(ROOT, "results", "core_revision")
 os.makedirs(OUT, exist_ok=True)

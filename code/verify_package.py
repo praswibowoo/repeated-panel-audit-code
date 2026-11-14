@@ -18,8 +18,11 @@ import sys
 
 import pandas as pd
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from common import data_dir  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(ROOT, "data")
+DATA = data_dir()
 POST = os.path.join(ROOT, "results", "post_audit")
 
 FILES = [
@@ -41,6 +44,7 @@ FILES = [
     "pcoa_summary.json",
     "pcoa_collapsed_summary.json",
     "coverage_3d_model.csv",
+    "coverage_3d_models.csv",
     "p0_composition_percentile.csv",
     "presence_misclassification_summary.csv",
     "preprocessing_block_factor.csv",
@@ -50,14 +54,26 @@ FILES = [
     "coverage_volume_bins.csv",
     "row_count_sensitivity.csv",
     "review_findings.json",
+    "coverage_events.csv",
+    "calibration_direction.csv",
+    "calibration_size_direction.csv",
+    "sim_calibration_summary.csv",
+    "sim_calibration_extended_summary.csv",
+    "study_level_model.json",
 ]
 
 POST_FILES = [
     "all_paper_audit.json",
     "panel_decomposition.json",
+    "panel_decomposition_draws.json",
     "pc2_density_check.json",
     "simulation_validation.json",
     "multiconfig_sensitivity.json",
+    "tail_audit.json",
+    "tail_decomposition.csv",
+    "three_d_models.json",
+    "coherence_control.json",
+    "tail_null.json",
 ]
 
 EXCLUDED = ("B175", "B111", "B095", "B182", "B239")
@@ -130,9 +146,12 @@ def main() -> int:
 
     rf = ratio(bb, bm)
     rc = ratio(cb, cm)
+    match_full = bm[bm.arm == "matched"].groupby("paper")["med_drift"].median()
     check("full paired ratio", rf.median(), 1.3628, 1e-3)
     check("collapsed paired ratio", rc.median(), 1.0390, 1e-3)
-    check("ratio of per-study medians", rf.median() / 1.0, 1.3628, 1e-3)
+    check("ratio of per-study medians",
+          bb[bb.arm == "block"]["med_drift"].median()
+          / match_full.median(), 1.143, 5e-3)
     check("PC1 class change", bb[bb.arm == "block"]["pc1_flip"].median(), 3.37, 5e-3)
     check("PC2 class change", bb[bb.arm == "block"]["pc2_flip"].median(), 2.10, 5e-3)
 
@@ -142,6 +161,11 @@ def main() -> int:
     check("core block factor", core["baseline"]["model"]["block"]["factor"], 1.3868, 1e-3)
     check("core collapsed ratio", core["collapsed"]["audit"]["collapsed_ratio"]["median"], 1.0390, 1e-3)
     check("core collapsed block factor", core["collapsed"]["model"]["block"]["factor"], 1.0122, 1e-3)
+    tn = json.load(open(os.path.join(POST, "tail_null.json"), encoding="utf-8"))
+    check("tail-null single q95", tn["groups"]["single"]["q95"], 4.28, 6e-3)
+    check("tail-null multi q95", tn["groups"]["multi"]["q95"], 2.71, 6e-3)
+    check("tail-null single observed >2", tn["groups"]["single"]["observed"]["2"]["n"], 16, 0)
+    check("tail-null multi observed >4", tn["groups"]["multi"]["observed"]["4"]["n"], 3, 0)
 
     cc = load_json("core_checks.json")
     check("exact subset n", cc["exact"]["n"], 21)
@@ -188,6 +212,73 @@ def main() -> int:
     check("block percentile", float(pct["median_percentile"]), 76.0, 1e-6)
     check("above 95th", float(pct["above95_pct"]), 29.06, 5e-2)
     check("below 5th", float(pct["below5_pct"]), 5.98, 5e-2)
+
+    # --- tail / coherence checks ---------------------------------------
+    tail = json.load(open(os.path.join(POST, "tail_audit.json"), encoding="utf-8"))
+    ps = tail["panel_structure"]
+    check("tail papers", ps["n_papers"], 117)
+    check("tail rows", ps["n_rows"], 716)
+    check("tail unique configs", ps["n_unique_configs"], 151)
+    check("tail single-config", ps["n_single_config_papers"], 97)
+    check("tail multi-config", ps["n_multi_config_papers"], 20)
+
+    ham = tail["hamming"]
+    check("hamming pairs", ham["pairs"], 54)
+    check("hamming one-bit", ham["distribution"]["1"], 16)
+    check("hamming two-bit", ham["distribution"]["2"], 11)
+    check("hamming three-bit", ham["distribution"]["3"], 5)
+    check("hamming le 3", ham["pairs_le_3"], 32)
+
+    check("collapsed >2", tail["tail"]["collapsed"][">2.0"]["n"], 19)
+    check("two-level collapsed median", tail["two_level_bootstrap"]["collapsed"]["median"], 1.0340, 1e-3)
+    draws = json.load(open(os.path.join(POST, "panel_decomposition_draws.json"), encoding="utf-8"))
+    check("draws collapsed papers", len(draws["collapsed_unique"]), 117)
+    check("draws density papers", len(draws["density_matched"]), 117)
+    check("two-level common-evaluation median",
+          tail["two_level_bootstrap"]["common_evaluation"]["median"], 0.9857, 1e-3)
+    check("two-level density median",
+          tail["two_level_bootstrap"]["density_matched"]["median"], 0.9604, 1e-3)
+    check("density-matched >2", tail["tail"]["density_matched"][">2.0"]["n"], 14)
+    check("multi-config median", tail["subgroup"]["multi_config"]["median"], 1.0973, 1e-3)
+    check("one-config median", tail["subgroup"]["one_config"]["median"], 1.0265, 1e-3)
+    check("exact mean rows", tail["exact_subset"]["exact"]["mean_rows"], 4.5238, 1e-3)
+    check("other mean rows", tail["exact_subset"]["other"]["mean_rows"], 6.4688, 1e-3)
+    check("exact mean duplicate fraction",
+          tail["exact_subset"]["exact"]["mean_duplicate_fraction"], 0.5773, 1e-3)
+    check("other mean duplicate fraction",
+          tail["exact_subset"]["other"]["mean_duplicate_fraction"], 0.7384, 1e-3)
+    check("block percentile q25", tail["block_percentile"]["q25"], 30.0, 0.5)
+    check("block percentile q75", tail["block_percentile"]["q75"], 98.0, 0.5)
+    check("study-level curated", tail["study_level_model"]["curated"]["median"],
+          1.4160, 1e-3)
+    check("study-level all-paper", tail["study_level_model"]["all_paper"]["median"],
+          1.4209, 1e-3)
+
+    coh = json.load(open(os.path.join(POST, "coherence_control.json"), encoding="utf-8"))
+    check("coherence n", coh["n_papers"], 20)
+    check("coherence median", coh["median"], 1.0103, 1e-3)
+    check("coherence B063", coh["per_paper"]["B063"]["coherence_ratio"], 8.9499, 1e-3)
+    check("coherence B166", coh["per_paper"]["B166"]["coherence_ratio"], 7.2859, 1e-3)
+    check("coherence B201", coh["per_paper"]["B201"]["coherence_ratio"], 3.3990, 1e-3)
+
+    three = pd.read_csv(os.path.join(DATA, "coverage_3d_models.csv"))
+    check("3-D curated", float(three.loc[three.set == "curated", "block_at_mean_volume"].iloc[0]),
+          1.1669, 1e-3)
+    check("3-D all-paper", float(three.loc[three.set == "all_paper", "block_at_mean_volume"].iloc[0]),
+          1.1866, 1e-3)
+    check("3-D include-standard",
+          float(three.loc[three.set == "include_standard", "block_at_mean_volume"].iloc[0]),
+          1.0999, 1e-3)
+
+    # The fresh core-revision output must agree with the deposited copy.
+    fresh_path = os.path.join(ROOT, "results", "core_revision", "core_checks.json")
+    if os.path.exists(fresh_path):
+        fresh = json.load(open(fresh_path, encoding="utf-8"))
+        check("fresh core exact n", fresh["exact"]["n"], cc["exact"]["n"])
+        check("fresh core exact volume", fresh["exact"]["volume_all"]["median"],
+              cc["exact"]["volume_all"]["median"], 1e-9)
+        check("fresh core coarsened", fresh["coarsened"]["all"]["median"],
+              cc["coarsened"]["all"]["median"], 1e-9)
 
     if failures:
         print("FAIL — %d mismatch(es):" % len(failures))

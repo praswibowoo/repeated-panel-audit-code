@@ -1,7 +1,7 @@
 cff-version: 1.2.1
 message: "If you use this code, cite the paper and this repository."
 title: "Repeated panels can inflate apparent study-block influence in pooled parameter-coverage ordinations"
-abstract: "Check package for the repeated-panel coverage audit: coverage matrix, event tables, panel decomposition, density/PC2 check, and synthetic validation."
+abstract: "Check package for the repeated-panel coverage audit: coverage matrix, event tables, design decomposition, density/PC2 check, synthetic validation, and the Hamming/tail/subgroup checks."
 type: software
 authors:
   - family-names: Wibowo
@@ -15,8 +15,8 @@ authors:
   - family-names: Kiyoki
     given-names: Yasushi
     affiliation: "Musashino University"
-version: 1.1.2
-date-released: "2026-11-13"
+version: 1.3.0
+date-released: "2026-11-14"
 # The Zenodo record 10.5281/zenodo.23973301 deposits the corpus data, not this
 # software; it is cited in the manuscript and is not a software DOI.
 url: "https://github.com/praswibowoo/repeated-panel-audit-code"

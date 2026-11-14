@@ -30,6 +30,9 @@ Standard/regulatory rows are excluded. The full extraction has 764 data rows; th
 | `composition_matched_control.csv` | Composition-matched control events from the full pipeline (used by `core_revision_checks.py`). |
 | `coverage_3d_model.csv` | Three-component coverage block model (curated 3-D block factor 1.17). |
 | `core_checks.json` | Coarsened nearest-configuration control, exact-subset CIs, and same-size percentile checks. |
+| `coverage_3d_models.csv` | Three-component block models for the curated, all-paper, and include-standard sets. |
+| `study_level_model.json` | Study-level block factor for the curated and all-paper sets. |
+| `panel_decomposition_draws.json` | Per-draw collapsed and density-matched ratios for the two-level bootstrap. |
 
 Each event table includes the paper identifier, arm, draw, number of rows deleted, median Procrustes drift, and the PC1/PC2/joint class-flip metrics where available.
 
@@ -43,11 +46,11 @@ Each event table includes the paper identifier, arm, draw, number of rows delete
 | `pcoa_summary.json` | Full-set Jaccard PCoA audit. |
 | `pcoa_collapsed_summary.json` | Collapsed Jaccard PCoA audit. |
 
-The current 2×2, density/PC2, synthetic-validation, multi-configuration sensitivity, and all-paper summaries are in `results/post_audit/`.
+The current design decomposition, density/PC2, synthetic-validation, multi-configuration sensitivity, all-paper, and tail/coherence summaries are in `results/post_audit/`.
 
 Additional summaries: `p0_composition_percentile.csv` (block percentile and tails), `presence_misclassification_summary.csv` (over-marking perturbation), `preprocessing_block_factor.csv`, `composition_matched_summary.csv`, `composition_vs_density.csv`, `composition_exact_subset.csv`, `coverage_volume_bins.csv`, `row_count_sensitivity.csv`, `review_findings.json`, and the SI calibration tables (`calibration_*.csv`, `sim_calibration_*.csv`).
 
-Every reported number is mapped to its file in `DATA_PROVENANCE.md`. Run `python3 code/verify_package.py` to check the package in about ten seconds.
+The main 2-D results, the tail checks, and the three 3-D models are mapped to their files in `DATA_PROVENANCE.md`; archived full-pipeline values are noted there. Run `python3 code/verify_package.py` to check the package in about ten seconds.
 
 ## Source extraction
 
