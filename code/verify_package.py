@@ -171,6 +171,10 @@ def main() -> int:
     check("exact block factor", tc["exact_subset_block_factor"]["median"], 0.879, 2e-3)
     check("top-25 difference", tc["pc1_top25"]["median_diff"], -0.0056, 2e-3)
     check("pc2 row-level mean", tc["pc2_rowlevel_collapsed"]["mean"], 1.44, 1e-2)
+    pc = json.load(open(os.path.join(DATA, "verification", "stageA_postcorrection_summary.json"), encoding="utf-8"))
+    check("re-audit papers", pc["papers"], 25, 0)
+    check("re-audit claims", pc["claims"], 30, 0)
+    check("re-audit passed", pc["passed"], 30, 0)
 
     cc = load_json("core_checks.json")
     check("exact subset n", cc["exact"]["n"], 21)

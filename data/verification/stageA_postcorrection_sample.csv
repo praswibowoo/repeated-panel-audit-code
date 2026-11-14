@@ -1,0 +1,31 @@
+paper,scenario,param,names,ref,original,corrected
+B034,Pom-rainy,pH,pH(7),Figs 2-8,N,True
+B065,"Group B - offshore / island edge (GX03,12,13)",NO2 (mg/L),nitrite(4),p.6 Sec.3.3,N,True
+B065,"Group D - Beihai Bay north (GX07,08,09,10,11,14)",Chlorophyll-a (mg/m3),"chlorophyll(2) | chl.{0,2}a(27)",p.6 Sec.3.3,N,True
+B066,Cd bioassay (216-h static),DO (mg/L),DO(1),p.778 Tab1,N,True
+B066,Cr (VI) bioassay (216-h static),DO (mg/L),DO(1),p.778 Tab1,N,True
+B069,Station IV - nearshore coastal waters,pH,pH(2),p.30 Figs.1-3; Tab1-2,N,True
+B069,All stations (Sep 2015; 3 pts each),Salinity (ppt/‰),salinity(1),p.32-33 Sec.3.2; Tabs 1-2,N,True
+B092,Station 2 (ship mooring area),Secchi (m),⚠ NOT FOUND in text,Table 7 (p.4),N,True
+B137,St2-rain,Secchi (m),⚠ NOT FOUND in text,p.174 Table 1,N,True
+B182,Sedati-coast,Secchi (m),⚠ NOT FOUND in text,"Results, p.253",N,True
+B182,Sedati-coast,PO4 (mg/L),phosphate(1),"Results, p.253",N,True
+B182,Sedati-coast,Salinity (ppt/‰),salinity(3),"Results, p.253",N,True
+B166,Zone B - black mangrove (MB) piezometers,TSS (mg/L),total suspended solids(2) | suspended solids(2) | TSS(1),pp.19-25 Tables 1-8,N,True
+B119,AP2 (mangrove-vegetated),TSS (mg/L),total suspended solids(1) | suspended solids(1) | TSS(6),p.60 Tab 1,Y,False
+B025,All-systems-monthly-2009-2012,PO4 (mg/L),phosphate(11),"Figs 5-8, pp.8-10; Table 4, p.10",Y,False
+B001,St2-Sangi-Kharo-summer,NO3 (mg/L),nitrate(11),"Figs 4-11, pp.727-728",Y,False
+B131,SBT-nearshore,Chlorophyll-a (mg/m3),"chlorophyll(2) | chl.{0,2}a(31)",p.8 Table 1; p.10 Table 2,Y,False
+B054,Station 3 (replanted mangrove),DO (mg/L),dissolved oxygen(4) | DO(2),Table 1,Y,False
+B052,CR1 (central),PO4 (mg/L),phosphate(7) | orthophosphate(2),Table 1; Figs 2-3,Y,False
+B176,ST3-shipyard,DO (mg/L),dissolved oxygen(22) | DO(1),"Fig.1-5, p.11-13",Y,False
+B028,PuertoCuatreros-summer,Salinity (ppt/‰),salinity(8) | PSU(3),"Fig 2a-b, p.11",Y,False
+B214,Surface water - monsoon (Jul-Oct 2023),Salinity (ppt/‰),salinity(86),Table 3 (p.10); Results 3.3 (p.8),Y,False
+B125,Pre-monsoon (Jul-Sep),Salinity (ppt/‰),salinity(21),pp.174-175 Results,Y,False
+B102,St2,Cd (µg/L),cadmium(6),p.151 Sec3.3 / Fig 4,Y,False
+B022,Site2-Bengkulu-River-estuary,PO4 (mg/L),phosphate(7),"Fig 10, pp.12-13",Y,False
+B107,St4,DO (mg/L),dissolved oxygen(2) | DO(8),pp.22-25 Figs 1-12; Tab 1,Y,False
+B084,Site-2 - monsoon,TDS,total dissolved solids(4) | TDS(25),Table 1 (p.5); Fig 2 (p.7),Y,False
+B009,Jharkhali-Jul,Turbidity (NTU),turbidity(23) | NTU(12),"Tables 2-3, p.5; Fig 3a, p.8",Y,False
+B211,"Station 1 (hulu), musim penghujan (Okt 2022)",DO (mg/L),dissolved oxygen(1) | DO(7),Tabel 1 (p.489),Y,False
+B097,LMC Area2,Temperature (°C),temperature(5),Table 2 (p.3),Y,False

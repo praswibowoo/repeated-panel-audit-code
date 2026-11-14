@@ -1,0 +1,11 @@
+{
+  "seed": 42,
+  "papers": 25,
+  "claims": 30,
+  "corrected_claims": 13,
+  "passed": 30,
+  "review": 0,
+  "pass_pct": 100.0,
+  "review_rows": [],
+  "page_reference_note": "Verification used the current presence cell and a full-PDF numeric search; printed page/table references are indicative, not PDF page indices."
+}

@@ -21,6 +21,7 @@ Status codes:
 | 867 presence rows | `docs/extraction/stageA/matrix_presence_v2.csv` (`row_kind`) | derived |
 | 764 data rows; 730 all-paper rows | `coverage_matrix_full_extraction.csv`, `coverage_matrix_all_paper.csv` | derived (rule in `reproducibility` README of the manuscript source) |
 | 716 / 117 curated; 151 within-paper unique; 565 duplicate rows | `coverage_matrix.csv` | recomputed (`verify_package.py`) |
+| Post-correction re-audit: 25 papers, 30 claims (13 corrections + 17 sampled), 30/30 pass; 17 independent (95% CI 81--100) | `data/verification/stageA_postcorrection_summary.json`, `..._results.csv` | deposited row-level results (recovered from the P1 archive) |
 | 44 parameters (42 populated; Al and SAR empty) | all three matrices | recomputed (`verify_package.py`) |
 | Coverage cells 7,238 / 49 / 26,329; row density 0.20 (0.16–0.27) | `coverage_matrix_full_extraction.csv` | derived |
 

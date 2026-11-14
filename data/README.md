@@ -36,6 +36,13 @@ Standard/regulatory rows are excluded. The full extraction has 764 data rows; th
 
 Each event table includes the paper identifier, arm, draw, number of rows deleted, median Procrustes drift, and the PC1/PC2/joint class-flip metrics where available.
 
+## Verification
+
+`verification/stageA_postcorrection_summary.json` — post-correction re-audit:
+25 papers, 30 claims, 13 corrections, 30/30 pass. `stageA_postcorrection_results.csv`
+and `stageA_postcorrection_sample.csv` hold the row-level results and sample.
+Recovered from the P1 archive; the Stage-A audit itself is in `docs/verification/`.
+
 ## Audit summaries
 
 | File | Contents |
