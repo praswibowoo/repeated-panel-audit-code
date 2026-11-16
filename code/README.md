@@ -16,6 +16,8 @@ analysis modules contain only their own design choices. The manuscript checks
 (`check_ees.py`, `check_numbers.py`) exist only in the manuscript package, so
 `run_all.py` skips them here and ends with `verify_package.py`.
 
+`weighted_pca` is the legacy sqrt(w)-scaled score helper used by the legacy decomposition; `weighted_pca_unweighted` is used by the current factorial, so the weighted+unique cell is an exact row-level identity for the collapsed audit.
+
 ## Runnable
 
 | Script | Purpose | Output |
@@ -26,7 +28,7 @@ analysis modules contain only their own design choices. The manuscript checks
 | `code/flagged_studies.py` | Descriptors for the six collapsed-audit flags (Table S15). | `data/flagged_studies.csv` |
 | `code/multiconfig_h1.py` | Multi-configuration stress test: coherent H0, coherent-extreme, and distinct-extreme designs. | `results/post_audit/multiconfig_h1.json` |
 | `code/perturbation_upper.py` | Extraction-error perturbation at 5–25%, including the two upper-bound rates. | `data/presence_misclassification_upper.csv` |
-| `code/panel_decomposition.py` | Four-row design decomposition, duplication quartiles, study-density-matched collapsed audit. Reads `data/coverage_matrix.csv` and `data/baseline_*.csv` / `data/collapsed_*.csv`. | `results/post_audit/panel_decomposition.json` |
+| `code/panel_decomposition.py` | Fit × control factorial (current) plus legacy decomposition, duplication quartiles, study-density-matched collapsed audit. Reads `data/coverage_matrix.csv` and `data/baseline_*.csv` / `data/collapsed_*.csv`. | `results/post_audit/panel_decomposition.json` |
 | `code/pc2_density_check.py` | PC1/PC2/joint class flips under row-level and density-matched donors. | `results/post_audit/pc2_density_check.json` |
 | `code/simulation_validation.py` | Synthetic panel-structure validation (H0 repeated panels; H1 planted study). | `results/post_audit/simulation_validation.json` |
 | `code/multiconfig_sensitivity.py` | 1% and 5% within-study bit-flip sensitivity; runs the simulation twice and merges. | `results/post_audit/multiconfig_sensitivity.json` |

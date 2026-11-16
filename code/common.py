@@ -60,7 +60,12 @@ def fit(X: np.ndarray, dims: int = 2) -> np.ndarray:
 
 
 def weighted_pca(X: np.ndarray, w: np.ndarray, dims: int = 2) -> np.ndarray:
-    """PCA scores of the weighted covariance (weights sum to one)."""
+    """PCA scores of the weighted covariance (weights sum to one).
+
+    Legacy: the returned scores carry the sqrt(w) row scaling, so a
+    configuration with k duplicates is shrunk by 1/sqrt(k).  Use
+    `weighted_pca_unweighted` for row-level drift comparisons.
+    """
     w = np.asarray(w, float)
     w = w / w.sum()
     mu = (X * w[:, None]).sum(0)
@@ -68,6 +73,24 @@ def weighted_pca(X: np.ndarray, w: np.ndarray, dims: int = 2) -> np.ndarray:
     Xw = Xc * np.sqrt(w[:, None])
     U, S, _ = np.linalg.svd(Xw, full_matrices=False)
     return U[:, :dims] * S[:dims]
+
+
+def weighted_pca_unweighted(X: np.ndarray, w: np.ndarray, dims: int = 2) -> np.ndarray:
+    """Weighted components with unweighted row scores.
+
+    The weighted covariance equals the collapsed covariance when weights are
+    1/k within a paper-configuration.  Projecting the centred rows onto the
+    weighted components (instead of returning U*S of X*sqrt(w)) removes the
+    per-row sqrt(w) scaling, so the weighted fit is an exact row-level
+    identity for the collapsed audit.
+    """
+    w = np.asarray(w, float)
+    w = w / w.sum()
+    mu = (X * w[:, None]).sum(0)
+    Xc = X - mu
+    Xw = Xc * np.sqrt(w[:, None])
+    _, _, Vt = np.linalg.svd(Xw, full_matrices=False)
+    return Xc @ Vt[:dims].T
 
 
 def row_weights(X: np.ndarray, paper: np.ndarray) -> np.ndarray:

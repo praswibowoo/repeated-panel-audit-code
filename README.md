@@ -4,7 +4,7 @@ GitHub remote: `repeated-panel-audit-code` (unchanged; the manuscript cites that
 
 Code and data for:
 
-> **Repeated coverage configurations can inflate apparent study influence in pooled ordinations.**
+> **Repeated parameter-coverage configurations can inflate apparent study influence in pooled ordinations.**
 > Wibowo, P., Veesommai Sillberg, C., & Kiyoki, Y. (2026).
 > *Environmental and Ecological Statistics*; manuscript prepared for submission.
 
@@ -77,7 +77,7 @@ This writes the quick check to a separate file and does not overwrite the publis
 
 | Script | Purpose |
 |---|---|
-| `panel_decomposition.py` | Four-row design decomposition of fit, evaluation set, and matched control; duplication quartiles; study-density-matched collapsed audit. |
+| `panel_decomposition.py` | Fit × control factorial (current, unweighted row scores) plus the legacy decomposition; duplication quartiles; study-density-matched collapsed audit. |
 | `pc2_density_check.py` | PC1/PC2/joint class flips under row-level and study-density-matched donors. |
 | `simulation_validation.py` | Synthetic panel-structure validation: H0 repeated panels only; H1 planted study-level effect. |
 | `multiconfig_sensitivity.py` | Within-study configuration-heterogeneity sensitivity (1% and 5% flips); wraps `simulation_validation.py` and merges both runs. |
@@ -96,7 +96,7 @@ This writes the quick check to a separate file and does not overwrite the publis
 | `three_d_models.py` | Three-component block models for the curated, all-paper, and include-standard matrices. |
 | `verify_package.py` | Fast self-check: file inventory, matrix agreement, and committed summary values. |
 | `run_all.py` | One entry point: runs the analyses in order, then the self-check (`--quick`, `--only`, `--list`). |
-| `common.py` | Shared helpers: PCA, Procrustes drift, paired ratio, bootstrap, unique mask, seed convention, loaders. |
+| `common.py` | Shared helpers: PCA, weighted PCA (legacy and unweighted-score variants), Procrustes drift, paired ratio, bootstrap, unique mask, seed convention, loaders. |
 | `code/legacy/revision_layers.py` | Provenance-only coverage/value builder; requires the restricted value layer and is not needed for the quick start. |
 
 `code/legacy/` holds `clean_primary_audit.py`, `ees_post_audit_extra.py`, `ees_revision_checks.py`, and `revision_layers.py`; they require the archived pipeline (and, for two of them, the restricted value layer) and are not standalone. The event tables they produced are included in `data/`, so the published numbers can be checked without rerunning them.
@@ -116,7 +116,7 @@ This writes the quick check to a separate file and does not overwrite the publis
 - `results/post_audit/tail_audit.json`, `tail_decomposition.csv` — Hamming, tail, subgroup, exact-subset, two-level bootstrap, and top-12 decomposition.
 - `results/post_audit/multiconfig_h1.json` — multi-configuration stress test (coherent, coherent-extreme, distinct-extreme).
 - `results/post_audit/tail_null.json` — matched-draw reference null for the per-study collapsed ratio, by configuration count, with the observed tail and binomial tests.
-- `results/post_audit/panel_decomposition_draws.json` — per-draw collapsed and density-matched ratios for the two-level bootstrap and the common-evaluation check.
+- `results/post_audit/panel_decomposition_draws.json` — per-draw collapsed and density-matched ratios for the two-level bootstrap and the common-evaluation check. The factorial interaction is in `panel_decomposition.json` (`factorial.interaction`); per-draw factorial ratios are not stored, so the factorial cells use study-cluster intervals.
 - `data/coverage_3d_model.csv` — three-component coverage block model (curated 3-D block factor 1.17).
 - `docs/extraction/stageA/matrix_presence_v2.csv` — presence layer. The stage-B value layer is restricted and is **not** included in this repository.
 - `data/coverage_matrix_all_paper.csv` (730 rows / 122 papers) and `data/coverage_matrix_full_extraction.csv` (764 / 122) — the all-paper and full-extraction coverage sets.

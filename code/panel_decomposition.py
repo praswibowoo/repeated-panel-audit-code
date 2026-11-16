@@ -28,8 +28,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "code"))
 
 from common import (  # noqa: E402
-    DRAWS, data_dir, fit, weighted_pca, row_weights, median_ci,
-    unique_mask, common_ratio, load_curated, seed_for,
+    DRAWS, data_dir, fit, weighted_pca, weighted_pca_unweighted,
+    row_weights, median_ci, unique_mask, common_ratio, load_curated,
+    seed_for,
 )
 
 OUT = os.path.join(ROOT, "results", "post_audit")
@@ -152,7 +153,7 @@ def run_factorial(X, rho, paper):
 
     S_full = fit(X)
     w = row_weights(X, paper)
-    S_full_w = weighted_pca(X, w)
+    S_full_w = weighted_pca_unweighted(X, w)
     S_full_c = fit(Xc)
 
     keys = ("full_row", "full_unique", "weighted_row",
@@ -165,7 +166,7 @@ def run_factorial(X, rho, paper):
         keep_block = paper != p
         block_rows = np.where(keep_block)[0]
         S_block = fit(X[keep_block])
-        S_block_w = weighted_pca(X[keep_block], w[keep_block])
+        S_block_w = weighted_pca_unweighted(X[keep_block], w[keep_block])
 
         keep_block_c = paper_c != p
         block_rows_c = np.where(keep_block_c)[0]
@@ -186,7 +187,7 @@ def run_factorial(X, rho, paper):
             keep_match[drop] = False
             match_rows = np.where(keep_match)[0]
             S_match = fit(X[keep_match])
-            S_match_w = weighted_pca(X[keep_match], w[keep_match])
+            S_match_w = weighted_pca_unweighted(X[keep_match], w[keep_match])
 
             # Unique-configuration matched arm: remove every row of each
             # selected configuration, not only the first occurrence.
@@ -196,7 +197,7 @@ def run_factorial(X, rho, paper):
             keep_match_c[drop_rows] = False
             match_rows_c = np.where(keep_match_c)[0]
             S_match_c = fit(X[keep_match_c])
-            S_match_c_w = weighted_pca(X[keep_match_c], w[keep_match_c])
+            S_match_c_w = weighted_pca_unweighted(X[keep_match_c], w[keep_match_c])
 
             # Collapsed arm uses the collapsed matrix directly.
             keep_match_c_c = np.ones(len(Xc), bool)
@@ -229,8 +230,23 @@ def run_factorial(X, rho, paper):
         for k in keys:
             out[k][p] = float(np.median(ratios[k]))
 
-    return ({k: median_ci(list(v.values())) for k, v in out.items()},
-            out)
+    summary = {k: median_ci(list(v.values())) for k, v in out.items()}
+    # Per-study interaction: (weighted row - weighted unique) -
+    # (full row - full unique).  This is the quantity the manuscript reports
+    # as the fit x control interaction; store its median and interval so the
+    # number is a deposited output, not a hand calculation.
+    fr = np.array([out["full_row"][p] for p in papers])
+    fu = np.array([out["full_unique"][p] for p in papers])
+    wr = np.array([out["weighted_row"][p] for p in papers])
+    wu = np.array([out["weighted_unique"][p] for p in papers])
+    interaction = wr - wu - (fr - fu)
+    summary["interaction"] = median_ci(interaction)
+    summary["interaction"]["mean"] = float(interaction.mean())
+    summary["interaction"]["frac_positive"] = float((interaction > 0).mean())
+    summary["interaction"]["difference_of_medians"] = float(
+        (np.median(wr) - np.median(wu)) - (np.median(fr) - np.median(fu))
+    )
+    return summary, out
 
 
 def density_matched_collapsed(X, rho, paper):

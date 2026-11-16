@@ -1,7 +1,8 @@
 # Data provenance — every reported quantity and its file
 
 This package is self-contained for the reported 2-D results, the tail checks,
-and the three 3-D models. A few archived full-pipeline values are noted where
+and the three 3-D models. Version: P2 v1.84 (weighted-score identity fix;
+factorial interaction deposited; weight-matched rows retained as legacy). A few archived full-pipeline values are noted where
 the deposited re-run differs only by draw-level Monte Carlo; those rows say so.
 Each row names the quantity as it appears in the manuscript, the file that
 carries it, and whether this package recomputes it or only carries the summary.
@@ -29,11 +30,12 @@ Status codes:
 
 | Quantity | File | Status |
 |---|---|---|
-| 1.37 (1.13–1.57); block factor 1.39 (1.23–1.56) | `baseline_block.csv`, `baseline_matched.csv`, `core.json` | recomputed (`verify_package.py`) |
-| Fit × control factorial 1.27 / 1.23 / 1.44 / 1.02 / 0.97 | `results/post_audit/panel_decomposition.json` (`factorial`) | recomputed (`panel_decomposition.py`) |
-| Legacy decomposition 1.33 / 1.59 / 0.97 | `results/post_audit/panel_decomposition.json` (`decomposition`) | recomputed; retained in SI S9 |
-| 1.03 (0.89–1.19); 1.01 (0.89–1.15) | `collapsed_block.csv`, `collapsed_matched.csv`, `extra.json` | recomputed (`verify_package.py`) |
-| 1.45 (1.27–1.66); 1.53 (1.27–1.88) | `weighted_matched_*.csv`, `panel_decomposition.json` | recomputed |
+| 1.37 (1.13–1.57), two-level; block factor 1.39 (1.23–1.56) | `tail_audit.json` (`two_level_bootstrap`), `core.json` (`model.block`), `baseline_block.csv`, `baseline_matched.csv` | recomputed (`supplementary_checks.py`); `core.json` gives the study-level 1.36 (1.12–1.59) |
+| Fit × control factorial 1.27 / 1.23 / 1.43 / 0.97 / 0.97 | `results/post_audit/panel_decomposition.json` (`factorial`) | recomputed (`panel_decomposition.py`, unweighted row scores) |
+| Factorial interaction 0.99 (0.68–1.28); 99.1% positive | `results/post_audit/panel_decomposition.json` (`factorial.interaction`) | recomputed (`panel_decomposition.py`) |
+| Legacy decomposition 1.33 / 1.59 / 1.53 / 0.97 (legacy weighted scores) | `results/post_audit/panel_decomposition.json` (`decomposition`) | legacy; retained in SI S9, not current |
+| 1.03 (0.89–1.19), two-level; 1.01 (0.89–1.15) | `tail_audit.json` (`two_level_bootstrap`), `core.json` (`model.block`), `collapsed_block.csv`, `collapsed_matched.csv` | recomputed (`supplementary_checks.py`); `extra.json` gives the study-level 1.04 (0.91–1.16) |
+| 1.45 (1.27–1.66) legacy weighted scores; 1.53 (1.27–1.88) legacy | `weighted_matched_*.csv`, `panel_decomposition.json` (`decomposition`) | deposited summary/legacy; not current |
 | Study-level refit 1.42 (1.25–1.59) | `study_level_model.json` (`curated`; re-run 1.416, 1.244–1.605), `tail_audit.json` | recomputed (`supplementary_checks.py`); archived CI 1.25–1.59 |
 | Interaction 1.43 / 1.12 | `core.json` (`baseline.model`, `collapsed.model`) | derived |
 | PC1/PC2/joint class changes 3.37/3.38, 2.10/1.41, 4.92/4.63 | baseline event tables | recomputed (`verify_package.py`) |
@@ -44,7 +46,7 @@ Status codes:
 
 | Quantity | File | Status |
 |---|---|---|
-| Density-matched 0.96 (0.87–1.07; two-level); quartiles | `panel_decomposition.json` (`density_quartile_bin`, per-paper ratios) | recomputed (`panel_decomposition.py`) |
+| Density-matched 0.96 (0.87–1.07; two-level); density-matched quartiles | `panel_decomposition.json` (`density_matched_collapsed`, `density_matched_collapsed_per_paper`), `tail_audit.json` (`density_matched`) | recomputed (`panel_decomposition.py`); row-level quartiles 0.93/0.67/0.78/1.73 from `collapsed_block.csv`/`collapsed_matched.csv` |
 | PC2 1.44 pp; 49.6/26.5; 23.9% ties; p = 4.4e-6; density-matched 42.7/33.3; p = 0.014 | collapsed event tables; `results/post_audit/pc2_density_check.json` | recomputed (`pc2_density_check.py`) |
 | Composition 1.14 / 1.26 / 1.34; exact 0.81 / 1.00 / 1.27; 96 without match 1.20 | `core_checks.json`, `composition_*.csv` | recomputed (`core_revision_checks.py`) |
 | Matrix-type map: water 675, non-water 41 (summary 20, bioassay 7, sediment 5, experimental 4, soil 3, biota 2); 115 water-only papers | `coverage_matrix_types.csv` | derived (`build_matrix_types.py`) |
