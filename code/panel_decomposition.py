@@ -3,8 +3,9 @@
 
 Adds the two checks needed to interpret the full-versus-collapsed contrast:
 
-1. 2x2 decomposition of fit (full/weighted) and evaluation set (all rows /
-   unique configurations), on a common evaluation set per draw.
+1. 2x2 factorial decomposition of fit (full/weighted) and control
+   (row-count/unique-configuration), evaluated on one common set of unique
+   configurations retained by the collapsed block and matched arms.
 2. Study-density-stratified donor control on the collapsed matrix.
 
 The evaluation set is the set of rows retained in both the block and matched
@@ -119,6 +120,119 @@ def run_decomposition(X, rho, paper):
             out, draws)
 
 
+def run_factorial(X, rho, paper):
+    """Fit x control factorial on one common unique-configuration evaluation set.
+
+    The five cells are:
+      full fit, row-count control;
+      full fit, unique-configuration control;
+      weighted 1/k fit, row-count control;
+      weighted 1/k fit, unique-configuration control;
+      collapsed fit, unique-configuration control (identity check).
+
+    All cells are evaluated on the unique configurations retained by the
+    collapsed block and matched arms, so the fit and control contrasts are not
+    confounded with the evaluation set.
+    """
+    n = len(X)
+    papers = sorted(set(paper))
+    uni = unique_mask(X, paper)
+    uni_idx = np.where(uni)[0]
+    Xc = X[uni]
+    paper_c = paper[uni]
+
+    # For each collapsed row, the full-matrix rows sharing its paper and
+    # configuration.  This lets the weighted fit remove *all* rows of a
+    # deleted configuration, not only its first occurrence.
+    config_rows = {}
+    for j in range(len(Xc)):
+        p = paper_c[j]
+        same = np.where((paper == p) & np.all(X == Xc[j], axis=1))[0]
+        config_rows[j] = same
+
+    S_full = fit(X)
+    w = row_weights(X, paper)
+    S_full_w = weighted_pca(X, w)
+    S_full_c = fit(Xc)
+
+    keys = ("full_row", "full_unique", "weighted_row",
+            "weighted_unique", "collapsed_unique")
+    out = {k: {} for k in keys}
+
+    for p in papers:
+        idx_p = np.where(paper == p)[0]
+        n_p = len(idx_p)
+        keep_block = paper != p
+        block_rows = np.where(keep_block)[0]
+        S_block = fit(X[keep_block])
+        S_block_w = weighted_pca(X[keep_block], w[keep_block])
+
+        keep_block_c = paper_c != p
+        block_rows_c = np.where(keep_block_c)[0]
+        S_block_c = fit(Xc[keep_block_c])
+        n_u = int(uni[idx_p].sum())
+
+        donors = np.where(paper != p)[0]
+        donors_c = np.where(paper_c != p)[0]
+        base = seed_for(str(p))
+        ratios = {k: [] for k in keys}
+
+        for dr in range(DRAWS):
+            rng = np.random.default_rng(base + 7919 * dr)
+
+            # Row-count matched arm.
+            drop = rng.choice(donors, size=n_p, replace=False)
+            keep_match = np.ones(n, bool)
+            keep_match[drop] = False
+            match_rows = np.where(keep_match)[0]
+            S_match = fit(X[keep_match])
+            S_match_w = weighted_pca(X[keep_match], w[keep_match])
+
+            # Unique-configuration matched arm: remove every row of each
+            # selected configuration, not only the first occurrence.
+            drop_c = rng.choice(donors_c, size=n_u, replace=False)
+            drop_rows = np.concatenate([config_rows[j] for j in drop_c])
+            keep_match_c = np.ones(n, bool)
+            keep_match_c[drop_rows] = False
+            match_rows_c = np.where(keep_match_c)[0]
+            S_match_c = fit(X[keep_match_c])
+            S_match_c_w = weighted_pca(X[keep_match_c], w[keep_match_c])
+
+            # Collapsed arm uses the collapsed matrix directly.
+            keep_match_c_c = np.ones(len(Xc), bool)
+            keep_match_c_c[drop_c] = False
+            match_rows_c_c = np.where(keep_match_c_c)[0]
+            S_match_c_c = fit(Xc[keep_match_c_c])
+
+            # One common evaluation set: unique configurations retained by the
+            # collapsed block and collapsed matched arms.
+            common_c = keep_block_c & keep_match_c_c
+            common_mask = np.zeros(n, bool)
+            common_mask[uni_idx[common_c]] = True
+
+            ratios["full_row"].append(
+                common_ratio(S_full, S_block, block_rows,
+                             S_match, match_rows, common_mask))
+            ratios["full_unique"].append(
+                common_ratio(S_full, S_block, block_rows,
+                             S_match_c, match_rows_c, common_mask))
+            ratios["weighted_row"].append(
+                common_ratio(S_full_w, S_block_w, block_rows,
+                             S_match_w, match_rows, common_mask))
+            ratios["weighted_unique"].append(
+                common_ratio(S_full_w, S_block_w, block_rows,
+                             S_match_c_w, match_rows_c, common_mask))
+            ratios["collapsed_unique"].append(
+                common_ratio(S_full_c, S_block_c, block_rows_c,
+                             S_match_c_c, match_rows_c_c, common_c))
+
+        for k in keys:
+            out[k][p] = float(np.median(ratios[k]))
+
+    return ({k: median_ci(list(v.values())) for k, v in out.items()},
+            out)
+
+
 def density_matched_collapsed(X, rho, paper):
     """Collapsed audit with donors drawn from same study-density quartile."""
     papers = sorted(set(paper))
@@ -187,6 +301,7 @@ def main():
     print("loaded", X.shape, len(set(paper)), "unique", unique_mask(X, paper).sum())
 
     dec, per_paper, dec_draws = run_decomposition(X, rho, paper)
+    fac, fac_per_paper = run_factorial(X, rho, paper)
     dens, dens_per_paper, qbin, dens_draws = density_matched_collapsed(X, rho, paper)
 
     # Duplication quartiles from the deposited event tables.
@@ -235,6 +350,9 @@ def main():
         "decomposition": dec,
         "decomposition_per_paper": {k: {p: float(v) for p, v in d.items()}
                                     for k, d in per_paper.items()},
+        "factorial": fac,
+        "factorial_per_paper": {k: {p: float(v) for p, v in d.items()}
+                                for k, d in fac_per_paper.items()},
         "density_matched_collapsed": dens,
         "density_matched_collapsed_per_paper": {p: float(v) for p, v in dens_per_paper.items()},
         "density_quartile_bin": {p: int(v) for p, v in qbin.items()},
@@ -257,6 +375,7 @@ def main():
         json.dump({**dec_draws, **dens_draws}, fh)
     print(json.dumps({k: v for k, v in result.items()
                       if k not in ("decomposition_per_paper",
+                                   "factorial_per_paper",
                                    "density_matched_collapsed_per_paper",
                                    "density_quartile_bin")}, indent=2))
 

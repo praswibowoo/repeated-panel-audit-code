@@ -41,12 +41,15 @@ FILES = [
     "core_checks.json",
     "extra.json",
     "water.json",
+    "water_only_check.json",
+    "coverage_matrix_types.csv",
     "pcoa_summary.json",
     "pcoa_collapsed_summary.json",
     "coverage_3d_model.csv",
     "coverage_3d_models.csv",
     "p0_composition_percentile.csv",
     "presence_misclassification_summary.csv",
+    "presence_misclassification_upper.csv",
     "preprocessing_block_factor.csv",
     "composition_matched_summary.csv",
     "composition_vs_density.csv",
@@ -60,6 +63,8 @@ FILES = [
     "sim_calibration_summary.csv",
     "sim_calibration_extended_summary.csv",
     "study_level_model.json",
+    "flagged_studies.csv",
+    "balance_diagnostics.csv",
 ]
 
 POST_FILES = [
@@ -69,6 +74,7 @@ POST_FILES = [
     "pc2_density_check.json",
     "simulation_validation.json",
     "multiconfig_sensitivity.json",
+    "multiconfig_h1.json",
     "tail_audit.json",
     "tail_decomposition.csv",
     "three_d_models.json",
@@ -171,7 +177,10 @@ def main() -> int:
     check("exact block factor", tc["exact_subset_block_factor"]["median"], 0.879, 2e-3)
     check("top-25 difference", tc["pc1_top25"]["median_diff"], -0.0056, 2e-3)
     check("pc2 row-level mean", tc["pc2_rowlevel_collapsed"]["mean"], 1.44, 1e-2)
-    pc = json.load(open(os.path.join(DATA, "verification", "stageA_postcorrection_summary.json"), encoding="utf-8"))
+    ver = os.path.join(DATA, "verification")
+    if not os.path.isdir(ver):
+        ver = os.path.join(ROOT, "docs", "verification")
+    pc = json.load(open(os.path.join(ver, "stageA_postcorrection_summary.json"), encoding="utf-8"))
     check("re-audit papers", pc["papers"], 25, 0)
     check("re-audit claims", pc["claims"], 30, 0)
     check("re-audit passed", pc["passed"], 30, 0)

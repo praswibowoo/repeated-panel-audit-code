@@ -8,7 +8,7 @@ Code and data for:
 > Wibowo, P., Veesommai Sillberg, C., & Kiyoki, Y. (2026).
 > *Environmental and Ecological Statistics*; manuscript prepared for submission.
 
-This repository is the **check package** for the reported audit. It contains the coverage matrix, event tables, and audit summaries needed to reproduce the reported checks, including the composition, coherence, 3-D, study-level, and tail-null analyses. The archived full pipeline in `ordination-stability-audit` generated the deposited event tables; `code/rebuild_events.py` regenerates them from the coverage matrix and reports the difference.
+This repository is the **check package** for the reported audit. It contains the coverage matrix, event tables, and audit summaries needed to reproduce the reported checks, including the composition, coherence, 3-D, study-level, and matched-draw reference null analyses. The archived full pipeline in `ordination-stability-audit` generated the deposited event tables; `code/rebuild_events.py` regenerates them from the coverage matrix and reports the difference.
 
 ## Contents
 
@@ -52,6 +52,12 @@ python3 code/multiconfig_sensitivity.py
 python3 code/coherence_control.py
 python3 code/three_d_models.py
 python3 code/supplementary_checks.py
+python3 code/perturbation_upper.py
+python3 code/build_matrix_types.py
+python3 code/water_only_check.py
+python3 code/balance_diagnostics.py
+python3 code/flagged_studies.py
+python3 code/multiconfig_h1.py
 python3 code/verify_package.py
 ```
 
@@ -79,7 +85,13 @@ This writes the quick check to a separate file and does not overwrite the publis
 | `core_revision_checks.py` | Coarsened nearest-configuration control, exact-subset CIs, and same-size percentile checks. |
 | `supplementary_checks.py` | Hamming distribution, tail proportions, one- vs multi-configuration subgroup, exact-subset means, block-percentile IQR, study-level block factor, and two-level bootstrap. |
 | `coherence_control.py` | Coherence-matched deletion control for the 20 multi-configuration papers. |
-| `tail_null.py` | Permutation null for the per-study collapsed ratio, stratified by configuration count; common-evaluation recomputation. |
+| `tail_null.py` | Matched-draw reference null for the per-study collapsed ratio, stratified by configuration count; common-evaluation recomputation. |
+| `perturbation_upper.py` | Coverage-cell perturbation at 5/1, 10/5, 11.1/0, 19/0, and 25/0; writes `presence_misclassification_upper.csv`. |
+| `build_matrix_types.py` | Build the matrix-type map from the stage-A scenario labels; writes `coverage_matrix_types.csv`. |
+| `water_only_check.py` | Validate the matrix-type map and run the water-only audit; writes `water_only_check.json`. |
+| `balance_diagnostics.py` | Block-versus-matched balance diagnostics; writes `balance_diagnostics.csv`. |
+| `flagged_studies.py` | Descriptors of B063/B166/B201/B102/B213/B208; writes `flagged_studies.csv`. |
+| `multiconfig_h1.py` | Multi-configuration stress test (coherent, coherent-extreme, distinct-extreme); writes `results/post_audit/multiconfig_h1.json`. |
 | `rebuild_events.py` | Regenerates the four primary event tables from `coverage_matrix.csv` and reports the difference from the deposited tables. |
 | `three_d_models.py` | Three-component block models for the curated, all-paper, and include-standard matrices. |
 | `verify_package.py` | Fast self-check: file inventory, matrix agreement, and committed summary values. |
@@ -95,20 +107,23 @@ This writes the quick check to a separate file and does not overwrite the publis
 - `data/baseline_block.csv`, `data/baseline_matched.csv` — full row-level audit events.
 - `data/collapsed_block.csv`, `data/collapsed_matched.csv` — unique-configuration audit events.
 - `data/weighted_matched_block.csv`, `data/weighted_matched_matched.csv` — weighted control events.
-- `data/core.json`, `data/extra.json`, `data/water.json`, `data/pcoa_summary.json`, `data/pcoa_collapsed_summary.json` — audit summaries.
+- `data/core.json`, `data/extra.json`, `data/water.json`, `data/water_only_check.json`, `data/pcoa_summary.json`, `data/pcoa_collapsed_summary.json` — audit summaries.
+- `data/coverage_matrix_types.csv` — matrix-type map for the 716 curated rows (water 675, non-water 41; 115 water-only papers).
 - `data/core_checks.json` — coarsened nearest-configuration control and exact-subset CIs.
 - `data/coverage_3d_models.csv` — three-component block models for curated/all-paper/include-standard sets.
 - `data/study_level_model.json` — study-level block factor for the curated and all-paper sets.
 - `data/coverage_events.csv`, `data/composition_matched_control.csv` — full-pipeline inputs for `core_revision_checks.py`.
 - `results/post_audit/tail_audit.json`, `tail_decomposition.csv` — Hamming, tail, subgroup, exact-subset, two-level bootstrap, and top-12 decomposition.
-- `results/post_audit/tail_null.json` — permutation null for the per-study collapsed ratio, by configuration count, with the observed tail and binomial tests.
+- `results/post_audit/multiconfig_h1.json` — multi-configuration stress test (coherent, coherent-extreme, distinct-extreme).
+- `results/post_audit/tail_null.json` — matched-draw reference null for the per-study collapsed ratio, by configuration count, with the observed tail and binomial tests.
 - `results/post_audit/panel_decomposition_draws.json` — per-draw collapsed and density-matched ratios for the two-level bootstrap and the common-evaluation check.
 - `data/coverage_3d_model.csv` — three-component coverage block model (curated 3-D block factor 1.17).
 - `docs/extraction/stageA/matrix_presence_v2.csv` — presence layer. The stage-B value layer is restricted and is **not** included in this repository.
 - `data/coverage_matrix_all_paper.csv` (730 rows / 122 papers) and `data/coverage_matrix_full_extraction.csv` (764 / 122) — the all-paper and full-extraction coverage sets.
 - `data/corpus_manifest.csv` — 138-paper manifest with data status and row counts.
 - `data/composition_matched_summary.csv`, `composition_vs_density.csv`, `composition_exact_subset.csv`, `p0_composition_percentile.csv` — composition and percentile summaries.
-- `data/presence_misclassification_summary.csv`, `preprocessing_block_factor.csv`, `coverage_volume_bins.csv`, `row_count_sensitivity.csv`, `review_findings.json` — sensitivity summaries.
+- `data/presence_misclassification_summary.csv`, `data/presence_misclassification_upper.csv`, `preprocessing_block_factor.csv`, `coverage_volume_bins.csv`, `row_count_sensitivity.csv`, `review_findings.json` — sensitivity summaries.
+- `data/balance_diagnostics.csv`, `data/flagged_studies.csv` — control-balance and flagged-study descriptors.
 - `data/calibration_*.csv`, `sim_calibration_*.csv` — SI calibration tables.
 
 Coverage codes reported-present and examined-absent as 1, not-reported as 0. Standard/regulatory rows are excluded from the analysis sets.

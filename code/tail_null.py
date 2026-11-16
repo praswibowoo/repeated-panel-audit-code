@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
-"""Permutation null for the per-study collapsed ratio.
+"""Matched-draw reference null for the per-study collapsed ratio.
 
 The per-study ratio is a block deletion divided by the median of 100 matched
-deletions. It has a null distribution of its own: a study with no unusual
+deletions. It has a reference distribution of its own: a study with no unusual
 influence still produces a ratio away from 1 when the deleted set is small. The
-null is estimated here by treating each matched draw as a pseudo-block at the
-paper's own deletion count, so numerator and denominator are exchangeable sets
-of the same size, and by stratifying on the number of unique configurations
+reference is estimated here by treating each matched draw as a pseudo-block at
+the paper's own deletion count, so numerator and denominator are exchangeable
+sets of the same size, and by stratifying on the number of unique configurations
 (k = 1 vs k >= 2), because a block that removes several configurations is
 coherent by construction even when the study has no influence.
+
+This is not a permutation of study labels. The reference distribution is built
+from the control arm; the binomial p-values are descriptive and treat draws as
+independent, so they are not reported as confirmatory tests.
 
 Also reports a common-evaluation recomputation of the observed tail, which is
 the estimator the Methods section describes; the deposited per-study ratios use
@@ -91,6 +95,10 @@ def main() -> None:
         "estimator": ("block arm median drift on its own retained rows, divided "
                       "by the median of 100 matched draws, each on its own "
                       "retained rows"),
+        "note": ("Reference distribution built from the control arm; this is not "
+                 "a permutation of study labels. Binomial p-values are "
+                 "descriptive and treat draws as independent; they are not "
+                 "reported as confirmatory tests."),
         "groups": {},
     }
     for name, papers in groups.items():
@@ -106,7 +114,7 @@ def main() -> None:
             s["observed"][f"{t:g}"] = {
                 "n": m,
                 "pct": float(100.0 * m / len(obs)),
-                "p_binom": float(binom.sf(m - 1, len(obs), p0)),
+                "p_binom_descriptive": float(binom.sf(m - 1, len(obs), p0)),
             }
             s["thresholds"][f"{t:g}"]["observed"] = m
         s["above_null_q95"] = int((obs > s["q95"]).sum())

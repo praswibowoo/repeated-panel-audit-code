@@ -1,6 +1,7 @@
 {
  "method": "matched draw as pseudo-block at the paper's deletion count; pooled within configuration-count group; 100 draws per paper",
  "estimator": "block arm median drift on its own retained rows, divided by the median of 100 matched draws, each on its own retained rows",
+ "note": "Reference distribution built from the control arm; this is not a permutation of study labels. Binomial p-values are descriptive and treat draws as independent; they are not reported as confirmatory tests.",
  "groups": {
   "single": {
    "n": 97,
@@ -33,22 +34,22 @@
     "1.5": {
      "n": 31,
      "pct": 31.95876288659794,
-     "p_binom": 0.1882299588870761
+     "p_binom_descriptive": 0.1882299588870761
     },
     "2": {
      "n": 16,
      "pct": 16.49484536082474,
-     "p_binom": 0.5160937500362137
+     "p_binom_descriptive": 0.5160937500362137
     },
     "3": {
      "n": 8,
      "pct": 8.24742268041237,
-     "p_binom": 0.6287453014911094
+     "p_binom_descriptive": 0.6287453014911094
     },
     "4": {
      "n": 3,
      "pct": 3.0927835051546393,
-     "p_binom": 0.9190044195643785
+     "p_binom_descriptive": 0.9190044195643785
     }
    },
    "above_null_q95": 2
@@ -84,22 +85,22 @@
     "1.5": {
      "n": 4,
      "pct": 20.0,
-     "p_binom": 0.7012147795234841
+     "p_binom_descriptive": 0.7012147795234841
     },
     "2": {
      "n": 3,
      "pct": 15.0,
-     "p_binom": 0.4729505558742044
+     "p_binom_descriptive": 0.4729505558742044
     },
     "3": {
      "n": 3,
      "pct": 15.0,
-     "p_binom": 0.022887418513746243
+     "p_binom_descriptive": 0.022887418513746243
     },
     "4": {
      "n": 3,
      "pct": 15.0,
-     "p_binom": 0.00043708789623130896
+     "p_binom_descriptive": 0.00043708789623130896
     }
    },
    "above_null_q95": 3
@@ -135,22 +136,22 @@
     "1.5": {
      "n": 35,
      "pct": 29.914529914529915,
-     "p_binom": 0.2418443066321624
+     "p_binom_descriptive": 0.2418443066321624
     },
     "2": {
      "n": 19,
      "pct": 16.23931623931624,
-     "p_binom": 0.467057474991964
+     "p_binom_descriptive": 0.467057474991964
     },
     "3": {
      "n": 11,
      "pct": 9.401709401709402,
-     "p_binom": 0.30886334204648475
+     "p_binom_descriptive": 0.30886334204648475
     },
     "4": {
      "n": 6,
      "pct": 5.128205128205129,
-     "p_binom": 0.5027752907626437
+     "p_binom_descriptive": 0.5027752907626437
     }
    },
    "above_null_q95": 6

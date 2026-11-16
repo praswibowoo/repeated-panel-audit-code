@@ -29,9 +29,10 @@ Status codes:
 
 | Quantity | File | Status |
 |---|---|---|
-| 1.36 (1.13–1.57); block factor 1.39 (1.23–1.56) | `baseline_block.csv`, `baseline_matched.csv`, `core.json` | recomputed (`verify_package.py`) |
-| 1.33 / 1.59 / 0.97 decomposition (common-evaluation 0.97, 0.86–1.17, two-level) | `results/post_audit/panel_decomposition.json`, `panel_decomposition_draws.json`, `tail_audit.json` | recomputed (`panel_decomposition.py`, `supplementary_checks.py`) |
-| 1.04 (0.89–1.19); 1.01 (0.89–1.15) | `collapsed_block.csv`, `collapsed_matched.csv`, `extra.json` | recomputed (`verify_package.py`) |
+| 1.37 (1.13–1.57); block factor 1.39 (1.23–1.56) | `baseline_block.csv`, `baseline_matched.csv`, `core.json` | recomputed (`verify_package.py`) |
+| Fit × control factorial 1.27 / 1.23 / 1.44 / 1.02 / 0.97 | `results/post_audit/panel_decomposition.json` (`factorial`) | recomputed (`panel_decomposition.py`) |
+| Legacy decomposition 1.33 / 1.59 / 0.97 | `results/post_audit/panel_decomposition.json` (`decomposition`) | recomputed; retained in SI S9 |
+| 1.03 (0.89–1.19); 1.01 (0.89–1.15) | `collapsed_block.csv`, `collapsed_matched.csv`, `extra.json` | recomputed (`verify_package.py`) |
 | 1.45 (1.27–1.66); 1.53 (1.27–1.88) | `weighted_matched_*.csv`, `panel_decomposition.json` | recomputed |
 | Study-level refit 1.42 (1.25–1.59) | `study_level_model.json` (`curated`; re-run 1.416, 1.244–1.605), `tail_audit.json` | recomputed (`supplementary_checks.py`); archived CI 1.25–1.59 |
 | Interaction 1.43 / 1.12 | `core.json` (`baseline.model`, `collapsed.model`) | derived |
@@ -46,13 +47,16 @@ Status codes:
 | Density-matched 0.96 (0.87–1.07; two-level); quartiles | `panel_decomposition.json` (`density_quartile_bin`, per-paper ratios) | recomputed (`panel_decomposition.py`) |
 | PC2 1.44 pp; 49.6/26.5; 23.9% ties; p = 4.4e-6; density-matched 42.7/33.3; p = 0.014 | collapsed event tables; `results/post_audit/pc2_density_check.json` | recomputed (`pc2_density_check.py`) |
 | Composition 1.14 / 1.26 / 1.34; exact 0.81 / 1.00 / 1.27; 96 without match 1.20 | `core_checks.json`, `composition_*.csv` | recomputed (`core_revision_checks.py`) |
-| Water-only 1.38 / 1.04 | `water.json` | summary |
+| Matrix-type map: water 675, non-water 41 (summary 20, bioassay 7, sediment 5, experimental 4, soil 3, biota 2); 115 water-only papers | `coverage_matrix_types.csv` | derived (`build_matrix_types.py`) |
+| Water-only 1.41 / 0.93; 675 rows / 115 papers / 134 unique configurations | `water_only_check.json` | recomputed (`water_only_check.py`) |
 | PCoA 1.39 / 0.99 | `pcoa_summary.json`, `pcoa_collapsed_summary.json` | summary |
 | 3-D 1.17 curated / 1.19 all-paper / 1.10 include-standard | `coverage_3d_models.csv` (all three); `coverage_3d_model.csv` (archived curated); `results/post_audit/three_d_models.json` | recomputed (`three_d_models.py`); point estimates match; packaged CIs differ in the last digit |
 | All-paper 1.34 (1.11–1.60) | `coverage_matrix_all_paper.csv`; `results/post_audit/all_paper_audit.json` | recomputed (`all_paper_audit.py`) |
 | All-paper block factor 1.42 (1.26–1.60) | `study_level_model.json` (`all_paper`, 1.421, 1.262–1.599); `all_paper_audit.json` note | recomputed (`supplementary_checks.py`); archived 1.40 (1.25–1.58) noted in `all_paper_audit.json` |
-| Over-marking perturbation 1.30–1.33 and 1.09–1.16 | `presence_misclassification_summary.csv`, `extra.json` | summary |
+| Over-marking perturbation 1.31–1.34 and 1.07–1.09; 19–25% rows 1.20–1.28 and 1.05–1.11 | `presence_misclassification_upper.csv` | recomputed (`perturbation_upper.py`) |
 | 11.1% over-marking rate | `presence_misclassification_summary.csv` | derived |
+| Balance: volume block 1 unique / Hamming 0 vs matched 5 / 9.6; density 0.205 vs 0.205; coherence Hamming 3.0 vs 1.3 | `balance_diagnostics.csv` | recomputed (`balance_diagnostics.py`) |
+| Flagged-study descriptors B063/B166/B201/B102/B213/B208 | `flagged_studies.csv` | derived (`flagged_studies.py`) |
 
 ## Synthetic validation and calibration
 
@@ -60,18 +64,19 @@ Status codes:
 |---|---|---|
 | H0 1.58 / 0.995; H1 4.66; 90% above 2; percentile 98.3 | `results/post_audit/simulation_validation.json` | recomputed (`simulation_validation.py`) |
 | 1% / 5% flips: 0.96 / 1.34; 33% / 0% | `results/post_audit/multiconfig_sensitivity.json` | recomputed (`multiconfig_sensitivity.py`) |
+| Multi-configuration stress: coherent H0 2.33, 62% >2; coherent-extreme 5.23, 100%; distinct-extreme 2.32, 56% | `results/post_audit/multiconfig_h1.json` | recomputed (`multiconfig_h1.py`) |
 | Calibration panels (SI) | `calibration_*.csv`, `sim_calibration_*.csv` | summary |
 | Exact-subset baseline | `review_findings.json` | summary |
 | Exact-subset descriptive means (4.52/6.47 rows; 0.58/0.74 duplicate fraction; 0.155/0.223 density) | `tail_audit.json` (`exact_subset`) | recomputed (`supplementary_checks.py`) |
 | Hamming distribution (54 pairs; 16/11/5 at 1/2/3 bits; 32 ≤3) | `tail_audit.json` (`hamming`) | recomputed (`supplementary_checks.py`) |
 | Tail proportions (collapsed 19/117 >2; density-matched 14/117 >2) | `tail_audit.json` (`tail`) | recomputed (`supplementary_checks.py`) |
-| Permutation null by configuration count: k=1 q95 4.28, 16/97 above 2 vs 15.8 expected; k≥2 q95 2.71, 3/20 above 4 vs 0.15 expected | `results/post_audit/tail_null.json` | recomputed (`tail_null.py`) |
+| Matched-draw reference null by configuration count: k=1 q95 4.28, 16/97 above 2 vs 15.8 expected; k≥2 q95 2.71, 3/20 above 4 vs 0.15 expected | `results/post_audit/tail_null.json` | recomputed (`tail_null.py`) |
 | Common-evaluation recomputation 21/117 above 2, 13/117 above 3 | `tail_null.json` (`common_evaluation_sensitivity`) | recomputed (`tail_null.py`) |
 | Exact-subset block factor 0.88 (0.75--1.02); top-25 -0.006 and Spearman -0.00010 differences; PC2 row-level 1.44, 49.6/26.5/23.9 | `results/post_audit/table_checks.json` | recomputed (`table_checks.py`) |
 | Per-study ratios reproduce exactly from the matrix (per-study \|diff\| = 0, corr 1.000) | `baseline_*.csv`, `collapsed_*.csv` | recomputed (`rebuild_events.py`) |
 | Estimator: block arm median drift on its own retained rows over the median of 100 matched draws; common-evaluation variant reported separately | `common.py` (`median_drift`, `common_ratio`) | derived |
 | Coherence-matched control (median 1.01; B063 8.95, B166 7.29, B201 3.40) | `coherence_control.json`; `tail_audit.json` (`coherence_control`) | recomputed (`coherence_control.py`) |
-| Two-level bootstrap (full 1.36, 1.13–1.57; collapsed 1.04, 0.89–1.19; bootstrap medians 1.37/1.03) | `tail_audit.json` (`two_level_bootstrap`) | recomputed (`supplementary_checks.py`) |
+| Two-level bootstrap (full 1.37, 1.13–1.57; collapsed 1.03, 0.89–1.19) | `tail_audit.json` (`two_level_bootstrap`) | recomputed (`supplementary_checks.py`) |
 | Top-12 tail decomposition (full/collapsed/density/composition/Hamming) | `tail_decomposition.csv` | recomputed (`supplementary_checks.py`) |
 
 ## Reproducing
