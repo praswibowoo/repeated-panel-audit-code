@@ -1,0 +1,23 @@
+{
+  "method": "correspondence analysis, 2 axes, 100 matched draws per study",
+  "full": {
+    "median": 1.257602066536558,
+    "ci_lo": 1.004812845494738,
+    "ci_hi": 1.6580045767404603,
+    "n": 117
+  },
+  "collapsed": {
+    "median": 1.152064894719966,
+    "ci_lo": 0.8074187523285289,
+    "ci_hi": 1.508278373033639,
+    "n": 117
+  },
+  "paired_difference": {
+    "median": 0.18323337234286807,
+    "ci_lo": 0.05833525052505251,
+    "ci_hi": 0.368984024150954,
+    "n": 117
+  },
+  "pct_below_one": 47.008547008547005,
+  "n": 117
+}

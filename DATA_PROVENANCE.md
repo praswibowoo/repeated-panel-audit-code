@@ -44,6 +44,7 @@ Status codes:
 | Log models: full 0.32 log rows + 0.17 leverage (R² 0.55); collapsed −0.10 + 0.18 (R² 0.55) | `results/post_audit/leverage_check.json` | recomputed (`leverage_check.py`) |
 | Corpus exceedance: 16/97 and 3/20 at >2; 2/97 and 3/20 at q95 | `results/post_audit/q95_corpus.json` | recomputed (`q95_corpus.py`) |
 | Synthetic flag rates: H0 62%/38%; coherent-extreme 100%/82%; distinct-extreme 56%/36% | `results/post_audit/q95_calibration.json` | recomputed (`q95_calibration.py`) |
+| CA sensitivity: full 1.26 (1.00–1.66); collapsed 1.15 (0.81–1.51); paired 0.18 (0.06–0.37) | `results/post_audit/ca_sensitivity.json` | recomputed (`ca_sensitivity.py`) |
 
 ## Robustness and sensitivity
 
