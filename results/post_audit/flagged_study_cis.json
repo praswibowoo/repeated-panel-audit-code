@@ -1,0 +1,60 @@
+{
+  "method": "matched-draw bootstrap, conditional on block drift",
+  "n_boot": 10000,
+  "rows": [
+    {
+      "paper": "B063",
+      "full_ratio": 9.46985228265389,
+      "full_ci_lo": 8.639905086979692,
+      "full_ci_hi": 9.809232701585826,
+      "collapsed_ratio": 6.566465854817822,
+      "collapsed_ci_lo": 5.914222874742505,
+      "collapsed_ci_hi": 7.080194746172109
+    },
+    {
+      "paper": "B166",
+      "full_ratio": 5.04203819356424,
+      "full_ci_lo": 4.75320157699009,
+      "full_ci_hi": 5.566162082076473,
+      "collapsed_ratio": 5.528952579650774,
+      "collapsed_ci_lo": 5.147185101599775,
+      "collapsed_ci_hi": 5.885665101005925
+    },
+    {
+      "paper": "B201",
+      "full_ratio": 3.0681769232008875,
+      "full_ci_lo": 2.700372162400983,
+      "full_ci_hi": 3.281670263730201,
+      "collapsed_ratio": 4.618906059308511,
+      "collapsed_ci_lo": 4.082981609174507,
+      "collapsed_ci_hi": 5.4974186305965285
+    },
+    {
+      "paper": "B213",
+      "full_ratio": 3.054581339691059,
+      "full_ci_lo": 2.772808738333264,
+      "full_ci_hi": 3.422286403998533,
+      "collapsed_ratio": 4.64635763437373,
+      "collapsed_ci_lo": 3.476399039487608,
+      "collapsed_ci_hi": 4.859534083129518
+    },
+    {
+      "paper": "B208",
+      "full_ratio": 4.966638163639061,
+      "full_ci_lo": 4.4559289109428155,
+      "full_ci_hi": 5.193484582436932,
+      "collapsed_ratio": 4.525496235130981,
+      "collapsed_ci_lo": 3.6600089640469333,
+      "collapsed_ci_hi": 5.035706201215049
+    },
+    {
+      "paper": "B102",
+      "full_ratio": 5.668357561679787,
+      "full_ci_lo": 5.178124270295373,
+      "full_ci_hi": 6.0738734266916845,
+      "collapsed_ratio": 4.14365601046032,
+      "collapsed_ci_lo": 3.328527916556226,
+      "collapsed_ci_hi": 4.7114027378554715
+    }
+  ]
+}

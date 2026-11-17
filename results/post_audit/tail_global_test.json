@@ -1,0 +1,41 @@
+{
+  "method": "study labels permuted across the 151 unique configurations, preserving each paper's configuration count; collapsed block/matched ratio with 20 matched draws per paper; two-sample Cram\u00e9r--von Mises statistic; leave-one-out calibration of the permutation null",
+  "n_permutations": 200,
+  "draws_per_paper": 20,
+  "seed": 20261116,
+  "groups": {
+    "all": {
+      "n_observed": 117,
+      "n_null": 23400,
+      "cvm": 0.0002935811139965417,
+      "p_permutation": 0.8656716417910447,
+      "p_permutation_loo": 0.8656716417910447,
+      "p_permutation_self": 0.8606965174129353,
+      "null_cvm_median": 0.0004962963606300662,
+      "null_cvm_median_self": 0.0004911618975131267,
+      "null_cvm_q95": 0.0011665717421372737
+    },
+    "single": {
+      "n_observed": 97,
+      "n_null": 19400,
+      "cvm": 0.00036107672052993655,
+      "p_permutation": 0.8805970149253731,
+      "p_permutation_loo": 0.8805970149253731,
+      "p_permutation_self": 0.8805970149253731,
+      "null_cvm_median": 0.000754648160077065,
+      "null_cvm_median_self": 0.0007472893529330359,
+      "null_cvm_q95": 0.0024091522863227415
+    },
+    "multi": {
+      "n_observed": 20,
+      "n_null": 4000,
+      "cvm": 0.006807157291666667,
+      "p_permutation": 0.3333333333333333,
+      "p_permutation_loo": 0.3333333333333333,
+      "p_permutation_self": 0.32338308457711445,
+      "null_cvm_median": 0.005304660867149818,
+      "null_cvm_median_self": 0.005249845670087065,
+      "null_cvm_q95": 0.018721847301835792
+    }
+  }
+}

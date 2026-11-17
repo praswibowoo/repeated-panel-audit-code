@@ -1,0 +1,27 @@
+{
+  "method": "11.1% of papers selected; one to three parameters per selected paper flipped from present to NR for all their rows; full and collapsed audits with 20 matched draws per study",
+  "replicates": 100,
+  "papers_flipped": 13,
+  "seed": 20261116,
+  "block_factor": {
+    "median": 1.3992838036227087,
+    "q025": 1.376574133673875,
+    "q975": 1.4234488552511744,
+    "min": 1.3655553765562496,
+    "max": 1.4385788929673269
+  },
+  "full_ratio": {
+    "median": 1.2975025501906552,
+    "q025": 1.231548797490518,
+    "q975": 1.3812331472233075,
+    "min": 1.2127020194377034,
+    "max": 1.396929847230926
+  },
+  "collapsed_ratio": {
+    "median": 1.0442342723625515,
+    "q025": 1.0006997781820774,
+    "q975": 1.0974834508556985,
+    "min": 0.9644623474676092,
+    "max": 1.1026002041144443
+  }
+}

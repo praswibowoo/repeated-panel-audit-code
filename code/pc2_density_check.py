@@ -122,10 +122,17 @@ def main():
         rng = np.random.default_rng(SEED)
         for _ in range(10000):
             boots.append(np.median(vals[rng.integers(0, len(vals), len(vals))]))
+        mean_boots = []
+        rng_mean = np.random.default_rng(SEED + 1)
+        for _ in range(10000):
+            mean_boots.append(np.mean(vals[rng_mean.integers(0, len(vals), len(vals))]))
         out[k] = {
             "median_diff": float(np.median(vals)),
             "ci_lo": float(np.quantile(boots, 0.025)),
             "ci_hi": float(np.quantile(boots, 0.975)),
+            "mean_diff": float(np.mean(vals)),
+            "mean_ci_lo": float(np.quantile(mean_boots, 0.025)),
+            "mean_ci_hi": float(np.quantile(mean_boots, 0.975)),
             "pct_positive": 100.0 * float(np.mean(vals > 0)),
             "pct_negative": 100.0 * float(np.mean(vals < 0)),
             "pct_zero": 100.0 * float(np.mean(vals == 0)),

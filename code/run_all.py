@@ -43,12 +43,18 @@ STEPS: dict[str, tuple[str, str, str]] = {
     "multiconfig": ("multiconfig_sensitivity", "1% and 5% within-study flips", "~12 min"),
     "mch1": ("multiconfig_h1", "multi-configuration stress test", "~8 min"),
     "perturb": ("perturbation_upper", "upper-bound extraction perturbation", "~2 min"),
-    "coherence": ("coherence_control", "coherence-matched control", "~1 min"),
+    "pertclust": ("perturbation_clustered", "study-clustered extraction perturbation", "~5 min"),
+    "coherence": ("coherence_control", "nearest-Hamming donor control", "~1 min"),
     "threed": ("three_d_models", "three-component models for the three coverage sets", "~7 min"),
     "tail": ("supplementary_checks", "Hamming, tail, subgroup, and study-level checks", "~2 min"),
     "balance": ("balance_diagnostics", "balance diagnostics for Table S14", "~5 s"),
     "flagged": ("flagged_studies", "flagged-study descriptors for Table S15", "~5 s"),
-    "tailnull": ("tail_null", "matched-draw reference null for the per-study collapsed ratio", "~10 s"),
+    "tailperm": ("tail_permutation", "independent label permutation null for the collapsed ratio", "~3 min"),
+    "tailglobal": ("tail_global_test", "global permutation Cramér--von Mises test (LOO)", "~8 min"),
+    "holdout": ("procrustes_holdout", "held-out Procrustes sensitivity", "~1 min"),
+    "dimsweep": ("dimension_sweep", "2--5 component sweep", "~1 min"),
+    "leave": ("leave_flagged_out", "leave-six-out venue sensitivity", "~15 s"),
+    "flagcis": ("flagged_study_cis", "matched-draw CIs for flagged studies", "~5 s"),
     "table": ("table_checks", "table-level summaries for S3, S5, and S10", "~10 s"),
     "rebuild": ("rebuild_events", "regenerate the primary event tables from the matrix", "~20 s"),
     "check": ("check_ees", "manuscript and number checks", "~5 s"),
@@ -56,8 +62,9 @@ STEPS: dict[str, tuple[str, str, str]] = {
 }
 
 ORDER = ["types", "water", "panel", "pc2", "core", "allpaper", "simulation",
-         "multiconfig", "mch1", "perturb", "coherence", "threed", "tail",
-         "balance", "flagged", "tailnull", "table", "rebuild", "check", "verify"]
+         "multiconfig", "mch1", "perturb", "pertclust", "coherence", "threed",
+         "tail", "balance", "flagged", "tailperm", "tailglobal", "holdout",
+         "dimsweep", "leave", "flagcis", "table", "rebuild", "check", "verify"]
 
 
 def run_step(name: str) -> None:

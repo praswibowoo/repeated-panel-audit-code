@@ -1,0 +1,352 @@
+paper,row,parameter,matrix_value,text_value,evidence,confidence
+B001,3,NO3 (mg/L),1,1,"of nutrients viz. nitrate (0.23 to 7.26 µM), nitrite (0.04 to 0.87µM), phosphate (0.13 to 3.12 µM) and reactive silicate (4.23 to 19.02 µM) also varied",high
+B001,10,TP (mg/L),1,REVIEW,,review
+B001,10,Chlorophyll-a (mg/m3),0,0,,high
+B002,14,pH,1,1,"ing the post-monsoon period, whereas it was 0.06–0.46                           pH                                                                 6.5–8.5",high
+B002,27,Temperature (°C),1,1,pling stations were found to vary from 1.6 to 12.5 m and 3.7                                    not exhibit significant variation in water temperature,high
+B002,18,SAR,0,0,,high
+B004,35,pH,1,1,"summarized as follows, temperature range (29.3-32.8°C), pH range (6.02-8.07), DO range (2.76-4.7",high
+B004,30,COD (mg/L),1,1,"NTU), BOD range (5.21-6.66 mg L−1), COD (7.5-25) and ammoniacal nitrogen (0.1-0.31 mg L−1).",high
+B004,34,DOC (mg/L),0,REVIEW,"summarized as follows, temperature range (29.3-32.8°C), pH range (6.02-8.07), DO range (2.76-4.7",review
+B006,42,pH,1,1,"pH                  0,3045        0,5982          -0,0906       0,6170        -0,0381         -0,0118       0,3848    -0,1037",high
+B006,44,DO (mg/L),1,1,"DO                  -0,3692       -0,2663         -0,3236       0,0739        0,4542          0,2814        0,6090    0,1619",high
+B006,43,Hardness (mg/L),0,0,,high
+B007,49,NH3 (µg/L),1,1,(894 ± 32.32 g ﬁsh−1) in the integrated mangrove-aquaculture                                  during fullmoon day of monsoon month. Ammonia was higher in OAS,high
+B007,51,Salinity (ppt/‰),1,1,"1988; Abdulla, 1989; Buttner et al., 1993; Champman et al., 1992;                     Buttner, J.K., Soderberg, R.W., Terlizzi, D.E., 1993. An Introduction to Water Chemistry",high
+B007,53,TP (mg/L),0,0,,high
+B009,56,TP (mg/L),1,1,"(r=0.80, p=0.0016) (Figure 7d), TP (r=0.80, p=0.0017)",high
+B009,60,NH4 (mg/L),1,1,(NH4 – NO3) also consumed oxygen from water. There-             to premonsoon period (24.5 PSU) and decreased to a,high
+B009,57,Chlorophyll-a (mg/m3),1,1,"30. Ventrick EL, Hayward TL: Determining chlorophyll on the 1984 CalCOFI",high
+B012,69,TDS,1,1,"Thermometer (0-500C), HANNA instruments (Model: HI 98106, Portugal), TDS meter (H1-9635,",high
+B012,74,TDS,1,1,"Thermometer (0-500C), HANNA instruments (Model: HI 98106, Portugal), TDS meter (H1-9635,",high
+B012,71,TN (mg/L),0,0,,high
+B013,100,NO3 (mg/L),1,1,NO3 (µgat/l)      ± 0. 2         0.1-45           23.78         26.55          24.50        21.09         29.89       19.78        17.44       15.40       25.99       14.67       15.34         17.84,high
+B013,102,Alkalinity (mg/L),1,1,"several earlier workers (NEERI, 1976; Mitra, 2000; Mukhopadhyay et al., 2006).",high
+B013,90,Fecal Coliform (CFU/100mL),0,REVIEW,"several earlier workers (NEERI, 1976; Mitra, 2000; Mukhopadhyay et al., 2006).",review
+B014,105,Temperature (°C),1,1,Temperature (°C)                Less than 28             27.68        26.99        27.41,high
+B014,104,pH,1,1,pH                        7.0-8.5               8.50          8.04         8.09,high
+B014,105,Zn (µg/L),0,0,,high
+B015,108,DO (mg/L),1,1,DO            -0.096     -0.636      -0.448      0.525     0.013    -0.439     0.407    -0.897�   -0.987��   -0.852�   -0.926��   -0.967��   -0.837�   1,high
+B015,107,Temperature (°C),1,1,Temperature (˚C)               27.16±2.83c            27.92±4.24b          26.92±4.21cd           26.89±3.54d             29.32±3.95a          27.01±3.01cd,high
+B015,112,Cr (µg/L),0,REVIEW,[34]. The Semimicro-Kjeldahl and K2Cr2O7/H2SO4 oxidation methodological protocol were,review
+B020,121,DO (mg/L),1,1,"DO in other regions of Red Sea [69,70]. DO concentra-                Mn were between13.87 ± 0.23 and 1.21 ± 0.44 μgL−1 ,",high
+B020,115,DO (mg/L),1,1,"DO in other regions of Red Sea [69,70]. DO concentra-                Mn were between13.87 ± 0.23 and 1.21 ± 0.44 μgL−1 ,",high
+B020,116,Co (µg/L),0,0,,high
+B021,122,pH,1,1,"Article Info            temperature in oC (25.4 to 31.2oC), Water temperature in oC (25oC to 28.8oC), pH (7.4-",high
+B021,125,PO4 (mg/L),1,1,PO4-         -0.382      -0.257      -.650           -0.330        -.537       0.438    0.178    -.805        -0.431   -.548       0.208   -0.135   0.269   0.304   1.000,high
+B021,122,Cd (µg/L),0,0,,high
+B022,130,Temperature (°C),1,1,"temperature occurs in August (20 ◦ C). The mean yearly rainfall of Bengkulu is 354 mm,",high
+B022,129,TDS,1,1,"mg/L (Figure 10b), pH values of 7–8 (Figure 10c), TDS values of 0–25 g/L (Figure 10d), and",high
+B022,129,As (µg/L),0,REVIEW,"along the coast of Bengkulu [23]. As the capital of the province of Bengkulu, the coastal",review
+B025,146,PO4 (mg/L),1,1,PO4                   March 2009                           y = 0.0003x 2 − 0.0206x + 0.5002                    0.425         < 0.0001,high
+B025,142,NH4 (mg/L),1,1,NH4                   March 2009 South                     y = −0.0052x 2 + 0.8261x − 1.0677                   0.897         < 0.0001,high
+B025,145,Total Coliform (CFU/100mL),0,REVIEW,"by watersheds with 23−29, 47−73, or 91−92% forest               son et al. 2007; Hawaii: Boehm et al. 2010) concluded",review
+B028,151,Zn (µg/L),1,1,"219.2 g L–1 (188.9–248.9 g L–1), whilst that for Zn was 172.1 g L–1 (141.3–203.6 g L–1), which demonstrates",high
+B028,147,Cu (µg/L),1,1,"205.03 ± 70.68 g Zn g–1, and 4.65 ± 2.27 g Cu L–1 and 15.82 ± 6.14 µg Zn L–1 in dissolved fraction. Furthermore,",high
+B028,151,pH,0,REVIEW,pH) of the toxicity test were similar to those found in the    < 63 m fraction g g–1 dry wt 111.05 ± 42.78 105.66 ± 19.16,review
+B030,155,Temperature (°C),1,1,temperature. The EC value of study area was varied from 4.0 mS/cm to 32.4 mS/cm with mean 15.83 ± 12.40 mS/cm. The,high
+B030,153,Secchi (m),1,1,temperature. The EC value of study area was varied from 4.0 mS/cm to 32.4 mS/cm with mean 15.83 ± 12.40 mS/cm. The,high
+B030,155,Hardness (mg/L),0,0,,high
+B031,160,Temperature (°C),1,1,"Surface water temperature ranged from 20.7 to 33.7°C, pH from 7.1 to 7.9, and salinity",high
+B031,157,Temperature (°C),1,1,"Surface water temperature ranged from 20.7 to 33.7°C, pH from 7.1 to 7.9, and salinity",high
+B031,159,TDS,1,1,TDS             .859”         -0.025         .981”        -.732”,high
+B032,164,pH,1,1,"(pH 7.11-8.52) (Fig. 6) between the four stations, however,                     Station 4         68.13±12.28     26.41±12.84          5.54±0.74       3.94±0.68",high
+B032,170,pH,1,1,"(pH 7.11-8.52) (Fig. 6) between the four stations, however,                     Station 4         68.13±12.28     26.41±12.84          5.54±0.74       3.94±0.68",high
+B032,172,H2S (µg/L),1,1,indicated high significant correlation at P<0.01.                   smell of H2S from deeper sediments was precisely,high
+B034,177,Temperature (°C),1,1,"estuary systems represent a potential risk for the health                    temperature and salinity (Kocasoy 1989), it is worth",high
+B034,178,NO3 (mg/L),1,1,Nitrate (mg l-1),high
+B034,178,Si (µmol/L),0,0,,high
+B036,184,Salinity (ppt/‰),1,1,"kisaran salinitas >20 0/00. Seperti yang dikatakan Purwanti et al.,(2012) bahwa nilai salinitas yang cukup tinggi",high
+B036,187,Secchi (m),1,REVIEW,,review
+B036,185,BOD (mg/L),0,0,,high
+B038,191,pH,1,1,"DO (3.79–6.49 mg/l), pH (7.72–8.20), salinity (33.10–33.96 ppt), TDS (32.27–32.77) g l−1 ) and specific",high
+B038,192,Temperature (°C),1,1,"organic carbon present in the samples was calculated         temperature (27.43–28.88◦ C), DO (3.79–6.49 mg",high
+B038,195,DOC (mg/L),0,REVIEW,"DO (3.79–6.49 mg/l), pH (7.72–8.20), salinity (33.10–33.96 ppt), TDS (32.27–32.77) g l−1 ) and specific",review
+B044,202,COD (mg/L),1,1,"Kusmana et al. (2005) menambahkan bahwa struktur,                     COD (mg/L)             43,51 30,33 34,83 55,75 49,7 40,59",high
+B044,201,PO4 (mg/L),1,1,"Orto fosfat (PO4-P)            mg/L        Botol water sample             Laboratorium       APHA, ed. 22, 2012, 4500-PE",high
+B044,203,EC (µS/cm),0,REVIEW,"Jakarta.                                                             Macintosh DJ, Ashton EC, Havanon S. 2002. Mangrove rehabilitation and",review
+B048,204,COD (mg/L),1,1,COD (µS/cm)            42-79    64.6±0.88b         89- 99       94.0±0.05a           40            -            10,high
+B048,205,COD (mg/L),1,1,COD (µS/cm)            42-79    64.6±0.88b         89- 99       94.0±0.05a           40            -            10,high
+B048,204,Zn (µg/L),0,0,,high
+B049,208,Temperature (°C),1,1,"Hasil pengukuran parameter fisika kimia perairan Bedono selama penelitian yaitu, temperature air berkisar 27-32°C,",high
+B049,206,Salinity (ppt/‰),1,1,(1999) dalam Hidayat et al. (2013) bahwa diatom jenis Bacillariophyceae dan Dinophyceae merupakan jenis,high
+B049,208,Pb (µg/L),0,0,,high
+B050,211,pH,1,1,"berkisar antara 6,5 – 8,0. Korelasi antar kelimpahan fitoplankton dengan pH ini membentuk >900",high
+B050,215,NO3 (mg/L),1,REVIEW,,review
+B050,213,PO4 (mg/L),1,REVIEW,,review
+B052,224,EC (µS/cm),1,1,2017; Shilla et al. 2019). The new information generated             conductivity in water samples were determined using a,high
+B052,225,pH,1,1,"CpH = 1 – 0.833(7.2 – pH) for pH < 7.2, and CpH = 1.0 for pH ≥ 7.2                       = (N_sed) × π",high
+B052,219,Salinity (ppt/‰),1,1,"productivity, conducted between April 2012 and January 2014 (after Minu et al. [2018])",high
+B054,227,TDS,1,1,"mS/cm; total dissolved solids, 22.94 - 27.56 g/l and salinity, 22.14 - 27.33 ppt. All raw data linked",high
+B054,228,Temperature (°C),1,1,Temperature (°C)                             28.89 ± 0.61                    28.62 ± 0.13                30.37 ± 1.04,high
+B054,230,EC (µS/cm),1,1,"28.62 - 30.37°C; pH, 5.47 - 6.05; dissolved oxygen, 2.35 - 4.09 g/l; conductivity, 38.77 – 48.69",high
+B055,234,pH,1,1,pH             21.53      0.00       3.16        7.16         0.50          DO. This VF represents the anthropogenic activities that is linked to,high
+B055,231,NH4 (mg/L),1,1,NH4-N          34.87      0.00       3.18       53.53         22.32         agriculture and aquaculture (Suratman et al. 2014). High BOD,high
+B055,234,E. coli (CFU/100mL),0,0,,high
+B057,237,DO (mg/L),1,1,DO (mg l−1)                                                      2.40–6.32 (3.97 ± 1.09)                  4.00–10.00,high
+B057,238,NH3 (µg/L),1,1,NH3-N (mg l−1)                                                 0.041–0.470 (0.211 ± 0.116)                  <0.100,high
+B057,238,Hg (µg/L),0,0,,high
+B062,241,NO3 (mg/L),1,1,"Nitrate       mgL-1          12.5          12.5           12.5         <100       0.1-4.5     >100, <0.01",high
+B062,240,NO3 (mg/L),1,1,"Nitrate       mgL-1          12.5          12.5           12.5         <100       0.1-4.5     >100, <0.01",high
+B062,241,TP (mg/L),0,0,,high
+B063,244,Cu (µg/L),1,1,1.      Total Heterotrophic Bacteria (cfu/g)   1.9 × 104         9.    Copper (mg/kg)             <0.001,high
+B063,246,EC (µS/cm),1,1,sample from the crude on water surface (3.90). The electrical conductivity values ranged from (1275 – 3565) µS/cm,high
+B063,248,Hardness (mg/L),0,0,,high
+B065,251,Temperature (°C),1,1,GX02                             Temp          −0.117        −0.018        −0.390        −6.378          0.000,high
+B065,253,DO (mg/L),1,1,"80.76  to 106.52%,  and  the mean   value  of  DO  saturation  in the study  area  was 96.47%.    the",high
+B065,253,Turbidity (NTU),1,1,"and turbidity. The R2 of group D was 0.553, and its F was 33.698. The main explanatory",high
+B066,255,Cd (µg/L),1,1,Cadmium (II)                                   60    > 60          >60             1.5         5          60               <0.5                    0.8    1.5                    <0.5               0.6  1.5,high
+B066,258,pH,1,1,"ponents               to     representative                             species                 of          marine               organ                    sea             water           of        36•ñ           salinity,",high
+B066,257,NH4 (mg/L),0,0,,high
+B069,261,Temperature (°C),1,1,pada temperature 4oC selama 24 jam;,high
+B069,262,Secchi (m),1,REVIEW,,review
+B069,263,pH,0,0,,high
+B070,268,NH3 (µg/L),1,1,Ammonia (ppm)                        0.002‒0.012      0.002‒0.003      0.002‒0.009,high
+B070,265,Chlorophyll-a (mg/m3),1,1,Chlorophyll-a (mg. m-3)              0.01‒0.11        0.01‒0.07        0.01‒0.11,high
+B070,266,Cd (µg/L),0,0,,high
+B071,271,Temperature (°C),1,1,Temperature (oC)                28.9 - 32.2             29.8 - 32.1,high
+B071,269,Temperature (°C),1,1,Temperature (oC)                28.9 - 32.2             29.8 - 32.1,high
+B071,272,Temperature (°C),1,1,Temperature (oC)                28.9 - 32.2             29.8 - 32.1,high
+B075,276,Salinity (ppt/‰),1,1,"2020; Samui et al, 2018).",high
+B075,275,EC (µS/cm),1,1,Conductivity   mScm-1    50.1      0.098      33.4       7.49          22.77,high
+B075,276,DOC (mg/L),0,REVIEW,DO             mgL-1     30.08     10.35      9.32       8.92          14.67,review
+B076,282,Cu (µg/L),1,1,"0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 and 0.00%    Zn, Cu and Pb (Fig. 5). The implication of this,",high
+B076,283,PO4 (mg/L),1,1,"0.05, 0.03, 0.02, 0.01, 0.01, 0.00, 0.00, 0.00, 0.00,       relationship exist between DO, BOD5, PO4, NO3, Fe,",high
+B076,283,TOC (mg/L),0,0,,high
+B077,284,Oil & Grease (mg/L),1,1,"contained less salt than sea water. The swamps act as        from 0.90-1.25mg/L, 44.33-120mg/L and 18.67-",high
+B077,285,Salinity (ppt/‰),1,1,"[6] Liu, J., et al. (2017) Relative inﬂuence of                 (2003). Fate of nonylphenol ethoxylates and",high
+B077,284,Hg (µg/L),0,0,,high
+B078,291,NO2 (mg/L),1,1,-0.239           Nitrite,high
+B078,292,Chlorophyll-a (mg/m3),1,1,TSIðChl aÞ = 10ð2:5 + 1:086 ln Chl aÞ                       (2),high
+B078,290,Si (µmol/L),1,1,"nitrite (NO2-N), phosphate (PO4-P), and silicate (SiO3-Si) were",high
+B079,297,Total Coliform (CFU/100mL),1,1,"> As (0.035 mg/L) > Cr (0.027 mg/L) > Cd (0.013 mg/L). The           respiratory tract [77,78]. Midrar-Ul-Haq et al. [79] reported",high
+B079,295,TOC (mg/L),1,1,TOC                     4.970       5.195       2.27        6.75         4.25       5.525       1.0506      0.1751      –0.26292,high
+B079,296,TP (mg/L),1,1,Four groups can be recognized. Sample 5 forms an isolated                icant source was identified. The high total phosphorus and,high
+B080,299,DO (mg/L),1,1,"pengukuran DO memiliki range 4,2 - 8,5 ppm. Hasil pengukuran salinitas memiliki range antara 23,7 - 31,3",high
+B080,300,DO (mg/L),1,1,"pengukuran DO memiliki range 4,2 - 8,5 ppm. Hasil pengukuran salinitas memiliki range antara 23,7 - 31,3",high
+B080,298,Hg (µg/L),0,REVIEW,"Suteja, Y., Purwiyanto, A. I. S., dan Agustriani, F. 2019. Merkuri (Hg) di Permukaan Perairan Muara Sungai",review
+B083,302,DO (mg/L),1,1,mengemukakan hipotesis mengenai keterkaitan antara gen          SN-730692 (Jerman); pengukur DO dan BOD dengan,high
+B083,301,Temperature (°C),1,REVIEW,,review
+B083,301,TSS (mg/L),0,0,,high
+B084,308,TSS (mg/L),1,1,TSS (mg/L)                             4       2.315186          0.145175       2        230.9433              8.4021E-08,high
+B084,305,TSS (mg/L),1,1,TSS (mg/L)                             4       2.315186          0.145175       2        230.9433              8.4021E-08,high
+B084,317,Cu (µg/L),0,REVIEW,Cu (mg/L)                                                   4                   3.046612                  0.084233        2                  4.873277                   0.041296,review
+B085,323,NO3 (mg/L),1,1,Nitrate                                                          1     0.91**     0.35      0.40    -0.44             0.18,high
+B085,329,Secchi (m),1,REVIEW,,review
+B085,329,Alkalinity (mg/L),1,1,Lakshmanan et al. 17 observed nitrate value in Cochin backwater     C/m3/day. Highest primary productivity was 3597 mg C/m3/day,high
+B086,332,TSS (mg/L),1,REVIEW,,review
+B086,334,Temperature (°C),1,1,Temperature Dry        25 26.6 31      28.5 215.00 0.089                      highest productivity estimate was preceeded by,high
+B086,331,Si (µmol/L),1,1,"Cortés, 2012; Rixen, Jiménez, & Cortés, 2012;                              / 12.63; Phosphate 1.75 / 3.35; Silicate 127.7 /",high
+B089,339,Turbidity (NTU),1,1,"Organic Carbon (TOC), pH, Temperature, Turbidity,                             Figure 3: Sampling points and land use surrounds Keluang River",high
+B089,340,Turbidity (NTU),1,1,"Organic Carbon (TOC), pH, Temperature, Turbidity,                             Figure 3: Sampling points and land use surrounds Keluang River",high
+B089,341,NH4 (mg/L),1,REVIEW,,review
+B090,343,DO (mg/L),1,1,DO2 (mg/l)              3.5    3.8      3.6   3.6    3.4    3.5    3.8     3.9     4.1    4.2    4.5    4.2,high
+B090,344,DO (mg/L),1,1,DO2 (mg/l)              3.5    3.8      3.6   3.6    3.4    3.5    3.8     3.9     4.1    4.2    4.5    4.2,high
+B090,343,Hg (µg/L),0,0,,high
+B091,351,Cl- (ppt),1,1,Chloride Concentration = C ⋅                          ⋅ 1000 (mg∕L)                           (3),high
+B091,345,TDS,1,1,Fig. 3  Pattern of TDS and EC                                  36000,high
+B091,353,NH4 (mg/L),0,0,,high
+B092,356,DO (mg/L),1,1,"cm, current velocity is 0.99-1.00 m/s, dissolved oxygen is 6.20-",high
+B092,357,DO (mg/L),1,1,"cm, current velocity is 0.99-1.00 m/s, dissolved oxygen is 6.20-",high
+B092,356,Cd (µg/L),0,0,,high
+B093,359,NO2 (mg/L),1,REVIEW,,review
+B093,358,pH,1,1,"wilayah pertambangan timah lepas pantai, salinitas 32,56 dan 11,79 ‰, derajat keasaman (pH) 7,3 dan 6,2, oksigen",high
+B093,359,pH,1,1,"wilayah pertambangan timah lepas pantai, salinitas 32,56 dan 11,79 ‰, derajat keasaman (pH) 7,3 dan 6,2, oksigen",high
+B096,360,Salinity (ppt/‰),1,1,Kinghorn et al. [25] analyzed the impact of heavy metal mining on fish in riparian. The results showed that the highest,high
+B096,364,Cd (µg/L),1,1,7      Cadmium (Cd)             mg/L     0.0023         0.0018            0.002          0.0026,high
+B096,362,TOC (mg/L),0,0,,high
+B097,369,Secchi (m),1,REVIEW,,review
+B097,365,PO4 (mg/L),1,1,and can move on with two flagella. Chloroplasts of              phosphate can be seen in Table 2. Based on the,high
+B097,367,Zn (µg/L),0,0,,high
+B098,374,Salinity (ppt/‰),1,1,"(Ernanto et al., 2014; Awaluddin et al., 2011) :",high
+B098,371,PO4 (mg/L),1,1,"mg / l, phosphate in the range 0.307-6.88 mg / l, and nitrate in the range 0.064-0.336 mg / l.",high
+B098,372,DOC (mg/L),0,REVIEW,"(DO) in the range of 2.11-5.5 mg / l, salinity in the range of 29-40 ppt, TSS in the range 0.388-10.334",review
+B102,377,Cd (µg/L),1,1,"0.33047), Mn (0.27125 ± 0.049742), Cd (0.00150 ± 0.00100), Cu (0.06475 ±",high
+B102,375,Mn (µg/L),1,1,"0.33047), Mn (0.27125 ± 0.049742), Cd (0.00150 ± 0.00100), Cu (0.06475 ±",high
+B102,376,Chlorophyll-a (mg/m3),0,0,,high
+B106,379,Fe (µg/L),1,1,Fe (mg/l)    0.329     -0.021     -0.465     0.631       0.257     0.430    -0.366      -0.420   1,high
+B106,378,Turbidity (NTU),1,1,(NTU)        0.180     -0.488     -0.579     1,high
+B106,384,NO3 (mg/L),0,0,,high
+B107,394,BOD (mg/L),1,1,"summarized as follow; NH3-N range (4.3-4.85 mg/l), BOD range (1.5-4.2 mg/l), COD range (1095-1405 mg/l), DO",high
+B107,391,Salinity (ppt/‰),1,1,7.00                                         et al. 2005).,high
+B107,393,TP (mg/L),0,0,,high
+B108,400,DO (mg/L),1,1,3.23-4.75 mg/L. The highest DO value 4.75 mg/L was found in man-,high
+B108,401,EC (µS/cm),1,1,"20 January 2023                      conductivity, pH, Dissolved Oxygen (DO), Biochemical Oxygen Demand",high
+B108,397,TP (mg/L),0,0,,high
+B109,402,EC (µS/cm),1,1,"Mossolin EC, Bueno SLS 2002. Reproductive biology of Macro-             Acad Bras Cienc 86(1): 333-345.",high
+B109,404,pH,1,1,"tion (Lal et al. 2012, Chand et al. 2015). Peneaus mer-          pH is between 6.5 and 7.5 (Angell 1998) while pH 5.5",high
+B109,403,Hardness (mg/L),0,0,,high
+B110,407,Turbidity (NTU),1,1,organisms [27]. Turbidity measurements from this study ranged from 0.51 to 23.9 NTU,high
+B110,406,NO3 (mg/L),1,1,SNI 06-6989.9-2004 it is determined that the level of nitrate (NO2) as N permitted is less than 10 mg /,high
+B110,408,Co (µg/L),0,0,,high
+B115,411,NO3 (mg/L),1,1,Nitrate             2.47 ± 0.65            2.32 ± 0.59          1.64 ± 0.98            0.09 mg/l (Pr. M)       7.74 mg/l (M),high
+B115,410,pH,1,1,pH                  6.85 ± 0.43            7.14 ± 0.09          7.53 ± 0.09                  6.2 (M)             8.2 (Pr. M),high
+B115,411,BOD (mg/L),0,0,,high
+B116,413,Salinity (ppt/‰),1,REVIEW,,review
+B116,420,Cl- (ppt),1,1,Chloride (mg/l)          3170      4176      4179     3880.8      4106.4   4209.2    4225        3170-       3992.34       381.10,high
+B116,421,Si (µmol/L),0,0,,high
+B118,430,pH,1,1,pH               8.60    8.80       9.70    8.50      8.10    8.10    7.90     8.50     8.50     8.00      8.47 ± 0.52,high
+B118,429,Salinity (ppt/‰),1,1,"2001; Schories et al., 2003). Based on previous reports of crab mortality (Schmidt, Theil, & Galli, 2008;",high
+B118,430,Cd (µg/L),0,0,,high
+B119,437,COD (mg/L),1,1,09         COD                                     (mg/L)             88              86              25,high
+B119,436,TDS,1,1,"= 28oC, TDS = 20 mg/L, DHL = 36,8 µs/cm, Warna = 10 Pt.Co, dan kekeruhan = 0,23 NTU. Besar parameter fisika",high
+B119,437,TOC (mg/L),0,0,,high
+B120,439,Chlorophyll-a (mg/m3),1,1,"from 1987–1993 to 2017–2021. We found that water temperature, chlorophyll-a, total nitrogen (TN) and total",high
+B120,438,DO (mg/L),1,1,"salinity and DO were 47.11 %, 35.56 %, 35.53 %, 34.48 %, 34.22 %, 34.15 % and 33.05 %, respectively.",high
+B120,438,Cl- (ppt),0,0,,high
+B125,443,NO3 (mg/L),1,1,Nitrate level less than 0.5 mg/L will not pollute the water [12]. A nitrate value varies from 2 to 6 mg/L. The higher,high
+B125,440,PO4 (mg/L),1,1,The phosphate content was recorded between 3.7 mg/l to 8.6 mg/L. Inorganic phosphate registered its peak value,high
+B125,440,Cu (µg/L),0,0,,high
+B126,449,TP (mg/L),1,1,membrane filter (MF) methods using M-                              with total phosphorus at p =0.01 level. In station 5,high
+B126,447,TN (mg/L),1,1,"41oC, the colonies of S. faecalis appeared with                    negative correlation with total nitrogen (r = -802)",high
+B126,444,TOC (mg/L),0,0,,high
+B127,451,Total Coliform (CFU/100mL),1,1,"(Šaulys et al., 2020), and Nigeria (Ogbuagu &                   1137, No. 1, p. 012003). IOP Publishing.",high
+B127,450,NH4 (mg/L),1,REVIEW,,review
+B127,451,EC (µS/cm),0,REVIEW,"Sustainability, 14, 7252.                                   variation of electrical conductivity, total sus-",review
+B128,468,Hardness (mg/L),1,1,"hardness, DO, BOD, NH3-N, NO2-N, NO3-N, PO4-P, SiO3-Si were found to vary from 25 °C-34.5 °C,",high
+B128,466,NO2 (mg/L),1,1,al. (2013) [38] observations. Nitrite is a useful form of               current study Roopa and Gangadhar (2016) [35] recorded,high
+B128,452,TSS (mg/L),0,0,,high
+B131,474,TP (mg/L),1,1,"statistical analyses were performed using a signifi-                  November (p = 0.0123, ­F10,117 = 2.41). TP at reference",high
+B131,473,DO (mg/L),1,1,"such as a decrease in DO and pH, and an increase in       2019; Bartlett and Elmer 2021). Leachates from Sar-",high
+B131,474,H2S (µg/L),0,REVIEW,PL (2021) Nutrient content and stoichiometry of pelagic              sulfide during the 2018 massive stranding. Clin Toxicol.,review
+B133,476,pH,1,1,"0.9481(February 2023) to 0.981 (September                    water temperature (r=0.8700), pH (r=0.9573) and",high
+B133,477,Si (µmol/L),1,1,Silicate           -0.8213          -0.7747            -0.8553          -0.8802        0.8979          0.9167                  0.9648          1,high
+B133,478,Salinity (ppt/‰),1,1,distribution. Murugan et al. [20] recorded 95                       1999;59-91.,high
+B134,480,Temperature (°C),1,1,"26-33.63°C, and the differences in temperature were                                 While the highest salinity value was found in",high
+B134,487,DO (mg/L),1,1,"(Retnaningdyah et al., 2022). DO values that can sup-               According to Tian et al. (2020), human dis-",high
+B134,485,TSS (mg/L),1,1,"were encoded and compiled using Microsoft Excel.                                     TSS values varied between 1.34-8.87 mg/L,",high
+B137,493,Temperature (°C),1,1,"and preserved in 4% formalin. The physico-chemical factors measured included temperature, pH,",high
+B137,496,pH,1,1,pH                     5.61    7.06   6.15     6.91   6.62    6.91          Kelas 1,high
+B137,494,NH3 (µg/L),0,0,,high
+B138,500,pH,1,1,"conductivity (769.47), pH (7.11), DO (6.36), COD (32.39), BOD (4.65), Zn (0.097), Pb (0.225), Cd (0.017),",high
+B138,498,PO4 (mg/L),1,1,PO4 (mg/L)     0.01               0.05            0.08                 0.08       5.0,high
+B138,500,Zn (µg/L),1,1,"conductivity (769.47), pH (7.11), DO (6.36), COD (32.39), BOD (4.65), Zn (0.097), Pb (0.225), Cd (0.017),",high
+B139,502,NH4 (mg/L),1,REVIEW,,review
+B139,503,PO4 (mg/L),1,1,PO43-     -0.98       -0.78       -0.985      -0.94        -0.97       0.682      0.794        1.00,high
+B139,504,H2S (µg/L),0,REVIEW,"nitrate, oxidase, catalase, citrate, H2S) were performed                              Fig. 2: pH values in study area",review
+B141,508,Temperature (°C),1,1,"temperature was 29.4°C, slightly below the upstream maximum (35.9°C) (figure 4). Downstream cooling (29.4-31.6°C)",high
+B141,507,Fecal Coliform (CFU/100mL),1,1,"studies (Ali et al., 2024; Jahani et al., 2025; Msaki et al., 2023; Vymazal, 2010; Vymazal et al., 2010). Thus, stringent control",high
+B141,507,DO (mg/L),0,0,,high
+B144,516,Salinity (ppt/‰),1,1,"results to the studies of Morgado et al. (2007), Fehling et al. (2012), and",high
+B144,513,Chlorophyll-a (mg/m3),1,1,locations. Chlorophyll-a in the area ranged from 0.0049 to 0.1430 µg/L.,high
+B144,513,PO4 (mg/L),0,0,,high
+B148,523,DO (mg/L),1,1,"2010; Cunha et al., 2006; Tomlinson, 2016; Snedaker, 1982; Walsh,                       Among the six water quality parameters investigated, pH and DO",high
+B148,524,Salinity (ppt/‰),1,1,"2010; Cunha et al., 2006; Tomlinson, 2016; Snedaker, 1982; Walsh,                       Among the six water quality parameters investigated, pH and DO",high
+B148,521,PO4 (mg/L),0,0,,high
+B149,525,Cl- (ppt),1,1,"ity, bicarbonate, chloride, sulfates, phosphate, and nitrate in the mangrove water were 142.15 mg/L, 110.05 mg/L, 349.97",high
+B149,525,Total Coliform (CFU/100mL),0,REVIEW,"areas (Sohaib et al., 2023). Mangroves occupy about 137,760km worldwide, comprising 57,859 km (42 %) in Asia, 27,552",review
+B149,525,BOD (mg/L),1,1,strated a high concentration of BOD (18.51 mg/L) above the WHO recommended limit (6.0 mg/L) (WHO 2017a; 2017b).,high
+B152,529,BOD (mg/L),1,1,BOD               0.85 0.32 0.45 0.03           0.79   0.43    0.23    0.41     0.35    0.19 -0.84      1,high
+B152,527,Hardness (mg/L),1,1,Total hardness                           -0.876      -0.277,high
+B152,528,NH4 (mg/L),0,0,,high
+B153,538,NO3 (mg/L),1,REVIEW,,review
+B153,537,pH,1,1,"3    pH               –             7,3            6,8            7,1              7–8,5",high
+B153,536,Fecal Coliform (CFU/100mL),0,REVIEW,"[7]    A. Hartoko et al., “Analisa Klorofil-a, Nitrat dan Fosfat Pada Vegetasi Mangrove Berdasarkan Data",review
+B154,541,NO3 (mg/L),1,1,Nitrate (mg/L)              0.50–10                       0.50–10                       0.50–10,high
+B154,543,Salinity (ppt/‰),1,1,"poor root growth (FAO, 2007; Alongi, 2009; Reef et             et al., 2024; Hossain and Nuruddin, 2016 Restoration",high
+B154,542,pH,1,1,Soil pH                     6.50–8.50                     6.00–8.00                     6.50–8.50,high
+B156,545,COD (mg/L),1,1,COD            0.992          0.962           0.900       0.952       0.609       -1.000      -0.797     1.000,high
+B156,547,Temperature (°C),1,1,Temp           0.839          0.747           1.000,high
+B156,546,EC (µS/cm),1,1,EC                      3                   4900                  1633.333333           9233.333333,high
+B158,549,Temperature (°C),1,1,"temperature, salinity, and dissolved oxygen emerging as particularly sensitive measures of environmental stress(Yang et al., 2024;",high
+B158,550,Salinity (ppt/‰),1,1,"ecosystem health. Hartati & Pin, (2021) and Saru et al., (2019) demonstrated the utility of multivariate statistical analysis in identifying",high
+B158,550,Oil & Grease (mg/L),0,REVIEW,"respondents identifying turbidity (2.11), unpleasant odor (2.03), and domestic waste (1.82) as primary concerns affecting seawater",review
+B159,554,pH,1,1,pH                     7.45           7.6          7.5           7.85            1            6–9                  7 – 8.5,high
+B159,553,Secchi (m),1,REVIEW,,review
+B159,552,Al (µg/L),0,REVIEW,"(Thakur et al., 2013; Brito et al., 2017; Putra, 2022). Phytoplankton composition not only indicates the",review
+B161,557,COD (mg/L),1,1,"Langensari area (Hewindati & Kusumaningrum, 2024). The highest COD and BOD levels",high
+B161,556,pH,1,1,"aligns with the optimal pH range for mangrove regions (7.0-8.5; Harifia et al., 2022),",high
+B161,557,NO2 (mg/L),0,0,,high
+B162,562,TSS (mg/L),1,1,"classified as good. The TSS (24.17%), salinity (25.37%), and nitrate (26.80%) parameters have",high
+B162,563,PO4 (mg/L),1,1,"very good. This is followed by the phosphate (15.06%) and DO (17.72%) parameters, which are",high
+B162,562,Cd (µg/L),0,REVIEW,"[7]   Rohmawati, Y. and Kuntjoro, S. (2021) ‘Studi Kadar Logam Berat Kadmium (Cd) Pada Tumbuhan Air",review
+B163,565,Temperature (°C),1,1,Temp. (°C)                   22.28       21.59        22.58        22.18        22.58        22.24 ± 0.41,high
+B163,571,TDS,1,1,"310.40 µS/cm , TDS 204.33 to 1977 mg/L, pH 5.45 to 6.51, DO 7.27 to 7.70 mg/L, BOD 1.20 to 2.50",high
+B163,570,TN (mg/L),0,0,,high
+B164,578,Temperature (°C),1,1,"Temperature (ºC)     32,67±0,58      32,33±0,58       30±0,00                              30,33±0,58        12",high
+B164,575,NO3 (mg/L),1,1,"Nitrate (mg/L)       0,03±0,00       0,03±0,01        0,01±0,00                            0,02±0,01         12",high
+B164,576,pH,0,0,,high
+B166,579,Alkalinity (mg/L),1,1,"(Smith et al., 2006; Duke et al., 2007). Human pressure on Gulf of Mexico mangroves",high
+B166,583,BOD (mg/L),1,1,"ecosystems. In the analyzed samples, BOD values (Table 6) ranged from 6.2 mg/L to 9.3",high
+B166,583,DO (mg/L),0,0,,high
+B168,585,NO2 (mg/L),1,1,NO2 (µg/L)             1.24 ±0.48        1.47 ±0.15          2.64 ±1.06        1.82 ±0.30,high
+B168,584,DO (mg/L),1,1,DO (mg/L)             5.48 ±0.16         6.8 ±0.10          3.89 ±0.85        6.6 ±0.23,high
+B168,587,As (µg/L),0,REVIEW,"Hydrolab Instrument (HANNA HI 9028). In the laboratory, Phosphate (PO43-), Nitrate as",review
+B169,590,Secchi (m),1,REVIEW,,review
+B169,588,pH,1,REVIEW,,review
+B169,594,Al (µg/L),0,REVIEW,breakthrough bridging this knowledge gap. Supardiono S et al (2024) (22) and Chemeri L et al (2023) (23),review
+B173,595,DO (mg/L),1,1,DO (mg/L)                                 4.02±0.32             3.06±0.25             2.47±0.4                  17.14                0.003*,high
+B173,597,NO2 (mg/L),1,1,Nitrite (mg/L)                            0.48±0.26a          0.661±0.161a           1.39±0.37b                 9.062                0.015*,high
+B173,595,Chlorophyll-a (mg/m3),0,0,,high
+B176,599,Temperature (°C),1,1,"should have a temperature in the range of 28-30 0C (Government of Indonesia, 2021).",high
+B176,600,DO (mg/L),1,1,"cause fish death (Riko et al., 2012). Hardjowigeno and Widiatmaka (2001) stated that dissolved oxygen ˃3 ppm is",high
+B176,600,NO2 (mg/L),0,0,,high
+B179,606,ORP (mV),1,1,Sediment redox          Wet             240.00±84.85             215.00±120.21             160.00±28.28              129.93±0.10,high
+B179,602,Temperature (°C),1,1,Water temperature        Wet             30.67±0.58               30.00±1.00                30.00±1.00               28.33±0.58,high
+B179,603,NH3 (µg/L),0,0,,high
+B180,610,COD (mg/L),1,1,COD                    704                        647                           578,high
+B180,611,BOD (mg/L),1,1,BOD                    211                        194                           173,high
+B180,611,Cl- (ppt),0,0,,high
+B181,612,DO (mg/L),1,1,DO (ppm)                     Mean        8.16       8.03        7.93,high
+B181,614,EC (µS/cm),1,REVIEW,,review
+B181,613,Hg (µg/L),0,0,,high
+B186,616,DO (mg/L),1,1,Dissolved Oxygen (ppm)                      3.5-7.4      >5                  Neksidin et al. (2013),high
+B186,617,PO4 (mg/L),1,1,Phosphate (mg/l)                            0.38-1       0.24-5.87           Rejeki et al. (2018),high
+B186,615,TN (mg/L),0,0,,high
+B187,619,pH,1,1,"pH                                8        7,8            6.7         6.5             6.6       6-8 (Diniariwisan &",high
+B187,620,PO4 (mg/L),1,1,"0.001 to 0.009 mg/L, and orthophosphate from 0.001 to 0.06",high
+B187,622,Fecal Coliform (CFU/100mL),0,REVIEW,"(Diniariwisan & Rahmadani, 2023). Patty et al. (2015) adding that elevated concentrations of",review
+B190,635,NO2 (mg/L),1,1,"(27.93–34.08 PSU), pH (7.53–7.98), nitrite nitrogen (0.29 µM N-NO-2),",high
+B190,633,PO4 (mg/L),1,REVIEW,,review
+B190,625,DOC (mg/L),0,REVIEW,"Jellyfish Cultivation: Why and How to Do It? Recursos Naturales y Sociedad, 10(1),                      s40168-023-01738-0.",review
+B191,642,DO (mg/L),1,1,"3 dan 4, diketahui bahwa semakin mendekati             rata-rata (temperatur, salinitas, DO, kekeruhan,",high
+B191,641,Turbidity (NTU),1,1,kekeruhan (turbidity) meningkat dibandingkan           musim kemarau [9].,high
+B191,641,NO2 (mg/L),1,REVIEW,,review
+B199,643,Alkalinity (mg/L),1,REVIEW,,review
+B199,650,PO4 (mg/L),1,1,"8.07 g/l. Concentrations of nutrients viz. phosphate (10.3 to 93.6 µg/l), nitrate (28.6 to 110.6 µg/l), varied",high
+B199,643,Hardness (mg/L),0,0,,high
+B200,652,Salinity (ppt/‰),1,1,"coast (Gopinathan et al., 2001; Gowda et al., 2001).                  young settlements of species. Mesham (2005)",high
+B200,653,Salinity (ppt/‰),1,1,"coast (Gopinathan et al., 2001; Gowda et al., 2001).                  young settlements of species. Mesham (2005)",high
+B200,653,EC (µS/cm),0,REVIEW,"Pielou EC. (1966) The measurement of diversity in                  microscope. In: Phytoplankton manual, UNESCO,",review
+B201,659,Ni (µg/L),1,1,"Zn: 7.6-108.3, Fe: 108.0-1016.0, Cu: 8.98-45.54, Co: <4.30-15.0, Ni: <3.60-10.0, As: 0.21-1.95,",high
+B201,658,EC (µS/cm),1,1,conductivity in mS/cm        0.201-0.702      2.41- 22.2        8.02 – 43.7  2.11 - 11.8,high
+B201,657,ORP (mV),0,0,,high
+B203,661,Cl- (ppt),1,1,"such as salinity, temperature, pH, chloride, dissolved oxygen,         2.59±0.28 mg/L), and Chloride (Pr: 5.47±1.65, M: 3.99±0.48,",high
+B203,664,NH4 (mg/L),1,1,"(Pitchaikani & Lipton, 2016). Because it combines areas of              (NO3), ammonia (NH4), inorganic phosphate (PO4), chloride",high
+B203,661,Turbidity (NTU),0,0,,high
+B206,667,NO2 (mg/L),1,1,"4      Nitrite               0,0080       0,0140       0,0100        >0,06 mg/L        KepMen LH No. 51",high
+B206,668,NO2 (mg/L),1,1,"4      Nitrite               0,0080       0,0140       0,0100        >0,06 mg/L        KepMen LH No. 51",high
+B206,668,Ni (µg/L),0,0,,high
+B208,674,Secchi (m),1,1,Electrical Conductivity       1858 ± 0.00     1896 ± 0.00     2756 ± 0.00     1165 ± 0.00    632 ± 0.00    1708 ± 0.00,high
+B208,670,EC (µS/cm),1,1,Electrical Conductivity       1858 ± 0.00     1896 ± 0.00     2756 ± 0.00     1165 ± 0.00    632 ± 0.00    1708 ± 0.00,high
+B208,674,NO2 (mg/L),0,0,,high
+B211,678,NO3 (mg/L),1,1,"entin.daningsih@fkip.untan.ac.id     levels of phosphate and nitrate nutrients and high dissolved CO2, but dissolved",high
+B211,679,Salinity (ppt/‰),1,1,"(2005); Hasle et al., (1996, 1997); Harris (1986);               Keterangan:",high
+B211,680,TP (mg/L),0,0,,high
+B213,682,TSS (mg/L),1,1,ranged from 2.1 to 2.7 mg/L (2.5 ± 0.28 mg/L) with                  conditions. Suspended solids and turbidity represent,high
+B213,681,BOD (mg/L),1,1,(BOD and COD) ranged from 8.9–9.9 mg/L and 26.8–,high
+B213,681,E. coli (CFU/100mL),0,0,,high
+B214,689,Salinity (ppt/‰),1,1,"present (Rodriguez et al., 2008). Abiotic stress affects large areas of         2020; Mehta and Vyas, 2023b). Osmotic adjustment by these non-",high
+B214,687,TDS,1,1,"total variation (PC1: 69.84%, PC2: 20.71%), with temperature, TDS,             and WSD were negatively associated with PC1. In the case of PC2,",high
+B214,685,Cu (µg/L),0,0,,high
+B219,691,NH4 (mg/L),1,1,strument equipped with oxidation-reduction                NH4) was determined spectrophotometrically,high
+B219,690,DO (mg/L),1,1,"demikian, tidakterlilmt perbedaan signifikan pada DO, BOD, COD, N-NH3, N-NO and P, yang",high
+B219,691,DO (mg/L),1,1,"demikian, tidakterlilmt perbedaan signifikan pada DO, BOD, COD, N-NH3, N-NO and P, yang",high
+B221,694,Hardness (mg/L),1,1,Total hardness           mg/L (as CaCO3 )           110 ± 10.6               340 ± 20.7,high
+B221,696,TDS,1,1,"27.3 ± 0.6 ◦ C, DO 7.2 ± 0.6 mg/L, pH 7.2 ± 0.1, TDS 0.68 ± 0.06 g/L, biological oxygen",high
+B221,696,Chlorophyll-a (mg/m3),0,0,,high
+B222,699,Salinity (ppt/‰),1,1,(106 : 16 : 1) (Bouillon et al. 2007; Krumins et al. 2013). The broader C : N : P ratios found in mangrove soil worldwide (282 : 9 : 1 to 2923 : 117 : 1),high
+B222,702,DO (mg/L),1,1,using CO2calc (Robbins et al. 2010) based on TA and DIC.                     Mangrove groundwater salinity ranged from 26.2 to 39.1. DO,high
+B222,698,Chlorophyll-a (mg/m3),0,0,,high
+B223,704,NH4 (mg/L),1,REVIEW,,review
+B223,703,TSS (mg/L),1,1,"communities. Basambiri exhibited the highest TSS (71.27 ± 3.14 mg/l), TDS (779.33 ± 1.15 mg/l), and DO (4.93 ± 0.25",high
+B223,705,PO4 (mg/L),1,REVIEW,,review
+B237,707,Pb (µg/L),1,1,mm3; lead exposed 31.65±0.82 ×103 /mm3)(Table               (Table 2; Fig. 2) whereas MCH and values,high
+B237,706,pH,1,1,"for example, in the fish O2 concentration, pH,",high
+B237,707,NO2 (mg/L),0,0,,high
+B238,708,Turbidity (NTU),1,1,Turbidity (NTU)                           11.0 ± 0.40a           45.75 ± 2.32b              8.41 ± 1.52a,high
+B238,710,PO4 (mg/L),1,1,Phosphate (mg l−1)                       0.014 ± 0.003a          0.053 ± 0.002b            0.009 ± 0.001a,high
+B238,710,TN (mg/L),0,0,,high
+B240,712,DO (mg/L),1,1,"Dissolved Oxygen (DO)            mg/l                              5,6>5       5,6        5,3                                                5,5            5,1",high
+B240,711,Secchi (m),1,REVIEW,,review
+B240,715,Fe (µg/L),0,0,,high

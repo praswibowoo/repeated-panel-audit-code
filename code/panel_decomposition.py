@@ -246,6 +246,15 @@ def run_factorial(X, rho, paper):
     summary["interaction"]["difference_of_medians"] = float(
         (np.median(wr) - np.median(wu)) - (np.median(fr) - np.median(fu))
     )
+    logi = np.log(wr) - np.log(wu) - np.log(fr) + np.log(fu)
+    mi = median_ci(logi)
+    summary["interaction_multiplicative"] = {
+        "median": float(np.exp(mi["median"])),
+        "ci_lo": float(np.exp(mi["ci_lo"])),
+        "ci_hi": float(np.exp(mi["ci_hi"])),
+        "n": mi["n"],
+        "frac_positive": float((logi > 0).mean()),
+    }
     return summary, out
 
 
@@ -351,7 +360,10 @@ def main():
             .reset_index()
             .to_dict(orient="records"))
 
-    df["rho_q"] = pd.qcut(df["rho_s"], 4, labels=False, duplicates="drop")
+    # Use the same quantile bins as the density-matched control (qbin), not
+    # pandas qcut. qcut assigns boundary values to the lower bin, which moves
+    # 25/117 papers and changes the S10 quartile medians.
+    df["rho_q"] = [qbin[p] for p in df.index]
     rhoq = (df.groupby("rho_q")
             .agg(n=("full_ratio", "size"),
                  full=("full_ratio", "median"),

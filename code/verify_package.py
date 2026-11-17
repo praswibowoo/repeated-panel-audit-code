@@ -16,6 +16,7 @@ import json
 import os
 import sys
 
+import numpy as np
 import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -65,6 +66,8 @@ FILES = [
     "study_level_model.json",
     "flagged_studies.csv",
     "balance_diagnostics.csv",
+    "dimension_sweep.csv",
+    "flagged_study_cis.csv",
 ]
 
 POST_FILES = [
@@ -81,6 +84,13 @@ POST_FILES = [
     "coherence_control.json",
     "tail_null.json",
     "table_checks.json",
+    "pc2_density_check.json",
+    "procrustes_holdout.json",
+    "dimension_sweep.json",
+    "leave_flagged_out.json",
+    "flagged_study_cis.json",
+    "tail_global_test.json",
+    "tail_global_null.npz",
 ]
 
 EXCLUDED = ("B175", "B111", "B095", "B182", "B239")
@@ -271,6 +281,35 @@ def main() -> int:
           1.4160, 1e-3)
     check("study-level all-paper", tail["study_level_model"]["all_paper"]["median"],
           1.4209, 1e-3)
+
+    pc2 = json.load(open(os.path.join(POST, "pc2_density_check.json"), encoding="utf-8"))
+    check("PC2 density mean", pc2["pc2"]["mean_diff"], 0.9857, 1e-3)
+    check("PC2 density mean CI lo", pc2["pc2"]["mean_ci_lo"], 0.4207, 1e-3)
+    check("PC2 density mean CI hi", pc2["pc2"]["mean_ci_hi"], 1.6489, 1e-3)
+
+    ho = json.load(open(os.path.join(POST, "procrustes_holdout.json"), encoding="utf-8"))
+    check("held-out full", ho["full"]["median"], 1.3279, 1e-3)
+    check("held-out collapsed", ho["collapsed"]["median"], 1.0367, 1e-3)
+
+    ds = json.load(open(os.path.join(POST, "dimension_sweep.json"), encoding="utf-8"))
+    check("dimension 2-D full", ds["full"]["2"]["median"], 1.363, 1e-3)
+    check("dimension 3-D full", ds["full"]["3"]["median"], 1.090, 1e-3)
+    check("dimension 4-D full", ds["full"]["4"]["median"], 1.310, 1e-3)
+    check("dimension 5-D full", ds["full"]["5"]["median"], 1.279, 1e-3)
+    check("dimension 2-D collapsed", ds["collapsed"]["2"]["median"], 1.039, 1e-3)
+
+    leave = json.load(open(os.path.join(POST, "leave_flagged_out.json"), encoding="utf-8"))
+    check("leave-six-out full", leave["full"]["median"], 1.426, 1e-3)
+    check("leave-six-out collapsed", leave["collapsed"]["median"], 1.040, 1e-3)
+
+    fcis = json.load(open(os.path.join(POST, "flagged_study_cis.json"), encoding="utf-8"))
+    check("flagged B063 collapsed", fcis["rows"][0]["collapsed_ratio"], 6.566, 1e-3)
+    check("flagged B102 collapsed", fcis["rows"][-1]["collapsed_ratio"], 4.144, 1e-3)
+
+    tg = json.load(open(os.path.join(POST, "tail_global_test.json"), encoding="utf-8"))
+    check("tail global permutations", tg["n_permutations"], 200)
+    tn = np.load(os.path.join(POST, "tail_global_null.npz"))
+    check("tail null shape", tn["null"].shape, (200, 117))
 
     coh = json.load(open(os.path.join(POST, "coherence_control.json"), encoding="utf-8"))
     check("coherence n", coh["n_papers"], 20)
