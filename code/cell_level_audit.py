@@ -25,7 +25,7 @@ sys.path.insert(0, os.path.join(ROOT, "code"))
 
 from common import data_dir  # noqa: E402
 
-PER_PAPER = 5
+PER_PAPER = 3
 SEED = 20261116
 
 
@@ -39,13 +39,13 @@ def main() -> None:
         present = group.index[group[params].sum(axis=1) > 0].to_numpy()
         blank = group.index[group[params].sum(axis=1) == 0].to_numpy()
         chosen = []
-        # Three present cells, spread across the paper's rows where possible.
-        for j in rng.permutation(present)[:3]:
+        # Two present cells, spread across the paper's rows where possible.
+        for j in rng.permutation(present)[:2]:
             cols = np.where(frame.loc[j, params].to_numpy(float) == 1)[0]
             if len(cols):
                 chosen.append((j, params[int(rng.choice(cols))]))
-        # Two blank cells.
-        for j in rng.permutation(blank)[:2]:
+        # One blank cell.
+        for j in rng.permutation(blank)[:1]:
             cols = np.where(frame.loc[j, params].to_numpy(float) == 0)[0]
             if len(cols):
                 chosen.append((j, params[int(rng.choice(cols))]))

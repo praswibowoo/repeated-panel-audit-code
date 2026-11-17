@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Text-assisted triage of the 351-cell coverage audit frame.
+"""Source-text triage of the 351-cell coverage audit frame.
 
-This is not human coding. It extracts a best evidence line for each sampled
+This is a source-text check. It extracts a best evidence line for each sampled
 cell from the source PDF and classifies:
 
   present cell + evidence line -> text_value=1 (high confidence)
