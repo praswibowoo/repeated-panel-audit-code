@@ -66,7 +66,7 @@ STEPS: dict[str, tuple[str, str, str]] = {
 
 ORDER = ["types", "water", "panel", "pc2", "core", "allpaper", "simulation",
          "multiconfig", "mch1", "perturb", "pertclust", "coherence", "threed",
-         "tail", "balance", "flagged", "tailperm", "tailglobal", "holdout",
+         "tail", "balance", "flagged", "tailperm", "tailglobal", "q95corpus", "leverage", "q95cal", "holdout",
          "dimsweep", "leave", "flagcis", "table", "rebuild", "check", "verify"]
 
 
