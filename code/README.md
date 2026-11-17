@@ -42,6 +42,7 @@ analysis modules contain only their own design choices. The manuscript checks
 | `code/dimension_sweep.py` | 2–5 component sweep of the full and collapsed ratios; 100 draws, 500 bootstraps. | `results/post_audit/dimension_sweep.json`, `data/dimension_sweep.csv` |
 | `code/ca_sensitivity.py` | Correspondence-analysis sensitivity: CA row coordinates, full and collapsed audits, 100 matched draws. | `results/post_audit/ca_sensitivity.json` |
 | `code/q95_count_matched.py` | Count-matched null for a three-configuration study: random three-configuration pseudo-studies from single-configuration studies. | `results/post_audit/q95_count_matched.json` |
+| `code/q95_single_power.py` | Power of the calibrated flag for a single-configuration extreme study: q95 and >2 flag rates. | `results/post_audit/q95_single_power.json` |
 | `code/q95_corpus.py` | Observed collapsed-ratio exceedance at the deposited permutation q95, by configuration count. | `results/post_audit/q95_corpus.json` |
 | `code/leverage_check.py` | Configuration leverage, Spearman correlations, and two-term log models for the full and collapsed ratios. | `results/post_audit/leverage_check.json`, `leverage_per_paper.csv` |
 | `code/q95_calibration.py` | Synthetic planted-study flag rates at ratio $>2$ and at the 95th percentile of the 59 non-planted ratios; 50 replicates per scenario. | `results/post_audit/q95_calibration.json` |
