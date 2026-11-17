@@ -4,7 +4,7 @@ GitHub remote: `repeated-panel-audit-code` (unchanged; the manuscript cites that
 
 Code and data for:
 
-> **Repeated parameter-coverage configurations can inflate apparent study influence in pooled ordinations.**
+> **The deletion unit is not the configuration unit: repeated parameter-coverage configurations inflate block-matched deletion ratios in pooled ordinations.**
 > Wibowo, P., Veesommai Sillberg, C., & Kiyoki, Y. (2026).
 > *Environmental and Ecological Statistics*; manuscript prepared for submission.
 

@@ -1,8 +1,7 @@
 # Data provenance — every reported quantity and its file
 
 This package is self-contained for the reported 2-D results, the tail checks,
-and the three 3-D models. Version: P2 v1.84 (weighted-score identity fix;
-factorial interaction deposited; weight-matched rows retained as legacy). A few archived full-pipeline values are noted where
+and the three 3-D models. Version: P2 v1.86 (scope-locked; leverage mechanism; calibrated flag; same-size test rejected). A few archived full-pipeline values are noted where
 the deposited re-run differs only by draw-level Monte Carlo; those rows say so.
 Each row names the quantity as it appears in the manuscript, the file that
 carries it, and whether this package recomputes it or only carries the summary.
@@ -24,7 +23,7 @@ Status codes:
 | 716 / 117 curated; 151 within-paper unique; 565 duplicate rows | `coverage_matrix.csv` | recomputed (`verify_package.py`) |
 | Post-correction re-audit: 25 papers, 30 claims (13 corrections + 17 sampled), 30/30 pass; 17 independent (95% CI 81--100) | `data/verification/stageA_postcorrection_summary.json`, `..._results.csv` | deposited row-level results (recovered from the P1 archive) |
 | 44 parameters (42 populated; Al and SAR empty) | all three matrices | recomputed (`verify_package.py`) |
-| Coverage cells 7,238 / 49 / 26,329; row density 0.20 (0.16–0.27) | `coverage_matrix_full_extraction.csv` | derived |
+| Coverage cells 7,238 / 49 / 26,329; row density 0.20 (0.16–0.27) | `docs/extraction/stageA/matrix_presence_v2.csv` (764 data rows × 44 columns) | derived; the coverage matrix encodes Y and NE as 1 (7,287 ones), so the split is not recoverable from it |
 
 ## Primary audit (716/117)
 
@@ -41,6 +40,10 @@ Status codes:
 | PC1/PC2/joint class changes 3.37/3.38, 2.10/1.41, 4.92/4.63 | baseline event tables | recomputed (`verify_package.py`) |
 | Block percentile 76 (30–98); 29.1% / 6.0% | `p0_composition_percentile.csv` (median/tails); `tail_audit.json` (`block_percentile`, IQR) | recomputed (`supplementary_checks.py`) |
 | B063 / B166 ratios and class changes | collapsed event tables | recomputed (`verify_package.py`) |
+| Leverage vs full 0.69; vs collapsed 0.70; rows vs full 0.29; rows vs collapsed 0.01 | `results/post_audit/leverage_check.json`, `leverage_per_paper.csv` | recomputed (`leverage_check.py`) |
+| Log models: full 0.32 log rows + 0.17 leverage (R² 0.55); collapsed −0.10 + 0.18 (R² 0.55) | `results/post_audit/leverage_check.json` | recomputed (`leverage_check.py`) |
+| Corpus exceedance: 16/97 and 3/20 at >2; 2/97 and 3/20 at q95 | `results/post_audit/q95_corpus.json` | recomputed (`q95_corpus.py`) |
+| Synthetic flag rates: H0 62%/38%; coherent-extreme 100%/82%; distinct-extreme 56%/36% | `results/post_audit/q95_calibration.json` | recomputed (`q95_calibration.py`) |
 
 ## Robustness and sensitivity
 

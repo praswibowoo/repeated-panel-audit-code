@@ -1,6 +1,6 @@
 cff-version: 1.2.1
 message: "If you use this code, cite the paper and this repository."
-title: "Repeated parameter-coverage configurations can inflate apparent study influence in pooled ordinations"
+title: "The deletion unit is not the configuration unit: repeated parameter-coverage configurations inflate block-matched deletion ratios in pooled ordinations"
 abstract: "Check package for the repeated-panel coverage audit: coverage matrix, event tables, design decomposition, density/PC2 check, synthetic validation, and the Hamming/tail/subgroup checks."
 type: software
 authors:
