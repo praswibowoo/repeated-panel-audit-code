@@ -1,7 +1,7 @@
 # Data provenance — every reported quantity and its file
 
 This package is self-contained for the reported 2-D results, the tail checks,
-and the three 3-D models. Version: P2 v1.87 (scope-locked; leverage mechanism; CA sensitivity; flag scoped to single-configuration studies). A few archived full-pipeline values are noted where
+and the three 3-D models. Version: P2 v1.88 (scope-locked; leverage mechanism; CA sensitivity; flag scoped to single-configuration studies). A few archived full-pipeline values are noted where
 the deposited re-run differs only by draw-level Monte Carlo; those rows say so.
 Each row names the quantity as it appears in the manuscript, the file that
 carries it, and whether this package recomputes it or only carries the summary.
@@ -44,7 +44,7 @@ Status codes:
 | Log models: full 0.32 log rows + 0.17 leverage (R² 0.55); collapsed −0.10 + 0.18 (R² 0.55) | `results/post_audit/leverage_check.json` | recomputed (`leverage_check.py`) |
 | Corpus exceedance: 16/97 and 3/20 at >2; 2/97 and 3/20 at q95 | `results/post_audit/q95_corpus.json` | recomputed (`q95_corpus.py`) |
 | Synthetic flag rates: H0 62%/38%; coherent-extreme 100%/82%; distinct-extreme 56%/36% | `results/post_audit/q95_calibration.json` | recomputed (`q95_calibration.py`) |
-| CA sensitivity: full 1.26 (1.00–1.66); collapsed 1.15 (0.81–1.51); paired 0.18 (0.06–0.37) | `results/post_audit/ca_sensitivity.json` | recomputed (`ca_sensitivity.py`) |
+| CA sensitivity: full 1.26 (1.00–1.66); collapsed 1.15 (0.81–1.51); paired 0.18 (0.06–0.37); 2-D inertia 23.9% | `results/post_audit/ca_sensitivity.json` | recomputed (`ca_sensitivity.py`) |
 | Count-matched null: median 1.06, q95 1.94; coherent null flagged 66% | `results/post_audit/q95_count_matched.json` | recomputed (`q95_count_matched.py`) |
 | Single-configuration power: 80% at q95, 94% at >2 | `results/post_audit/q95_single_power.json` | recomputed (`q95_single_power.py`) |
 

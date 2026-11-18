@@ -29,6 +29,20 @@ def fit_ca(X, dims=2):
     return (U[:, :dims] * s[:dims]) / np.sqrt(r)[:, None]
 
 
+def ca_inertia(X, dims=2):
+    """Percent of total inertia on the first `dims` CA axes."""
+    X = np.asarray(X, float)
+    keep = X.sum(0) > 0
+    X = X[:, keep]
+    P = X / X.sum()
+    r = P.sum(1)
+    c = P.sum(0)
+    r = np.where(r <= 0, 1e-12, r)
+    S = (P - np.outer(r, c)) / np.sqrt(np.outer(r, c))
+    s = np.linalg.svd(S, compute_uv=False)
+    return float(100 * (s[:dims] ** 2).sum() / (s ** 2).sum())
+
+
 def audit(X, paper, rng, draws=100, fit_fn=fit_ca):
     n = len(X)
     papers = sorted(set(paper))
@@ -80,6 +94,7 @@ def main():
         "paired_difference": median_ci(diff.to_numpy()),
         "pct_below_one": float(100 * (rc < 1).mean()),
         "n": int(len(rf)),
+        "inertia_2d_pct": ca_inertia(X),
     }
     os.makedirs(os.path.join(ROOT, "results", "post_audit"), exist_ok=True)
     with open(os.path.join(ROOT, "results", "post_audit",
