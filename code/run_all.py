@@ -58,7 +58,7 @@ STEPS: dict[str, tuple[str, str, str]] = {
     "dimsweep": ("dimension_sweep", "2--5 component sweep", "~1 min"),
     "ca": ("ca_sensitivity", "correspondence-analysis sensitivity", "~1 min"),
     "cmnull": ("q95_count_matched", "count-matched null for a 3-configuration study", "~3 min"),
-    "spower": ("q95_single_power", "flag power for a single-configuration extreme study", "~1 min"),
+    "pcurve": ("q95_power_curve", "power curve for the single-configuration flag", "~10 min"),
     "leave": ("leave_flagged_out", "leave-six-out venue sensitivity", "~15 s"),
     "flagcis": ("flagged_study_cis", "matched-draw CIs for flagged studies", "~5 s"),
     "table": ("table_checks", "table-level summaries for S3, S5, and S10", "~10 s"),
@@ -70,7 +70,7 @@ STEPS: dict[str, tuple[str, str, str]] = {
 ORDER = ["types", "water", "panel", "pc2", "core", "allpaper", "simulation",
          "multiconfig", "mch1", "perturb", "pertclust", "coherence", "threed",
          "tail", "balance", "flagged", "tailperm", "tailglobal", "q95corpus", "leverage", "q95cal", "holdout",
-         "dimsweep", "ca", "cmnull", "spower", "leave", "flagcis", "table", "rebuild", "check", "verify"]
+         "dimsweep", "ca", "cmnull", "pcurve", "leave", "flagcis", "table", "rebuild", "check", "verify"]
 
 
 def run_step(name: str) -> None:
