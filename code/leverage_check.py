@@ -5,7 +5,7 @@ Prediction: a study's block/matched ratio should rise with the leverage of its
 configurations (distance from the corpus centroid), and the collapsed ratio
 should retain that leverage signal while losing the row-count signal.
 
-Writes results/post_audit/leverage_check.json. No bootstrap.
+Writes results/post_audit/leverage_check.json with bootstrap CIs.
 """
 from __future__ import annotations
 import json, os, sys
@@ -69,17 +69,32 @@ def main():
                           df["lev"].to_numpy(float)])
     beta, *_ = np.linalg.lstsq(Xd, y, rcond=None)
     resid = y - Xd @ beta
+    boot = np.random.default_rng(20261119)
+    draws = np.empty((10000, 3))
+    for i in range(len(draws)):
+        idx = boot.integers(0, len(y), len(y))
+        draws[i], *_ = np.linalg.lstsq(Xd[idx], y[idx], rcond=None)
+    lo, hi = np.quantile(draws, [0.025, 0.975], axis=0)
     out["log_full_model"] = {"intercept": float(beta[0]),
                              "log_rows": float(beta[1]),
                              "leverage": float(beta[2]),
-                             "r2": float(1 - resid.var() / y.var())}
+                             "r2": float(1 - resid.var() / y.var()),
+                             "log_rows_ci": [float(lo[1]), float(hi[1])],
+                             "leverage_ci": [float(lo[2]), float(hi[2])]}
     y2 = np.log(df["coll"].to_numpy(float))
     beta2, *_ = np.linalg.lstsq(Xd, y2, rcond=None)
     resid2 = y2 - Xd @ beta2
+    draws = np.empty((10000, 3))
+    for i in range(len(draws)):
+        idx = boot.integers(0, len(y2), len(y2))
+        draws[i], *_ = np.linalg.lstsq(Xd[idx], y2[idx], rcond=None)
+    lo, hi = np.quantile(draws, [0.025, 0.975], axis=0)
     out["log_coll_model"] = {"intercept": float(beta2[0]),
                              "log_rows": float(beta2[1]),
                              "leverage": float(beta2[2]),
-                             "r2": float(1 - resid2.var() / y2.var())}
+                             "r2": float(1 - resid2.var() / y2.var()),
+                             "log_rows_ci": [float(lo[1]), float(hi[1])],
+                             "leverage_ci": [float(lo[2]), float(hi[2])]}
     df.to_csv(os.path.join(ROOT, "results", "post_audit", "leverage_per_paper.csv"))
     with open(OUT, "w") as fh:
         json.dump(out, fh, indent=2); fh.write("\n")
