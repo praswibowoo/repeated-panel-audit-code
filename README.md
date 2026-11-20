@@ -97,9 +97,6 @@ This writes the quick check to a separate file and does not overwrite the publis
 | `verify_package.py` | Fast self-check: file inventory, matrix agreement, and committed summary values. |
 | `run_all.py` | One entry point: runs the analyses in order, then the self-check (`--quick`, `--only`, `--list`). |
 | `common.py` | Shared helpers: PCA, weighted PCA (legacy and unweighted-score variants), Procrustes drift, paired ratio, bootstrap, unique mask, seed convention, loaders. |
-| `code/legacy/revision_layers.py` | Provenance-only coverage/value builder; requires the restricted value layer and is not needed for the quick start. |
-
-`code/legacy/` holds `clean_primary_audit.py`, `ees_post_audit_extra.py`, `ees_revision_checks.py`, and `revision_layers.py`; they require the archived pipeline (and, for two of them, the restricted value layer) and are not standalone. The event tables they produced are included in `data/`, so the published numbers can be checked without rerunning them.
 
 ## Data
 
