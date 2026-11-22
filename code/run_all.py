@@ -36,6 +36,7 @@ STEPS: dict[str, tuple[str, str, str]] = {
     "types": ("build_matrix_types", "matrix-type map for the coverage rows", "~2 s"),
     "water": ("water_only_check", "water-only counts and audit", "~30 s"),
     "panel": ("panel_decomposition", "2x2 decomposition and density control", "~4 min"),
+    "sharpening": ("sharpening_checks", "control ladder, composition/volume checks, common-evaluation leverage", "~1 min"),
     "pc2": ("pc2_density_check", "PC2 density-matched class check", "~15 s"),
     "core": ("core_revision_checks", "coarsened control and exact-subset CIs", "~60 s"),
     "allpaper": ("all_paper_audit", "all-paper 730/122 audit", "~2 min"),
@@ -55,7 +56,7 @@ STEPS: dict[str, tuple[str, str, str]] = {
     "verify": ("verify_package", "package self-check", "~10 s"),
 }
 
-ORDER = ["types", "water", "panel", "pc2", "core", "allpaper", "simulation",
+ORDER = ["types", "water", "panel", "sharpening", "pc2", "core", "allpaper", "simulation",
          "multiconfig", "mch1", "perturb", "coherence", "threed", "tail",
          "balance", "flagged", "tailnull", "table", "rebuild", "check", "verify"]
 

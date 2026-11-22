@@ -29,6 +29,7 @@ analysis modules contain only their own design choices. The manuscript checks
 | `code/multiconfig_h1.py` | Multi-configuration stress test: coherent H0, coherent-extreme, and distinct-extreme designs. | `results/post_audit/multiconfig_h1.json` |
 | `code/perturbation_upper.py` | Extraction-error perturbation at 5–25%, including the two upper-bound rates. | `data/presence_misclassification_upper.csv` |
 | `code/panel_decomposition.py` | Fit × control factorial (current) plus legacy decomposition, duplication quartiles, study-density-matched collapsed audit. Reads `data/coverage_matrix.csv` and `data/baseline_*.csv` / `data/collapsed_*.csv`. | `results/post_audit/panel_decomposition.json` |
+| `code/sharpening_checks.py` | Control ladder: composition-prioritized collapsed, volume-matched unique, common-evaluation leverage, and paired differences. | `data/sharpening_checks.json` |
 | `code/pc2_density_check.py` | PC1/PC2/joint class flips under row-level and density-matched donors. | `results/post_audit/pc2_density_check.json` |
 | `code/simulation_validation.py` | Synthetic panel-structure validation (H0 repeated panels; H1 planted study). | `results/post_audit/simulation_validation.json` |
 | `code/multiconfig_sensitivity.py` | 1% and 5% within-study bit-flip sensitivity; runs the simulation twice and merges. | `results/post_audit/multiconfig_sensitivity.json` |

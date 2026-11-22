@@ -52,6 +52,9 @@ Recovered from the P1 archive; the Stage-A audit itself is in `docs/verification
 | `water.json` | Water-only audit. |
 | `pcoa_summary.json` | Full-set Jaccard PCoA audit. |
 | `pcoa_collapsed_summary.json` | Collapsed Jaccard PCoA audit. |
+| `sharpening_checks.json` | Control ladder (row-count, volume-matched unique, collapsed, composition-prioritized, exact-match), paired differences, matching quality, and common-evaluation leverage. |
+| `leverage_per_paper.csv` | Per-paper leverage, rows, density, and common-evaluation ratios. |
+| `leverage_check.json` | Own-row leverage correlations and log models (legacy/sensitivity). |
 
 The current design decomposition, density/PC2, synthetic-validation, multi-configuration sensitivity, all-paper, and tail/coherence summaries are in `results/post_audit/`.
 
