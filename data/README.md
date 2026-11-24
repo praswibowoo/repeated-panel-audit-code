@@ -55,6 +55,17 @@ Recovered from the P1 archive; the Stage-A audit itself is in `docs/verification
 
 The current design decomposition, density/PC2, synthetic-validation, multi-configuration sensitivity, all-paper, and tail/coherence summaries are in `results/post_audit/`.
 
+## Current three-arm and secondary summaries
+
+| File | Contents |
+|---|---|
+| `results/unit_revision/common_contrast.json` | Per-draw three-arm (A/B/C) common-evaluation ratios, paired contrasts, and per-study values (Table 2; SI Table S11). |
+| `results/unit_revision/secondary.json` | Two-level bootstrap, leverage correlations/log models, and threshold counts. |
+| `leverage_per_paper.csv` | Per-paper configuration leverage and study density (SI Table S9). |
+| `balance_complete_partial.json` | Complete/partial configuration deletion balance for the block and scattered-row arms (SI Table S7). |
+| `sharpening_checks.json` | Design-set comparisons, exact volume matching, composition/identity checks (SI Table S11). |
+| `summary_excluded_check.json` | Summary-row-excluded sensitivity. |
+
 Additional summaries: `p0_composition_percentile.csv` (block percentile and tails), `presence_misclassification_summary.csv` (over-marking perturbation), `preprocessing_block_factor.csv`, `composition_matched_summary.csv`, `composition_vs_density.csv`, `composition_exact_subset.csv`, `coverage_volume_bins.csv`, `row_count_sensitivity.csv`, `review_findings.json`, and the SI calibration tables (`calibration_*.csv`, `sim_calibration_*.csv`).
 
 The main 2-D results, the tail checks, and the three 3-D models are mapped to their files in `DATA_PROVENANCE.md`; archived full-pipeline values are noted there. Run `python3 code/verify_package.py` to check the package in about ten seconds.

@@ -1,0 +1,11 @@
+{
+  "method": "draw-0 scattered-row control; complete = all rows of a configuration removed; partial = at least one row retained",
+  "n_studies": 117,
+  "block_complete_median": 1.0,
+  "matched_complete_median": 0.0,
+  "matched_partial_median": 5.0,
+  "matched_rows_median": 5.0,
+  "matched_unique_median": 5.0,
+  "matched_complete_mean": 0.3162393162393162,
+  "matched_partial_mean": 5.572649572649572
+}

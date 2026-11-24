@@ -24,16 +24,23 @@ analysis modules contain only their own design choices. The manuscript checks
 |---|---|---|
 | `code/build_matrix_types.py` | Descriptive matrix-type map from the stage-A scenario labels; asserts the 675/41 split. | `data/coverage_matrix_types.csv` |
 | `code/water_only_check.py` | Water-only counts and the water-only full and collapsed audit. | `data/water_only_check.json` |
-| `code/balance_diagnostics.py` | Balance of the block and matched arms for the four controls (Table S14). | `data/balance_diagnostics.csv` |
-| `code/flagged_studies.py` | Descriptors for the six collapsed-audit flags (Table S15). | `data/flagged_studies.csv` |
+| `code/balance_diagnostics.py` | Balance of the block and matched arms for the four controls (SI Table S7). | `data/balance_diagnostics.csv` |
+| `code/flagged_studies.py` | Descriptors for the six collapsed-audit flags (SI Table S6). | `data/flagged_studies.csv` |
 | `code/multiconfig_h1.py` | Multi-configuration stress test: coherent H0, coherent-extreme, and distinct-extreme designs. | `results/post_audit/multiconfig_h1.json` |
 | `code/perturbation_upper.py` | Extraction-error perturbation at 5–25%, including the two upper-bound rates. | `data/presence_misclassification_upper.csv` |
 | `code/perturbation_clustered.py` | Study-clustered 11.1% over-marking: 13 papers, one to three parameters each, 100 replicates. | `data/presence_misclassification_clustered.json` |
 | `code/panel_decomposition.py` | Fit × control factorial with multiplicative and additive interaction, duplication quartiles, study-density-matched collapsed audit. Reads `data/coverage_matrix.csv` and `data/baseline_*.csv` / `data/collapsed_*.csv`. | `results/post_audit/panel_decomposition.json` |
+| `code/unit_revision_common.py` | Three-arm common-evaluation audit (A/B/C), exact volume matching, per-draw ratios, paired contrasts. | `results/unit_revision/common_contrast.json` |
+| `code/unit_revision_summaries.py` | Two-level bootstrap, leverage correlations/log models, threshold counts. | `results/unit_revision/secondary.json` |
+| `code/two_level_delta.py` | Legacy two-level bootstrap for the collapsed-arm paired difference. | `results/post_audit/two_level_delta.json` |
+| `code/make_fig_paired_contrast.py` | Two-panel per-study design contrast figure. | `figures/fig_paired_contrast.pdf` |
+| `code/balance_complete_partial.py` | Complete/partial configuration deletion balance for the block and scattered-row arms. | `data/balance_complete_partial.json` |
+| `code/sharpening_checks.py` | Design-set comparisons, exact volume matching, composition/identity checks, secondary control summaries. | `data/sharpening_checks.json` |
+| `code/revision/hamming_audit.py` | Near-duplicate collapse at Hamming thresholds 0–3. | SI Table S12 sensitivity |
 | `code/pc2_density_check.py` | PC1/PC2/joint class flips under row-level and density-matched donors; adds the density-matched mean and CI. | `results/post_audit/pc2_density_check.json` |
 | `code/simulation_validation.py` | Synthetic panel-structure validation (H0 repeated panels; H1 planted study). | `results/post_audit/simulation_validation.json` |
 | `code/multiconfig_sensitivity.py` | 1% and 5% within-study bit-flip sensitivity; runs the simulation twice and merges. | `results/post_audit/multiconfig_sensitivity.json` |
-| `code/all_paper_audit.py` | All-paper 730/122 audit; Table 4 ratio 1.34 (1.11--1.60). | `results/post_audit/all_paper_audit.json` |
+| `code/all_paper_audit.py` | All-paper 730/122 audit; SI Table S11 all-paper ratio 1.34 (1.11--1.60). | `results/post_audit/all_paper_audit.json` |
 | `code/core_revision_checks.py` | Coarsened nearest-configuration control, exact-subset CIs, same-size percentile. | `results/core_revision/core_checks.json` |
 | `code/supplementary_checks.py` | Hamming distribution, tail proportions, subgroup, exact-subset means, block-percentile IQR, study-level model, two-level bootstrap. | `results/post_audit/tail_audit.json`, `tail_decomposition.csv`, `data/study_level_model.json` |
 | `code/tail_permutation.py` | Independent label permutation null: 100 permutations preserving each paper's configuration count, 20 matched draws per paper. | `data/tail_permutation.json` |
