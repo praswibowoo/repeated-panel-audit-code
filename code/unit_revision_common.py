@@ -10,7 +10,8 @@ Designs, all evaluated on one common configuration set E_{s,d}:
 The block arm is the focal study's full row block (A, B) or its collapsed
 configuration block (C).  Every arm is evaluated on the configurations retained
 in all four reduced fits (block, A, B, C), using one retained row per
-configuration.  This makes A - C = (A - B) + (B - C) exact per study.
+configuration.  Differences decompose exactly within each draw; medians across
+draws and studies need not add.
 
 Outputs results/unit_revision/common_contrast.json.
 """

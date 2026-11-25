@@ -6,7 +6,7 @@
 |---|---|
 | Role | Screener B, pilot ROUND 2 (50 titles, seed 43, round-1 excluded, D25/D26 amendments) |
 | Agent sessions | main 47 rows: ses_f18cf9bf1ffeoHJB3fqpGir1Lx · supplement 3 rows: ses_f188a329effedZM4gLAdSBS0a2 |
-| Agent | OpenCode subagent `general` (LLM: MiMo-V2.6-Flash via opencode-go) |
+| Agent | Automated screener subagent (model name withheld) |
 | Date | 2026-09-28 |
 | Inputs permitted | ai_screening_prompt.md (criteria v1.0) + pilot_blind_B.csv only |
 | Prompt hash | sha256:ca858b42bb628e47440943cd92a1e633e3f11a33c216fd01af7750f014f4a1aa |

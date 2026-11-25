@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.join(ROOT, "code"))
 from multiconfig_h1 import simulate  # noqa: E402
 from simulation_validation import audit  # noqa: E402
 
-REPS = int(os.environ.get("Q95_REPS", 50))
+REPS = int(os.environ.get("Q95_REPS", 200))
 SEED = 42
 OUT = os.path.join(ROOT, "results", "post_audit", "q95_calibration.json")
 

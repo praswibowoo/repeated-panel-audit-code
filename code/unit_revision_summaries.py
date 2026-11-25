@@ -29,13 +29,16 @@ OUT = os.path.join(ROOT, "results", "unit_revision", "secondary.json")
 
 
 def two_level_bootstrap(per_draw, n_boot=2000, seed=42):
-    """Resample studies, then one draw per resampled study."""
+    """Resample studies and all stored draws within each resampled study."""
     papers = sorted(per_draw)
     rng = np.random.default_rng(seed)
     boot = np.empty(n_boot)
     for b in range(n_boot):
         idx = rng.integers(0, len(papers), len(papers))
-        vals = [rng.choice(per_draw[papers[i]]) for i in idx]
+        vals = []
+        for i in idx:
+            arr = np.asarray(per_draw[papers[i]], float)
+            vals.append(np.median(rng.choice(arr, len(arr), replace=True)))
         boot[b] = np.median(vals)
     return {
         "median": float(np.median(boot)),

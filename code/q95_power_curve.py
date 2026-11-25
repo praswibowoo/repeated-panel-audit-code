@@ -17,7 +17,7 @@ from simulation_validation import audit  # noqa: E402
 
 SEED = 42
 S, R, P, DRAWS = 60, 8, 30, 20
-REPS = int(os.environ.get("PC_REPS", 50))
+REPS = int(os.environ.get("PC_REPS", 200))
 LEVELS = [float(x) for x in os.environ.get(
     "PC_LEVELS", "0.20,0.30,0.40,0.50,1.00").split(",")]
 

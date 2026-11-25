@@ -4,13 +4,13 @@
     "scenarios": 8,
     "parameters": 30,
     "draws": 20,
-    "replicates": 50,
+    "replicates": 200,
     "seed": 42,
     "levels": [
       0.2,
+      0.3,
       0.4,
-      0.6,
-      0.8,
+      0.5,
       1.0
     ]
   },
@@ -24,42 +24,42 @@
   "levels": {
     "20": {
       "planted_density": 0.2,
-      "planted_ratio_median": 0.950299639688034,
-      "threshold_median": 3.1374182724993354,
-      "power_pct": 2.0,
-      "power_mc_se_pct": 1.979898987322333,
+      "planted_ratio_median": 0.8945674906886336,
+      "threshold_median": 3.0716702251598806,
+      "power_pct": 2.5,
+      "power_mc_se_pct": 1.1039701082909807,
       "leverage_percentile_vs_base": 11.864406779661017
+    },
+    "30": {
+      "planted_density": 0.3,
+      "planted_ratio_median": 1.0740373581014295,
+      "threshold_median": 3.1064096382806476,
+      "power_pct": 8.0,
+      "power_mc_se_pct": 1.918332609325088,
+      "leverage_percentile_vs_base": 50.847457627118644
     },
     "40": {
       "planted_density": 0.4,
-      "planted_ratio_median": 1.003592743694731,
-      "threshold_median": 2.7853308932014897,
-      "power_pct": 6.0,
-      "power_mc_se_pct": 3.358571124749333,
+      "planted_ratio_median": 1.2746727521769956,
+      "threshold_median": 3.0388835748007583,
+      "power_pct": 9.5,
+      "power_mc_se_pct": 2.0733427116615335,
       "leverage_percentile_vs_base": 86.4406779661017
     },
-    "60": {
-      "planted_density": 0.6,
-      "planted_ratio_median": 2.0495508642925606,
-      "threshold_median": 3.0596075150455455,
-      "power_pct": 28.000000000000004,
-      "power_mc_se_pct": 6.3498031465550175,
-      "leverage_percentile_vs_base": 100.0
-    },
-    "80": {
-      "planted_density": 0.8,
-      "planted_ratio_median": 3.066842855322255,
-      "threshold_median": 2.8214898404493223,
-      "power_pct": 48.0,
-      "power_mc_se_pct": 7.0654086930622775,
-      "leverage_percentile_vs_base": 100.0
+    "50": {
+      "planted_density": 0.5,
+      "planted_ratio_median": 1.6435625216469176,
+      "threshold_median": 2.994057053896097,
+      "power_pct": 23.0,
+      "power_mc_se_pct": 2.975735203273302,
+      "leverage_percentile_vs_base": 98.30508474576271
     },
     "100": {
       "planted_density": 1.0,
-      "planted_ratio_median": 3.9361162542327293,
-      "threshold_median": 2.7732856903317136,
-      "power_pct": 68.0,
-      "power_mc_se_pct": 6.596969000988256,
+      "planted_ratio_median": 4.29067816838368,
+      "threshold_median": 2.873165681452631,
+      "power_pct": 73.0,
+      "power_mc_se_pct": 3.1392674304684522,
       "leverage_percentile_vs_base": 100.0
     }
   }

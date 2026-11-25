@@ -1,0 +1,40 @@
+{
+  "matrix_types": {
+    "water": 675,
+    "summary": 20,
+    "bioassay": 7,
+    "sediment": 5,
+    "experimental": 4,
+    "soil": 3,
+    "biota": 2
+  },
+  "water_rows": 675,
+  "water_only_papers": 115,
+  "water_unique_configurations": 134,
+  "full": {
+    "median": 1.4127439782054465,
+    "ci_lo": 1.2064861232743254,
+    "ci_hi": 1.5312604384567323,
+    "n": 115
+  },
+  "collapsed": {
+    "median": 0.9268496752399453,
+    "ci_lo": 0.7938980580989755,
+    "ci_hi": 1.3068902571352043,
+    "n": 115
+  },
+  "full_block_factor": {
+    "median": 1.3840305389128589,
+    "ci_lo": 1.2208010152597628,
+    "ci_hi": 1.5703324403508017,
+    "n": 115,
+    "n_boot": 1000
+  },
+  "collapsed_block_factor": {
+    "median": 0.9898869827951995,
+    "ci_lo": 0.8633141146906511,
+    "ci_hi": 1.1507291466497849,
+    "n": 115,
+    "n_boot": 1000
+  }
+}

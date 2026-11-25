@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Two-panel primary figure for the unit-of-deletion revision.
+"""Primary figure for the fixed-evaluation control-geometry audit.
 
-(a) Per-study row-count ratio A against the collapsed ratio C, with the 1:1
-    line, point size by rows per study, and marginal medians.
-(b) Distribution of the per-study A-B contrast, isolating the control unit at
-    a fixed full fit.
+(a) Per-study row-count ratio versus full-fit whole-configuration donor ratio
+    for studies with an exact-size donor.
+(b) Distribution of the paired A-Bblock difference by configuration stratum.
 """
 from __future__ import annotations
 
@@ -14,21 +13,24 @@ import os
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.colors import Normalize
 import numpy as np
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-COMMON = os.path.join(ROOT, "results", "unit_revision", "common_contrast.json")
+COMMON = os.path.join(ROOT, "results", "unit_revision_fixed", "common_contrast.json")
 OUT = os.path.join(ROOT, "figures", "fig_paired_contrast.pdf")
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
 
 
-def main():
-    d = json.load(open(COMMON))
-    papers = sorted(d["per_paper"]["A"])
-    A = np.array([d["per_paper"]["A"][p] for p in papers])
-    C = np.array([d["per_paper"]["C"][p] for p in papers])
-    AB = np.array([d["per_paper"]["AB"][p] for p in papers])
-    n_p = np.array([d["meta"][p]["n_p"] for p in papers], float)
+def main() -> None:
+    d = json.load(open(COMMON, encoding="utf-8"))
+    eligible = sorted(d["per_paper"]["Bblock"])
+    single = [p for p in eligible if d["meta"][p]["n_configs"] == 1]
+    multi = [p for p in eligible if d["meta"][p]["n_configs"] > 1]
+
+    A = np.array([d["per_paper"]["A"][p] for p in eligible])
+    B = np.array([d["per_paper"]["Bblock"][p] for p in eligible])
+    rows = np.array([d["meta"][p]["n_rows"] for p in eligible], float)
+    is_single = np.array([d["meta"][p]["n_configs"] == 1 for p in eligible])
 
     plt.rcParams.update({
         "font.size": 9,
@@ -39,47 +41,60 @@ def main():
         "ytick.labelsize": 8,
         "pdf.fonttype": 42,
     })
-
-    fig, axes = plt.subplots(1, 2, figsize=(6.4, 2.9), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(6.4, 3.0), constrained_layout=True)
 
     ax = axes[0]
-    scatter = ax.scatter(
-        C, A, s=8 + 3 * n_p, c=n_p, cmap="viridis",
-        edgecolor="white", linewidth=0.3, alpha=0.9, zorder=3,
-    )
-    lim = [0, max(A.max(), C.max()) * 1.04]
+    row_norm = Normalize(vmin=float(rows.min()), vmax=float(rows.max()))
+    for mask, marker, label in [
+        (is_single, "o", "Single configuration (n=92)"),
+        (~is_single, "s", "Multiple configurations (n=20)"),
+    ]:
+        sc = ax.scatter(
+            B[mask], A[mask], s=8 + 3 * rows[mask], c=rows[mask],
+            cmap="viridis", norm=row_norm, marker=marker, edgecolor="white", linewidth=0.3,
+            alpha=0.9, zorder=3, label=label,
+        )
+    lim = [0, max(A.max(), B.max()) * 1.04]
     ax.plot(lim, lim, ls="--", lw=0.8, color="0.45", zorder=1)
-    ax.axvline(np.median(C), ls=":", lw=0.8, color="0.25", zorder=2)
+    ax.axvline(np.median(B), ls=":", lw=0.8, color="0.25", zorder=2)
     ax.axhline(np.median(A), ls=":", lw=0.8, color="0.25", zorder=2)
     ax.set_xlim(lim)
     ax.set_ylim(lim)
-    ax.set_xlabel("Collapsed ratio $R_s^{\\mathrm{C}}$")
+    ax.set_xlabel("Whole-configuration donor ratio $R_s^{\\mathrm{Bblock}}$")
     ax.set_ylabel("Row-count ratio $R_s^{\\mathrm{A}}$")
-    ax.set_title("(a) Per-study ratios")
-    frac_above = np.mean(A > C)
+    ax.set_title("(a) Full-fit control geometry")
+    frac_above = np.mean(A > B)
     ax.text(
-        0.03, 0.96,
-        f"above 1:1 line: {100*frac_above:.0f}%",
+        0.03, 0.96, f"above 1:1 line: {100 * frac_above:.0f}%",
         transform=ax.transAxes, va="top", ha="left", fontsize=8,
     )
-    cbar = fig.colorbar(scatter, ax=ax, fraction=0.045, pad=0.02)
+    ax.legend(loc="lower right", frameon=False, fontsize=7)
+    cbar = fig.colorbar(sc, ax=ax, fraction=0.045, pad=0.02)
     cbar.set_label("Rows per study", fontsize=8)
     cbar.ax.tick_params(labelsize=7)
 
     ax = axes[1]
-    bins = np.linspace(min(AB.min(), -0.2), AB.max(), 24)
-    ax.hist(AB, bins=bins, color="0.55", edgecolor="white", linewidth=0.4)
-    ax.axvline(0, color="0.2", lw=0.8)
-    ax.axvline(np.median(AB), color="C3", lw=1.0, ls="-")
-    ax.set_xlabel("$R_s^{\\mathrm{A}} - R_s^{\\mathrm{B}}$")
-    ax.set_ylabel("Studies")
-    ax.set_title("(b) Control-unit contrast")
-    ax.text(
-        0.97, 0.96,
-        f"median {np.median(AB):.2f}\n{100*np.mean(AB>0):.0f}% positive",
-        transform=ax.transAxes, va="top", ha="right", fontsize=8,
+    groups = [eligible, single, multi]
+    data = [
+        np.array([d["per_paper"]["ABblock"][p] for p in ps])
+        for ps in groups
+    ]
+    labels = ["All\n(n=112)", "Single\n(n=92)", "Multiple\n(n=20)"]
+    colors = ["#4c72b0", "#55a868", "#c44e52"]
+    bp = ax.boxplot(
+        data, tick_labels=labels, patch_artist=True, widths=0.6,
+        showfliers=False, medianprops={"color": "black", "lw": 1},
     )
-    ax.set_xlim(bins[0], bins[-1])
+    for patch, color in zip(bp["boxes"], colors):
+        patch.set_facecolor(color)
+        patch.set_alpha(0.65)
+    ax.axhline(0.0, ls="--", lw=0.8, color="0.35")
+    ax.set_ylabel("Paired difference $D_s^{\\mathrm{ABblock}}$")
+    ax.set_title("(b) Row count minus whole configuration")
+    low = min(float(x.min()) for x in data)
+    high = max(float(x.max()) for x in data)
+    pad = 0.08 * (high - low if high > low else 1.0)
+    ax.set_ylim(low - pad, high + pad)
 
     fig.savefig(OUT, bbox_inches="tight")
     print(f"wrote {OUT}")

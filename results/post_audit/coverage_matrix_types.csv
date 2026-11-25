@@ -1,0 +1,717 @@
+paper,row,matrix_type,water_only,scenario,scenario_type,stage_row_kind
+B001,0,water,True,St1-Jakhau-Babber-winter,site-season,data
+B001,1,water,True,St1-Jakhau-Babber-summer,site-season,data
+B001,2,water,True,St1-Jakhau-Babber-monsoon,site-season,data
+B001,3,water,True,St2-Sangi-Kharo-winter,site-season,data
+B001,4,water,True,St2-Sangi-Kharo-summer,site-season,data
+B001,5,water,True,St2-Sangi-Kharo-monsoon,site-season,data
+B001,6,water,True,St3-Medi-Sinthodi-winter,site-season,data
+B001,7,water,True,St3-Medi-Sinthodi-summer,site-season,data
+B001,8,water,True,St3-Medi-Sinthodi-monsoon,site-season,data
+B001,9,sediment,False,St1-sediment,other,data
+B001,10,sediment,False,St2-sediment,other,data
+B001,11,sediment,False,St3-sediment,other,data
+B002,12,water,True,Pashurtala-PostMon,station-season,data
+B002,13,water,True,Pashurtala-Winter,station-season,data
+B002,14,water,True,Pashurtala-Mon,station-season,data
+B002,15,water,True,Pashurtala-Canal-PostMon,station-season,data
+B002,16,water,True,Pashurtala-Canal-Winter,station-season,data
+B002,17,water,True,Pashurtala-Canal-Mon,station-season,data
+B002,18,water,True,Kalagachhi-PostMon,station-season,data
+B002,19,water,True,Kalagachhi-Winter,station-season,data
+B002,20,water,True,Kalagachhi-Mon,station-season,data
+B002,21,water,True,Kalagachhi-Canal-PostMon,station-season,data
+B002,22,water,True,Kalagachhi-Canal-Winter,station-season,data
+B002,23,water,True,Kalagachhi-Canal-Mon,station-season,data
+B002,24,water,True,Nildumur-PostMon,station-season,data
+B002,25,water,True,Nildumur-Winter,station-season,data
+B002,26,water,True,Nildumur-Mon,station-season,data
+B002,27,water,True,Arpangashia-PostMon,station-season,data
+B002,28,water,True,Arpangashia-Winter,station-season,data
+B002,29,water,True,Arpangashia-Mon,station-season,data
+B004,30,water,True,SPS-Jun-2010,station-season,data
+B004,31,water,True,SPS-Aug-2010,station-season,data
+B004,32,water,True,SPS-Oct-2010,station-season,data
+B004,33,water,True,SS-Jun-2010,station-season,data
+B004,34,water,True,SS-Aug-2010,station-season,data
+B004,35,water,True,SS-Oct-2010,station-season,data
+B006,36,water,True,Mantehage-Belakang,station,data
+B006,37,water,True,Mantehage-Tengah,station,data
+B006,38,water,True,Mantehage-Depan,station,data
+B006,39,water,True,Bunaken-Belakang,station,data
+B006,40,water,True,Bunaken-Tengah,station,data
+B006,41,water,True,Bunaken-Depan,station,data
+B006,42,water,True,ManadoTua-Belakang,station,data
+B006,43,water,True,ManadoTua-Tengah,station,data
+B006,44,water,True,ManadoTua-Depan,station,data
+B006,45,water,True,Nain-Belakang,station,data
+B006,46,water,True,Nain-Tengah,station,data
+B006,47,water,True,Nain-Depan,station,data
+B007,48,water,True,IMAS-premonsoon-Aug,site-season,data
+B007,49,water,True,IMAS-monsoon-Nov,site-season,data
+B007,50,water,True,IMAS-postmonsoon-Feb,site-season,data
+B007,51,water,True,IMAS-summer-May,site-season,data
+B007,52,water,True,OAS-premonsoon-Aug,site-season,data
+B007,53,water,True,OAS-monsoon-Nov,site-season,data
+B007,54,water,True,OAS-postmonsoon-Feb,site-season,data
+B007,55,water,True,OAS-summer-May,site-season,data
+B009,56,water,True,Jharkhali-Nov,season,data
+B009,57,water,True,Jharkhali-Dec,season,data
+B009,58,water,True,Jharkhali-Jan,season,data
+B009,59,water,True,Jharkhali-Feb,season,data
+B009,60,water,True,Jharkhali-Mar,season,data
+B009,61,water,True,Jharkhali-Apr,season,data
+B009,62,water,True,Jharkhali-May,season,data
+B009,63,water,True,Jharkhali-Jun,season,data
+B009,64,water,True,Jharkhali-Jul,season,data
+B009,65,water,True,Jharkhali-Aug,season,data
+B009,66,water,True,Jharkhali-Sep,season,data
+B009,67,water,True,Jharkhali-Oct,season,data
+B012,68,water,True,Mongla-rainy-Sep2008,station-season,data
+B012,69,water,True,Mongla-winter-Jan2009,station-season,data
+B012,70,water,True,Mongla-summer-May2009,station-season,data
+B012,71,water,True,Dangmari-rainy-Sep2008,station-season,data
+B012,72,water,True,Dangmari-winter-Jan2009,station-season,data
+B012,73,water,True,Dangmari-summer-May2009,station-season,data
+B012,74,water,True,Koromjol-rainy-Sep2008,station-season,data
+B012,75,water,True,Koromjol-winter-Jan2009,station-season,data
+B012,76,water,True,Koromjol-summer-May2009,station-season,data
+B012,77,water,True,Koromjol-Creek-rainy-Sep2008,station-season,data
+B012,78,water,True,Koromjol-Creek-winter-Jan2009,station-season,data
+B012,79,water,True,Koromjol-Creek-summer-May2009,station-season,data
+B013,80,water,True,Stn1-high-tide,tidal,data
+B013,81,water,True,Stn2-high-tide,tidal,data
+B013,82,water,True,Stn3-high-tide,tidal,data
+B013,83,water,True,Stn4-high-tide,tidal,data
+B013,84,water,True,Stn5-high-tide,tidal,data
+B013,85,water,True,Stn6-high-tide,tidal,data
+B013,86,water,True,Stn7-high-tide,tidal,data
+B013,87,water,True,Stn8-high-tide,tidal,data
+B013,88,water,True,Stn9-high-tide,tidal,data
+B013,89,water,True,Stn10-high-tide,tidal,data
+B013,90,water,True,Stn11-high-tide,tidal,data
+B013,91,water,True,Stn12-high-tide,tidal,data
+B013,92,water,True,Stn1-low-tide,tidal,data
+B013,93,water,True,Stn2-low-tide,tidal,data
+B013,94,water,True,Stn3-low-tide,tidal,data
+B013,95,water,True,Stn4-low-tide,tidal,data
+B013,96,water,True,Stn5-low-tide,tidal,data
+B013,97,water,True,Stn6-low-tide,tidal,data
+B013,98,water,True,Stn7-low-tide,tidal,data
+B013,99,water,True,Stn8-low-tide,tidal,data
+B013,100,water,True,Stn9-low-tide,tidal,data
+B013,101,water,True,Stn10-low-tide,tidal,data
+B013,102,water,True,Stn11-low-tide,tidal,data
+B013,103,water,True,Stn12-low-tide,tidal,data
+B014,104,water,True,PointA-100m-effluent-inlet,station,data
+B014,105,water,True,PointB-600m-in-forest,station,data
+B014,106,water,True,PointC-1250m-out-of-forest,station,data
+B015,107,water,True,RedSea-AlLith,station,data
+B015,108,water,True,RedSea-SouthJeddah,station,data
+B015,109,water,True,RedSea-Dahaban,station,data
+B015,110,water,True,RedSea-Thuwal,station,data
+B015,111,water,True,RedSea-Rabigh,station,data
+B015,112,water,True,RedSea-Mastorah,station,data
+B020,113,water,True,Al-Budhai-StI,station,data
+B020,114,water,True,Al-Budhai-StII,station,data
+B020,115,water,True,Al-Budhai-StIII,station,data
+B020,116,water,True,Al-Budhai-StIV,station,data
+B020,117,water,True,Al-Budhai-StV,station,data
+B020,118,water,True,Al-Budhai-StVI,station,data
+B020,119,water,True,Al-Budhai-StVII,station,data
+B020,120,water,True,Al-Budhai-StVIII,station,data
+B020,121,water,True,Al-Budhai-StIX,station,data
+B021,122,water,True,M1-port-area,station,data
+B021,123,water,True,M2-aquaculture-area,station,data
+B021,124,water,True,BothStations-monsoon-influenced,season,data
+B021,125,water,True,BothStations-summer,season,data
+B021,126,water,True,BothStations-postmonsoon-winter,season,data
+B022,127,water,True,Site1-Jenggalu-River-estuary,station,data
+B022,128,water,True,Site2-Bengkulu-River-estuary,station,data
+B022,129,water,True,Site3-Black-River-estuary,station,data
+B022,130,water,True,Site4-TWA-3,station,data
+B022,131,water,True,Site5-TWA-2,station,data
+B022,132,water,True,Site6-TWA-1,station,data
+B022,133,water,True,Site7-oil-catcher,station,data
+B022,134,water,True,Site8-Lentera-Merah-1,station,data
+B022,135,water,True,Site9-Lentera-Merah-2,station,data
+B022,136,water,True,Site10-mangrove-forest-tourism,station,data
+B022,137,water,True,Site11-PLTU-intake,station,data
+B022,138,water,True,Site12-PLTU-wastewater-outlet,station,data
+B025,139,water,True,Fresh-reach-<5psu,zone,data
+B025,140,water,True,Mid-estuary-5-25psu,zone,data
+B025,141,water,True,Seaward->25psu,zone,data
+B025,142,water,True,Estuary-mouth-Stn6,station,data
+B025,143,water,True,Nearshore-500-1000m-offshore,station,data
+B025,144,water,True,Upwelling-event-Mar2009-south-estuaries,season,data
+B025,145,water,True,LaNina-high-rainfall-Dec2010,season,data
+B025,146,water,True,All-systems-monthly-2009-2012,season,data
+B028,147,water,True,PuertoCuatreros-annual-1999-2000,station,data
+B028,148,water,True,PuertoCuatreros-winter,season,data
+B028,149,water,True,PuertoCuatreros-summer,season,data
+B028,150,bioassay,False,Bioassay-Cu-96h-LC50,other,data
+B028,151,bioassay,False,Bioassay-Zn-96h-LC50,other,data
+B030,152,water,True,Summer 2016 (Mar-Apr),season,data
+B030,153,water,True,Rainy 2016 (Jul-Aug),season,data
+B030,154,water,True,Winter 2016-17 (Dec-Feb),season,data
+B030,155,water,True,"All 20 stations, study period",site,data
+B031,156,water,True,Mar 2018,season,data
+B031,157,water,True,Apr 2018,season,data
+B031,158,water,True,Jan 2019,season,data
+B031,159,water,True,Mar 2019,season,data
+B031,160,water,True,15-station transect Batiaghata-Joymoni,station,data
+B032,161,water,True,St1-Veerampattinam-Premonsoon,station,data
+B032,162,water,True,St1-Veerampattinam-Monsoon,station,data
+B032,163,water,True,St1-Veerampattinam-Postmonsoon,station,data
+B032,164,water,True,St1-Veerampattinam-Summer,station,data
+B032,165,water,True,St2-Thengaithittu-Premonsoon,station,data
+B032,166,water,True,St2-Thengaithittu-Monsoon,station,data
+B032,167,water,True,St2-Thengaithittu-Postmonsoon,station,data
+B032,168,water,True,St2-Thengaithittu-Summer,station,data
+B032,169,water,True,St3-Ariyankuppam-Premonsoon,station,data
+B032,170,water,True,St3-Ariyankuppam-Monsoon,station,data
+B032,171,water,True,St3-Ariyankuppam-Postmonsoon,station,data
+B032,172,water,True,St3-Ariyankuppam-Summer,station,data
+B032,173,water,True,St4-Murungapakkam-Premonsoon,station,data
+B032,174,water,True,St4-Murungapakkam-Monsoon,station,data
+B032,175,water,True,St4-Murungapakkam-Postmonsoon,station,data
+B032,176,water,True,St4-Murungapakkam-Summer,station,data
+B034,177,water,True,Atasta-dry,site,data
+B034,178,water,True,Atasta-rainy,site,data
+B034,179,water,True,Atasta-north winds,site,data
+B034,180,water,True,Pom-dry,site,data
+B034,181,water,True,Pom-rainy,site,data
+B034,182,water,True,Pom-north winds,site,data
+B034,183,water,True,"Both lagoons, 12 stations",site,data
+B036,184,water,True,"St I (25-20 ppt, seaward)",site,data
+B036,185,water,True,"St II (20-15 ppt, middle)",site,data
+B036,186,water,True,"St III (15-10 ppt, landward)",site,data
+B036,187,summary,False,"Whole estuary, Apr 2016 (3 weekly samplings)",other,data
+B038,188,water,True,St1-surface,depth,data
+B038,189,water,True,St1-bottom,depth,data
+B038,190,water,True,St2-surface,depth,data
+B038,191,water,True,St2-bottom,depth,data
+B038,192,water,True,St3-surface,depth,data
+B038,193,water,True,St3-bottom,depth,data
+B038,194,water,True,St4-surface,depth,data
+B038,195,water,True,St4-bottom,depth,data
+B044,196,water,True,St1,station,data
+B044,197,water,True,St2,station,data
+B044,198,water,True,St3,station,data
+B044,199,water,True,St4,station,data
+B044,200,water,True,St5,station,data
+B044,201,water,True,St6,station,data
+B044,202,water,True,"Kelompok A (St1,2,5,6)",site,data
+B044,203,water,True,"Kelompok B (St3,4)",site,data
+B048,204,water,True,Opuro-ama creek,site,data
+B048,205,water,True,Sa-ama creek,site,data
+B049,206,water,True,St I (former pond area),site,data
+B049,207,water,True,St II (mangrove area),site,data
+B049,208,water,True,St III (fishing-boat lane),site,data
+B049,209,water,True,Pasang (high tide),season,data
+B049,210,water,True,Surut (low tide),season,data
+B050,211,water,True,St1-fishing pier,site,data
+B050,212,water,True,St2-mangrove ecosystem,site,data
+B050,213,water,True,St3-TPI Weru,site,data
+B050,214,water,True,St4-marine shipbuilding,site,data
+B050,215,water,True,Dec 2020,season,data
+B050,216,water,True,Feb 2021,season,data
+B050,217,water,True,Mar 2021,season,data
+B052,218,water,True,NR1,site,data
+B052,219,water,True,NR2,site,data
+B052,220,water,True,NR3,site,data
+B052,221,water,True,NR4,site,data
+B052,222,water,True,CR1 (central),site,data
+B052,223,water,True,SR1 (south),site,data
+B052,224,water,True,Pre-SE monsoon,season,data
+B052,225,water,True,Post-SE monsoon,season,data
+B052,226,water,True,Inter-monsoon,season,data
+B054,227,water,True,Station 2 (Kampung Gelugor discharge),site,data
+B054,228,water,True,Station 3 (replanted mangrove),site,data
+B054,229,water,True,Station 4 (boat parking area),site,data
+B054,230,summary,False,All sites (St2-St4 range),site,data
+B055,231,water,True,Semerak Lagoon (SM1-SM3),site,data
+B055,232,water,True,Setiu Wetland (S1-S2),site,data
+B055,233,water,True,Merang Estuary (M1-M2),site,data
+B055,234,water,True,Dry season (Jun-Sep 2016),season,data
+B055,235,summary,False,High & low tide sampling (all stations),other,data
+B057,236,water,True,"ASS-affected pond units (water, n=28)",site,data
+B057,237,water,True,Low-DO / high-NH3 pond zones,other,data
+B057,238,water,True,Pond water nutrient mgmt (N:P / BFS),other,data
+B062,239,water,True,Karangsong Village (7 stns),site,data
+B062,240,water,True,Brondong Village (7 stns),site,data
+B062,241,water,True,Tegur Village (7 stns),site,data
+B062,242,water,True,All 21 stations (pond/inlet/outlet),station,data
+B063,243,water,True,Crude band on muddy water-body surface (Sample 1),site,data
+B063,244,water,True,Film of crude on water surface (Sample 2),site,data
+B063,245,sediment,False,Sub-surface sediment 0.5 m (Sample 3),site,data
+B063,246,water,True,Surface black mud with crude spill (Sample 4),site,data
+B063,247,water,True,Sand collected on river shore (Sample 5),site,data
+B063,248,biota,False,Dead sea food / oyster on mangrove substrate (Sample 6),site,data
+B063,249,water,True,Dead mangrove vegetation leaves (Sample 7),site,data
+B065,250,water,True,"Group A - west river estuaries (GX01,02,04,05,06)",site,data
+B065,251,water,True,"Group B - offshore / island edge (GX03,12,13)",site,data
+B065,252,water,True,Group C - mangrove reserve GX11 + petrochemical GX15,site,data
+B065,253,water,True,"Group D - Beihai Bay north (GX07,08,09,10,11,14)",site,data
+B065,254,water,True,"Nutrient stations (GX03,04,06,09,10,12)",station,data
+B066,255,bioassay,False,Cd bioassay (216-h static),other,data
+B066,256,bioassay,False,Cu bioassay (216-h static),other,data
+B066,257,bioassay,False,Cr (VI) bioassay (216-h static),other,data
+B066,258,bioassay,False,Zn bioassay (216-h static),other,data
+B066,259,water,True,Acclimation / holding seawater (control media),other,data
+B069,260,water,True,Station I - near settlement,station,data
+B069,261,water,True,Station II - old estuary arm,station,data
+B069,262,water,True,Station III - new estuary arm,station,data
+B069,263,water,True,Station IV - nearshore coastal waters,station,data
+B069,264,summary,False,All stations (Sep 2015; 3 pts each),station,data
+B070,265,water,True,Mangrove ecosystem,site,data
+B070,266,water,True,Seagrass ecosystem,site,data
+B070,267,water,True,Coral reef ecosystem,site,data
+B070,268,summary,False,All sites (Mar-Jul 2015),season,data
+B071,269,water,True,Estuarine-water-fed pond (d0-185),site,data
+B071,270,water,True,Bore-well (alkaline) water-fed pond,site,data
+B071,271,water,True,Both ponds - full 185-d culture cycle,other,data
+B071,272,water,True,Alkaline pond - mineral deposition phase (d75-185),other,data
+B075,273,water,True,Site 1 - coastal area (Tambakredjo),site,data
+B075,274,water,True,Site 2 - mangrove,site,data
+B075,275,water,True,Site 3 - Banjir Kanal Timur estuary,site,data
+B075,276,water,True,Site 4 - Maerokoco (reference),site,data
+B076,277,water,True,Station 1 - Falcorp protected channel,site,data
+B076,278,water,True,Station 2 - Falcorp protected channel,site,data
+B076,279,water,True,Station 3 - Falcorp water channel,site,data
+B076,280,water,True,Station 4 - Ifie creek,site,data
+B076,281,water,True,Station 5 - Ifie creek,site,data
+B076,282,summary,False,Dry season (Feb 2013-Jul 2014 pooled),season,data
+B076,283,summary,False,Wet season (Feb 2013-Jul 2014 pooled),season,data
+B077,284,water,True,Pulau Bedal (PB),site,data
+B077,285,water,True,Pulau Layang-layang (PL),site,data
+B077,286,water,True,Pulau Mas (PM),site,data
+B077,287,water,True,Pulau Kambing (PK),site,data
+B077,288,water,True,Pulau Tujuh (PT),site,data
+B078,289,water,True,Dry season (Oct 2017-Jan 2018; 30 stns),season,data
+B078,290,water,True,Wet season (Jul-Aug 2018; 23 stns),season,data
+B078,291,water,True,Poor WQI sites gd-33..gd-38,site,data
+B078,292,water,True,Fair WQI sites gd-21 / gd-27,site,data
+B079,293,summary,False,All 36 sites (18 creeks pooled),other,data
+B079,294,water,True,Khobar creek (C-35/36; lowest salinity),station,data
+B079,295,water,True,Kunni creek (C-28; highest salinity),station,data
+B079,296,water,True,"High organic load sites (C-10, C-22, C-23)",site,data
+B079,297,water,True,"Mangrove-adjacent chlorophyll sites (C-8,9,23,28,29)",site,data
+B080,298,summary,False,"All stations St1-20, surface",station,data
+B080,299,water,True,"St5, St6, St20 (fosfat spesifik)",station,data
+B080,300,water,True,St10 (nitrat spesifik),station,data
+B083,301,water,True,Kondisi kontrol (10 km hulu),site,data
+B083,302,water,True,Kondisi terpapar limbah CPO,site,data
+B084,303,water,True,Site-1 - summer,site-season,data
+B084,304,water,True,Site-1 - winter,site-season,data
+B084,305,water,True,Site-1 - monsoon,site-season,data
+B084,306,water,True,Site-2 - summer,site-season,data
+B084,307,water,True,Site-2 - winter,site-season,data
+B084,308,water,True,Site-2 - monsoon,site-season,data
+B084,309,water,True,Site-3 - summer,site-season,data
+B084,310,water,True,Site-3 - winter,site-season,data
+B084,311,water,True,Site-3 - monsoon,site-season,data
+B084,312,water,True,Site-4 - summer,site-season,data
+B084,313,water,True,Site-4 - winter,site-season,data
+B084,314,water,True,Site-4 - monsoon,site-season,data
+B084,315,water,True,Site-5 - summer,site-season,data
+B084,316,water,True,Site-5 - winter,site-season,data
+B084,317,water,True,Site-5 - monsoon,site-season,data
+B085,318,water,True,Panangad-Kumbalam - Jun-2012,season,data
+B085,319,water,True,Panangad-Kumbalam - Jul-2012,season,data
+B085,320,water,True,Panangad-Kumbalam - Aug-2012,season,data
+B085,321,water,True,Panangad-Kumbalam - Sep-2012,season,data
+B085,322,water,True,Panangad-Kumbalam - Oct-2012,season,data
+B085,323,water,True,Panangad-Kumbalam - Nov-2012,season,data
+B085,324,water,True,Panangad-Kumbalam - Dec-2012,season,data
+B085,325,water,True,Panangad-Kumbalam - Jan-2013,season,data
+B085,326,water,True,Panangad-Kumbalam - Feb-2013,season,data
+B085,327,water,True,Panangad-Kumbalam - Mar-2013,season,data
+B085,328,water,True,Panangad-Kumbalam - Apr-2013,season,data
+B085,329,water,True,Panangad-Kumbalam - May-2013,season,data
+B085,330,water,True,Panangad-Kumbalam - annual mean (4 stations),station,data
+B086,331,water,True,Culebra Bay (upwelling),site,data
+B086,332,water,True,Gulf of Nicoya - Upper region,site,data
+B086,333,water,True,Gulf of Nicoya - Middle (Cortezas/Caballo islands),site,data
+B086,334,water,True,Gulf of Nicoya - Lower region,site,data
+B086,335,water,True,Gulf of Nicoya - dry season,season,data
+B086,336,water,True,Gulf of Nicoya - rainy season,season,data
+B086,337,water,True,Golfito Bay (mangrove-bordered),site,data
+B086,338,water,True,Moin Bay (port),site,data
+B089,339,water,True,Air Hitam River (5 points x 7 weeks),station,data
+B089,340,water,True,Judah River (5 points x 7 weeks),station,data
+B089,341,water,True,Keluang River (5 points x 7 weeks),station,data
+B090,342,water,True,St1 - Mouth area (2009-2011 avg monthly),station,data
+B090,343,water,True,St2 - Mangrove area (2009-2011 avg monthly),station,data
+B090,344,water,True,Monsoon vs summer (both stations),season,data
+B091,345,water,True,SW1 (9.9 km from sea),station,data
+B091,346,water,True,SW2 (15.1 km from sea),station,data
+B091,347,water,True,SW3 (20.3 km from sea),station,data
+B091,348,water,True,SW4 (25.5 km from sea),station,data
+B091,349,water,True,SW5 (30.7 km from sea),station,data
+B091,350,water,True,SW6 (35.9 km from sea),station,data
+B091,351,water,True,SW7 (41.1 km from sea),station,data
+B091,352,water,True,SW8 (46.3 km from sea),station,data
+B091,353,water,True,SW9 (51.5 km from sea),station,data
+B091,354,water,True,SW10 (56.7 km from sea),station,data
+B092,355,water,True,Station 1 (estuary Dumai river),station,data
+B092,356,water,True,Station 2 (ship mooring area),station,data
+B092,357,water,True,Station 3 (furthest from estuary),station,data
+B093,358,water,True,Mangrove alami (Pantai Air Sagu),site,data
+B093,359,water,True,Mangrove di pertambangan timah,site,data
+B096,360,water,True,Station I - entrance gate (dock),station,data
+B096,361,water,True,Station II - high-density mangrove,station,data
+B096,362,water,True,Station III - coastal sea,station,data
+B096,363,water,True,Station IV - fish pond,station,data
+B096,364,summary,False,2008 oil-spill baseline (Pertamina),other,data
+B097,365,water,True,LMC Area-1 (Margasari),site,data
+B097,366,water,True,LMC Area2,site,data
+B097,367,water,True,LMC Area3,site,data
+B097,368,water,True,LMC Area4,site,data
+B097,369,water,True,LMC Area5,site,data
+B098,370,water,True,Stasiun 1 (bibir pantai),station,data
+B098,371,water,True,Stasiun 2,station,data
+B098,372,water,True,Stasiun 3,station,data
+B098,373,water,True,Stasiun 4,station,data
+B098,374,water,True,Stasiun 5,station,data
+B102,375,water,True,St1,station,data
+B102,376,water,True,St2,station,data
+B102,377,water,True,St3,station,data
+B106,378,water,True,St1-surface,station,data
+B106,379,water,True,St2-surface,station,data
+B106,380,water,True,St3-surface,station,data
+B106,381,water,True,St4-surface,station,data
+B106,382,water,True,St5-surface,station,data
+B106,383,water,True,St6-surface,station,data
+B106,384,water,True,St1-bottom,station,data
+B106,385,water,True,St2-bottom,station,data
+B106,386,water,True,St3-bottom,station,data
+B106,387,water,True,St4-bottom,station,data
+B106,388,water,True,St5-bottom,station,data
+B106,389,water,True,St6-bottom,station,data
+B107,390,water,True,St1,station,data
+B107,391,water,True,St2,station,data
+B107,392,water,True,St3,station,data
+B107,393,water,True,St4,station,data
+B107,394,water,True,St5,station,data
+B107,395,water,True,Low tide,other,data
+B107,396,water,True,High tide,other,data
+B108,397,water,True,CMC1,site,data
+B108,398,water,True,CMC2,site,data
+B108,399,water,True,CMC3,site,data
+B108,400,water,True,Kondang Merak,site,data
+B108,401,water,True,Teluk Semut,site,data
+B109,402,water,True,Upper zone,station,data
+B109,403,water,True,Middle zone,station,data
+B109,404,water,True,Lower zone,station,data
+B110,405,water,True,Kuala Tambangan,site,data
+B110,406,water,True,Bunati,site,data
+B110,407,water,True,Angsana,site,data
+B110,408,water,True,Setarap,site,data
+B115,409,water,True,Monsoon,season,data
+B115,410,water,True,Post-monsoon,season,data
+B115,411,water,True,Pre-monsoon,season,data
+B116,412,water,True,CS1-premonsoon,season,data
+B116,413,water,True,CS2-premonsoon,season,data
+B116,414,water,True,CS3-premonsoon,season,data
+B116,415,water,True,CS4-premonsoon,season,data
+B116,416,water,True,CS5-premonsoon,season,data
+B116,417,water,True,CS6-premonsoon,season,data
+B116,418,water,True,CS7-premonsoon,season,data
+B116,419,water,True,CS1-postmonsoon,season,data
+B116,420,water,True,CS2-postmonsoon,season,data
+B116,421,water,True,CS3-postmonsoon,season,data
+B116,422,water,True,CS4-postmonsoon,season,data
+B116,423,water,True,CS5-postmonsoon,season,data
+B116,424,water,True,CS6-postmonsoon,season,data
+B116,425,water,True,CS7-postmonsoon,season,data
+B118,426,water,True,E1-dry,station,data
+B118,427,water,True,E1-rainy,station,data
+B118,428,water,True,E2-dry,station,data
+B118,429,water,True,E2-rainy,station,data
+B118,430,water,True,E3-dry,station,data
+B118,431,water,True,E3-rainy,station,data
+B118,432,water,True,E4-dry,station,data
+B118,433,water,True,E4-rainy,station,data
+B118,434,water,True,E5-dry,station,data
+B118,435,water,True,E5-rainy,station,data
+B119,436,water,True,AP1 (no mangrove),site,data
+B119,437,water,True,AP2 (mangrove-vegetated),site,data
+B120,438,water,True,1987-1993,other,data
+B120,439,water,True,2017-2021,other,data
+B125,440,water,True,Pre-monsoon (Jul-Sep),season,data
+B125,441,water,True,Monsoon (Oct-Dec),season,data
+B125,442,water,True,Post-monsoon (Jan-Mar),season,data
+B125,443,water,True,Summer (Apr-Jun),season,data
+B126,444,water,True,St1,station,data
+B126,445,water,True,St2,station,data
+B126,446,water,True,St3,station,data
+B126,447,water,True,St4,station,data
+B126,448,water,True,St5,station,data
+B126,449,water,True,St6,station,data
+B127,450,water,True,Estuary-wet,season,data
+B127,451,water,True,Estuary-dry,season,data
+B128,452,water,True,S1-premonsoon,station,data
+B128,453,water,True,S2-premonsoon,station,data
+B128,454,water,True,S3-premonsoon,station,data
+B128,455,water,True,S4-premonsoon,station,data
+B128,456,water,True,S5-premonsoon,station,data
+B128,457,water,True,S6-premonsoon,station,data
+B128,458,water,True,S1-monsoon,station,data
+B128,459,water,True,S2-monsoon,station,data
+B128,460,water,True,S3-monsoon,station,data
+B128,461,water,True,S4-monsoon,station,data
+B128,462,water,True,S5-monsoon,station,data
+B128,463,water,True,S6-monsoon,station,data
+B128,464,water,True,S1-postmonsoon,station,data
+B128,465,water,True,S2-postmonsoon,station,data
+B128,466,water,True,S3-postmonsoon,station,data
+B128,467,water,True,S4-postmonsoon,station,data
+B128,468,water,True,S5-postmonsoon,station,data
+B128,469,water,True,S6-postmonsoon,station,data
+B131,470,water,True,NSBT-nearshore,other,data
+B131,471,water,True,NSBT-midshore,other,data
+B131,472,water,True,NSBT-offshore,other,data
+B131,473,water,True,SBT-nearshore,other,data
+B131,474,water,True,SBT-midshore,other,data
+B131,475,water,True,SBT-offshore,other,data
+B133,476,water,True,monsoon,season,data
+B133,477,water,True,pre-monsoon,season,data
+B133,478,water,True,post-monsoon,season,data
+B133,479,water,True,summer,season,data
+B134,480,water,True,Sawahmulya,site,data
+B134,481,water,True,Sungai Rujing,site,data
+B134,482,water,True,Hijau Daun,site,data
+B134,483,water,True,Sidogedungbatu,site,data
+B134,484,water,True,Pamona,site,data
+B134,485,water,True,Pasir Putih,site,data
+B134,486,water,True,Bangsal,site,data
+B134,487,water,True,Dekatagung,site,data
+B134,488,water,True,Jherat Lanjheng,site,data
+B134,489,water,True,Lebak,site,data
+B134,490,water,True,Pulau Cina,site,data
+B137,491,water,True,St1-dry,station,data
+B137,492,water,True,St1-rain,station,data
+B137,493,water,True,St2-dry,station,data
+B137,494,water,True,St2-rain,station,data
+B137,495,water,True,St3-dry,station,data
+B137,496,water,True,St3-rain,station,data
+B138,497,water,True,S1-Aleto-sandmine1,station,data
+B138,498,water,True,S2-Aleto-bridge,station,data
+B138,499,water,True,S3-Aleto-slaughterhouse,station,data
+B138,500,water,True,S4-Akpajo-sandmine,station,data
+B139,501,water,True,St1-Uppanar-non-effluent,station,data
+B139,502,water,True,St2-Uppanar-effluent,station,data
+B139,503,water,True,St3-Vellar-estuary,station,data
+B139,504,water,True,St4-Pitchavaram-mangrove,station,data
+B141,505,water,True,S1-upstream,station,data
+B141,506,water,True,S2-sewage-discharge,station,data
+B141,507,water,True,S3-post-discharge,station,data
+B141,508,water,True,S4-mangrove-start,station,data
+B141,509,water,True,S5-mangrove-mature,station,data
+B141,510,water,True,S6-presea,station,data
+B144,511,water,True,St1-hightide,station,data
+B144,512,water,True,St1-lowtide,station,data
+B144,513,water,True,St2-hightide,station,data
+B144,514,water,True,St2-lowtide,station,data
+B144,515,water,True,St3-hightide,station,data
+B144,516,water,True,St3-lowtide,station,data
+B144,517,water,True,St4-hightide,station,data
+B144,518,water,True,St4-lowtide,station,data
+B144,519,water,True,St5-hightide,station,data
+B144,520,water,True,St5-lowtide,station,data
+B148,521,water,True,Bomigo-natural,site,data
+B148,522,water,True,Gblekope-replanted-doing-well,site,data
+B148,523,water,True,Fiaxor-replanted-not-doing-well,site,data
+B148,524,water,True,Galotse-degraded,site,data
+B149,525,water,True,Gbaramatu-mangrove-water,site,data
+B152,526,water,True,S1-Villimangalam,station,data
+B152,527,water,True,S2-Nenmeny,station,data
+B152,528,water,True,S3-Palliyanthuruthu,station,data
+B152,529,water,True,S4-Neetumthuruthu,station,data
+B152,530,water,True,S5-Pezhumthuruthu,station,data
+B152,531,water,True,S6-Pattamthuruthu,station,data
+B152,532,water,True,S7-Kandramkani,station,data
+B152,533,water,True,S8-Peringalam,station,data
+B152,534,water,True,S9-Kidapram II,station,data
+B152,535,water,True,S10-Kidapram I,station,data
+B153,536,water,True,St-I south zone,station,data
+B153,537,water,True,St-II central zone,station,data
+B153,538,water,True,St-III north zone,station,data
+B153,539,summary,False,"All stations (pooled, dry month Aug 2024)",season,data
+B154,540,water,True,St1 Lower stream,station,data
+B154,541,water,True,St2 Middle stream,station,data
+B154,542,water,True,St3 Upper stream,station,data
+B154,543,summary,False,All stations (weighted mean of 3 trials),season,data
+B156,544,water,True,Vadgam (VGM),site,data
+B156,545,water,True,Tadatalav (TTM),site,data
+B156,546,water,True,Kantiyajal (KJM),site,data
+B156,547,summary,False,All sites (winter/post-monsoon Dec-Feb 2022),season,data
+B158,548,summary,False,All 8 sampling points (pooled daytime),site,data
+B158,549,water,True,Morning (AM) session,other,data
+B158,550,water,True,Afternoon (PM) session,other,data
+B159,551,water,True,SP5 Gunung Anyar estuary,station,data
+B159,552,water,True,SP6 Gunung Anyar mid-channel,station,data
+B159,553,water,True,SP7 Gunung Anyar coastal approach,station,data
+B159,554,water,True,SP8 Gunung Anyar coast (mangrove-dense),station,data
+B161,555,water,True,St-1 fish-auction discharge,station,data
+B161,556,water,True,St-2 community-pond channel,station,data
+B161,557,water,True,St-3 Blanakan/Langensari estuary,station,data
+B161,558,summary,False,"All stations (pooled, extreme-dry period)",season,data
+B162,559,water,True,Spring high tide (full moon) - model,depth,data
+B162,560,water,True,Spring low tide (full moon ebb) - model,depth,data
+B162,561,water,True,Neap high tide - model,depth,data
+B162,562,water,True,Neap low tide - model,depth,data
+B162,563,water,True,Annual average - model (all tides),season,data
+B163,564,water,True,St-1 Fakirhat Bazar - dry season (Dec-Feb),season,data
+B163,565,water,True,St-1 Fakirhat Bazar - wet season (Aug-Oct),season,data
+B163,566,water,True,St-2 Idupara Gram - dry season (Dec-Feb),season,data
+B163,567,water,True,St-2 Idupara Gram - wet season (Aug-Oct),season,data
+B163,568,water,True,St-3 Borof Mill - dry season (Dec-Feb),season,data
+B163,569,water,True,St-3 Borof Mill - wet season (Aug-Oct),season,data
+B163,570,water,True,St-4 Forest Office - dry season (Dec-Feb),season,data
+B163,571,water,True,St-4 Forest Office - wet season (Aug-Oct),season,data
+B163,572,water,True,St-5 Sokhina Khal - dry season (Dec-Feb),season,data
+B163,573,water,True,St-5 Sokhina Khal - wet season (Aug-Oct),season,data
+B164,574,water,True,St-1 river mouth (estuary),site,data
+B164,575,water,True,St-2 mangrove waters,site,data
+B164,576,water,True,St-3 pond-discharge waters,site,data
+B164,577,water,True,St-4 pier/dock waters,site,data
+B164,578,summary,False,All stations (pooled),site,data
+B166,579,water,True,Zone A - white mangrove (MN) piezometers,site,data
+B166,580,water,True,Zone B - black mangrove (MB) piezometers,site,data
+B166,581,water,True,Zone C - red mangrove (MR) piezometers,site,data
+B166,582,summary,False,Seasons pooled - Norte / rainy / dry (Sep 2024 sampling round),season,data
+B166,583,summary,False,All 18 piezometers (overall WQI),site,data
+B168,584,water,True,"Safaga (ST1-ST3, mangrove-rich)",site,data
+B168,585,water,True,"Kalwaye (KT1, no mangroves)",site,data
+B168,586,water,True,"El-Quih (QT1-QT4, mangrove-rich)",site,data
+B168,587,water,True,"Wadi El-Quih (WT1-WT2, no mangroves)",site,data
+B169,588,water,True,Residential zone (stations 4-6),site,data
+B169,589,water,True,Port zone (stations 7-9 + 3),site,data
+B169,590,water,True,Mangrove zone (near settlements),site,data
+B169,591,water,True,"Central bay (stations 1,2,10-12)",site,data
+B169,592,summary,False,Whole bay (overall CWQI),site,data
+B169,593,water,True,Dry season (June 2024),season,data
+B169,594,water,True,Rainy season (November 2024),season,data
+B173,595,water,True,St1-river-mouth,station,data
+B173,596,water,True,St2-middle,station,data
+B173,597,water,True,St3-upstream,station,data
+B176,598,water,True,ST1-mangrove-beach,station,data
+B176,599,water,True,ST2-port,station,data
+B176,600,water,True,ST3-shipyard,station,data
+B179,601,water,True,ST1-wet,station-season,data
+B179,602,water,True,ST1-dry,station-season,data
+B179,603,water,True,ST2-wet,station-season,data
+B179,604,water,True,ST2-dry,station-season,data
+B179,605,water,True,ST3-wet,station-season,data
+B179,606,water,True,ST3-dry,station-season,data
+B179,607,water,True,ST4-wet,station-season,data
+B179,608,water,True,ST4-dry,station-season,data
+B180,609,water,True,Titik1,station,data
+B180,610,water,True,Titik2,station,data
+B180,611,water,True,Titik3,station,data
+B181,612,water,True,Jun-2023,season,data
+B181,613,water,True,Jul-2023,season,data
+B181,614,water,True,Aug-2023,season,data
+B186,615,water,True,Depth20cm,depth,data
+B186,616,water,True,Depth40cm,depth,data
+B186,617,water,True,Depth60cm,depth,data
+B187,618,water,True,St1-mangrove-estuary,station,data
+B187,619,water,True,St2-coast,station,data
+B187,620,water,True,St3-port,station,data
+B187,621,water,True,St4-ponds,station,data
+B187,622,water,True,St5-settlement,station,data
+B190,623,water,True,BN-Feb,zone,data
+B190,624,water,True,BN-May,zone,data
+B190,625,water,True,BN-Aug,zone,data
+B190,626,water,True,BN-Nov,zone,data
+B190,627,water,True,BS-Feb,zone,data
+B190,628,water,True,BS-May,zone,data
+B190,629,water,True,BS-Aug,zone,data
+B190,630,water,True,BS-Nov,zone,data
+B190,631,water,True,CN-Feb,zone,data
+B190,632,water,True,CN-May,zone,data
+B190,633,water,True,CN-Aug,zone,data
+B190,634,water,True,CN-Nov,zone,data
+B190,635,water,True,BO-Feb,zone,data
+B190,636,water,True,BO-May,zone,data
+B190,637,water,True,BO-Aug,zone,data
+B190,638,water,True,BO-Nov,zone,data
+B191,639,water,True,Coastal-wet,season,data
+B191,640,water,True,Coastal-dry,season,data
+B191,641,water,True,Pond-wet,season,data
+B191,642,water,True,Pond-dry,season,data
+B199,643,water,True,St1-pre-monsoon,station-season,data
+B199,644,water,True,St1-monsoon,station-season,data
+B199,645,water,True,St1-post-monsoon,station-season,data
+B199,646,water,True,St2-pre-monsoon,station-season,data
+B199,647,water,True,St2-monsoon,station-season,data
+B199,648,water,True,St2-post-monsoon,station-season,data
+B199,649,water,True,St3-pre-monsoon,station-season,data
+B199,650,water,True,St3-monsoon,station-season,data
+B199,651,water,True,St3-post-monsoon,station-season,data
+B200,652,water,True,Pre-monsoon,season,data
+B200,653,water,True,Monsoon,season,data
+B200,654,water,True,Post-monsoon,season,data
+B201,655,water,True,"Sarankhola-Chandpai-Nalian-Burigualiny, post-monsoon (Sep-Nov 2008)",season,data
+B201,656,water,True,Dry season (Dec-Feb),season,data
+B201,657,water,True,Pre-monsoon (Mar-May),season,data
+B201,658,water,True,Monsoon (Jun-Aug),season,data
+B201,659,summary,False,SRF 25 sites - secondary WQ compilation 2001-2009,other,data
+B203,660,water,True,Thamirabarani estuary - pre-monsoon (Jul 2019-May 2020),season,data
+B203,661,water,True,Monsoon,season,data
+B203,662,water,True,Post-monsoon,season,data
+B203,663,water,True,Station 1 - Mouth zone,station,data
+B203,664,water,True,Station 2 - Estuary zone,station,data
+B203,665,water,True,Station 3 - Creek zone,station,data
+B206,666,water,True,Station 1 (near fish ponds),station,data
+B206,667,water,True,Station 2 (near resorts/water tourism),station,data
+B206,668,water,True,Station 3 (closest to sea),station,data
+B208,669,water,True,"Pond IMA_C1 (Chaital, Oct 2022)",station,data
+B208,670,water,True,"Pond IMA_C3 (Chaital, Oct 2022)",station,data
+B208,671,water,True,"Pond C6_NM (Chaital, non-IMA control)",station,data
+B208,672,water,True,"Pond IMA_DB1 (Madhabpur, Oct 2022)",station,data
+B208,673,water,True,"Pond IMA_DB4 (Madhabpur, Oct 2022)",station,data
+B208,674,water,True,"Pond DB5_NM (Madhabpur, non-IMA control)",station,data
+B211,675,water,True,"Sungai Bongkok - Station 1 (hulu), musim kemarau (Agu 2022)",station,data
+B211,676,water,True,"Station 2 (tengah), musim kemarau",station,data
+B211,677,water,True,"Station 3 (hilir, muara Teluk Nuri), musim kemarau",station,data
+B211,678,water,True,"Station 1 (hulu), musim penghujan (Okt 2022)",station,data
+B211,679,water,True,"Station 2 (tengah), musim penghujan",station,data
+B211,680,water,True,"Station 3 (hilir), musim penghujan",station,data
+B213,681,water,True,"Station 1 - pond area (Belawan Pulau Sicanang, Agu 2025)",station,data
+B213,682,water,True,Station 2 - residential area,station,data
+B213,683,water,True,Station 3 - mangrove ecosystem,station,data
+B214,684,water,True,Surface water - monsoon (Jul-Oct 2023),season,data
+B214,685,water,True,Surface water - post-monsoon (Nov-Feb),season,data
+B214,686,water,True,Surface water - pre-monsoon (Mar-Jun 2023),season,data
+B214,687,soil,False,Soil - monsoon (Jul-Oct 2023),other,data
+B214,688,soil,False,Soil - post-monsoon (Nov-Feb),other,data
+B214,689,soil,False,Soil - pre-monsoon (Mar-Jun 2023),other,data
+B219,690,water,True,Segara Anakan south - dry season (Agu-Sep 2003; 4 sites),season,data
+B219,691,water,True,Wet season (Des 2003-Mar 2004; 4 sites),season,data
+B219,692,water,True,Majingklak (Citanduy river inflow),station,data
+B219,693,sediment,False,"Sediment N & P (4 sites, quarterly)",other,data
+B221,694,experimental,False,"Control tank water (14 d, no Cd/MP)",other,data
+B221,695,experimental,False,Cd + PE-MP contaminated tank water,other,data
+B221,696,experimental,False,"Acclimation groundwater (14 d, cement tanks)",other,data
+B221,697,experimental,False,Cd-only exposure media (20/40/60 ug/L),other,data
+B222,698,water,True,"Mangrove groundwater (n=12, Oct 2017)",station,data
+B222,699,water,True,"Furo do Meio tidal creek (n=40, dry season)",station,data
+B222,700,water,True,"Caeté River estuary (n=21, Oct 2017)",station,data
+B222,701,water,True,"North Brazil continental shelf (n=13, May 2018)",station,data
+B222,702,water,True,Creek neap vs spring tidal cycles,other,data
+B223,703,water,True,"Basambiri community (Nembe mangrove swamp, Jan-Feb 2023)",site,data
+B223,704,water,True,Obiama community,site,data
+B223,705,water,True,Sabatoro community,site,data
+B237,706,biota,False,"Pb-treated fish (4 mg/L lead nitrate, 30 d)",other,data
+B237,707,bioassay,False,96h LC50 static bioassay (Probit),other,data
+B238,708,water,True,"Kailash Khal wetland (Sundarbans, India) — Pre-monsoon season (Apr–Jun), Apr 2016–Mar 2017",season,data
+B238,709,water,True,"Kailash Khal wetland (Sundarbans, India) — Monsoon season (Jul–Sep), Apr 2016–Mar 2017",season,data
+B238,710,water,True,"Kailash Khal wetland (Sundarbans, India) — Post-monsoon season (Oct–Nov), Apr 2016–Mar 2017",season,data
+B240,711,water,True,"Depapre District waters, Jayapura — Harlem tourist-beach waters (Perairan pantai wisata Harlem) (Oct 2017 survey; 5 replicates/station)",site,data
+B240,712,water,True,"Depapre District waters, Jayapura — Tablasupa village coastal waters (Perairan pesisir Kampung Tablasupa) (Oct 2017 survey; 5 replicates/station)",site,data
+B240,713,water,True,"Depapre District waters, Jayapura — Pulau Dua waters (Perairan Pulau Dua) (Oct 2017 survey; 5 replicates/station)",site,data
+B240,714,water,True,"Depapre District waters, Jayapura — Depapre port-development site waters (Perairan lokasi pembangunan pelabuhan Depapre) (Oct 2017 survey; 5 replicates/station)",site,data
+B240,715,water,True,"Depapre District waters, Jayapura — Depapre village waters (Perairan Kampung Depapre) (Oct 2017 survey; 5 replicates/station)",site,data

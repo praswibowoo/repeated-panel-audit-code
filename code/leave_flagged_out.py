@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Leave-six-out sensitivity for the venue-quality check.
 
-The six studies flagged by the collapsed audit are B063, B166, B201, B213,
-B208, and B102.  This script removes all six and reruns the full and
+The six studies flagged by the three-arm collapsed audit are B063, B201, B102,
+B166, B012, and B208.  This script removes all six and reruns the full and
 panel-collapsed block/matched audit with 100 draws per study.  It tests
 whether the headline contrast depends on the flagged studies.
 
@@ -28,7 +28,7 @@ sys.path.insert(0, os.path.join(ROOT, "code"))
 from common import (DRAWS, data_dir, fit, load_curated, median_ci,  # noqa: E402
                     median_drift, seed_for, unique_mask)
 
-FLAGGED = ("B063", "B166", "B201", "B213", "B208", "B102")
+FLAGGED = ("B063", "B201", "B102", "B166", "B012", "B208")
 OUT = os.path.join(ROOT, "results", "post_audit")
 
 

@@ -74,8 +74,9 @@ for b in range(B):
         p = papers[i]
         frd = np.array(out['full_row'][p])
         cud = np.array(out['collapsed_unique'][p])
-        didx = rng.integers(0, len(frd), len(frd))
-        ds.append(np.median(frd[didx] - cud[didx]))
+        fi = rng.integers(0, len(frd), len(frd))
+        ci = rng.integers(0, len(cud), len(cud))
+        ds.append(np.median(frd[fi] - cud[ci]))
     vals.append(np.median(ds))
 vals = np.array(vals)
 print('two-level delta 95%', np.quantile(vals, [0.025, 0.975]), 'median', np.median(vals))

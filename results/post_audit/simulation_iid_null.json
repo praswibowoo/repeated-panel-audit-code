@@ -1,0 +1,23 @@
+{
+  "design": {
+    "studies": 60,
+    "rows_per_study": 8,
+    "parameters": 30,
+    "draws": 30,
+    "replicates": 100,
+    "seed": 20261125,
+    "generation": "IID Bernoulli(0.30) rows assigned to study blocks"
+  },
+  "row_count_ratio": {
+    "median": 1.0007922562816844,
+    "q025": 0.9223623050761296,
+    "q975": 1.1081963688364764,
+    "mean": 1.0033657505266231
+  },
+  "collapsed_ratio": {
+    "median": 0.9949657976203414,
+    "q025": 0.9244780511444831,
+    "q975": 1.0914830707427976,
+    "mean": 1.0019671589917467
+  }
+}

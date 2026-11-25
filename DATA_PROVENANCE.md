@@ -1,40 +1,46 @@
 # Data provenance — final manuscript map
 
-Final manuscript version: 2026-11-24. The current manuscript uses **main Tables 1--4**, **Fig. 1**, and **SI Tables S1--S12**.
+Manuscript: **Control-unit mismatch in leave-one-study-out audits of repeated binary coverage rows**
 
-This file is the referee-facing provenance map. The earlier, long archival provenance log is preserved at `docs/archive/DATA_PROVENANCE_ARCHIVE.md`; where it differs from the current manuscript or SI, the manuscript/SI are authoritative.
+Release: `v1.7.0-2026-11-25`.
 
-## Manuscript items
+The manuscript has three main tables, one main figure, and SI Tables S1–S6. This file maps each item to the code and deposited outputs in this repository.
+
+## Main manuscript
 
 | Item | Content | Primary scripts / files |
 |---|---|---|
 | Table 1 | Corpus and configuration structure | `code/verify_package.py`, `data/coverage_matrix.csv`, `data/corpus_manifest.csv` |
-| Table 2 | Primary design set | `code/panel_decomposition.py`, `code/sharpening_checks.py`, `results/post_audit/panel_decomposition.json`, `data/sharpening_checks.json` |
-| Table 3 | Sensitivity checks | `code/dimension_sweep.py`, `code/ca_sensitivity.py`, `code/water_only_check.py`, `code/leave_flagged_out.py`, `code/revision/hamming_audit.py` |
-| Table 4 | Reporting protocol | Derived from Tables 2--3 and SI Table S11 |
-| Fig. 1 | Paired design contrast | `code/make_fig_paired_delta.py`, `results/post_audit/panel_decomposition.json`, `data/sharpening_checks.json` |
+| Table 2 | Fixed-set control-geometry and protocol contrasts | `code/unit_revision_fixed.py`, `results/unit_revision_fixed/common_contrast.json` |
+| Table 3 | Target-dependent reporting protocol | Derived from Table 2 and SI Tables S2–S5; no separate analysis |
+| Fig. 1 | Full-fit A versus Bblock control geometry | `code/make_fig_paired_contrast.py`, `results/unit_revision_fixed/common_contrast.json` |
 
-## SI tables
+## Supplementary information
 
 | SI item | Content | Primary scripts / files |
 |---|---|---|
-| S1 | Corpus construction and verification | `docs/prisma_log.csv`, `docs/screening/`, `code/verify_package.py` |
-| S2 | Misclassification and duplication diagnostics | `code/perturbation_upper.py`, `code/perturbation_clustered.py`, `data/row_count_sensitivity.csv`, `data/baseline_block.csv`, `data/baseline_matched.csv`, `data/p0_composition_percentile.csv` |
-| S3 | Resampling-unit calibration | `data/sim_calibration_summary.csv`, `data/sim_calibration_extended_summary.csv` |
-| S4 | Core audit and two-level inference | `code/panel_decomposition.py`, `code/two_level_delta.py`, `code/procrustes_holdout.py`, `data/core.json`, `results/post_audit/tail_audit.json`, `data/water_only_check.json`, PCoA summaries |
-| S5 | Synthetic validation | `code/simulation_validation.py`, `code/multiconfig_sensitivity.py` |
-| S6 | Within-study coherence, upper-tail studies, flagged intervals | `code/supplementary_checks.py`, `code/tail_permutation.py`, `results/post_audit/tail_decomposition.csv`, `code/flagged_studies.py`, `code/flagged_study_cis.py`, `code/leave_flagged_out.py` |
-| S7 | Balance and density-matched controls | `code/balance_diagnostics.py`, `code/panel_decomposition.py` (density-matched), `data/balance_complete_partial.json` |
-| S8 | Dimension sweep and 3-D block factors | `code/dimension_sweep.py`, `code/three_d_models.py`, `data/coverage_3d_models.csv` |
-| S9 | Leverage diagnostics | `code/leverage_check.py`, `results/post_audit/leverage_per_paper.csv` |
-| S10 | Flag calibration and power | `code/q95_corpus.py`, `code/q95_calibration.py`, `code/q95_count_matched.py`, `code/q95_power_curve.py` |
-| S11 | Design set and paired contrasts | `code/sharpening_checks.py`, `code/panel_decomposition.py`, `code/ca_sensitivity.py`, `code/all_paper_audit.py`, `data/summary_excluded_check.json` |
-| S12 | Near-duplicate collapse | `code/revision/hamming_audit.py` |
+| S1 | Corpus construction and verification | `docs/prisma_log.csv`, `docs/screening/`, `docs/verification/`, `data/corpus_manifest.csv` |
+| S2 | Fixed designs, paired contrasts, and donor availability | `code/unit_revision_fixed.py`, `results/unit_revision_fixed/common_contrast.json` |
+| S3 | Control-balance diagnostics | `code/control_balance_fixed.py`, `code/balance_diagnostics.py`, `results/unit_revision_fixed/control_balance.json` |
+| S4 | Fixed-set synthetic benchmarks | `code/simulation_fixed.py`, `results/post_audit/simulation_fixed.json` |
+| S5 | Fixed PCoA/RMS and labeled own-row sensitivities | `code/pcoa_fixed.py`, `code/rms_fixed_sensitivity.py`, `code/ca_sensitivity.py`, `code/water_only_check.py`, `code/dimension_sweep.py`, `code/procrustes_holdout.py`, `code/revision/hamming_audit.py` |
+| S6 | Fixed corpus sensitivities | `code/unit_revision_fixed.py --exclude ...`, `results/unit_revision_fixed/sensitivity_no_B208.json`, `results/unit_revision_fixed/sensitivity_no_unsure_substitutes.json` |
 
 ## Core reported values
 
-- Curated corpus: 117 papers, 716 rows, 151 within-paper configurations, 136 distinct patterns, 565 repeated rows (78.9%).
-- Primary common-evaluation contrast: row-count 1.27 (1.08--1.48), collapsed 0.97 (0.88--1.21), paired \(\Delta=0.17\) (0.10--0.24); two-level interval 0.07--0.24.
-- Own-row sensitivity: 1.36 (1.12--1.59) and 1.04 (0.91--1.16).
-- Volume-matched whole-configuration control: 1.17 (0.97--1.40), \(\Delta=0.01\) (\(-0.02\)--0.10); exact-volume success 68.4%.
-- Direct row-count minus volume-matched contrast: 0.13 (0.10--0.17).
+- Curated corpus: 117 papers, 716 rows, 151 within-study configurations, 136 distinct patterns, 565 repeated rows (78.9%).
+- Fixed PCA A−Bblock, 112: 0.26 (0.22–0.32), 90% positive.
+- Fixed PCA single A−Bblock, 92: 0.27 (0.22–0.36), 89% positive.
+- Fixed PCA multi A−Bblock, 20: 0.23 (0.13–0.28), 95% positive.
+- Fixed PCA A−C, 117: 0.29 (0.19–0.35).
+- Fixed PCoA A−Bblock, 112: 0.29 (0.23–0.34), 96% positive.
+- Fixed RMS A−Bblock, 112: 0.29 (0.23–0.38), 90% positive.
+- Fixed synthetic repeated-configuration benchmark: A 1.557 (1.283–1.813), C 0.979 (0.909–1.089).
+- Fixed synthetic independent-row benchmark: A 0.989 (0.887–1.086), C 0.981 (0.876–1.093).
+
+## Audit frames
+
+- `data/cell_level_sample.csv`, `data/cell_level_coded.csv`, `data/cell_level_triage.csv`: targeted 351-cell audit.
+- `data/duplicate_pair_audit_frame.csv`: frozen 100-pair duplicate-classification frame; independent human adjudication pending.
+
+The numeric water-quality value layer is restricted and not included. The binary coverage matrices are sufficient for the reported ordination analyses.

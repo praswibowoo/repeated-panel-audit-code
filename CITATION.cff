@@ -1,31 +1,24 @@
 cff-version: 1.2.1
-message: "If you use this code, cite the paper and this repository."
-title: "The unit of deletion: row-count leave-one-study-out can overstate drift ratios in pooled coverage ordinations"
-abstract: "Check package for the unit-of-deletion coverage audit: coverage matrix, event tables, common first-row design contrast, density/PC2 check, synthetic validation, and the Hamming/tail/subgroup checks."
+message: "If you use this code, cite the paper and this release."
+title: "Control-unit mismatch in leave-one-study-out audits of repeated binary coverage rows"
+abstract: "Fixed-evaluation, configuration-stratified LOSO audit for pooled binary parameter-coverage matrices."
 type: software
 authors:
   - family-names: Wibowo
     given-names: Prasetyo
     orcid: "https://orcid.org/0000-0002-2738-744X"
-    affiliation: "Musashino University; Politeknik Elektronika Negeri Surabaya"
   - family-names: Veesommai Sillberg
     given-names: Chalisa
     orcid: "https://orcid.org/0000-0001-8400-7469"
-    affiliation: "Tampere University"
   - family-names: Kiyoki
     given-names: Yasushi
-    affiliation: "Musashino University"
-version: 1.9.0
-date-released: "2026-11-24"
-# The Zenodo record 10.5281/zenodo.23973301 deposits the corpus data, not this
-# software; it is cited in the manuscript and is not a software DOI.
+version: 1.7.0
+date-released: "2026-11-25"
+license: MIT
 url: "https://github.com/praswibowoo/repeated-panel-audit-code"
 repository-code: "https://github.com/praswibowoo/repeated-panel-audit-code"
-license: MIT
 keywords:
-  - repeated panels
-  - leave-one-study-out
-  - Procrustes
-  - binary PCA
-  - coverage matrix
   - ordination stability
+  - cluster deletion
+  - Procrustes analysis
+  - coverage matrices

@@ -41,8 +41,8 @@ FILES = [
     "core.json",
     "core_checks.json",
     "extra.json",
-    "water.json",
     "water_only_check.json",
+    "summary_excluded_check.json",
     "coverage_matrix_types.csv",
     "pcoa_summary.json",
     "pcoa_collapsed_summary.json",
@@ -51,6 +51,9 @@ FILES = [
     "p0_composition_percentile.csv",
     "presence_misclassification_summary.csv",
     "presence_misclassification_upper.csv",
+    "presence_misclassification_direction.json",
+    "common_evaluation_set.json",
+    "weighted_matched_summary.json",
     "preprocessing_block_factor.csv",
     "composition_matched_summary.csv",
     "composition_vs_density.csv",
@@ -68,6 +71,12 @@ FILES = [
     "balance_diagnostics.csv",
     "dimension_sweep.csv",
     "flagged_study_cis.csv",
+    "two_level_delta.json",
+    "balance_complete_partial.json",
+    "cell_level_sample.csv",
+    "cell_level_coded.csv",
+    "cell_level_triage.csv",
+    "duplicate_pair_audit_frame.csv",
 ]
 
 POST_FILES = [
@@ -76,6 +85,8 @@ POST_FILES = [
     "panel_decomposition_draws.json",
     "pc2_density_check.json",
     "simulation_validation.json",
+    "simulation_fixed.json",
+    "simulation_iid_null.json",
     "multiconfig_sensitivity.json",
     "multiconfig_h1.json",
     "tail_audit.json",
@@ -113,6 +124,18 @@ def main() -> int:
     missing = [f for f in FILES if not os.path.exists(os.path.join(DATA, f))]
     missing += [f"results/post_audit/{f}" for f in POST_FILES
                 if not os.path.exists(os.path.join(POST, f))]
+    fixed_dir = os.path.join(ROOT, "results", "unit_revision_fixed")
+    fixed_path = os.path.join(fixed_dir, "common_contrast.json")
+    for name in (
+        "common_contrast.json",
+        "control_balance.json",
+        "pcoa_contrast.json",
+        "rms_sensitivity.json",
+        "sensitivity_no_B208.json",
+        "sensitivity_no_unsure_substitutes.json",
+    ):
+        if not os.path.exists(os.path.join(fixed_dir, name)):
+            missing.append(f"results/unit_revision_fixed/{name}")
     if missing:
         print("MISSING:", ", ".join(missing))
         return 1
@@ -227,9 +250,9 @@ def main() -> int:
     check("all-paper CI low", ap["paired_ratio"]["ci_lo"], 1.1096, 5e-3)
     check("all-paper CI high", ap["paired_ratio"]["ci_hi"], 1.5957, 5e-3)
 
-    water = load_json("water.json")
-    check("water full", water["full"]["water_full_ratio"]["median"], 1.3820, 1e-3)
-    check("water collapsed", water["collapsed"]["water_collapsed_ratio"]["median"], 1.0388, 1e-3)
+    water = load_json("water_only_check.json")
+    check("water full", water["full"]["median"], 1.4127, 1e-3)
+    check("water collapsed", water["collapsed"]["median"], 0.9268, 1e-3)
 
     pcoa = load_json("pcoa_summary.json")
     pcoa_c = load_json("pcoa_collapsed_summary.json")
@@ -299,8 +322,8 @@ def main() -> int:
     check("dimension 2-D collapsed", ds["collapsed"]["2"]["median"], 1.039, 1e-3)
 
     leave = json.load(open(os.path.join(POST, "leave_flagged_out.json"), encoding="utf-8"))
-    check("leave-six-out full", leave["full"]["median"], 1.426, 1e-3)
-    check("leave-six-out collapsed", leave["collapsed"]["median"], 1.040, 1e-3)
+    check("leave-six-out full", leave["full"]["median"], 1.3121, 1e-3)
+    check("leave-six-out collapsed", leave["collapsed"]["median"], 1.0715, 1e-3)
 
     fcis = json.load(open(os.path.join(POST, "flagged_study_cis.json"), encoding="utf-8"))
     check("flagged B063 collapsed", fcis["rows"][0]["collapsed_ratio"], 6.566, 1e-3)
@@ -326,6 +349,33 @@ def main() -> int:
     check("3-D include-standard",
           float(three.loc[three.set == "include_standard", "block_at_mean_volume"].iloc[0]),
           1.0999, 1e-3)
+
+    # Fixed-evaluation primary audit.
+    fixed = json.load(open(fixed_path, encoding="utf-8"))
+    check("fixed A", fixed["designs"]["A"]["median"], 1.3291, 1e-3)
+    check("fixed C", fixed["designs"]["C"]["median"], 0.9819, 1e-3)
+    check("fixed AC", fixed["contrasts"]["AC"]["median"], 0.2926, 1e-3)
+    check("fixed ABblock", fixed["contrasts"]["ABblock"]["median"], 0.2637, 1e-3)
+    check("fixed single A", fixed["subgroups"]["single"]["designs"]["A"]["median"], 1.3657, 1e-3)
+    check("fixed single C", fixed["subgroups"]["single"]["designs"]["C"]["median"], 0.9607, 1e-3)
+    check("fixed single Bblock", fixed["subgroups"]["single"]["designs"]["Bblock"]["median"], 0.9744, 1e-3)
+    check("fixed multi H", fixed["subgroups"]["multi"]["designs"]["H"]["median"], 0.9477, 1e-3)
+    check("legacy B max donor configs", fixed["legacy_B_matching"]["donor_config_count_max"], 12)
+    if "availability" in fixed:
+        check("single exact donors", fixed["availability"]["single_has_exact_donor"]["n"], 92)
+        check("single missing donors", fixed["availability"]["single_no_exact_donor"]["n"], 5)
+    pcoa = json.load(open(os.path.join(fixed_dir, "pcoa_contrast.json"), encoding="utf-8"))
+    check("fixed PCoA A", pcoa["designs"]["A"]["median"], 1.3362, 1e-3)
+    check("fixed PCoA ABblock", pcoa["contrasts"]["ABblock"]["median"], 0.2946, 1e-3)
+    rms = json.load(open(os.path.join(fixed_dir, "rms_sensitivity.json"), encoding="utf-8"))
+    check("fixed RMS ABblock", rms["contrasts"]["ABblock"]["median"], 0.2930, 1e-3)
+    check("fixed RMS single ABblock", rms["subgroups"]["single"]["contrasts"]["ABblock"]["median"], 0.3229, 1e-3)
+    sim_fixed = json.load(open(os.path.join(POST, "simulation_fixed.json"), encoding="utf-8"))
+    check("fixed synthetic corpora", sim_fixed["design"]["replicates"], 100)
+    check("fixed synthetic H0 full", sim_fixed["H0_repeated"]["full_ratio"]["median"], 1.5565, 1e-3)
+    check("fixed synthetic IID full", sim_fixed["IID_rows"]["full_ratio"]["median"], 0.9894, 1e-3)
+    iid = json.load(open(os.path.join(POST, "simulation_iid_null.json"), encoding="utf-8"))
+    check("IID row-count median", iid["row_count_ratio"]["median"], 1.0008, 1e-3)
 
     # The fresh core-revision output must agree with the deposited copy.
     fresh_path = os.path.join(ROOT, "results", "core_revision", "core_checks.json")

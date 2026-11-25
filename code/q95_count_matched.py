@@ -17,7 +17,7 @@ from multiconfig_h1 import simulate as sim_multi  # noqa: E402
 from simulation_validation import simulate as sim_single, audit  # noqa: E402
 
 SEED = 42
-REPS = int(os.environ.get("CM_REPS", 50))
+REPS = int(os.environ.get("CM_REPS", 200))
 PSEUDO = int(os.environ.get("CM_PSEUDO", 100))
 
 

@@ -158,6 +158,32 @@ def composition_collapsed(X, paper):
     }
 
 
+def _subset_sum_indices(donors_c, target, config_size):
+    """Exact subset-sum fallback for donor pools without a one-row filler."""
+    reachable = {0: None}
+    for j in donors_c:
+        s = int(config_size[j])
+        if s > target:
+            continue
+        for prev in list(reachable):
+            new = prev + s
+            if new <= target and new not in reachable:
+                reachable[new] = int(j)
+        if target in reachable:
+            break
+    if target not in reachable:
+        return None
+    chosen = []
+    cur = target
+    while cur > 0:
+        j = reachable[cur]
+        if j is None:
+            return None
+        chosen.append(j)
+        cur -= int(config_size[j])
+    return chosen
+
+
 def volume_matched_unique(X, paper):
     """Full fit, matched arm removes whole configurations with matched volume."""
     papers = sorted(set(paper))
@@ -197,18 +223,17 @@ def volume_matched_unique(X, paper):
             chosen = []
             total = 0
             for j in order:
-                if total >= n_p:
+                if total == n_p:
                     break
-                # Skip an overshoot larger than the remaining gap, unless
-                # nothing has been chosen yet.
                 gap = n_p - total
-                if chosen and config_size[j] > gap:
-                    continue
-                chosen.append(int(j))
-                total += config_size[j]
-            if not chosen:
-                chosen = [int(order[0])]
-                total = config_size[int(order[0])]
+                if config_size[j] <= gap:
+                    chosen.append(int(j))
+                    total += config_size[j]
+            if total != n_p:
+                dp = _subset_sum_indices(donors_c, n_p, config_size)
+                if dp is not None:
+                    chosen = dp
+                    total = n_p
             overshoot.append(total - n_p)
             gaps.append(total - n_p)
 

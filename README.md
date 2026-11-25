@@ -1,173 +1,69 @@
 # p2-deletion-audit-code
 
-GitHub remote: `repeated-panel-audit-code` (unchanged; the manuscript cites that URL).
+Code, data, and result archive for:
 
-Code and data for:
-
-> **The unit of deletion: row-count leave-one-study-out can overstate drift ratios in pooled coverage ordinations.**
+> **Control-unit mismatch in leave-one-study-out audits of repeated binary coverage rows**
+>
 > Wibowo, P., Veesommai Sillberg, C., & Kiyoki, Y. (2026).
-> *Environmental and Ecological Statistics*; manuscript prepared for submission.
+>
+> *Environmental and Ecological Statistics*.
 
-This repository is the **check package** for the reported audit. It contains the coverage matrix, event tables, and audit summaries needed to reproduce the reported checks, including the composition, coherence, 3-D, study-level, and matched-draw reference null analyses. The archived full pipeline in `ordination-stability-audit` generated the deposited event tables; `code/rebuild_events.py` regenerates them from the coverage matrix and reports the difference.
+Release: `v1.7.0-2026-11-25`.
 
 ## Contents
 
 | Path | Purpose |
 |---|---|
-| `code/` | Audit scripts. See `code/README.md`. |
-| `data/` | Coverage matrix, event tables, and audit JSONs. |
-| `docs/extraction/` | Stage-A presence CSV (the stage-B value layer is restricted and not included). |
-| `DATA_PROVENANCE.md` | Every reported quantity mapped to its file and script. |
-| `results/post_audit/` | JSON summaries: design decomposition, density/PC2 check, synthetic validation, multi-configuration sensitivity, all-paper audit, and the tail/coherence checks. |
+| `code/` | Analysis and figure-generation scripts |
+| `data/` | Curated/all-paper/full-extraction coverage matrices, event tables, audit frames, and sensitivity summaries |
+| `results/unit_revision_fixed/` | Primary fixed-set PCA, RMS, PCoA, balance, and corpus-exclusion outputs |
+| `results/post_audit/` | Synthetic benchmarks and labeled legacy/own-row sensitivities |
+| `docs/` | Corpus provenance, screening, verification, and revision audit |
+| `figures/` | Generated main and SI figure PDFs |
+| `DATA_PROVENANCE.md` | Manuscript-to-source map |
+
+The numeric water-quality value layer is restricted and is not included. All binary coverage matrices and code needed for the reported checks are present.
 
 ## Quick start
 
 ```bash
-# Option 1: conda
 conda env create -f environment.yml
 conda activate p2-deletion-audit
 
-# Option 2: pip
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-
-python3 code/run_all.py --quick         # ~2 min: fast end-to-end check
-python3 code/run_all.py                 # ~22 min: every analysis, then self-check
-python3 code/run_all.py --list          # show the steps
-```
-
-`run_all.py` runs the analyses in order and finishes with `verify_package.py`.
-Use `--only panel,pc2` (or any comma-separated subset) to run a few steps.
-
-Individual steps are also runnable on their own:
-
-```bash
-python3 code/panel_decomposition.py
-python3 code/pc2_density_check.py
-python3 code/core_revision_checks.py
-python3 code/all_paper_audit.py
-python3 code/simulation_validation.py
-python3 code/multiconfig_sensitivity.py
-python3 code/coherence_control.py
-python3 code/three_d_models.py
-python3 code/supplementary_checks.py
-python3 code/perturbation_upper.py
-python3 code/build_matrix_types.py
-python3 code/water_only_check.py
-python3 code/balance_diagnostics.py
-python3 code/flagged_studies.py
-python3 code/multiconfig_h1.py
+python3 code/unit_revision_fixed.py --draws 100
+python3 code/rms_fixed_sensitivity.py
+python3 code/pcoa_fixed.py --draws 100
+python3 code/simulation_fixed.py
+python3 code/make_fig_paired_contrast.py
+python3 code/duplicate_pair_audit.py
 python3 code/verify_package.py
 ```
 
-The scripts write to `results/post_audit/` (and `results/core_revision/`). The committed JSONs are the published outputs; rerunning them should reproduce the same values.
+Use `python3 code/run_all.py --list` to inspect all available analyses. Manuscript-specific LaTeX checks are not part of this standalone repository.
 
-`simulation_validation.py` runs 100 synthetic corpora by default (about 6 minutes). For a quick check:
+## Primary outputs
 
-```bash
-SIM_REPS=10 SIM_OUT=simulation_validation_quick.json python3 code/simulation_validation.py
-# optional: core revision checks (coarsened control, exact-subset CIs)
-python3 code/core_revision_checks.py
-```
-
-This writes the quick check to a separate file and does not overwrite the published 100-replicate summary.
-
-## What each script does
-
-| Script | Purpose |
+| File | Role |
 |---|---|
-| `panel_decomposition.py` | Fit × control factorial (current, unweighted row scores) plus the legacy decomposition; duplication quartiles; study-density-matched collapsed audit. |
-| `unit_revision_common.py` | Three-arm common-evaluation audit (A/B/C), exact volume matching, per-draw ratios, and paired contrasts; writes `results/unit_revision/common_contrast.json`. |
-| `unit_revision_summaries.py` | Two-level bootstrap, leverage correlations/log models, and threshold counts from the common-evaluation draws; writes `results/unit_revision/secondary.json`. |
-| `two_level_delta.py` | Legacy two-level bootstrap for the collapsed-arm paired difference. |
-| `make_fig_paired_contrast.py` | Two-panel per-study design contrast figure; writes `figures/fig_paired_contrast.pdf`. |
-| `balance_complete_partial.py` | Complete/partial configuration deletion balance for the block and scattered-row arms; writes `data/balance_complete_partial.json`. |
-| `sharpening_checks.py` | Design-set comparisons, exact volume matching, composition/identity checks, and secondary control summaries. |
-| `revision/hamming_audit.py` | Near-duplicate collapse at Hamming thresholds 0–3; writes the S12 sensitivity. |
-| `pc2_density_check.py` | PC1/PC2/joint class flips under row-level and study-density-matched donors. |
-| `simulation_validation.py` | Synthetic panel-structure validation: H0 repeated panels only; H1 planted study-level effect. |
-| `multiconfig_sensitivity.py` | Within-study configuration-heterogeneity sensitivity (1% and 5% flips); wraps `simulation_validation.py` and merges both runs. |
-| `all_paper_audit.py` | All-paper (730/122) coverage audit; reproduces the SI Table S11 all-paper ratio 1.34 (1.11–1.60). |
-| `core_revision_checks.py` | Coarsened nearest-configuration control, exact-subset CIs, and same-size percentile checks. |
-| `supplementary_checks.py` | Hamming distribution, tail proportions, one- vs multi-configuration subgroup, exact-subset means, block-percentile IQR, study-level block factor, and two-level bootstrap. |
-| `coherence_control.py` | Coherence-matched deletion control for the 20 multi-configuration papers. |
-| `tail_null.py` | Matched-draw reference null for the per-study collapsed ratio, stratified by configuration count; common-evaluation recomputation. |
-| `perturbation_upper.py` | Coverage-cell perturbation at 5/1, 10/5, 11.1/0, 19/0, and 25/0; writes `presence_misclassification_upper.csv`. |
-| `build_matrix_types.py` | Build the matrix-type map from the stage-A scenario labels; writes `coverage_matrix_types.csv`. |
-| `water_only_check.py` | Validate the matrix-type map and run the water-only audit; writes `water_only_check.json`. |
-| `balance_diagnostics.py` | Block-versus-matched balance diagnostics; writes `balance_diagnostics.csv`. |
-| `flagged_studies.py` | Descriptors of B063/B166/B201/B102/B213/B208; writes `flagged_studies.csv`. |
-| `multiconfig_h1.py` | Multi-configuration stress test (coherent, coherent-extreme, distinct-extreme); writes `results/post_audit/multiconfig_h1.json`. |
-| `rebuild_events.py` | Regenerates the four primary event tables from `coverage_matrix.csv` and reports the difference from the deposited tables. |
-| `three_d_models.py` | Three-component block models for the curated, all-paper, and include-standard matrices. |
-| `verify_package.py` | Fast self-check: file inventory, matrix agreement, and committed summary values. |
-| `run_all.py` | One entry point: runs the analyses in order, then the self-check (`--quick`, `--only`, `--list`). |
-| `common.py` | Shared helpers: PCA, weighted PCA (legacy and unweighted-score variants), Procrustes drift, paired ratio, bootstrap, unique mask, seed convention, loaders. |
+| `results/unit_revision_fixed/common_contrast.json` | Primary fixed-set covariance-PCA audit |
+| `results/unit_revision_fixed/rms_sensitivity.json` | Fixed-set RMS event-drift sensitivity |
+| `results/unit_revision_fixed/pcoa_contrast.json` | Fixed-set two-dimensional Jaccard PCoA |
+| `results/unit_revision_fixed/control_balance.json` | Bblock balance and missing-donor studies |
+| `results/unit_revision_fixed/sensitivity_no_B208.json` | Fixed exclusion of B208 |
+| `results/unit_revision_fixed/sensitivity_no_unsure_substitutes.json` | Fixed exclusion of 13 unsure records and two substitutes |
+| `results/post_audit/simulation_fixed.json` | Fixed-set clustered, planted, and independent-row benchmarks |
+| `data/duplicate_pair_audit_frame.csv` | Frozen 100-pair duplicate-classification frame; human adjudication pending |
 
-## Manuscript table map
+## Interpretation
 
-The final manuscript uses four main tables, one main figure, and SI Tables S1--S12. This map points to the scripts and deposited summaries that reproduce each item.
+- A−Bblock is the primary full-fit control-geometry contrast.
+- A−C is a secondary protocol contrast that changes fit weighting and control geometry.
+- Bblock is unit-matched only for single-configuration studies.
+- Five single-configuration studies lack an exact-size donor and are reported separately.
+- H is an exploratory donor-study control, not a validated coherence match.
+- Configuration collapse is recommended only for a configuration-weighted target.
+- Per-study ratios are descriptive, not calibrated outlier scores.
 
-| Manuscript item | Main content | Scripts / deposited outputs |
-|---|---|---|
-| Table 1 | Corpus and configuration structure | `verify_package.py`, `data/coverage_matrix.csv`, `data/corpus_manifest.csv` |
-| Table 2 | Primary design set | `unit_revision_common.py`, `unit_revision_summaries.py`, `common_contrast.json`, `secondary.json`; supporting `panel_decomposition.py`, `sharpening_checks.py` |
-| Table 3 | Sensitivity checks | `dimension_sweep.py`/`.json`, `ca_sensitivity.py`, `water_only_check.py`, `leave_flagged_out.py`, `code/revision/hamming_audit.py` |
-| Table 4 | Reporting protocol | derived from Tables 2--3 and SI S11; no separate analysis |
-| Fig. 1 | Paired design contrast | `make_fig_paired_contrast.py`, `common_contrast.json`, `secondary.json` |
-| SI S1 | Corpus construction and verification | `docs/prisma_log.csv`, `docs/screening/`, `verify_package.py` |
-| SI S2 | Misclassification and duplication diagnostics | `perturbation_upper.py`, `perturbation_clustered.py`, `row_count_sensitivity.csv`, `baseline_block.csv`, `baseline_matched.csv`, `p0_composition_percentile.csv` |
-| SI S3 | Resampling-unit calibration | `data/sim_calibration_summary.csv`, `data/sim_calibration_extended_summary.csv` |
-| SI S4 | Core audit and two-level inference | `unit_revision_summaries.py`, `secondary.json`, `procrustes_holdout.py`, `tail_audit.json`, `water_only_check.json`, PCoA summaries; legacy `two_level_delta.py` |
-| SI S5 | Synthetic validation | `simulation_validation.py`, `multiconfig_sensitivity.py` |
-| SI S6 | Within-study coherence, upper-tail studies, flagged intervals | `supplementary_checks.py`, `tail_permutation.py`, `tail_decomposition.csv`, `flagged_studies.py`, `flagged_study_cis.py`, `leave_flagged_out.py` |
-| SI S7 | Balance and density-matched controls | `balance_diagnostics.py`, `panel_decomposition.py` (density-matched), `balance_complete_partial.json` |
-| SI S8 | Dimension sweep and 3-D block factors | `dimension_sweep.py`, `three_d_models.py`, `coverage_3d_models.csv` |
-| SI S9 | Leverage diagnostics | `leverage_check.py`, `leverage_per_paper.csv` |
-| SI S10 | Flag calibration and power | `q95_corpus.py`, `q95_calibration.py`, `q95_count_matched.py`, `q95_power_curve.py` |
-| SI S11 | Design set and paired contrasts | `unit_revision_common.py`, `unit_revision_summaries.py`, `common_contrast.json`, `secondary.json`; supporting `sharpening_checks.py`, `ca_sensitivity.py`, `all_paper_audit.py`, `summary_excluded_check.json` |
-| SI S12 | Near-duplicate collapse | `code/revision/hamming_audit.py` |
+## Manuscript map
 
-## Data
-
-- `data/coverage_matrix.csv` — 716 curated coverage rows × 44 parameters, with `paper`, `row`, and `rho`.
-- `data/baseline_block.csv`, `data/baseline_matched.csv` — full row-level audit events.
-- `data/collapsed_block.csv`, `data/collapsed_matched.csv` — unique-configuration audit events.
-- `data/weighted_matched_block.csv`, `data/weighted_matched_matched.csv` — weighted control events.
-- `data/core.json`, `data/extra.json`, `data/water.json`, `data/water_only_check.json`, `data/pcoa_summary.json`, `data/pcoa_collapsed_summary.json` — audit summaries.
-- `data/coverage_matrix_types.csv` — matrix-type map for the 716 curated rows (water 675, non-water 41; 115 water-only papers).
-- `data/core_checks.json` — coarsened nearest-configuration control and exact-subset CIs.
-- `data/coverage_3d_models.csv` — three-component block models for curated/all-paper/include-standard sets.
-- `data/study_level_model.json` — study-level block factor for the curated and all-paper sets.
-- `data/coverage_events.csv`, `data/composition_matched_control.csv` — full-pipeline inputs for `core_revision_checks.py`.
-- `results/post_audit/tail_audit.json`, `tail_decomposition.csv` — Hamming, tail, subgroup, exact-subset, two-level bootstrap, and top-12 decomposition.
-- `results/post_audit/multiconfig_h1.json` — multi-configuration stress test (coherent, coherent-extreme, distinct-extreme).
-- `results/post_audit/tail_null.json` — matched-draw reference null for the per-study collapsed ratio, by configuration count, with the observed tail and binomial tests.
-- `results/post_audit/panel_decomposition_draws.json` — per-draw collapsed and density-matched ratios for the two-level bootstrap and the common-evaluation check. The factorial interaction is in `panel_decomposition.json` (`factorial.interaction`); per-draw factorial ratios are not stored, so the factorial cells use study-cluster intervals.
-- `data/coverage_3d_model.csv` — three-component coverage block model (curated 3-D block factor 1.17).
-- `docs/extraction/stageA/matrix_presence_v2.csv` — presence layer. The stage-B value layer is restricted and is **not** included in this repository.
-- `data/coverage_matrix_all_paper.csv` (730 rows / 122 papers) and `data/coverage_matrix_full_extraction.csv` (764 / 122) — the all-paper and full-extraction coverage sets.
-- `data/corpus_manifest.csv` — 138-paper manifest with data status and row counts.
-- `data/composition_matched_summary.csv`, `composition_vs_density.csv`, `composition_exact_subset.csv`, `p0_composition_percentile.csv` — composition and percentile summaries.
-- `data/presence_misclassification_summary.csv`, `data/presence_misclassification_upper.csv`, `preprocessing_block_factor.csv`, `coverage_volume_bins.csv`, `row_count_sensitivity.csv`, `review_findings.json` — sensitivity summaries.
-- `data/balance_diagnostics.csv`, `data/flagged_studies.csv` — control-balance and flagged-study descriptors.
-- `data/calibration_*.csv`, `sim_calibration_*.csv` — SI calibration tables.
-
-Coverage codes reported-present and examined-absent as 1, not-reported as 0. Standard/regulatory rows are excluded from the analysis sets.
-
-## Historical release note
-
-An early tag carried `docs/extraction/stageB/matrix_values_v2.csv`. On 2026-11-13 the repository was recreated without that file so the value layer stays restricted; existing clones should be re-cloned. Cite the current repository for the reported checks.
-
-## Citation
-
-If you use this code, cite the paper and this repository. A `CITATION.cff` is included.
-
-## License
-
-Code: MIT. Data: CC BY 4.0. Third-party source papers are not included. See `LICENSE`.
-
-## Contact
-
-Prasetyo Wibowo · pras@pens.ac.id
+The final manuscript has three main tables, one main figure, and SI Tables S1–S6. See `DATA_PROVENANCE.md` for the exact file/script mapping.

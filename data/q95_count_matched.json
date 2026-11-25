@@ -1,0 +1,24 @@
+{
+  "design": {
+    "replicates": 200,
+    "pseudo_replicates": 100,
+    "studies": 60,
+    "scenarios": 8,
+    "parameters": 30,
+    "seed": 42
+  },
+  "planted": {
+    "median": 2.364698791904293,
+    "q025": 0.7932660424058052,
+    "q975": 5.740853282247695
+  },
+  "count_matched_null": {
+    "median": 1.0141564110841406,
+    "q95": 2.599136995352383,
+    "q025": 0.3752599404264205,
+    "q975": 2.8642307319741978,
+    "n": 100
+  },
+  "fpr_at_count_matched_q95": 43.5,
+  "fpr_at_2": 59.5
+}

@@ -1,0 +1,21 @@
+{
+  "method": "collapsed block/matched audit, 20 draws per study; common evaluation set is the unique configurations retained by both arms",
+  "n_draws": 2340,
+  "n_configurations": 151,
+  "n_common": {
+    "median": 149.0,
+    "q25": 149.0,
+    "q75": 149.0,
+    "min": 141,
+    "max": 149,
+    "share_at_149": 0.8290598290598291
+  },
+  "spearman_draw": {
+    "rho": -0.05583491336723065,
+    "p": 0.006900730817669322
+  },
+  "spearman_paper": {
+    "rho": -0.08840470055502675,
+    "p": 0.3432141584311409
+  }
+}

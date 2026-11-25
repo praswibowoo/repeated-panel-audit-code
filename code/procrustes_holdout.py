@@ -111,8 +111,9 @@ def run_matrix(X, paper, label: str, draws: int, n_split: int):
             keep_match[drop] = False
             match_rows = np.where(keep_match)[0]
             S_match = fit(X[keep_match])
-            # Use the same split seeds for block and matched so the halves are
-            # comparable; the shared row sets differ, as in the primary audit.
+            # Each arm uses its own retained rows and split seed. This is a
+            # held-out-alignment sensitivity, not a common-set or held-out-fit
+            # validation.
             block_vals = []
             match_vals = []
             for sp in range(n_split):

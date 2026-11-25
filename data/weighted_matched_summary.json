@@ -1,0 +1,15 @@
+{
+  "method": "weighted 1/k fit; matched arm removes donor rows until total weight equals the block; median per-paper block/matched drift ratio; percentile bootstrap over papers",
+  "n_papers": 117,
+  "ratio": {
+    "median": 1.4543211655216481,
+    "ci_lo": 1.2664229686322397,
+    "ci_hi": 1.6642791739317737
+  },
+  "block_factor": 1.392672421306119,
+  "weight_difference": {
+    "mean": 0.02518051155871668,
+    "median": 0.025198412698413053,
+    "max_abs": 0.03089133089133078
+  }
+}

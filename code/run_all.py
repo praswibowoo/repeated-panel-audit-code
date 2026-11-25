@@ -33,22 +33,33 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "code"))
 
 STEPS: dict[str, tuple[str, str, str]] = {
+    "fixed": ("unit_revision_fixed", "fixed-evaluation stratified primary audit", "~8 min"),
+    "rmsfixed": ("rms_fixed_sensitivity", "fixed-evaluation RMS drift sensitivity", "~8 min"),
+    "balancefixed": ("control_balance_fixed", "fixed-control balance and donor availability", "~2 s"),
+    "pcoafixed": ("pcoa_fixed", "fixed-evaluation Jaccard PCoA sensitivity", "~35 min"),
+    "figfixed": ("make_fig_paired_contrast", "fixed-evaluation primary figure", "~2 s"),
+    "dupaudit": ("duplicate_pair_audit", "verify frozen duplicate-pair audit frame", "~2 s"),
     "types": ("build_matrix_types", "matrix-type map for the coverage rows", "~2 s"),
     "water": ("water_only_check", "water-only counts and audit", "~30 s"),
+    "typesens": ("matrix_type_sensitivity", "summary-row exclusion sensitivity", "~1 min"),
     "panel": ("panel_decomposition", "2x2 decomposition and density control", "~4 min"),
+    "evalset": ("evaluation_set_diagnostic", "common evaluation-set size diagnostic", "~1 min"),
+    "weighted": ("weighted_matched_summary", "weight-matched control summary", "~10 s"),
     "pc2": ("pc2_density_check", "PC2 density-matched class check", "~15 s"),
     "core": ("core_revision_checks", "coarsened control and exact-subset CIs", "~60 s"),
     "allpaper": ("all_paper_audit", "all-paper 730/122 audit", "~2 min"),
-    "simulation": ("simulation_validation", "synthetic panel-structure validation", "~6 min"),
+    "simulation": ("simulation_validation", "legacy own-row synthetic validation", "~6 min"),
+    "simfixed": ("simulation_fixed", "fixed-set clustered and independent-row benchmarks", "~25 min"),
+    "iidnull": ("simulation_iid_null", "legacy own-row independent-row null", "~6 min"),
     "multiconfig": ("multiconfig_sensitivity", "1% and 5% within-study flips", "~12 min"),
-    "mch1": ("multiconfig_h1", "multi-configuration stress test", "~8 min"),
     "perturb": ("perturbation_upper", "upper-bound extraction perturbation", "~2 min"),
     "pertclust": ("perturbation_clustered", "study-clustered extraction perturbation", "~5 min"),
+    "pertdir": ("perturbation_direction", "direction-resolved extraction perturbation", "~5 min"),
     "coherence": ("coherence_control", "nearest-Hamming donor control", "~1 min"),
     "threed": ("three_d_models", "three-component models for the three coverage sets", "~7 min"),
     "tail": ("supplementary_checks", "Hamming, tail, subgroup, and study-level checks", "~2 min"),
-    "balance": ("balance_diagnostics", "balance diagnostics for Table S14", "~5 s"),
-    "flagged": ("flagged_studies", "flagged-study descriptors for Table S15", "~5 s"),
+    "balance": ("balance_diagnostics", "legacy balance diagnostics", "~5 s"),
+    "flagged": ("flagged_studies", "legacy flagged-study descriptors", "~5 s"),
     "tailperm": ("tail_permutation", "independent label permutation null for the collapsed ratio", "~3 min"),
     "tailglobal": ("tail_global_test", "global permutation Cramér--von Mises test (LOO)", "~8 min"),
     "q95corpus": ("q95_corpus", "corpus exceedance at the permutation q95", "~5 s"),
@@ -61,14 +72,14 @@ STEPS: dict[str, tuple[str, str, str]] = {
     "pcurve": ("q95_power_curve", "power curve for the single-configuration flag", "~10 min"),
     "leave": ("leave_flagged_out", "leave-six-out venue sensitivity", "~15 s"),
     "flagcis": ("flagged_study_cis", "matched-draw CIs for flagged studies", "~5 s"),
-    "table": ("table_checks", "table-level summaries for S3, S5, and S10", "~10 s"),
+    "table": ("table_checks", "legacy table-level summaries", "~10 s"),
     "rebuild": ("rebuild_events", "regenerate the primary event tables from the matrix", "~20 s"),
     "check": ("check_ees", "manuscript and number checks", "~5 s"),
     "verify": ("verify_package", "package self-check", "~10 s"),
 }
 
-ORDER = ["types", "water", "panel", "pc2", "core", "allpaper", "simulation",
-         "multiconfig", "mch1", "perturb", "pertclust", "coherence", "threed",
+ORDER = ["fixed", "rmsfixed", "balancefixed", "pcoafixed", "figfixed", "dupaudit", "types", "water", "typesens", "panel", "evalset", "weighted", "pc2", "core", "allpaper", "simulation", "simfixed",
+         "multiconfig", "iidnull", "perturb", "pertclust", "pertdir", "coherence", "threed",
          "tail", "balance", "flagged", "tailperm", "tailglobal", "q95corpus", "leverage", "q95cal", "holdout",
          "dimsweep", "ca", "cmnull", "pcurve", "leave", "flagcis", "table", "rebuild", "check", "verify"]
 
@@ -111,7 +122,7 @@ def main() -> int:
         # keep the canonical order regardless of how the user listed them
         order = [s for s in ORDER if s in selected]
     elif args.quick:
-        order = ["types", "panel", "pc2", "core", "allpaper", "simulation", "check", "verify"]
+        order = ["dupaudit", "types", "panel", "pc2", "core", "allpaper", "simulation", "check", "verify"]
     else:
         order = list(ORDER)
 

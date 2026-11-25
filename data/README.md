@@ -1,77 +1,42 @@
-# Data
+# Reproducibility deposit — key map
 
-Derived tables and audit summaries for the repeated-panel coverage audit.
+This folder holds matrices, audit frames, event tables, and sensitivity summaries used by the manuscript. The canonical SI map is `../SI_SOURCE_INDEX.md`.
 
-## Coverage matrix
+## Primary data and audit frames
 
-`coverage_matrix.csv` — 716 curated coverage rows from 117 papers.
-`coverage_matrix_all_paper.csv` — 730 rows from 122 papers (curated set plus the five excluded papers).
-`coverage_matrix_full_extraction.csv` — 764 rows from 122 papers (before exclusion of the 34 standard rows).
-`corpus_manifest.csv` — 138-paper manifest with data status and row counts.
-
-- `paper` — paper identifier.
-- `row` — within-paper row index.
-- `rho` — row coverage density (fraction of the 44 parameters examined).
-- 44 parameter columns — 1 = reported present or examined absent; 0 = not reported.
-
-Standard/regulatory rows are excluded. The full extraction has 764 data rows; the analysis sets exclude 34 standard rows and apply the curation rule described in the manuscript.
-
-## Event tables
-
-| File | Contents |
+| File | Role |
 |---|---|
-| `baseline_block.csv` | Full row-level block-deletion events. |
-| `baseline_matched.csv` | Full row-level matched scattered draws. |
-| `collapsed_block.csv` | Unique-configuration block-deletion events. |
-| `collapsed_matched.csv` | Unique-configuration matched draws. |
-| `weighted_matched_block.csv` | Weighted-fit block-deletion events. |
-| `weighted_matched_matched.csv` | Weighted-fit matched draws. |
-| `coverage_events.csv` | Row-level coverage audit events from the full pipeline (used by `core_revision_checks.py`). |
-| `composition_matched_control.csv` | Composition-matched control events from the full pipeline (used by `core_revision_checks.py`). |
-| `coverage_3d_model.csv` | Three-component coverage block model (curated 3-D block factor 1.17). |
-| `core_checks.json` | Coarsened nearest-configuration control, exact-subset CIs, and same-size percentile checks. |
-| `coverage_3d_models.csv` | Three-component block models for the curated, all-paper, and include-standard sets. |
-| `study_level_model.json` | Study-level block factor for the curated and all-paper sets. |
-| `panel_decomposition_draws.json` | Per-draw collapsed and density-matched ratios for the two-level bootstrap. |
+| `coverage_matrix.csv` | Curated 716-row / 117-study binary coverage matrix. |
+| `coverage_matrix_all_paper.csv` | 730-row / 122-study all-paper sensitivity. |
+| `coverage_matrix_full_extraction.csv` | 764-row / 122-study full extraction. |
+| `coverage_matrix_types.csv` | Water/non-water row map. |
+| `corpus_manifest.csv` | 138-paper manifest and extraction status. |
+| `cell_level_sample.csv`, `cell_level_coded.csv`, `cell_level_triage.csv` | Targeted 351-cell audit frame and coding. |
+| `duplicate_pair_audit_frame.csv` | Frozen 100-pair duplicate-classification frame; human adjudication pending. |
 
-Each event table includes the paper identifier, arm, draw, number of rows deleted, median Procrustes drift, and the PC1/PC2/joint class-flip metrics where available.
+## Fixed-evaluation outputs
 
-## Verification
+These files are under `source/results/unit_revision_fixed/` in the release:
 
-`verification/stageA_postcorrection_summary.json` — post-correction re-audit:
-25 papers, 30 claims, 13 corrections, 30/30 pass. `stageA_postcorrection_results.csv`
-and `stageA_postcorrection_sample.csv` hold the row-level results and sample.
-Recovered from the P1 archive; the Stage-A audit itself is in `docs/verification/`.
-
-## Audit summaries
-
-| File | Contents |
+| File | Role |
 |---|---|
-| `core.json` | Main full/collapsed audit, block model, composition checks. |
-| `extra.json` | Paired full-minus-collapsed difference, weighted control, MDE, perturbation. |
-| `water.json` | Water-only audit. |
-| `pcoa_summary.json` | Full-set Jaccard PCoA audit. |
-| `pcoa_collapsed_summary.json` | Collapsed Jaccard PCoA audit. |
+| `common_contrast.json` | Primary PCA designs, contrasts, configuration strata, donor availability, and per-study draws. |
+| `pcoa_contrast.json` | Fixed-set two-dimensional Jaccard PCoA sensitivity. |
+| `rms_sensitivity.json` | Fixed-set PCA sensitivity using RMS event drift. |
+| `control_balance.json` | Bblock balance and missing-donor studies. |
+| `sensitivity_no_B208.json` | Fixed-set exclusion of B208. |
+| `sensitivity_no_unsure_substitutes.json` | Fixed-set exclusion of 13 unsure records and two substitutes. |
+| `manuscript_values.json` | Rounded values used by checks. |
 
-The current design decomposition, density/PC2, synthetic-validation, multi-configuration sensitivity, all-paper, and tail/coherence summaries are in `results/post_audit/`.
+## Synthetic and sensitivity outputs
 
-## Current three-arm and secondary summaries
-
-| File | Contents |
+| File | Role |
 |---|---|
-| `results/unit_revision/common_contrast.json` | Per-draw three-arm (A/B/C) common-evaluation ratios, paired contrasts, and per-study values (Table 2; SI Table S11). |
-| `results/unit_revision/secondary.json` | Two-level bootstrap, leverage correlations/log models, and threshold counts. |
-| `leverage_per_paper.csv` | Per-paper configuration leverage and study density (SI Table S9). |
-| `balance_complete_partial.json` | Complete/partial configuration deletion balance for the block and scattered-row arms (SI Table S7). |
-| `sharpening_checks.json` | Design-set comparisons, exact volume matching, composition/identity checks (SI Table S11). |
-| `summary_excluded_check.json` | Summary-row-excluded sensitivity. |
+| `source/results/post_audit/simulation_fixed.json` | Fixed-set clustered, planted, and independent-row benchmarks. |
+| `reproducibility/ca_sensitivity.json` | Legacy own-row correspondence-analysis sensitivity. |
+| `reproducibility/water_only_check.json` | Legacy own-row water-only sensitivity. |
+| `source/results/post_audit/dimension_sweep.json` | Legacy own-row 2–5 component sweep. |
+| `source/results/post_audit/procrustes_holdout.json` | Legacy own-row held-out alignment sensitivity. |
+| `source/results/post_audit/leave_flagged_out.json` | Legacy own-row leave-six-out sensitivity. |
 
-Additional summaries: `p0_composition_percentile.csv` (block percentile and tails), `presence_misclassification_summary.csv` (over-marking perturbation), `preprocessing_block_factor.csv`, `composition_matched_summary.csv`, `composition_vs_density.csv`, `composition_exact_subset.csv`, `coverage_volume_bins.csv`, `row_count_sensitivity.csv`, `review_findings.json`, and the SI calibration tables (`calibration_*.csv`, `sim_calibration_*.csv`).
-
-The main 2-D results, the tail checks, and the three 3-D models are mapped to their files in `DATA_PROVENANCE.md`; archived full-pipeline values are noted there. Run `python3 code/verify_package.py` to check the package in about ten seconds.
-
-## Source extraction
-
-`docs/extraction/stageA/matrix_presence_v2.csv` is the presence layer. The stage-B value layer (`matrix_values_v2.csv`) is **not** included in this repository; it remains restricted in the Zenodo data record. The coverage matrix is included in full, so the reported coverage audit can be rerun without the value layer.
-
-The value layer is not included in this repository. An earlier tag that carried it was removed when the repository was recreated on 2026-11-13.
+Legacy event tables and archived analyses remain in the release for continuity but are not used for the manuscript's current claims.

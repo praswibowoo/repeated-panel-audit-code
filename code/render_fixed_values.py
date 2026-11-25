@@ -1,0 +1,110 @@
+#!/usr/bin/env python3
+"""Render rounded fixed-evaluation values for manuscript checks."""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+FIXED = ROOT / "results" / "unit_revision_fixed" / "common_contrast.json"
+PCOA = ROOT / "results" / "unit_revision_fixed" / "pcoa_contrast.json"
+RMS = ROOT / "results" / "unit_revision_fixed" / "rms_sensitivity.json"
+SIM = ROOT / "results" / "post_audit" / "simulation_fixed.json"
+
+
+def pair(x: dict) -> str:
+    return f"{x['median']:.2f} ({x['ci_lo']:.2f}--{x['ci_hi']:.2f})"
+
+
+def parts(x: dict, prefix: str) -> dict[str, str]:
+    return {
+        prefix: f"{x['median']:.2f}",
+        prefix + "_LO": f"{x['ci_lo']:.2f}",
+        prefix + "_HI": f"{x['ci_hi']:.2f}",
+    }
+
+
+def rep_parts(x: dict, prefix: str) -> dict[str, str]:
+    return {
+        prefix: f"{x['median']:.3f}",
+        prefix + "_LO": f"{x['q025']:.3f}",
+        prefix + "_HI": f"{x['q975']:.3f}",
+    }
+
+
+def main() -> None:
+    d = json.loads(FIXED.read_text())
+    vals: dict[str, str] = {}
+    vals.update(parts(d["designs"]["A"], "A_ALL"))
+    vals.update(parts(d["designs"]["Bblock"], "BLOCK_ALL"))
+    vals.update(parts(d["designs"]["C"], "C_ALL"))
+    vals.update(parts(d["contrasts"]["ABblock"], "AB_ALL"))
+    vals.update(parts(d["contrasts"]["AC"], "AC_ALL"))
+    vals["AB_ALL_POS"] = f"{100*d['contrasts']['ABblock']['frac_positive']:.0f}"
+    vals["AC_POS"] = f"{100*d['contrasts']['AC']['frac_positive']:.0f}"
+
+    s = d["subgroups"]["single"]
+    vals.update(parts(s["designs"]["A"], "A_SINGLE"))
+    vals.update(parts(s["designs"]["C"], "C_SINGLE"))
+    vals.update(parts(s["designs"]["Bblock"], "BLOCK_SINGLE"))
+    vals.update(parts(s["contrasts"]["ABblock"], "AB_SINGLE"))
+    vals.update(parts(s["contrasts"]["AC"], "AC_SINGLE"))
+    vals["AB_SINGLE_POS"] = f"{100*s['contrasts']['ABblock']['frac_positive']:.0f}"
+    vals["AC_SINGLE_POS"] = f"{100*s['contrasts']['AC']['frac_positive']:.0f}"
+
+    m = d["subgroups"]["multi"]
+    vals.update(parts(m["designs"]["A"], "A_MULTI"))
+    vals.update(parts(m["designs"]["Bblock"], "BLOCK_MULTI"))
+    vals.update(parts(m["designs"]["C"], "C_MULTI"))
+    vals.update(parts(m["contrasts"]["ABblock"], "AB_MULTI"))
+    vals.update(parts(m["contrasts"]["AC"], "AC_MULTI"))
+    vals.update(parts(m["designs"]["H"], "H_MULTI"))
+
+    if "availability" in d:
+        vals["ALL_HAS_DONOR_N"] = str(d["availability"]["all_has_exact_donor"]["n"])
+        vals["SINGLE_HAS_DONOR_N"] = str(d["availability"]["single_has_exact_donor"]["n"])
+        vals["SINGLE_NO_DONOR_N"] = str(d["availability"]["single_no_exact_donor"]["n"])
+        vals.update(parts(d["availability"]["all_has_exact_donor"]["designs"]["A"], "A_HAS_DONOR"))
+        vals.update(parts(d["availability"]["single_has_exact_donor"]["designs"]["A"], "A_SINGLE_HAS_DONOR"))
+
+    if PCOA.exists():
+        p = json.loads(PCOA.read_text())
+        vals.update(parts(p["designs"]["A"], "PCOA_A"))
+        vals.update(parts(p["designs"]["Bblock"], "PCOA_B"))
+        vals.update(parts(p["designs"]["C"], "PCOA_C"))
+        vals.update(parts(p["contrasts"]["ABblock"], "PCOA_AB"))
+        vals.update(parts(p["contrasts"]["AC"], "PCOA_AC"))
+        vals.update(parts(p["subgroups"]["single"]["contrasts"]["ABblock"], "PCOA_AB_SINGLE"))
+        vals.update(parts(p["subgroups"]["single"]["contrasts"]["AC"], "PCOA_AC_SINGLE"))
+        vals.update(parts(p["subgroups"]["multi"]["contrasts"]["ABblock"], "PCOA_AB_MULTI"))
+        vals.update(parts(p["subgroups"]["multi"]["contrasts"]["AC"], "PCOA_AC_MULTI"))
+
+    if RMS.exists():
+        r = json.loads(RMS.read_text())
+        vals.update(parts(r["designs"]["A"], "RMS_A"))
+        vals.update(parts(r["designs"]["Bblock"], "RMS_B"))
+        vals.update(parts(r["designs"]["C"], "RMS_C"))
+        vals.update(parts(r["contrasts"]["ABblock"], "RMS_AB"))
+        vals.update(parts(r["contrasts"]["AC"], "RMS_AC"))
+        vals.update(parts(r["subgroups"]["single"]["contrasts"]["ABblock"], "RMS_AB_SINGLE"))
+        vals.update(parts(r["subgroups"]["multi"]["contrasts"]["ABblock"], "RMS_AB_MULTI"))
+
+    if SIM.exists():
+        sim = json.loads(SIM.read_text())
+        vals.update(rep_parts(sim["H0_repeated"]["full_ratio"], "SIM_H0_A"))
+        vals.update(rep_parts(sim["H0_repeated"]["collapsed_ratio"], "SIM_H0_C"))
+        vals.update(rep_parts(sim["IID_rows"]["full_ratio"], "SIM_IID_A"))
+        vals.update(rep_parts(sim["IID_rows"]["collapsed_ratio"], "SIM_IID_C"))
+        vals.update(rep_parts(sim["H1_planted"]["full_ratio"], "SIM_H1_A"))
+        vals.update(rep_parts(sim["H1_planted"]["collapsed_ratio"], "SIM_H1_C"))
+        vals.update(rep_parts(sim["H1_planted"]["planted_collapsed_ratio"], "SIM_PLANTED"))
+
+    out = ROOT / "results" / "unit_revision_fixed" / "manuscript_values.json"
+    out.write_text(json.dumps(vals, indent=2) + "\n")
+    print(f"wrote {out}")
+    for k in sorted(vals):
+        print(f"{k}={vals[k]}")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""coherence_control.py — a coherence-matched deletion control.
+"""coherence_control.py — an exploratory donor-study deletion control.
 
-The configuration-count-matched control removes the same *number* of unique
-configurations as the block arm, but the donors can come from several papers.
-The coherence-matched control removes a single donor paper's configuration set
-(or a subset of one donor paper) chosen to be close in within-paper Hamming
-distance to the focal paper. It therefore matches the *coherence* of the
-deleted set, not only its count.
+The control removes a single donor paper's configuration set, or a subset of
+one donor paper, chosen from the five donors closest in mean within-study
+Hamming distance after matching configuration count where possible. Achieved
+coherence is not guaranteed; the control is not treated as a validated
+coherence match.
 
 Applied to the 20 multi-configuration papers; one-configuration papers have no
 within-paper coherence to match.
