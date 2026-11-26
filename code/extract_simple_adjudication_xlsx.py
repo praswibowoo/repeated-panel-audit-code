@@ -11,6 +11,7 @@ import csv
 import re
 import zipfile
 import xml.etree.ElementTree as ET
+from datetime import datetime, timedelta
 from pathlib import Path
 
 NS = {"m": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
@@ -64,6 +65,14 @@ def extract(xlsx: Path, csv_path: Path) -> int:
                 values[col_idx - 1] = value
             if any(value != "" for value in values):
                 rows.append(values)
+
+    if rows and "date" in rows[0]:
+        date_idx = rows[0].index("date")
+        for row in rows[1:]:
+            raw = row[date_idx].strip()
+            if re.fullmatch(r"\d+(\.0+)?", raw):
+                serial = float(raw)
+                row[date_idx] = (datetime(1899, 12, 30) + timedelta(days=serial)).date().isoformat()
 
     csv_path.parent.mkdir(parents=True, exist_ok=True)
     with csv_path.open("w", newline="", encoding="utf-8") as fh:

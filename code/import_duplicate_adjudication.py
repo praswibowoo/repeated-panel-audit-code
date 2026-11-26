@@ -266,6 +266,7 @@ def main() -> int:
         "primary_rows": len(primary),
         "expected_primary_pairs": len(primary_ids),
         "pending_primary_pairs": len(primary_ids) - len(primary),
+        "pending_primary_pair_ids": sorted(primary_ids - set(primary.pair_id)),
         "completed_relation_counts": {
             k: int(completed_df.primary_relation.eq(k).sum()) for k in sorted(RELATIONS)
         },
@@ -304,6 +305,17 @@ def main() -> int:
         "qc_second_relation_counts": {
             k: int(qc_df.second_relation.eq(k).sum()) for k in sorted(RELATIONS)
         },
+        "evidence_missing_pair_ids": completed_df.loc[completed_df.evidence_missing, "pair_id"].tolist(),
+        "coder_metadata_missing_pair_ids": completed_df.loc[completed_df.coder_metadata_missing, "pair_id"].tolist(),
+        "correction_format_warning_pair_ids": completed_df.loc[completed_df.correction_format_warning, "pair_id"].tolist(),
+        "prior_evidence_conflict_pair_ids": completed_df.loc[completed_df.prior_evidence_conflict, "pair_id"].tolist(),
+        "matrix_disagreement_pair_ids": completed_df.loc[completed_df.matrix_disagreement, "pair_id"].tolist(),
+        "ai_disagreement_pair_ids": completed_df.loc[completed_df.ai_disagreement, "pair_id"].tolist(),
+        "ready_for_strict_import": bool(
+            not (primary_ids - set(primary.pair_id))
+            and not completed_df.evidence_missing.any()
+            and not completed_df.coder_metadata_missing.any()
+        ),
         "coverage_matrix_modified": False,
         "configuration_impact": "pending parameter-level correction log",
     }

@@ -21,6 +21,9 @@ Release: `v1.8.0-2026-11-26`.
 - Removed revision-scar language and internal screener session identifiers.
 - Added evidence-and-gap-map citations.
 - Prepared blind human-adjudication workbooks: recommended eight-column primary sheet, full primary/secondary sheets, primary-only and second-only workbooks, and a coordinator key with prior P1 human evidence separated from AI labels.
+- Added Excel date-serial conversion to the simple-workbook extractor and detailed pending/disagreement identifiers to the importer summary.
+- Added a reproducible all-row adjudication-report builder with exact matrix differences, row-level flags, and required actions.
+- Processed the 2026-11-27 primary submission: 56 rows present, 55 relation labels completed, one pending (`B200_654_652`); 34 same, 6 different, 15 undecidable. Produced all-row processing and coordinator-review reports without changing the matrix or manuscript estimates.
 - Updated code/data release to v1.8.0-2026-11-26.
 
 ## Verification
@@ -29,11 +32,12 @@ Release: `v1.8.0-2026-11-26`.
 - Frozen duplicate-pair frame: 100 records / 83 unique unordered pairs; AI-assisted review labels present.
 - Exhaustive Bstudy output matches an independent enumeration script for all 91 eligible studies (maximum absolute difference 0).
 - Source-review spot checks: B153 common station panel, B080 common station panel, and B186 undecidable depth-specific water quality supported the deposited labels.
-- `verify_package.py`: PASS (84 files).
+- `verify_package.py`: PASS (100 files).
 - Adjudication-package audit: PASS (recommended eight-column primary sheet, 56 primary / 62 second-coder assignments, six QC pairs, coder-workbook blinding, 56 source-PDF hyperlinks, source availability, and 10 mapped prior corrections confirmed zero in P2 matrix).
 - Partial primary submission processed: 31/56 pairs; 19 same, 5 different, 7 undecidable; 15 matrix matches, 9 matrix disagreements, 7 undecidable. Five prior-human-evidence conflicts and eight non-correction notes flagged. No matrix or manuscript estimates changed.
+- Current primary submission processed: 55/56 labels; 34 same, 6 different, 15 undecidable; 25 matrix matches, 15 matrix disagreements, 15 undecidable. Eight missing-evidence rows, one missing-metadata row, five prior-human-evidence conflicts, and 16 non-correction notes flagged. Strict import remains blocked by `B200_654_652`, `B001_7_0`, and the eight missing-evidence rows. No matrix or manuscript estimates changed.
 - Importer mock tests: PASS for simple primary CSV, two-coder agreement, primary-only provisional import, coordinator resolution, forced disagreement, and partial input with missing metadata.
-- `SHA256SUMS`: all 223 manifested files verified.
+- `SHA256SUMS`: all 254 manifested files verified.
 - Numerical manuscript/SI consistency script: PASS.
 - Figure parity between code and manuscript repositories: PASS.
 - `make check`: clean; main 21 pages, SI 9 pages, title page 1 page; no undefined references/citations or overfull boxes in final logs.

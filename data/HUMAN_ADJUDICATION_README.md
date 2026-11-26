@@ -25,6 +25,8 @@ The simple primary file has eight columns:
 
 The primary file contains 56 priority pairs and no matrix class, Hamming distance, AI relation, priority reason, or answer key.
 
+Current submission status (2026-11-27): 56 rows are present, but only 55 relation labels are complete. `B200_654_652` still needs a relation and evidence. See `duplicate_pair_human_adjudication_coordinator_notes_2026-11-27.md` for all blocking issues and rechecks.
+
 Do not send the coordinator workbook/key, AI source-review files, or prior-evidence files before coding is complete.
 
 ## Optional independent second coder
@@ -75,7 +77,16 @@ python3 code/import_duplicate_adjudication.py \
   --allow-missing-metadata
 ```
 
-This produces provisional results and flags missing evidence, metadata, correction-format problems, matrix disagreements, AI disagreements, and prior-human-evidence conflicts. No labels are finalized and the coverage matrix is never edited.
+This produces provisional results and flags missing evidence, metadata, correction-format problems, matrix disagreements, AI disagreements, and prior-human-evidence conflicts. No labels are finalized and the coverage matrix is never edited. Excel numeric date serials are converted to `YYYY-MM-DD` during extraction.
+
+Build the all-row processing report and flagged-row subset:
+
+```bash
+python3 code/build_adjudication_processing_report.py \
+  --primary primary_completed.csv \
+  --results duplicate_pair_human_adjudication_results.csv \
+  --date YYYY-MM-DD
+```
 
 ## Import completed primary-only results
 

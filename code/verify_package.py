@@ -100,6 +100,13 @@ FILES = [
     "duplicate_pair_human_adjudication_partial_summary_2026-11-26.json",
     "duplicate_pair_human_adjudication_partial_review_flags_2026-11-26.csv",
     "duplicate_pair_human_adjudication_partial_coordinator_notes_2026-11-26.md",
+    "duplicate_pair_human_adjudication_primary_completed_2026-11-27.csv",
+    "duplicate_pair_human_adjudication_results_2026-11-27.csv",
+    "duplicate_pair_human_adjudication_summary_2026-11-27.json",
+    "duplicate_pair_human_adjudication_processing_report_2026-11-27.csv",
+    "duplicate_pair_human_adjudication_review_flags_2026-11-27.csv",
+    "duplicate_pair_human_adjudication_coordinator_notes_2026-11-27.md",
+    "duplicate_pair_coordinator_resolution_template_2026-11-27.csv",
 ]
 
 POST_FILES = [
@@ -444,6 +451,28 @@ def main() -> int:
     check("partial primary completed", partial["primary_rows"], 31, 0)
     check("partial primary pending", partial["pending_primary_pairs"], 25, 0)
     check("partial prior-human conflicts", partial["prior_evidence_conflicts"], 5, 0)
+    current = json.load(open(os.path.join(DATA, "duplicate_pair_human_adjudication_summary_2026-11-27.json"), encoding="utf-8"))
+    check("current primary completed", current["primary_rows"], 55, 0)
+    check("current primary pending", current["pending_primary_pairs"], 1, 0)
+    check("current pending pair", current["pending_primary_pair_ids"], ["B200_654_652"])
+    check("current completed same", current["completed_relation_counts"]["same"], 34, 0)
+    check("current completed different", current["completed_relation_counts"]["different"], 6, 0)
+    check("current completed undecidable", current["completed_relation_counts"]["undecidable"], 15, 0)
+    check("current evidence missing", current["evidence_missing"], 8, 0)
+    check("current metadata missing", current["coder_metadata_missing"], 1, 0)
+    check("current matrix disagreements", current["matrix_disagreements"], 15, 0)
+    check("current AI disagreements", current["ai_disagreements"], 18, 0)
+    check("current strict import blocked", current["ready_for_strict_import"], False)
+    submission = pd.read_csv(os.path.join(DATA, "duplicate_pair_human_adjudication_primary_completed_2026-11-27.csv")).fillna("")
+    check("current submission rows", len(submission), 56, 0)
+    check("current submission blank relations", submission.loc[submission.relation.eq(""), "pair_id"].tolist(), ["B200_654_652"])
+    processing = pd.read_csv(os.path.join(DATA, "duplicate_pair_human_adjudication_processing_report_2026-11-27.csv")).fillna("")
+    check("current processing rows", len(processing), 56, 0)
+    check("current processing finalized", bool(processing.finalized.astype(str).str.lower().eq("true").any()), False)
+    check("current processing incomplete relation", int(processing.processing_status.eq("incomplete_relation").sum()), 1, 0)
+    check("current processing incomplete submission", int(processing.processing_status.eq("incomplete_submission").sum()), 9, 0)
+    check("current processing coordinator review", int(processing.processing_status.eq("coordinator_review").sum()), 25, 0)
+    check("current processing provisional no flag", int(processing.processing_status.eq("provisional_no_flag").sum()), 21, 0)
     for blind_name in ("duplicate_pair_human_adjudication_primary_blind.csv",
                        "duplicate_pair_human_adjudication_second_blind.csv"):
         blind = pd.read_csv(os.path.join(DATA, blind_name))
