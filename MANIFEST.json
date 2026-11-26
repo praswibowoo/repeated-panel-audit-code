@@ -29,8 +29,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4359,
-      "sha256": "9cc87e77e77c7e9c71bc79657d4623d9a87ad93db9a8d272d7c40698483008bb"
+      "bytes": 4367,
+      "sha256": "fc459f1acff9daf22583164f728961283f0f91fc21ee3f1246e5e3b781da240f"
     },
     {
       "path": "RELEASE_ID.txt",
@@ -49,8 +49,8 @@
     },
     {
       "path": "code/README.md",
-      "bytes": 3097,
-      "sha256": "75fc6d4e0d25e9d0a9bad6daa889845a3ddef63e4e23629de3c6b1402133fea7"
+      "bytes": 3119,
+      "sha256": "1a391600a3b4e5662ea0638eceb2fe017ad255704d6260e0f3983acac9842141"
     },
     {
       "path": "code/all_paper_audit.py",
@@ -144,8 +144,8 @@
     },
     {
       "path": "code/import_duplicate_adjudication.py",
-      "bytes": 14153,
-      "sha256": "31638af5815324b5205c9a2fac9840c68b47bb03580d3bd54de914ed6f2994ba"
+      "bytes": 14906,
+      "sha256": "0698d0db0373db4d3c8befe2bc188f096bebb94fb707abfd4d0ffa97ad50e6bc"
     },
     {
       "path": "code/leave_flagged_out.py",
@@ -249,8 +249,8 @@
     },
     {
       "path": "code/prepare_duplicate_adjudication.py",
-      "bytes": 17062,
-      "sha256": "9232757717798116613e474d23d3d2618dc46cc4be9fad0e7745262072956c42"
+      "bytes": 21050,
+      "sha256": "903b8963febbf972eb346809150523614c37b95b45d1687d98dec38e1c4a9593"
     },
     {
       "path": "code/procrustes_holdout.py",
@@ -394,8 +394,8 @@
     },
     {
       "path": "code/verify_package.py",
-      "bytes": 25405,
-      "sha256": "596f1a8e7f9f9b3a3596c4adaed50d17cd7904745ccdc5a00f767ed1a4f64ca2"
+      "bytes": 25952,
+      "sha256": "cad8e4ba57da0b5c1268dd4db9a7c2cffa102799564a656aed67ac24704591ca"
     },
     {
       "path": "code/water_only_check.py",
@@ -409,13 +409,13 @@
     },
     {
       "path": "data/HUMAN_ADJUDICATION_README.md",
-      "bytes": 2388,
-      "sha256": "62905fc4665e9584c1f9be9ca935d0d9c58711b1ca23587b6373014279c27d96"
+      "bytes": 2802,
+      "sha256": "4be82b287c006f66ddefbea9b718f35542885435210ad9183c62879c6f085c1a"
     },
     {
       "path": "data/README.md",
-      "bytes": 3967,
-      "sha256": "258b62f85969cc5adbb9cc230b0c06c00b87293a65ede2587f3fc4c4bc87be3f"
+      "bytes": 4185,
+      "sha256": "e02a3836ec2a9724f9c8a1105fd8a2c42f6f8a0bcf4a5ad179d633a37f91e933"
     },
     {
       "path": "data/all_paper_audit.json",
@@ -569,8 +569,8 @@
     },
     {
       "path": "data/duplicate_pair_adjudication_manifest.json",
-      "bytes": 5206,
-      "sha256": "cefcf08b3f2d1526eeeebb07f0983cf3b81b25a9a1c1ec95db474f30086e8bbf"
+      "bytes": 5603,
+      "sha256": "f115ec6aa1c246d192696c33a13cd25df92c2ee35d5c745903dbdec1243a6016"
     },
     {
       "path": "data/duplicate_pair_audit_frame.csv",
@@ -579,13 +579,13 @@
     },
     {
       "path": "data/duplicate_pair_human_adjudication_coder.xlsx",
-      "bytes": 22857,
-      "sha256": "8a1a5c54ce235845d9f66354ccb18d668f1123b658aa373671f237f616c3ccff"
+      "bytes": 22856,
+      "sha256": "74df7c33ed72015e91b7d53c13bacecaf83a9b956096ab0fb72f4865f18f7123"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_coordinator.xlsx",
-      "bytes": 23637,
-      "sha256": "0ff977ba2117d71c411695a39279b2d61497519be1a0cf56c29fdbdb7959dd06"
+      "bytes": 23636,
+      "sha256": "43db983ee5b0316ecb0578a8e6ab48281fd9d55903c54f158e6b26701658ebf3"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_coordinator_key.csv",
@@ -599,8 +599,18 @@
     },
     {
       "path": "data/duplicate_pair_human_adjudication_primary_only.xlsx",
-      "bytes": 17043,
-      "sha256": "ca13516cf7b6e6174b1180e40a956a0ad72a41fcddc010b9bd0dd288f73e20ad"
+      "bytes": 17042,
+      "sha256": "eda0919acc9bee433b0252bec5d155e793078fb4456d1d34cf95337a4e8b5f00"
+    },
+    {
+      "path": "data/duplicate_pair_human_adjudication_primary_simple.csv",
+      "bytes": 3927,
+      "sha256": "1af7eaeef41df7b91392f16c7533a5bd16de5c2045c1d2f6f17acba33bc47e0f"
+    },
+    {
+      "path": "data/duplicate_pair_human_adjudication_primary_simple.xlsx",
+      "bytes": 11646,
+      "sha256": "7c4192740dba2d6925a0a7943f09375a2c7625f9a89a6beba3e7e0148e88604a"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_second_blind.csv",
@@ -609,8 +619,8 @@
     },
     {
       "path": "data/duplicate_pair_human_adjudication_second_only.xlsx",
-      "bytes": 17946,
-      "sha256": "1dea11f7d67f9ea5d6bb9c6a423e77e39542cc5760f0666ba1b4f70e3e3c9061"
+      "bytes": 17945,
+      "sha256": "91b57813cdd42c5d129c4eb0054b1b26b1f010e89fa8f5b16ee8b719666c0520"
     },
     {
       "path": "data/duplicate_pair_source_review.csv",
@@ -844,8 +854,8 @@
     },
     {
       "path": "docs/audit/REVISION_2026-11-26_AUDIT.md",
-      "bytes": 3437,
-      "sha256": "c3a22df721a774f9150f7874b31163c260ae019431dc0961a6246e24d776537a"
+      "bytes": 3532,
+      "sha256": "3e2884b393fc166b4b4813ce854231f8e62523994a3a50062a477ced3b7abb25"
     },
     {
       "path": "docs/extraction/corpus_manifest.csv",
@@ -904,8 +914,8 @@
     },
     {
       "path": "docs/verification/duplicate_pair_audit.md",
-      "bytes": 5029,
-      "sha256": "4493b5ff7de1cb1d331916de49434694fcb1696500a3060dabe8c77cffd22cac"
+      "bytes": 5032,
+      "sha256": "1c23b54faad0db3bdce7084c5201fb43b53b234fd800300f668a4bac1f0296b4"
     },
     {
       "path": "docs/verification/stageA_fresh_summary.json",

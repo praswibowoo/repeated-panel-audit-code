@@ -113,6 +113,69 @@ def make_workbook(path: Path, sheets: dict[str, pd.DataFrame], instructions: lis
     workbook.close()
 
 
+def make_simple_workbook(path: Path, df: pd.DataFrame) -> None:
+    workbook = xlsxwriter.Workbook(path)
+    workbook.set_properties({
+        "title": "Primary duplicate-pair adjudication — simple",
+        "subject": "Eight-column blind source-text coding sheet",
+        "author": "P2 deletion-audit team",
+    })
+    title = workbook.add_format({"bold": True, "font_size": 14})
+    body = workbook.add_format({"text_wrap": True, "valign": "top", "font_size": 11})
+    header = workbook.add_format({
+        "bold": True, "font_color": "white", "bg_color": "#1F4E78",
+        "border": 1, "text_wrap": True, "valign": "top",
+    })
+    locked = workbook.add_format({"bg_color": "#E7E6E6", "text_wrap": True, "valign": "top"})
+    editable = workbook.add_format({"bg_color": "#FFF2CC", "text_wrap": True, "valign": "top"})
+    link = workbook.add_format({"bg_color": "#E7E6E6", "font_color": "#0563C1", "underline": 1})
+    date_fmt = workbook.add_format({"bg_color": "#FFF2CC", "num_format": "yyyy-mm-dd", "valign": "top"})
+
+    ws = workbook.add_worksheet("Instructions")
+    ws.set_column("A:A", 105)
+    ws.write("A1", "Primary adjudication — simple 8-column sheet", title)
+    lines = [
+        "Click pair_id to open the source PDF in the sibling p1-family-diagnostic repository.",
+        "Fill only the yellow columns: relation, evidence, correction, coder, date.",
+        "relation: same = identical examined-parameter suite; different = at least one parameter differs; undecidable = source insufficient.",
+        "evidence: give PDF page/table/figure plus the decisive parameter difference or reason.",
+        "correction: optional. Format: row number; parameter; current value -> new value; reason. Leave blank if none.",
+        "coder/date: fill once, then copy down. Save the Primary sheet as CSV UTF-8 when finished.",
+    ]
+    for i, line in enumerate(lines, start=2):
+        ws.write(i - 1, 0, line, body)
+        ws.set_row(i - 1, 30)
+
+    ws = workbook.add_worksheet("Primary")
+    ws.freeze_panes(1, 0)
+    ws.autofilter(0, 0, len(df), len(df.columns) - 1)
+    widths = [20, 34, 34, 16, 52, 42, 20, 14]
+    for c, width in enumerate(widths):
+        ws.set_column(c, c, width)
+    for c, col in enumerate(df.columns):
+        ws.write(0, c, col, header)
+    ws.set_row(0, 30)
+    for r_idx, row in enumerate(df.itertuples(index=False), start=1):
+        for c_idx, col in enumerate(df.columns):
+            value = row[c_idx]
+            if col == "pair_id":
+                paper = str(value).split("_", 1)[0]
+                url = f"external:../../p1-family-diagnostic/data/raw/pdf/{paper}.pdf"
+                ws.write_url(r_idx, c_idx, url, link, string=str(value))
+            elif col in {"relation", "evidence", "correction", "coder"}:
+                ws.write(r_idx, c_idx, "" if pd.isna(value) else value, editable)
+            elif col == "date":
+                ws.write_blank(r_idx, c_idx, None, date_fmt)
+            else:
+                ws.write(r_idx, c_idx, "" if pd.isna(value) else value, locked)
+    ws.data_validation(1, 3, max(1, len(df)), 3, {
+        "validate": "list", "source": ["same", "different", "undecidable"],
+        "input_title": "Relation",
+        "input_message": "same / different / undecidable",
+    })
+    workbook.close()
+
+
 def main() -> None:
     review = unordered_key(pd.read_csv(SOURCE_REVIEW)).drop_duplicates(["paper", "row_lo", "row_hi"])
     frame = unordered_key(pd.read_csv(FRAME)).drop_duplicates(["paper", "row_lo", "row_hi"])
@@ -235,6 +298,13 @@ def main() -> None:
 
     write_csv(primary, DATA / "duplicate_pair_human_adjudication_primary_blind.csv")
     write_csv(second, DATA / "duplicate_pair_human_adjudication_second_blind.csv")
+    simple = primary[["pair_id", "scenario_a", "scenario_b"]].copy()
+    simple["relation"] = ""
+    simple["evidence"] = ""
+    simple["correction"] = ""
+    simple["coder"] = ""
+    simple["date"] = ""
+    write_csv(simple, DATA / "duplicate_pair_human_adjudication_primary_simple.csv")
     write_csv(coordinator.sort_values("pair_id"), DATA / "duplicate_pair_human_adjudication_coordinator_key.csv")
     write_csv(evidence.sort_values(["pair_id", "corrected_row", "parameter"]),
               DATA / "prior_human_pair_evidence.csv")
@@ -257,6 +327,10 @@ def main() -> None:
         DATA / "duplicate_pair_human_adjudication_primary_only.xlsx",
         {"Primary": primary}, instructions,
     )
+    make_simple_workbook(
+        DATA / "duplicate_pair_human_adjudication_primary_simple.xlsx",
+        simple,
+    )
     make_workbook(
         DATA / "duplicate_pair_human_adjudication_second_only.xlsx",
         {"Second": second}, instructions,
@@ -275,12 +349,14 @@ def main() -> None:
 
     generated = [
         DATA / "duplicate_pair_human_adjudication_primary_blind.csv",
+        DATA / "duplicate_pair_human_adjudication_primary_simple.csv",
         DATA / "duplicate_pair_human_adjudication_second_blind.csv",
         DATA / "duplicate_pair_human_adjudication_coordinator_key.csv",
         DATA / "prior_human_pair_evidence.csv",
         DATA / "prior_human_cell_corrections_status.csv",
         DATA / "duplicate_pair_human_adjudication_coder.xlsx",
         DATA / "duplicate_pair_human_adjudication_primary_only.xlsx",
+        DATA / "duplicate_pair_human_adjudication_primary_simple.xlsx",
         DATA / "duplicate_pair_human_adjudication_second_only.xlsx",
         DATA / "duplicate_pair_human_adjudication_coordinator.xlsx",
     ]
@@ -315,7 +391,8 @@ def main() -> None:
         "files": {str(p.relative_to(ROOT)): sha256(p) for p in generated},
         "notes": [
             "Coder files are blind: no matrix class, Hamming distance, AI relation, or priority reason is shown.",
-            "For a primary-only workflow, send duplicate_pair_human_adjudication_primary_only.xlsx or the primary blind CSV.",
+            "For a primary-only workflow, send duplicate_pair_human_adjudication_primary_simple.xlsx or the simple primary CSV.",
+            "The simple sheet has eight columns; pair_id links to the source PDF and yellow columns are the only fields to complete.",
             "Prior P1 human cell corrections are evidence only; they do not replace pair-level human labels.",
             "Eight AI-same/matrix-distinct pairs conflict with prior human cell corrections and require explicit pair adjudication.",
             "The primary assignment is the union of all matrix-identical pairs, all matrix-distinct/AI-same pairs, and all undecidable pairs.",

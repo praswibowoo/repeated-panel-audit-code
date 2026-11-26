@@ -65,7 +65,7 @@ python3 code/prepare_duplicate_adjudication.py
 
 The package separates blind coder files from coordinator evidence:
 
-- Primary coder: 56 pairs = all 38 matrix-identical pairs + all 16 matrix-distinct/AI-same pairs + all 3 AI-undecidable pairs, with one overlap counted once. Send only `duplicate_pair_human_adjudication_primary_only.xlsx` or the primary blind CSV.
+- Primary coder: 56 pairs = all 38 matrix-identical pairs + all 16 matrix-distinct/AI-same pairs + all 3 AI-undecidable pairs, with one overlap counted once. Send only `duplicate_pair_human_adjudication_primary_simple.xlsx` or the simple primary CSV.
 - Independent second coder, if used: the same 56 pairs + 6 randomly selected agreed-distinct QC pairs = 62 pairs. Send only `duplicate_pair_human_adjudication_second_only.xlsx` or the second blind CSV.
 - Combined coder workbook: `data/duplicate_pair_human_adjudication_coder.xlsx`; no matrix class, Hamming distance, AI relation, or priority reason is shown.
 - Coordinator workbook/key: `data/duplicate_pair_human_adjudication_coordinator.xlsx` and `duplicate_pair_human_adjudication_coordinator_key.csv`.

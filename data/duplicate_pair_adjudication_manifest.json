@@ -162,18 +162,21 @@
   ],
   "files": {
     "data/duplicate_pair_human_adjudication_primary_blind.csv": "1dfb9d545eace95c80c3b956a84955a8629ea757cce181bbe5e83275576eafbe",
+    "data/duplicate_pair_human_adjudication_primary_simple.csv": "1af7eaeef41df7b91392f16c7533a5bd16de5c2045c1d2f6f17acba33bc47e0f",
     "data/duplicate_pair_human_adjudication_second_blind.csv": "4f6828933d3020151eecfa2c2fb3b1cc2d6299f5ed37a1a5c452a99ac1259313",
     "data/duplicate_pair_human_adjudication_coordinator_key.csv": "0027788c2228f9ed7a42ffefccf1f298b28172ca84e511658ad2523663e5ff71",
     "data/prior_human_pair_evidence.csv": "fa64bb061dcb8c6ea0bbeeda939c0a29eaee94b60c162fee5c00826672fd42ce",
     "data/prior_human_cell_corrections_status.csv": "b3101666f6a1e5d40e5367ee94144b421f91d30ed974dc49a170d22ad5352fba",
-    "data/duplicate_pair_human_adjudication_coder.xlsx": "8a1a5c54ce235845d9f66354ccb18d668f1123b658aa373671f237f616c3ccff",
-    "data/duplicate_pair_human_adjudication_primary_only.xlsx": "ca13516cf7b6e6174b1180e40a956a0ad72a41fcddc010b9bd0dd288f73e20ad",
-    "data/duplicate_pair_human_adjudication_second_only.xlsx": "1dea11f7d67f9ea5d6bb9c6a423e77e39542cc5760f0666ba1b4f70e3e3c9061",
-    "data/duplicate_pair_human_adjudication_coordinator.xlsx": "0ff977ba2117d71c411695a39279b2d61497519be1a0cf56c29fdbdb7959dd06"
+    "data/duplicate_pair_human_adjudication_coder.xlsx": "74df7c33ed72015e91b7d53c13bacecaf83a9b956096ab0fb72f4865f18f7123",
+    "data/duplicate_pair_human_adjudication_primary_only.xlsx": "eda0919acc9bee433b0252bec5d155e793078fb4456d1d34cf95337a4e8b5f00",
+    "data/duplicate_pair_human_adjudication_primary_simple.xlsx": "7c4192740dba2d6925a0a7943f09375a2c7625f9a89a6beba3e7e0148e88604a",
+    "data/duplicate_pair_human_adjudication_second_only.xlsx": "91b57813cdd42c5d129c4eb0054b1b26b1f010e89fa8f5b16ee8b719666c0520",
+    "data/duplicate_pair_human_adjudication_coordinator.xlsx": "43db983ee5b0316ecb0578a8e6ab48281fd9d55903c54f158e6b26701658ebf3"
   },
   "notes": [
     "Coder files are blind: no matrix class, Hamming distance, AI relation, or priority reason is shown.",
-    "For a primary-only workflow, send duplicate_pair_human_adjudication_primary_only.xlsx or the primary blind CSV.",
+    "For a primary-only workflow, send duplicate_pair_human_adjudication_primary_simple.xlsx or the simple primary CSV.",
+    "The simple sheet has eight columns; pair_id links to the source PDF and yellow columns are the only fields to complete.",
     "Prior P1 human cell corrections are evidence only; they do not replace pair-level human labels.",
     "Eight AI-same/matrix-distinct pairs conflict with prior human cell corrections and require explicit pair adjudication.",
     "The primary assignment is the union of all matrix-identical pairs, all matrix-distinct/AI-same pairs, and all undecidable pairs."

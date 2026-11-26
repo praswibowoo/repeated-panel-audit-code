@@ -22,7 +22,9 @@ This folder holds matrices, audit frames, event tables, and sensitivity summarie
 | `duplicate_pair_human_adjudication_primary_blind.csv` | Blind 56-pair primary coding sheet. |
 | `duplicate_pair_human_adjudication_second_blind.csv` | Blind 62-pair independent second-coder sheet. |
 | `duplicate_pair_human_adjudication_coder.xlsx` | Coder workbook with Instructions, Primary, and Second sheets; no matrix/AI labels. |
-| `duplicate_pair_human_adjudication_primary_only.xlsx` | Primary-only 56-pair coder workbook; recommended file to send the primary coder. |
+| `duplicate_pair_human_adjudication_primary_simple.csv` | Recommended eight-column primary coding CSV. |
+| `duplicate_pair_human_adjudication_primary_simple.xlsx` | Recommended eight-column primary workbook; pair_id links to source PDF. |
+| `duplicate_pair_human_adjudication_primary_only.xlsx` | Full primary-only 56-pair coder workbook for advanced use. |
 | `duplicate_pair_human_adjudication_second_only.xlsx` | Optional 62-pair independent second-coder workbook. |
 | `duplicate_pair_human_adjudication_coordinator_key.csv` | Coordinator-only key linking pairs to matrix class, AI labels, priority, and prior evidence. |
 | `duplicate_pair_human_adjudication_coordinator.xlsx` | Coordinator workbook with key, prior evidence, corrections, and status. |

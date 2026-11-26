@@ -25,6 +25,22 @@ CONFIDENCE = {"high", "medium", "low"}
 
 def read_completed(path: Path, expected_ids: set[str], label: str) -> pd.DataFrame:
     df = pd.read_csv(path)
+    if "relation" in df.columns and "human_relation" not in df.columns:
+        simple_required = {"pair_id", "relation", "evidence", "coder", "date"}
+        missing_simple = simple_required - set(df.columns)
+        if missing_simple:
+            raise ValueError(f"{label}: simple sheet missing columns {sorted(missing_simple)}")
+        df = df.rename(columns={
+            "relation": "human_relation",
+            "coder": "coder_name",
+            "date": "coder_date",
+        })
+        df["source_page_table"] = df["evidence"]
+        df["notes"] = df["evidence"]
+        df["proposed_matrix_corrections"] = df.get("correction", "")
+        df["confidence"] = "medium"
+        df["parameters_only_a"] = ""
+        df["parameters_only_b"] = ""
     required = {
         "pair_id", "human_relation", "source_page_table",
         "confidence", "coder_name", "coder_date", "notes",

@@ -60,7 +60,7 @@ Use `python3 code/run_all.py --list` to inspect all available analyses. Manuscri
 | `data/duplicate_pair_audit_frame.csv` | Frozen 100-record / 83-unique-unordered-pair frame; human adjudication pending |
 | `data/duplicate_pair_source_review.csv` | Independent AI-assisted blinded source-review labels; not human adjudication |
 | `data/duplicate_pair_human_adjudication_coder.xlsx` | Blind 56-pair primary and 62-pair second-coder workbook |
-| `data/duplicate_pair_human_adjudication_primary_only.xlsx` | Blind 56-pair primary-only workbook; send this to the primary coder |
+| `data/duplicate_pair_human_adjudication_primary_simple.xlsx` | Recommended eight-column primary workbook; send this to the primary coder |
 | `data/duplicate_pair_human_adjudication_coordinator.xlsx` | Coordinator key with matrix/AI labels and prior P1 human evidence |
 
 ## Interpretation

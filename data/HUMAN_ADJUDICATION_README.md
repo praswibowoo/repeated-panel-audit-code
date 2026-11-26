@@ -4,11 +4,24 @@
 
 Send the primary coder **only**:
 
-- `duplicate_pair_human_adjudication_primary_only.xlsx`
+- `duplicate_pair_human_adjudication_primary_simple.xlsx`
 
 Or, if Excel is not needed:
 
-- `duplicate_pair_human_adjudication_primary_blind.csv`
+- `duplicate_pair_human_adjudication_primary_simple.csv`
+
+The simple primary file has eight columns:
+
+| Column | Fill? | Purpose |
+|---|---|---|
+| `pair_id` | No | Click to open source PDF in Excel |
+| `scenario_a` | No | First scenario |
+| `scenario_b` | No | Second scenario |
+| `relation` | Yes | `same`, `different`, or `undecidable` |
+| `evidence` | Yes | Page/table/figure plus parameter differences or reason |
+| `correction` | If needed | Exact proposed matrix correction; otherwise blank |
+| `coder` | Yes | Coder name |
+| `date` | Yes | `YYYY-MM-DD` |
 
 The primary file contains 56 priority pairs and no matrix class, Hamming distance, AI relation, priority reason, or answer key.
 
@@ -33,16 +46,13 @@ For each pair, work from the source paper:
 
 Examined or examined-absent = `1`; not reported = `0`. Normalize parameter names to the manuscript's 44-parameter schema.
 
-Fill:
+Fill only:
 
-- `human_relation`
-- `parameters_only_a` / `parameters_only_b`
-- `proposed_matrix_corrections`
-- `source_page_table`
-- `confidence`
-- `coder_name`
-- `coder_date`
-- `notes`
+- `relation`
+- `evidence`
+- `correction` — optional
+- `coder`
+- `date`
 
 Do not fill `human_match`; the coordinator computes it after unblinding. Do not edit the coverage matrix directly.
 

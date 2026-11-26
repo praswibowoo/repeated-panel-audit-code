@@ -87,10 +87,12 @@ FILES = [
     "duplicate_pair_adjudication_manifest.json",
     "HUMAN_ADJUDICATION_README.md",
     "duplicate_pair_human_adjudication_primary_blind.csv",
+    "duplicate_pair_human_adjudication_primary_simple.csv",
     "duplicate_pair_human_adjudication_second_blind.csv",
     "duplicate_pair_human_adjudication_coordinator_key.csv",
     "duplicate_pair_human_adjudication_coder.xlsx",
     "duplicate_pair_human_adjudication_primary_only.xlsx",
+    "duplicate_pair_human_adjudication_primary_simple.xlsx",
     "duplicate_pair_human_adjudication_second_only.xlsx",
     "duplicate_pair_human_adjudication_coordinator.xlsx",
 ]
@@ -438,9 +440,15 @@ def main() -> int:
         blind = pd.read_csv(os.path.join(DATA, blind_name))
         forbidden = {"audit_stratum", "matrix_hamming", "reviewer_relation", "priority_tier", "priority_reason"}
         check(f"{blind_name} blind columns", bool(forbidden.isdisjoint(blind.columns)), True)
+    simple = pd.read_csv(os.path.join(DATA, "duplicate_pair_human_adjudication_primary_simple.csv"))
+    check("simple primary columns", list(simple.columns) == [
+        "pair_id", "scenario_a", "scenario_b", "relation", "evidence", "correction", "coder", "date"
+    ], True)
+    check("simple primary rows", len(simple), 56, 0)
     for coder_name, expected_sheets in (
         ("duplicate_pair_human_adjudication_coder.xlsx", {"Instructions", "Primary", "Second"}),
         ("duplicate_pair_human_adjudication_primary_only.xlsx", {"Instructions", "Primary"}),
+        ("duplicate_pair_human_adjudication_primary_simple.xlsx", {"Instructions", "Primary"}),
         ("duplicate_pair_human_adjudication_second_only.xlsx", {"Instructions", "Second"}),
     ):
         coder_book = os.path.join(DATA, coder_name)
