@@ -2,13 +2,13 @@
 
 Code, data, and result archive for:
 
-> **Control-unit mismatch in leave-one-study-out audits of repeated binary coverage rows**
+> **Control-unit dependence in leave-one-study-out audits of repeated binary coverage rows**
 >
 > Wibowo, P., Veesommai Sillberg, C., & Kiyoki, Y. (2026).
 >
 > *Environmental and Ecological Statistics*.
 
-Release: `v1.7.0-2026-11-25`.
+Release: `v1.8.0-2026-11-26` (canonical tag: https://github.com/praswibowoo/repeated-panel-audit-code/tree/v1.8.0-2026-11-26). The default `main` branch is historical and has diverged; use the tag for this release.
 
 ## Contents
 
@@ -31,9 +31,11 @@ conda env create -f environment.yml
 conda activate p2-deletion-audit
 
 python3 code/unit_revision_fixed.py --draws 100
+python3 code/fixed3d_sensitivity.py
 python3 code/rms_fixed_sensitivity.py
 python3 code/pcoa_fixed.py --draws 100
 python3 code/simulation_fixed.py
+python3 code/render_fixed_values.py
 python3 code/make_fig_paired_contrast.py
 python3 code/duplicate_pair_audit.py
 python3 code/verify_package.py
@@ -46,20 +48,23 @@ Use `python3 code/run_all.py --list` to inspect all available analyses. Manuscri
 | File | Role |
 |---|---|
 | `results/unit_revision_fixed/common_contrast.json` | Primary fixed-set covariance-PCA audit |
+| `results/unit_revision_fixed/fixed3d_contrast.json` | Fixed-set 3-D PCA sensitivity |
 | `results/unit_revision_fixed/rms_sensitivity.json` | Fixed-set RMS event-drift sensitivity |
+| `results/unit_revision_fixed/manuscript_values.json` | Rounded manuscript values rendered from deposited outputs |
 | `results/unit_revision_fixed/pcoa_contrast.json` | Fixed-set two-dimensional Jaccard PCoA |
 | `results/unit_revision_fixed/control_balance.json` | Bblock balance and missing-donor studies |
 | `results/unit_revision_fixed/sensitivity_no_B208.json` | Fixed exclusion of B208 |
 | `results/unit_revision_fixed/sensitivity_no_unsure_substitutes.json` | Fixed exclusion of 13 unsure records and two substitutes |
 | `results/post_audit/simulation_fixed.json` | Fixed-set clustered, planted, and independent-row benchmarks |
-| `data/duplicate_pair_audit_frame.csv` | Frozen 100-pair duplicate-classification frame; human adjudication pending |
+| `data/duplicate_pair_audit_frame.csv` | Frozen 100-record / 83-unique-unordered-pair frame; human adjudication pending |
+| `data/duplicate_pair_source_review.csv` | Independent AI-assisted blinded source-review labels; not human adjudication |
 
 ## Interpretation
 
-- A−Bblock is the primary full-fit control-geometry contrast.
-- A−C is a secondary protocol contrast that changes fit weighting and control geometry.
-- Bblock is unit-matched only for single-configuration studies.
-- Five single-configuration studies lack an exact-size donor and are reported separately.
+- A−Bstudy is the primary whole-study control contrast for 91 eligible single-configuration studies; all eligible whole-study donors are enumerated.
+- A−Bblock is a secondary configuration-donor contrast; donor configurations may be embedded in multi-configuration studies.
+- A−C is a secondary protocol contrast that changes fit weighting, control geometry, reference ordination, and normalization.
+- Bstudy is available for 91/97 single-configuration studies; six lack a whole-study donor.
 - H is an exploratory donor-study control, not a validated coherence match.
 - Configuration collapse is recommended only for a configuration-weighted target.
 - Per-study ratios are descriptive, not calibrated outlier scores.

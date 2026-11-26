@@ -1,4 +1,6 @@
-# Revision audit — 2026-11-25
+# Revision audit — 2026-11-25 (historical)
+
+> Superseded by `REVISION_2026-11-26_AUDIT.md`. Retained for provenance.
 
 Release: `v1.7.0-2026-11-25`.
 

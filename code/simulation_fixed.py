@@ -15,8 +15,9 @@ H1 planted study:
 IID rows:
     Independent Bernoulli(0.30) rows assigned to study blocks.
 
-Outputs are median per-study ratios across 100 synthetic corpora. Intervals
-are 2.5--97.5% across corpora, not bootstrap confidence intervals.
+Outputs are median per-study ratios across 100 synthetic corpora. The clustered
+benchmarks report row-count, whole-configuration, and collapsed ratios.
+Intervals are 2.5--97.5% across corpora, not bootstrap confidence intervals.
 """
 from __future__ import annotations
 
@@ -77,12 +78,15 @@ def audit(X: np.ndarray, paper: np.ndarray, rng: np.random.Generator):
             np.where((paper == p) & np.all(X == Xc[j], axis=1))[0]
         )
 
+    config_size = np.array([len(rr) for rr in config_rows])
+
     full = fit_pca(X)
     full_c = fit_pca(Xc)
+    rng_b = np.random.default_rng(20261126)  # independent Bblock stream
     S_full = full.transform(X)
     S_full_c = full_c.transform(Xc)
 
-    A, C = {}, {}
+    A, Bblock, C = {}, {}, {}
     for p in papers:
         n_p = int(np.sum(paper == p))
         nu = int(np.sum(uni[paper == p]))
@@ -100,13 +104,21 @@ def audit(X: np.ndarray, paper: np.ndarray, rng: np.random.Generator):
 
         donors = np.where(keep_block)[0]
         donors_c = np.where(keep_block_c)[0]
-        rA, rC = [], []
+        exact_block = [j for j in donors_c if config_size[j] == n_p]
+        rA, rB, rC = [], [], []
         for _ in range(DRAWS):
             drop_A = rng.choice(donors, size=n_p, replace=False)
             keep_A = np.ones(n, bool)
             keep_A[drop_A] = False
             P_A = fit_pca(X[keep_A])
             rA.append(d_block / median_drift(ref, P_A.transform(X[reps])))
+
+            if exact_block:
+                j = exact_block[int(rng_b.integers(0, len(exact_block)))]
+                keep_B = np.ones(n, bool)
+                keep_B[config_rows[j]] = False
+                P_B = fit_pca(X[keep_B])
+                rB.append(d_block / median_drift(ref, P_B.transform(X[reps])))
 
             drop_C = rng.choice(donors_c, size=nu, replace=False)
             keep_C = np.ones(nc, bool)
@@ -115,8 +127,10 @@ def audit(X: np.ndarray, paper: np.ndarray, rng: np.random.Generator):
             rC.append(d_block_c / median_drift(ref_c, P_C.transform(Xc[E])))
 
         A[p] = float(np.median(rA))
+        if rB:
+            Bblock[p] = float(np.median(rB))
         C[p] = float(np.median(rC))
-    return A, C
+    return A, Bblock, C
 
 
 def summarise(values) -> dict:
@@ -145,19 +159,21 @@ def main() -> None:
         "H1_planted": {},
         "IID_rows": {},
     }
-    h0_A, h0_C = [], []
-    h1_A, h1_C, planted_C, planted_top1, planted_above2 = [], [], [], [], []
-    iid_A, iid_C = [], []
+    h0_A, h0_B, h0_C = [], [], []
+    h1_A, h1_B, h1_C, planted_C, planted_top1, planted_above2 = [], [], [], [], [], []
+    iid_A, iid_B, iid_C = [], [], []
 
     for rep in range(REPS):
         X, paper, _ = simulate(rng, "repeated")
-        A, C = audit(X, paper, rng)
+        A, Bblock, C = audit(X, paper, rng)
         h0_A.append(float(np.median(list(A.values()))))
+        h0_B.append(float(np.median(list(Bblock.values()))))
         h0_C.append(float(np.median(list(C.values()))))
 
         X, paper, planted = simulate(rng, "planted")
-        A, C = audit(X, paper, rng)
+        A, Bblock, C = audit(X, paper, rng)
         h1_A.append(float(np.median(list(A.values()))))
+        h1_B.append(float(np.median(list(Bblock.values()))))
         h1_C.append(float(np.median(list(C.values()))))
         pid = f"S{planted:02d}"
         planted_C.append(C[pid])
@@ -166,8 +182,10 @@ def main() -> None:
         planted_above2.append(C[pid] > 2)
 
         X, paper, _ = simulate(rng, "iid")
-        A, C = audit(X, paper, rng)
+        A, Bblock, C = audit(X, paper, rng)
         iid_A.append(float(np.median(list(A.values()))))
+        if Bblock:
+            iid_B.append(float(np.median(list(Bblock.values()))))
         iid_C.append(float(np.median(list(C.values()))))
 
         if (rep + 1) % 10 == 0:
@@ -175,10 +193,12 @@ def main() -> None:
 
     out["H0_repeated"] = {
         "full_ratio": summarise(h0_A),
+        "whole_configuration_ratio": summarise(h0_B),
         "collapsed_ratio": summarise(h0_C),
     }
     out["H1_planted"] = {
         "full_ratio": summarise(h1_A),
+        "whole_configuration_ratio": summarise(h1_B),
         "collapsed_ratio": summarise(h1_C),
         "planted_collapsed_ratio": summarise(planted_C),
         "planted_top1_pct": float(100 * np.mean(planted_top1)),
@@ -188,6 +208,8 @@ def main() -> None:
         "full_ratio": summarise(iid_A),
         "collapsed_ratio": summarise(iid_C),
     }
+    if iid_B:
+        out["IID_rows"]["whole_configuration_ratio"] = summarise(iid_B)
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as fh:

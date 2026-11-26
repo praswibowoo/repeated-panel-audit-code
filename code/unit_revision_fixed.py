@@ -12,6 +12,8 @@ A       row-count control, full row fit
 B       legacy greedy exact-volume whole-configuration control, full row fit
 Bblock  one uniformly sampled donor configuration with exactly the focal row
         volume, full row fit (available for 112/117 studies)
+Bstudy  all exact-size whole single-configuration donor studies enumerated,
+         full row fit (primary for 91/97 single-configuration studies)
 C       pooled configuration-count control, collapsed fit
 H       exploratory donor-study configuration control, collapsed
         fit (multi-configuration studies only; not coherence-balanced)
@@ -19,6 +21,7 @@ H       exploratory donor-study configuration control, collapsed
 Primary contrasts
 -----------------
 AC       A minus C, all studies
+ABstudy  A minus Bstudy, single-configuration studies with a whole-study donor
 ABblock  A minus Bblock, single-configuration studies with an exact-size donor
 ACmulti  A minus C, multi-configuration studies
 CminusH  C minus H, multi-configuration studies
@@ -31,7 +34,6 @@ import argparse
 import json
 import os
 import sys
-from collections import defaultdict
 
 import numpy as np
 from scipy.spatial import procrustes
@@ -44,7 +46,7 @@ from unit_revision_common import exact_volume_indices  # noqa: E402
 
 
 def fit_pca(X: np.ndarray, dims: int = 2) -> PCA:
-    return PCA(n_components=dims, random_state=SEED).fit(X)
+    return PCA(n_components=dims, svd_solver="full", random_state=SEED).fit(X)
 
 
 def median_drift(ref: np.ndarray, red: np.ndarray) -> float:
@@ -132,6 +134,7 @@ def subset_summary(per_paper: dict, papers: list[str], key: str) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--draws", type=int, default=100)
+    ap.add_argument("--dims", type=int, default=2)
     ap.add_argument(
         "--drift-summary", choices=("median", "rms"), default="median",
         help="Event-drift summary; median is primary and RMS is a sensitivity.",
@@ -168,13 +171,13 @@ def main() -> int:
     cfg = {p: Xc[pc == p] for p in papers}
     coherence = {p: mean_pairwise_hamming(cfg[p]) for p in papers}
 
-    full = fit_pca(X)
-    full_c = fit_pca(Xc)
+    full = fit_pca(X, dims=args.dims)
+    full_c = fit_pca(Xc, dims=args.dims)
     S_full = full.transform(X)
     S_full_c = full_c.transform(Xc)
 
-    keys = ("A", "B", "Bblock", "C", "H", "AB", "AC", "BC",
-            "ABblock", "ACsingle", "ACmulti", "CminusH")
+    keys = ("A", "B", "Bblock", "Bstudy", "C", "H", "AB", "AC", "BC",
+            "ABblock", "ABstudy", "ACsingle", "ACmulti", "CminusH")
     per_paper = {k: {} for k in keys}
     per_paper_draws = {k: {} for k in keys}
     meta = {}
@@ -184,8 +187,7 @@ def main() -> int:
     greedy_total = 0
 
     for pi, p in enumerate(papers):
-        idx_p = np.where(paper == p)[0]
-        n_p = int(len(idx_p))
+        n_p = int(np.sum(paper == p))
         nu = n_u[p]
         keep_block = paper != p
         keep_block_c = pc != p
@@ -196,17 +198,21 @@ def main() -> int:
         ref = S_full[reps]
         ref_c = S_full_c[E]
 
-        P_block = fit_pca(X[keep_block])
+        P_block = fit_pca(X[keep_block], dims=args.dims)
         S_block = P_block.transform(X[reps])
         d_block = drift_fn(ref, S_block)
 
-        P_block_c = fit_pca(Xc[keep_block_c])
+        P_block_c = fit_pca(Xc[keep_block_c], dims=args.dims)
         S_block_c = P_block_c.transform(Xc[E])
         d_block_c = drift_fn(ref_c, S_block_c)
 
         donors = np.where(keep_block)[0]
         donors_c = np.where(keep_block_c)[0]
         exact_block = [int(j) for j in donors_c if config_size[j] == n_p]
+        exact_study = [
+            int(j) for j in exact_block
+            if nu == 1 and n_u[pc[j]] == 1
+        ]
 
         if nu > 1:
             donor_papers = [q for q in papers if q != p and n_u[q] == nu]
@@ -222,6 +228,20 @@ def main() -> int:
             donor_papers = []
             fallback = False
 
+        # Enumerate every eligible whole-study donor. The donor pools are small
+        # (median 12, maximum 18), so exhaustive enumeration removes Monte Carlo
+        # error from the primary Bstudy control.
+        study_control_drifts = []
+        for j in exact_study:
+            keep_study = np.ones(n, bool)
+            keep_study[config_rows[j]] = False
+            P_study = fit_pca(X[keep_study], dims=args.dims)
+            study_control_drifts.append(
+                drift_fn(ref, P_study.transform(X[reps]))
+            )
+        d_study = float(np.median(study_control_drifts)) if study_control_drifts else None
+        r_study = d_block / d_study if d_study else None
+
         draws = {k: [] for k in keys}
         base = seed_for(p)
         for dr in range(args.draws):
@@ -231,7 +251,7 @@ def main() -> int:
             drop_A = rng.choice(donors, size=n_p, replace=False)
             keep_A = np.ones(n, bool)
             keep_A[drop_A] = False
-            P_A = fit_pca(X[keep_A])
+            P_A = fit_pca(X[keep_A], dims=args.dims)
             d_A = drift_fn(ref, P_A.transform(X[reps]))
 
             # B: legacy greedy exact-volume control.
@@ -239,7 +259,7 @@ def main() -> int:
             drop_B = np.concatenate([config_rows[j] for j in chosen_B])
             keep_B = np.ones(n, bool)
             keep_B[drop_B] = False
-            P_B = fit_pca(X[keep_B])
+            P_B = fit_pca(X[keep_B], dims=args.dims)
             d_B = drift_fn(ref, P_B.transform(X[reps]))
             greedy_counts.append(len(chosen_B))
             greedy_single_exact.append(
@@ -252,7 +272,7 @@ def main() -> int:
             drop_C = rng.choice(donors_c, size=nu, replace=False)
             keep_C = np.ones(nc, bool)
             keep_C[drop_C] = False
-            P_C = fit_pca(Xc[keep_C])
+            P_C = fit_pca(Xc[keep_C], dims=args.dims)
             d_C = drift_fn(ref_c, P_C.transform(Xc[E]))
 
             rA = d_block / d_A
@@ -273,11 +293,16 @@ def main() -> int:
                 j = exact_block[int(rng.integers(0, len(exact_block)))]
                 keep_R = np.ones(n, bool)
                 keep_R[config_rows[j]] = False
-                P_R = fit_pca(X[keep_R])
+                P_R = fit_pca(X[keep_R], dims=args.dims)
                 d_R = drift_fn(ref, P_R.transform(X[reps]))
                 rR = d_block / d_R
                 draws["Bblock"].append(rR)
                 draws["ABblock"].append(rA - rR)
+
+            # Bstudy: exact enumeration of all eligible whole-study donors.
+            if r_study is not None:
+                draws["Bstudy"].append(r_study)
+                draws["ABstudy"].append(rA - r_study)
 
             # H: exploratory donor-study configuration block.
             if nu > 1:
@@ -292,7 +317,7 @@ def main() -> int:
                         drop_H = q_rows
                 keep_H = np.ones(nc, bool)
                 keep_H[drop_H] = False
-                P_H = fit_pca(Xc[keep_H])
+                P_H = fit_pca(Xc[keep_H], dims=args.dims)
                 d_H = drift_fn(ref_c, P_H.transform(Xc[E]))
                 rH = d_block_c / d_H
                 draws["H"].append(rH)
@@ -309,6 +334,9 @@ def main() -> int:
             "n_configs": nu,
             "coherence": coherence[p],
             "exact_block_donors": len(exact_block),
+            "whole_study_donors": len(exact_study),
+            "bstudy_control_drift_median": d_study,
+            "bstudy_donors_enumerated": len(study_control_drifts),
             "coherence_fallback": bool(fallback) if nu > 1 else False,
         }
         if pi % 10 == 0:
@@ -318,7 +346,7 @@ def main() -> int:
     multi = [p for p in papers if n_u[p] > 1]
 
     designs = {}
-    for k in ("A", "B", "C", "Bblock", "H"):
+    for k in ("A", "B", "Bblock", "Bstudy", "C", "H"):
         vals = [per_paper[k][p] for p in papers if p in per_paper[k]]
         summary = study_bootstrap(vals)
         summary.update(describe(vals))
@@ -327,7 +355,7 @@ def main() -> int:
         designs[k] = summary
 
     contrasts = {}
-    for k in ("AB", "AC", "BC", "ABblock", "ACsingle", "ACmulti", "CminusH"):
+    for k in ("AB", "AC", "BC", "ABblock", "ABstudy", "ACsingle", "ACmulti", "CminusH"):
         vals = [per_paper[k][p] for p in papers if p in per_paper[k]]
         summary = describe(vals)
         summary.update(study_bootstrap(vals))
@@ -339,11 +367,11 @@ def main() -> int:
             "n": len(single),
             "designs": {
                 k: subset_summary(per_paper, single, k)
-                for k in ("A", "B", "Bblock", "C")
+                for k in ("A", "B", "Bblock", "Bstudy", "C")
             },
             "contrasts": {
                 k: subset_summary(per_paper, single, k)
-                for k in ("AB", "AC", "ABblock")
+                for k in ("AB", "AC", "ABblock", "ABstudy")
             },
         },
         "multi": {
@@ -362,6 +390,8 @@ def main() -> int:
     all_missing = [p for p in papers if meta[p]["exact_block_donors"] == 0]
     single_has = [p for p in single if meta[p]["exact_block_donors"] > 0]
     single_missing = [p for p in single if meta[p]["exact_block_donors"] == 0]
+    single_study_has = [p for p in single if meta[p]["whole_study_donors"] > 0]
+    single_study_missing = [p for p in single if meta[p]["whole_study_donors"] == 0]
     availability = {
         "all_has_exact_donor": {
             "n": len(all_has),
@@ -384,11 +414,35 @@ def main() -> int:
             "papers": single_has,
             "designs": {
                 k: subset_summary(per_paper, single_has, k)
-                for k in ("A", "B", "C")
+                for k in ("A", "B", "Bblock", "C")
             },
             "contrasts": {
                 k: subset_summary(per_paper, single_has, k)
                 for k in ("AB", "AC", "ABblock")
+            },
+        },
+        "single_has_whole_study_donor": {
+            "n": len(single_study_has),
+            "papers": single_study_has,
+            "designs": {
+                k: subset_summary(per_paper, single_study_has, k)
+                for k in ("A", "Bstudy", "C")
+            },
+            "contrasts": {
+                k: subset_summary(per_paper, single_study_has, k)
+                for k in ("ABstudy", "AC")
+            },
+        },
+        "single_no_whole_study_donor": {
+            "n": len(single_study_missing),
+            "papers": single_study_missing,
+            "designs": {
+                k: subset_summary(per_paper, single_study_missing, k)
+                for k in ("A", "Bblock", "C")
+            },
+            "contrasts": {
+                k: subset_summary(per_paper, single_study_missing, k)
+                for k in ("ABblock", "AC")
             },
         },
         "single_no_exact_donor": {
@@ -411,8 +465,10 @@ def main() -> int:
             "rows": n,
             "configurations": nc,
             "draws": args.draws,
-            "dimensions": 2,
+            "dimensions": args.dims,
             "drift_summary": args.drift_summary,
+            "primary_control": "Bstudy",
+            "bstudy_enumeration": "all exact-size whole single-configuration donor studies",
             "excluded": excluded,
             "evaluation": (
                 "fixed set of all nonfocal within-study configurations; "
@@ -440,9 +496,13 @@ def main() -> int:
         "meta": meta,
     }
 
+    default_name = (
+        "common_contrast.json" if args.dims == 2
+        else f"fixed{args.dims}d_contrast.json"
+    )
     out_path = args.out or os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-        "results", "unit_revision_fixed", "common_contrast.json"
+        "results", "unit_revision_fixed", default_name
     )
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as fh:

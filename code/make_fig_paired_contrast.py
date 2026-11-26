@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Primary figure for the fixed-evaluation control-geometry audit.
+"""Primary figure for the fixed-evaluation whole-study control audit.
 
-(a) Per-study row-count ratio versus full-fit whole-configuration donor ratio
-    for studies with an exact-size donor.
-(b) Distribution of the paired A-Bblock difference by configuration stratum.
+(a) Per-study row-count ratio versus exact-size whole single-configuration
+donor-study ratio for the 91 eligible single-configuration focal studies.
+(b) Paired A-Bstudy differences overall and by focal row-count stratum, with
+all study points shown.
 """
 from __future__ import annotations
 
@@ -23,14 +24,12 @@ OUT = os.path.join(ROOT, "figures", "fig_paired_contrast.pdf")
 
 def main() -> None:
     d = json.load(open(COMMON, encoding="utf-8"))
-    eligible = sorted(d["per_paper"]["Bblock"])
-    single = [p for p in eligible if d["meta"][p]["n_configs"] == 1]
-    multi = [p for p in eligible if d["meta"][p]["n_configs"] > 1]
+    eligible = sorted(d["per_paper"]["Bstudy"])
 
     A = np.array([d["per_paper"]["A"][p] for p in eligible])
-    B = np.array([d["per_paper"]["Bblock"][p] for p in eligible])
+    B = np.array([d["per_paper"]["Bstudy"][p] for p in eligible])
+    D = np.array([d["per_paper"]["ABstudy"][p] for p in eligible])
     rows = np.array([d["meta"][p]["n_rows"] for p in eligible], float)
-    is_single = np.array([d["meta"][p]["n_configs"] == 1 for p in eligible])
 
     plt.rcParams.update({
         "font.size": 9,
@@ -45,52 +44,60 @@ def main() -> None:
 
     ax = axes[0]
     row_norm = Normalize(vmin=float(rows.min()), vmax=float(rows.max()))
-    for mask, marker, label in [
-        (is_single, "o", "Single configuration (n=92)"),
-        (~is_single, "s", "Multiple configurations (n=20)"),
-    ]:
-        sc = ax.scatter(
-            B[mask], A[mask], s=8 + 3 * rows[mask], c=rows[mask],
-            cmap="viridis", norm=row_norm, marker=marker, edgecolor="white", linewidth=0.3,
-            alpha=0.9, zorder=3, label=label,
-        )
+    sc = ax.scatter(
+        B, A, s=8 + 3 * rows, c=rows,
+        cmap="viridis", norm=row_norm, edgecolor="white", linewidth=0.3,
+        alpha=0.9, zorder=3,
+    )
     lim = [0, max(A.max(), B.max()) * 1.04]
     ax.plot(lim, lim, ls="--", lw=0.8, color="0.45", zorder=1)
     ax.axvline(np.median(B), ls=":", lw=0.8, color="0.25", zorder=2)
     ax.axhline(np.median(A), ls=":", lw=0.8, color="0.25", zorder=2)
     ax.set_xlim(lim)
     ax.set_ylim(lim)
-    ax.set_xlabel("Whole-configuration donor ratio $R_s^{\\mathrm{Bblock}}$")
+    ax.set_xlabel("Whole-study donor ratio $R_s^{\\mathrm{Bstudy}}$")
     ax.set_ylabel("Row-count ratio $R_s^{\\mathrm{A}}$")
-    ax.set_title("(a) Full-fit control geometry")
-    frac_above = np.mean(A > B)
+    ax.set_title("(a) Full-fit study-unit control")
     ax.text(
-        0.03, 0.96, f"above 1:1 line: {100 * frac_above:.0f}%",
+        0.03, 0.96, f"above 1:1 line: {100 * np.mean(A > B):.0f}%",
         transform=ax.transAxes, va="top", ha="left", fontsize=8,
     )
-    ax.legend(loc="lower right", frameon=False, fontsize=7)
     cbar = fig.colorbar(sc, ax=ax, fraction=0.045, pad=0.02)
     cbar.set_label("Rows per study", fontsize=8)
     cbar.ax.tick_params(labelsize=7)
 
     ax = axes[1]
-    groups = [eligible, single, multi]
-    data = [
-        np.array([d["per_paper"]["ABblock"][p] for p in ps])
-        for ps in groups
+    groups = [
+        np.ones(len(eligible), dtype=bool),
+        (rows >= 2) & (rows <= 5),
+        (rows >= 6) & (rows <= 10),
+        rows >= 11,
     ]
-    labels = ["All\n(n=112)", "Single\n(n=92)", "Multiple\n(n=20)"]
-    colors = ["#4c72b0", "#55a868", "#c44e52"]
+    data = [D[mask] for mask in groups]
+    labels = [
+        f"All\n(n={len(eligible)})",
+        f"2--5 rows\n(n={len(data[1])})",
+        f"6--10 rows\n(n={len(data[2])})",
+        f"$\\geq$11 rows\n(n={len(data[3])})",
+    ]
+    colors = ["#4c72b0", "#55a868", "#c44e52", "#8172b3"]
+    rng = np.random.default_rng(20261126)
     bp = ax.boxplot(
         data, tick_labels=labels, patch_artist=True, widths=0.6,
         showfliers=False, medianprops={"color": "black", "lw": 1},
     )
     for patch, color in zip(bp["boxes"], colors):
         patch.set_facecolor(color)
-        patch.set_alpha(0.65)
+        patch.set_alpha(0.55)
+    for i, values in enumerate(data, start=1):
+        jitter = rng.uniform(-0.12, 0.12, len(values))
+        ax.scatter(
+            i + jitter, values, s=10, color=colors[i - 1],
+            alpha=0.45, edgecolor="none", zorder=3,
+        )
     ax.axhline(0.0, ls="--", lw=0.8, color="0.35")
-    ax.set_ylabel("Paired difference $D_s^{\\mathrm{ABblock}}$")
-    ax.set_title("(b) Row count minus whole configuration")
+    ax.set_ylabel("Paired difference $D_s^{\\mathrm{ABstudy}}$")
+    ax.set_title("(b) Row count minus whole-study donor")
     low = min(float(x.min()) for x in data)
     high = max(float(x.max()) for x in data)
     pad = 0.08 * (high - low if high > low else 1.0)

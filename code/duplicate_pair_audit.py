@@ -9,9 +9,10 @@ than individual cells:
 * 40 random pairs coded as distinct configurations;
 * 20 nearest distinct pairs (Hamming distance <= 3 where available).
 
-The frame is reproducible from coverage_matrix.csv. Human source-text
-adjudication is intentionally separate: run without --force to verify the
-frozen frame. --force creates a new frame and must not reuse historical coding.
+The frame is reproducible from coverage_matrix.csv. It contains 100 records
+representing 83 unique unordered pairs. Human source-text adjudication remains separate;
+independent AI-assisted source-review labels are stored alongside the frozen
+frame. Run without --force to verify the frozen frame.
 """
 from __future__ import annotations
 
@@ -118,9 +119,18 @@ def main() -> None:
     path = os.path.join(data_dir(), "duplicate_pair_audit_frame.csv")
     if os.path.exists(path) and not args.force:
         old = pd.read_csv(path)
-        if len(old) != 100 or old.paper.nunique() < 20:
+        old_ordered = old.assign(
+            row_lo=old[["row_a", "row_b"]].min(axis=1),
+            row_hi=old[["row_a", "row_b"]].max(axis=1),
+        )
+        unique = old_ordered.drop_duplicates(["paper", "row_lo", "row_hi"])
+        if len(old) != 100 or len(unique) != 83 or old.paper.nunique() < 20:
             raise SystemExit("frozen duplicate-pair frame has unexpected structure")
-        print(f"verified frozen duplicate-pair frame: {len(old)} pairs")
+        if old.reviewer_relation.isna().any():
+            raise SystemExit("frozen duplicate-pair frame lacks AI-assisted source-review labels")
+        if old.human_relation.notna().any() or old["match"].notna().any():
+            raise SystemExit("human adjudication fields are no longer blank; update documentation")
+        print(f"verified frozen duplicate-pair frame: {len(old)} records, {len(unique)} unique unordered pairs")
         print(f"sha256={hashlib.sha256(open(path, 'rb').read()).hexdigest()}")
         return
     out = draw_frame()

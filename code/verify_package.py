@@ -77,6 +77,8 @@ FILES = [
     "cell_level_coded.csv",
     "cell_level_triage.csv",
     "duplicate_pair_audit_frame.csv",
+    "duplicate_pair_source_review.csv",
+    "duplicate_pair_source_review_summary.json",
 ]
 
 POST_FILES = [
@@ -128,9 +130,11 @@ def main() -> int:
     fixed_path = os.path.join(fixed_dir, "common_contrast.json")
     for name in (
         "common_contrast.json",
+        "fixed3d_contrast.json",
         "control_balance.json",
         "pcoa_contrast.json",
         "rms_sensitivity.json",
+        "manuscript_values.json",
         "sensitivity_no_B208.json",
         "sensitivity_no_unsure_substitutes.json",
     ):
@@ -356,6 +360,17 @@ def main() -> int:
     check("fixed C", fixed["designs"]["C"]["median"], 0.9819, 1e-3)
     check("fixed AC", fixed["contrasts"]["AC"]["median"], 0.2926, 1e-3)
     check("fixed ABblock", fixed["contrasts"]["ABblock"]["median"], 0.2637, 1e-3)
+    check("fixed ABstudy", fixed["contrasts"]["ABstudy"]["median"], 0.3523, 2e-3)
+    check("fixed Bstudy", fixed["designs"]["Bstudy"]["median"], 0.9405, 2e-3)
+    check("fixed Bstudy donor enumeration", all(
+        m["bstudy_donors_enumerated"] == m["whole_study_donors"]
+        for m in fixed["meta"].values()
+    ), True)
+    check("fixed Bstudy draw invariance", all(
+        len(set(values)) == 1
+        for values in fixed["per_paper_draws"]["Bstudy"].values()
+    ), True)
+    check("fixed single ABstudy", fixed["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.3523, 2e-3)
     check("fixed single A", fixed["subgroups"]["single"]["designs"]["A"]["median"], 1.3657, 1e-3)
     check("fixed single C", fixed["subgroups"]["single"]["designs"]["C"]["median"], 0.9607, 1e-3)
     check("fixed single Bblock", fixed["subgroups"]["single"]["designs"]["Bblock"]["median"], 0.9744, 1e-3)
@@ -364,18 +379,40 @@ def main() -> int:
     if "availability" in fixed:
         check("single exact donors", fixed["availability"]["single_has_exact_donor"]["n"], 92)
         check("single missing donors", fixed["availability"]["single_no_exact_donor"]["n"], 5)
+        check("single whole-study donors", fixed["availability"]["single_has_whole_study_donor"]["n"], 91)
+        check("single missing whole-study donors", fixed["availability"]["single_no_whole_study_donor"]["n"], 6)
     pcoa = json.load(open(os.path.join(fixed_dir, "pcoa_contrast.json"), encoding="utf-8"))
     check("fixed PCoA A", pcoa["designs"]["A"]["median"], 1.3362, 1e-3)
+    check("fixed PCoA Bstudy", pcoa["designs"]["Bstudy"]["median"], 0.9813, 1e-3)
+    check("fixed PCoA ABstudy", pcoa["contrasts"]["ABstudy"]["median"], 0.3863, 2e-3)
     check("fixed PCoA ABblock", pcoa["contrasts"]["ABblock"]["median"], 0.2946, 1e-3)
     rms = json.load(open(os.path.join(fixed_dir, "rms_sensitivity.json"), encoding="utf-8"))
     check("fixed RMS ABblock", rms["contrasts"]["ABblock"]["median"], 0.2930, 1e-3)
     check("fixed RMS single ABblock", rms["subgroups"]["single"]["contrasts"]["ABblock"]["median"], 0.3229, 1e-3)
+    check("fixed RMS ABstudy", rms["contrasts"]["ABstudy"]["median"], 0.4707, 2e-3)
+    check("fixed RMS single ABstudy", rms["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.4707, 2e-3)
+    f3 = json.load(open(os.path.join(fixed_dir, "fixed3d_contrast.json"), encoding="utf-8"))
+    check("fixed 3-D ABstudy", f3["contrasts"]["ABstudy"]["median"], 0.1425, 2e-3)
+    check("fixed 3-D Bstudy", f3["designs"]["Bstudy"]["median"], 0.9940, 2e-3)
+    check("fixed 3-D single ABstudy", f3["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.1425, 2e-3)
     sim_fixed = json.load(open(os.path.join(POST, "simulation_fixed.json"), encoding="utf-8"))
     check("fixed synthetic corpora", sim_fixed["design"]["replicates"], 100)
     check("fixed synthetic H0 full", sim_fixed["H0_repeated"]["full_ratio"]["median"], 1.5565, 1e-3)
+    check("fixed synthetic H0 Bblock", sim_fixed["H0_repeated"]["whole_configuration_ratio"]["median"], 0.9930, 1e-3)
     check("fixed synthetic IID full", sim_fixed["IID_rows"]["full_ratio"]["median"], 0.9894, 1e-3)
+    ex1 = json.load(open(os.path.join(fixed_dir, "sensitivity_no_B208.json"), encoding="utf-8"))
+    ex2 = json.load(open(os.path.join(fixed_dir, "sensitivity_no_unsure_substitutes.json"), encoding="utf-8"))
+    check("no-B208 ABstudy", ex1["contrasts"]["ABstudy"]["median"], 0.3578, 2e-3)
+    check("no-unsure ABstudy", ex2["contrasts"]["ABstudy"]["median"], 0.1509, 2e-3)
     iid = json.load(open(os.path.join(POST, "simulation_iid_null.json"), encoding="utf-8"))
     check("IID row-count median", iid["row_count_ratio"]["median"], 1.0008, 1e-3)
+
+    dup = load_json("duplicate_pair_source_review_summary.json")
+    dup_frame = pd.read_csv(os.path.join(DATA, "duplicate_pair_audit_frame.csv"))
+    check("duplicate human fields blank", bool(dup_frame.human_relation.isna().all() and dup_frame["match"].isna().all()), True)
+    check("duplicate source-review pairs", dup["total_pairs"], 83, 0)
+    check("duplicate source-review same", dup["counts_by_relation"]["same"], 53, 0)
+    check("duplicate source-review false-distinct", len(dup["matrix_comparison"]["false_distinct_pairs"]), 16, 0)
 
     # The fresh core-revision output must agree with the deposited copy.
     fresh_path = os.path.join(ROOT, "results", "core_revision", "core_checks.json")

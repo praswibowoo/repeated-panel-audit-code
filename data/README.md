@@ -12,7 +12,9 @@ This folder holds matrices, audit frames, event tables, and sensitivity summarie
 | `coverage_matrix_types.csv` | Water/non-water row map. |
 | `corpus_manifest.csv` | 138-paper manifest and extraction status. |
 | `cell_level_sample.csv`, `cell_level_coded.csv`, `cell_level_triage.csv` | Targeted 351-cell audit frame and coding. |
-| `duplicate_pair_audit_frame.csv` | Frozen 100-pair duplicate-classification frame; human adjudication pending. |
+| `duplicate_pair_audit_frame.csv` | Frozen 100-record / 83-unique-unordered-pair frame; human adjudication pending. |
+| `duplicate_pair_source_review.csv` | Independent AI-assisted blinded source-review labels; not human adjudication. |
+| `duplicate_pair_source_review_summary.json` | Source-review counts and matrix comparison. |
 
 ## Fixed-evaluation outputs
 

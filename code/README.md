@@ -1,17 +1,19 @@
 # Code map
 
-Release: `v1.7.0-2026-11-25`. Run scripts from the repository root.
+Release: `v1.8.0-2026-11-26`. Run scripts from the repository root.
 
 ## Primary analyses
 
 | Script | Purpose | Output |
 |---|---|---|
-| `unit_revision_fixed.py` | Fixed-set PCA; A/Bblock/C/H, donor availability, paired contrasts, optional exclusions | `results/unit_revision_fixed/common_contrast.json` |
+| `unit_revision_fixed.py` | Fixed-set PCA; A/exhaustive Bstudy/Bblock/C/H, donor availability, paired contrasts, optional exclusions/dimensions | `results/unit_revision_fixed/common_contrast.json` |
+| `fixed3d_sensitivity.py` | Fixed-set 3-D PCA sensitivity | `results/unit_revision_fixed/fixed3d_contrast.json` |
 | `rms_fixed_sensitivity.py` | Fixed-set PCA with RMS event drift | `results/unit_revision_fixed/rms_sensitivity.json` |
-| `control_balance_fixed.py` | Bblock balance and missing-donor summary | `results/unit_revision_fixed/control_balance.json` |
+| `control_balance_fixed.py` | Bstudy/Bblock balance, donor composition, and missing-donor summary | `results/unit_revision_fixed/control_balance.json` |
 | `pcoa_fixed.py` | Fixed-set 2-D Jaccard PCoA with out-of-fit projection | `results/unit_revision_fixed/pcoa_contrast.json` |
 | `simulation_fixed.py` | Fixed-set clustered, planted, and independent-row benchmarks | `results/post_audit/simulation_fixed.json` |
-| `duplicate_pair_audit.py` | Verify frozen 100-pair duplicate-classification frame | `data/duplicate_pair_audit_frame.csv` |
+| `render_fixed_values.py` | Render rounded manuscript values from deposited JSONs | `results/unit_revision_fixed/manuscript_values.json` |
+| `duplicate_pair_audit.py` | Verify frozen 100-record / 89-unique-pair frame | `data/duplicate_pair_audit_frame.csv` |
 | `make_fig_paired_contrast.py` | Main control-geometry figure | `figures/fig_paired_contrast.pdf` |
 | `make_fig_prisma.py` | Corpus provenance figure | `figures/figS1_prisma_flow.pdf` |
 
@@ -38,7 +40,7 @@ python3 code/unit_revision_fixed.py --draws 100 \
 | `panel_decomposition.py` | Archived fit/control decomposition and density-matched audit |
 | `simulation_validation.py` | Archived own-row synthetic benchmark |
 | `simulation_iid_null.py` | Archived own-row independent-row benchmark |
-| `balance_diagnostics.py` | Legacy block/control balance summary |
+| `balance_diagnostics.py` | Archived own-row balance summary |
 | `verify_package.py` | File inventory and numerical self-check |
 
 Manuscript-specific LaTeX/package checks remain in the editable manuscript source tree and are not required to reproduce the analysis outputs in this repository.

@@ -10,14 +10,16 @@ projected into the reduced PCoA solution rather than omitted from evaluation.
 Designs
 -------
 A       row-count control, full row fit
+Bstudy  all exact-size whole single-configuration donor studies enumerated,
+        full row fit
 Bblock  one exact-size whole-configuration donor, full row fit
 C       configuration-count control, collapsed fit
 
 Primary outputs
 ---------------
+A-Bstudy paired whole-study contrast for eligible single-configuration studies
+A-Bblock paired configuration-donor contrast
 A-C paired protocol contrast
-A-Bblock paired control-geometry contrast among exact-size donor studies
-A-C stratified by single versus multiple configurations
 """
 from __future__ import annotations
 
@@ -131,7 +133,7 @@ def main() -> int:
     S_full = full.transform(X)
     S_full_c = full_c.transform(Xc)
 
-    keys = ("A", "Bblock", "C", "ABblock", "AC", "ACsingle", "ACmulti")
+    keys = ("A", "Bblock", "Bstudy", "C", "ABblock", "ABstudy", "AC", "ACsingle", "ACmulti")
     per_paper = {k: {} for k in keys}
     per_paper_draws = {k: {} for k in keys}
     meta = {}
@@ -154,6 +156,20 @@ def main() -> int:
         donors = np.where(keep_block)[0]
         donors_c = np.where(keep_block_c)[0]
         exact_block = [int(j) for j in donors_c if config_size[j] == n_p]
+        exact_study = [
+            int(j) for j in exact_block
+            if nu == 1 and n_u[pc[j]] == 1
+        ]
+        study_control_drifts = []
+        for j in exact_study:
+            keep_study = np.ones(n, bool)
+            keep_study[config_rows[j]] = False
+            P_study = fit_pcoa(X[keep_study])
+            study_control_drifts.append(
+                median_drift(ref, P_study.transform(X[reps]))
+            )
+        d_study = float(np.median(study_control_drifts)) if study_control_drifts else None
+        r_study = d_block / d_study if d_study else None
 
         draws = {k: [] for k in keys}
         base = seed_for(p)
@@ -192,6 +208,11 @@ def main() -> int:
                 draws["Bblock"].append(rR)
                 draws["ABblock"].append(rA - rR)
 
+            # Bstudy: exact enumeration of all eligible whole-study donors.
+            if r_study is not None:
+                draws["Bstudy"].append(r_study)
+                draws["ABstudy"].append(rA - r_study)
+
         for k in keys:
             if draws[k]:
                 per_paper[k][p] = float(np.median(draws[k]))
@@ -202,6 +223,9 @@ def main() -> int:
             "n_configs": nu,
             "coherence": coherence[p],
             "exact_block_donors": len(exact_block),
+            "whole_study_donors": len(exact_study),
+            "bstudy_control_drift_median": d_study,
+            "bstudy_donors_enumerated": len(study_control_drifts),
         }
         if pi % 10 == 0:
             print(f"pcoa {pi}/{len(papers)} {p}", flush=True)
@@ -210,7 +234,7 @@ def main() -> int:
     multi = [p for p in papers if n_u[p] > 1]
 
     designs = {}
-    for k in ("A", "Bblock", "C"):
+    for k in ("A", "Bblock", "Bstudy", "C"):
         vals = [per_paper[k][p] for p in papers if p in per_paper[k]]
         summary = study_bootstrap(vals)
         summary.update(describe(vals))
@@ -218,7 +242,7 @@ def main() -> int:
         designs[k] = summary
 
     contrasts = {}
-    for k in ("ABblock", "AC", "ACsingle", "ACmulti"):
+    for k in ("ABblock", "ABstudy", "AC", "ACsingle", "ACmulti"):
         vals = [per_paper[k][p] for p in papers if p in per_paper[k]]
         summary = describe(vals)
         summary.update(study_bootstrap(vals))
@@ -230,22 +254,22 @@ def main() -> int:
             "n": len(single),
             "designs": {
                 k: subset_summary(per_paper, single, k)
-                for k in ("A", "Bblock", "C")
+                for k in ("A", "Bblock", "Bstudy", "C")
             },
             "contrasts": {
                 k: subset_summary(per_paper, single, k)
-                for k in ("ABblock", "AC")
+                for k in ("ABblock", "ABstudy", "AC")
             },
         },
         "multi": {
             "n": len(multi),
             "designs": {
                 k: subset_summary(per_paper, multi, k)
-                for k in ("A", "Bblock", "C")
+                for k in ("A", "Bblock", "Bstudy", "C")
             },
             "contrasts": {
                 k: subset_summary(per_paper, multi, k)
-                for k in ("ABblock", "AC")
+                for k in ("ABblock", "ABstudy", "AC")
             },
         },
     }
@@ -257,6 +281,8 @@ def main() -> int:
             "rows": n,
             "configurations": nc,
             "draws": args.draws,
+            "primary_control": "Bstudy",
+            "bstudy_enumeration": "all exact-size whole single-configuration donor studies",
             "evaluation": (
                 "fixed set of all nonfocal within-study configurations; "
                 "control-deleted configurations projected into reduced PCoA"

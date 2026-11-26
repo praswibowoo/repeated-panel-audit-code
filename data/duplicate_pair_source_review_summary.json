@@ -1,0 +1,82 @@
+{
+  "review_type": "Independent AI-assisted source-text adjudication; NOT human adjudication.",
+  "blinding": "Source papers/texts and the manuscript coding rule only. No coverage matrix, parameter vector, duplicate-pair audit-frame stratum, or matrix Hamming value was inspected.",
+  "coding_rule": "same = identical examined-parameter suite; different = at least one parameter differs; undecidable = source does not support a decision.",
+  "total_pairs": 83,
+  "unique_pairs": 83,
+  "papers": 48,
+  "counts_by_relation": {
+    "same": 53,
+    "different": 27,
+    "undecidable": 3
+  },
+  "undecidable_pairs": [
+    "B186_615_617",
+    "B221_697_695",
+    "B057_236_238"
+  ],
+  "scenario_identity_ambiguities": [
+    {
+      "paper": "B028",
+      "issue": "Annual/summer/winter labels are analyst-derived views of the monthly Puerto Cuatreros series; annual metal results are pooled rather than seasonal."
+    },
+    {
+      "paper": "B057",
+      "issue": "Low-DO/high-NH3 zones and N:P/BFS management are analytic groupings of one pond dataset, not independently labeled sampling campaigns; the BFS pair is undecidable."
+    },
+    {
+      "paper": "B186",
+      "issue": "Water quality is reported only as a general pond-wide range, not by cultivation depth; the 20-cm versus 60-cm pair is therefore undecidable."
+    },
+    {
+      "paper": "B221",
+      "issue": "Table 4 does not separately report Cd-only tank-water chemistry; the Cd-only versus combined-water pair is therefore undecidable."
+    },
+    {
+      "paper": "B222",
+      "issue": "The n=40 creek row and neap/spring row refer to the same creek effort at different aggregations; other rows are distinct sampling scales."
+    }
+  ],
+  "output_csv": "data/duplicate_pair_source_review.csv",
+  "matrix_comparison": {
+    "matrix_identical_n": 38,
+    "matrix_identical_review_same": 37,
+    "matrix_distinct_n": 45,
+    "matrix_distinct_review_different": 27,
+    "matrix_distinct_review_same": 16,
+    "matrix_identical_sensitivity_decidable": 1.0,
+    "matrix_identical_sensitivity_conservative": 0.9736842105263158,
+    "matrix_distinct_specificity_decidable": 0.627906976744186,
+    "matrix_distinct_specificity_conservative": 0.6,
+    "overall_agreement_decidable": 0.8,
+    "false_distinct_pairs": [
+      "B069_260_263",
+      "B153_538_536",
+      "B092_356_357",
+      "B092_355_356",
+      "B080_300_299",
+      "B153_537_539",
+      "B153_539_538",
+      "B034_183_181",
+      "B090_344_342",
+      "B069_263_262",
+      "B153_536_537",
+      "B080_298_299",
+      "B166_579_580",
+      "B153_537_538",
+      "B065_250_251",
+      "B034_177_181"
+    ],
+    "false_distinct_papers": [
+      "B034",
+      "B065",
+      "B069",
+      "B080",
+      "B090",
+      "B092",
+      "B153",
+      "B166"
+    ],
+    "note": "Pairs are de-duplicated without regard to row order. Decidable metrics exclude three undecidable pairs; conservative metrics count undecidable as not matching the matrix class."
+  }
+}

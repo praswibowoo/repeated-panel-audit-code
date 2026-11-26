@@ -33,7 +33,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "code"))
 
 STEPS: dict[str, tuple[str, str, str]] = {
-    "fixed": ("unit_revision_fixed", "fixed-evaluation stratified primary audit", "~8 min"),
+    "fixed": ("unit_revision_fixed", "fixed-evaluation stratified primary audit", "~10 min"),
+    "fixed3d": ("fixed3d_sensitivity", "fixed-evaluation 3-D PCA sensitivity", "~10 min"),
     "rmsfixed": ("rms_fixed_sensitivity", "fixed-evaluation RMS drift sensitivity", "~8 min"),
     "balancefixed": ("control_balance_fixed", "fixed-control balance and donor availability", "~2 s"),
     "pcoafixed": ("pcoa_fixed", "fixed-evaluation Jaccard PCoA sensitivity", "~35 min"),
@@ -50,6 +51,7 @@ STEPS: dict[str, tuple[str, str, str]] = {
     "allpaper": ("all_paper_audit", "all-paper 730/122 audit", "~2 min"),
     "simulation": ("simulation_validation", "legacy own-row synthetic validation", "~6 min"),
     "simfixed": ("simulation_fixed", "fixed-set clustered and independent-row benchmarks", "~25 min"),
+    "renderfixed": ("render_fixed_values", "render rounded manuscript values", "~2 s"),
     "iidnull": ("simulation_iid_null", "legacy own-row independent-row null", "~6 min"),
     "multiconfig": ("multiconfig_sensitivity", "1% and 5% within-study flips", "~12 min"),
     "perturb": ("perturbation_upper", "upper-bound extraction perturbation", "~2 min"),
@@ -78,7 +80,7 @@ STEPS: dict[str, tuple[str, str, str]] = {
     "verify": ("verify_package", "package self-check", "~10 s"),
 }
 
-ORDER = ["fixed", "rmsfixed", "balancefixed", "pcoafixed", "figfixed", "dupaudit", "types", "water", "typesens", "panel", "evalset", "weighted", "pc2", "core", "allpaper", "simulation", "simfixed",
+ORDER = ["fixed", "fixed3d", "rmsfixed", "balancefixed", "pcoafixed", "figfixed", "dupaudit", "types", "water", "typesens", "panel", "evalset", "weighted", "pc2", "core", "allpaper", "simulation", "simfixed", "renderfixed",
          "multiconfig", "iidnull", "perturb", "pertclust", "pertdir", "coherence", "threed",
          "tail", "balance", "flagged", "tailperm", "tailglobal", "q95corpus", "leverage", "q95cal", "holdout",
          "dimsweep", "ca", "cmnull", "pcurve", "leave", "flagcis", "table", "rebuild", "check", "verify"]
