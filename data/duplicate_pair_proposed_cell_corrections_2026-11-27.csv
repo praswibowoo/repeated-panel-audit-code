@@ -1,0 +1,43 @@
+pair_id,paper,row,parameter,current_value,new_value,source_page_table,reason,primary_coder,coordinator_approval,prior_accepted_correction_conflict
+B034_177_181; B034_183_181,B034,181,pH,0,1,PDF pp.3-9; Methods p.65 and Results p.66,pH was measured in situ throughout and pH values 7.6-8.8 are reported; examined-absent=1.,A,pending,True
+B065_250_251,B065,251,NO2 (mg/L),0,1,p.3 Sec.2.1 and p.6 Sec.3.3,Nitrite was examined at Group-B stations GX03 and GX12; absent grouped results do not make it unreported.,A,pending,True
+B069_260_263; B069_263_262,B069,263,pH,0,1,p.27 Abstract and p.28 Methods,pH is explicitly examined in the common four-station design; absent station-level values do not make it unreported.,A,pending,True
+B080_298_299; B080_300_299,B080,299,NO3 (mg/L),0,1,pp.35-36 Tables 1-2,All eight water parameters were reported for every station; highlighted nutrient stations are not reduced suites.,A,pending,False
+B080_298_299; B080_300_299,B080,299,Temperature (°C),0,1,pp.35-36 Tables 1-2,All eight water parameters were reported for every station; highlighted nutrient stations are not reduced suites.,A,pending,False
+B080_298_299; B080_300_299,B080,299,TSS (mg/L),0,1,pp.35-36 Tables 1-2,All eight water parameters were reported for every station; highlighted nutrient stations are not reduced suites.,A,pending,False
+B080_298_299; B080_300_299,B080,299,Secchi (m),0,1,pp.35-36 Tables 1-2,All eight water parameters were reported for every station; highlighted nutrient stations are not reduced suites.,A,pending,False
+B080_300_299,B080,300,PO4 (mg/L),0,1,pp.35-36 Tables 1-2,All eight water parameters were reported for every station; highlighted nutrient stations are not reduced suites.,A,pending,False
+B080_300_299,B080,300,Temperature (°C),0,1,pp.35-36 Tables 1-2,All eight water parameters were reported for every station; highlighted nutrient stations are not reduced suites.,A,pending,False
+B080_300_299,B080,300,TSS (mg/L),0,1,pp.35-36 Tables 1-2,All eight water parameters were reported for every station; highlighted nutrient stations are not reduced suites.,A,pending,False
+B080_300_299,B080,300,Secchi (m),0,1,pp.35-36 Tables 1-2,All eight water parameters were reported for every station; highlighted nutrient stations are not reduced suites.,A,pending,False
+B090_344_342,B090,344,NH4 (mg/L),0,1,p.5 Tables 1-2,Ammonia was reported for both stations.,A,pending,False
+B092_355_356; B092_355_357,B092,355,Secchi (m),1,0,p.5 Table 7,"Table 7 reports brightness, not Secchi depth.",A,pending,False
+B092_355_357; B092_356_357,B092,357,Secchi (m),1,0,p.5 Table 7,"Table 7 reports brightness, not Secchi depth.",A,pending,False
+B096_362_360,B096,360,DO (mg/L),0,1,p.4 Table 3 and p.5 Methods/Results,DO was explicitly examined but not tabulated; examined-absent=1.,A,pending,False
+B096_362_360,B096,362,DO (mg/L),0,1,p.4 Table 3 and p.5 Methods/Results,DO was explicitly examined but not tabulated; examined-absent=1.,A,pending,False
+B097_366_368,B097,366,Secchi (m),1,0,p.3 Methods and p.5 Table 2,"Source reports brightness, not Secchi depth.",A,pending,False
+B097_366_368,B097,368,Secchi (m),1,0,p.3 Methods and p.5 Table 2,"Source reports brightness, not Secchi depth.",A,pending,False
+B102_376_377,B102,376,Co (µg/L),0,1,p.4 Sec.2.2.1 and p.8 Sec.3.3,Co was analyzed but no Co results are reported; examined-absent=1.,A,pending,False
+B102_376_377,B102,377,Co (µg/L),0,1,p.4 Sec.2.2.1 and p.8 Sec.3.3,Co was analyzed but no Co results are reported; examined-absent=1.,A,pending,False
+B153_536_537; B153_537_538; B153_537_539,B153,537,NH3 (µg/L),0,1,p.80 Table 2,Station II reports ammonia; below-detection values remain examined.,A,pending,False
+B153_536_537; B153_537_538; B153_537_539,B153,537,PO4 (mg/L),0,1,p.80 Table 2,Station II reports phosphate; below-detection values remain examined.,A,pending,False
+B153_537_538; B153_538_536; B153_539_538,B153,538,NH3 (µg/L),0,1,p.80 Table 2,Station III reports ammonia.,A,pending,False
+B153_537_539; B153_539_538,B153,539,DO (mg/L),0,1,p.80 Table 2 and Methods pp.79-80,All-station aggregate derives from the same eight-parameter panel reported for all three stations.,A,pending,False
+B153_537_539; B153_539_538,B153,539,pH,0,1,p.80 Table 2 and Methods pp.79-80,All-station aggregate derives from the same eight-parameter panel reported for all three stations.,A,pending,False
+B153_537_539; B153_539_538,B153,539,NO3 (mg/L),0,1,p.80 Table 2 and Methods pp.79-80,All-station aggregate derives from the same eight-parameter panel reported for all three stations.,A,pending,False
+B153_537_539; B153_539_538,B153,539,Salinity (ppt/‰),0,1,p.80 Table 2 and Methods pp.79-80,All-station aggregate derives from the same eight-parameter panel reported for all three stations.,A,pending,False
+B153_537_539; B153_539_538,B153,539,Temperature (°C),0,1,p.80 Table 2 and Methods pp.79-80,All-station aggregate derives from the same eight-parameter panel reported for all three stations.,A,pending,False
+B153_537_539; B153_539_538,B153,539,TSS (mg/L),0,1,p.80 Table 2 and Methods pp.79-80,All-station aggregate derives from the same eight-parameter panel reported for all three stations.,A,pending,False
+B166_579_580,B166,580,TSS (mg/L),0,1,p.15 Abstract and p.17 Methods,TSS was explicitly analyzed in the common MN/MB piezometer design; examined-absent=1.,A,pending,True
+B199_648_645,B199,645,Salinity (ppt/‰),0,1,p.1 Methods,Salinity was measured although no salinity result is reported; examined-absent=1.,A,pending,False
+B199_648_645,B199,648,Salinity (ppt/‰),0,1,p.1 Methods,Salinity was measured although no salinity result is reported; examined-absent=1.,A,pending,False
+B206_667_668,B206,667,Chlorophyll-a (mg/m3),0,1,p.275 Table 2,Station-specific chlorophyll-a values are reported.,A,pending,False
+B206_667_668,B206,668,Chlorophyll-a (mg/m3),0,1,p.275 Table 2,Station-specific chlorophyll-a values are reported.,A,pending,False
+B208_669_670,B208,669,NO3 (mg/L),0,1,pp.4-5 Table 1,Nitrate values are reported in Table 1.,A,pending,False
+B208_669_670,B208,669,Salinity (ppt/‰),0,1,p.7 Sec.4.3,Salinity was measured although Table 1 omits its values; examined-absent=1.,A,pending,False
+B208_669_670,B208,670,NO3 (mg/L),0,1,pp.4-5 Table 1,Nitrate values are reported in Table 1.,A,pending,False
+B208_669_670,B208,670,Salinity (ppt/‰),0,1,p.7 Sec.4.3,Salinity was measured although Table 1 omits its values; examined-absent=1.,A,pending,False
+B222_700_701,B222,700,DO (mg/L),0,1,"Mendeley DOI 10.17632/thy35b5nsy.1, data_amazon_mangrove.xlsx Sheet1 cols E-L",DO is reported for both Caete and shelf survey rows; NA cells count as examined-absent.,A,pending,False
+B222_700_701,B222,700,Temperature (°C),0,1,"Mendeley DOI 10.17632/thy35b5nsy.1, data_amazon_mangrove.xlsx Sheet1 cols E-L",Temperature is reported for both Caete and shelf survey rows; NA cells count as examined-absent.,A,pending,False
+B222_700_701,B222,701,DO (mg/L),0,1,"Mendeley DOI 10.17632/thy35b5nsy.1, data_amazon_mangrove.xlsx Sheet1 cols E-L",DO is reported for both Caete and shelf survey rows; NA cells count as examined-absent.,A,pending,False
+B222_700_701,B222,701,Temperature (°C),0,1,"Mendeley DOI 10.17632/thy35b5nsy.1, data_amazon_mangrove.xlsx Sheet1 cols E-L",Temperature is reported for both Caete and shelf survey rows; NA cells count as examined-absent.,A,pending,False

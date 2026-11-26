@@ -27,6 +27,8 @@ The primary file contains 56 priority pairs and no matrix class, Hamming distanc
 
 Current submission status (2026-11-27): all 56 rows have `relation`, `evidence`, `coder`, and `date` populated. Strict structural import passes. Coordinator review remains required for 39 flagged rows; see `duplicate_pair_human_adjudication_coordinator_notes_2026-11-27.md`.
 
+A proposed source-based coordinator package is also available: 53 `same`, 3 `undecidable`, 19 changed primary labels independently rechecked, and 42 pending cell corrections. It is not human-approved. Start with `duplicate_pair_coordinator_review_memo_2026-11-27.md`.
+
 Do not send the coordinator workbook/key, AI source-review files, or prior-evidence files before coding is complete.
 
 ## Optional independent second coder

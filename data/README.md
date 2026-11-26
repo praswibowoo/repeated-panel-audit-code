@@ -31,6 +31,12 @@ This folder holds matrices, audit frames, event tables, and sensitivity summarie
 | `duplicate_pair_human_adjudication_review_flags_2026-11-27.csv` | 39 rows requiring coordinator review. |
 | `duplicate_pair_human_adjudication_coordinator_notes_2026-11-27.md` | Human-readable coordinator review notes for the current submission. |
 | `duplicate_pair_coordinator_resolution_template_2026-11-27.csv` | Provisional primary-only coordinator resolution template. |
+| `duplicate_pair_coordinator_source_review_2026-11-27.csv` | Proposed source-based relations for all 56 primary pairs; not human-approved. |
+| `duplicate_pair_coordinator_blind_audit_2026-11-27.csv` | Blinded recheck of all 19 changed primary labels; all agree with proposals. |
+| `duplicate_pair_coordinator_resolution_proposed_2026-11-27.csv` | Proposed coordinator resolutions with evidence, confidence, correction flags, and blind-audit results. |
+| `duplicate_pair_proposed_cell_corrections_2026-11-27.csv` | 42 unique pending binary-cell corrections; none approved or applied. |
+| `duplicate_pair_configuration_impact_proposed_2026-11-27.csv` | Provisional in-memory configuration impact: 151 to 145 across 15 papers if all corrections are approved. |
+| `duplicate_pair_coordinator_review_memo_2026-11-27.md` | Review memo covering proposed relations, prior-correction conflicts, unresolved cells, and approval sequence. |
 | `duplicate_pair_human_adjudication_primary_blind.csv` | Blind 56-pair primary coding sheet. |
 | `duplicate_pair_human_adjudication_second_blind.csv` | Blind 62-pair independent second-coder sheet. |
 | `duplicate_pair_human_adjudication_coder.xlsx` | Coder workbook with Instructions, Primary, and Second sheets; no matrix/AI labels. |

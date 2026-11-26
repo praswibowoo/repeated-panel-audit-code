@@ -1,0 +1,16 @@
+paper,configuration_count_before,configuration_count_after,changed_pair_ids,correction_file,rerun_required,notes
+B034,2,1,B034_177_181; B034_183_181,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B065,4,3,B065_250_251,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B069,3,2,B069_260_263; B069_263_262,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B080,3,1,B080_298_299; B080_300_299,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B090,2,1,B090_344_342,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B092,2,1,B092_355_356; B092_355_357; B092_356_357,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B096,2,3,B096_362_360,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B097,1,2,B097_366_368,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B102,1,2,B102_376_377,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B153,4,1,B153_536_537; B153_537_538; B153_537_539; B153_538_536; B153_539_538,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B166,2,1,B166_579_580,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B199,1,2,B199_648_645,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B206,1,2,B206_667_668,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B208,1,2,B208_669_670,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified
+B222,3,2,B222_700_701,duplicate_pair_proposed_cell_corrections_2026-11-27.csv,yes_if_approved,proposed only; no matrix file modified

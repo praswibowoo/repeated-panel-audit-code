@@ -107,6 +107,12 @@ FILES = [
     "duplicate_pair_human_adjudication_review_flags_2026-11-27.csv",
     "duplicate_pair_human_adjudication_coordinator_notes_2026-11-27.md",
     "duplicate_pair_coordinator_resolution_template_2026-11-27.csv",
+    "duplicate_pair_coordinator_source_review_2026-11-27.csv",
+    "duplicate_pair_coordinator_blind_audit_2026-11-27.csv",
+    "duplicate_pair_coordinator_resolution_proposed_2026-11-27.csv",
+    "duplicate_pair_proposed_cell_corrections_2026-11-27.csv",
+    "duplicate_pair_configuration_impact_proposed_2026-11-27.csv",
+    "duplicate_pair_coordinator_review_memo_2026-11-27.md",
 ]
 
 POST_FILES = [
@@ -476,6 +482,27 @@ def main() -> int:
     check("current processing incomplete submission", int(processing.processing_status.eq("incomplete_submission").sum()), 0, 0)
     check("current processing coordinator review", int(processing.processing_status.eq("coordinator_review").sum()), 39, 0)
     check("current processing provisional no flag", int(processing.processing_status.eq("provisional_no_flag").sum()), 17, 0)
+    source_review = pd.read_csv(os.path.join(DATA, "duplicate_pair_coordinator_source_review_2026-11-27.csv")).fillna("")
+    check("proposed source-review rows", len(source_review), 56, 0)
+    check("proposed source-review same", int(source_review.proposed_relation.eq("same").sum()), 53, 0)
+    check("proposed source-review undecidable", int(source_review.proposed_relation.eq("undecidable").sum()), 3, 0)
+    proposed = pd.read_csv(os.path.join(DATA, "duplicate_pair_coordinator_resolution_proposed_2026-11-27.csv")).fillna("")
+    check("proposed resolution rows", len(proposed), 56, 0)
+    check("proposed resolution same", int(proposed.resolved_relation.eq("same").sum()), 53, 0)
+    check("proposed resolution undecidable", int(proposed.resolved_relation.eq("undecidable").sum()), 3, 0)
+    check("proposed changed from primary", int(proposed.changed_from_primary.astype(str).str.lower().eq("true").sum()), 19, 0)
+    check("proposed prior-correction conflict rows", int(proposed.prior_accepted_correction_conflict.astype(str).str.lower().eq("true").sum()), 6, 0)
+    blind = pd.read_csv(os.path.join(DATA, "duplicate_pair_coordinator_blind_audit_2026-11-27.csv")).fillna("")
+    check("proposed blind-audit rows", len(blind), 19, 0)
+    check("proposed blind-audit agreement", bool(blind.blind_audit_agrees.astype(str).str.lower().eq("true").all()), True)
+    corrections = pd.read_csv(os.path.join(DATA, "duplicate_pair_proposed_cell_corrections_2026-11-27.csv")).fillna("")
+    check("proposed cell-correction rows", len(corrections), 42, 0)
+    check("proposed cell-correction unique", len(corrections.drop_duplicates(["paper", "row", "parameter"])), 42, 0)
+    check("proposed cell corrections pending", bool(corrections.coordinator_approval.eq("pending").all()), True)
+    check("proposed prior-correction conflict cells", int(corrections.prior_accepted_correction_conflict.astype(str).str.lower().eq("true").sum()), 4, 0)
+    impact = pd.read_csv(os.path.join(DATA, "duplicate_pair_configuration_impact_proposed_2026-11-27.csv"))
+    check("proposed impact papers", len(impact), 15, 0)
+    check("proposed impact net change", int((impact.configuration_count_after - impact.configuration_count_before).sum()), -6, 0)
     for blind_name in ("duplicate_pair_human_adjudication_primary_blind.csv",
                        "duplicate_pair_human_adjudication_second_blind.csv"):
         blind = pd.read_csv(os.path.join(DATA, blind_name))

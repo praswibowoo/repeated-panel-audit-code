@@ -1,0 +1,20 @@
+pair_id,blind_relation,blind_evidence,confidence,blind_audit_agrees
+B034_177_181,same,"Methods p.65: temperature, salinity, pH and DO measured in situ at all stations; Results p.66 reports pH 7.6-8.8 in both lagoons; Figs 2-8 use the common panel.",high,True
+B034_183_181,same,"Methods p.65: temperature, salinity, pH and DO measured in situ at all stations; Results p.66 reports pH 7.6-8.8 in both lagoons; Figs 2-8 use the common panel.",high,True
+B036_184_187,same,"Methods pp.225-226: three salinity stations, two points per station and three weekly April replicates share temperature, Secchi, depth, current, salinity, pH, DO, nitrate and phosphate.",high,True
+B090_344_342,same,"Methods and Tables 1-2: monthly 2009-2011 sampling at mouth and mangrove stations shares temperature, turbidity, pH, salinity, DO, BOD, ammonia, silicate, nitrate and nitrite.",high,True
+B031_160_157,same,"p.7 Table 1: April 2018 column shares identical temperature, pH, salinity, DO, TDS, nitrite, nitrate, ammonium, phosphate, and chlorophyll-a rows with the other months; pp.3–5 specify the same 15-station protocol",high,True
+B050_211_212,same,"p.494 Methods and p.496 Fig. 3: St1 and St2 were sampled on the same dates using the same DO, temperature, pH, salinity, brightness, current, nitrate, and phosphate suite",high,True
+B076_283_282,same,p.360 Table 2: Dry and Wet columns contain the identical 22-parameter suite for the same February 2013–July 2014 pooled period,high,True
+B083_302_301,same,"p.235 Table 1: control and CPO-exposed columns share DO, pH, temperature, conductivity, TDS, BOD, COD, sediment redox, and soil pH",high,True
+B097_366_368,same,p.190 Methods and p.192 Table 2: Area2 and Area4 share all six tabulated parameters; phosphate was also examined across the sampled areas with no exclusion,high,True
+B102_376_377,same,"pp.147–151 Methods and Figs. 1, 3, 4: St2 and St3 each report Zn, Pb, Fe, Mn, Cd, Cu, and Cr in kale, soil, and water; Co was examined in water but unreported for all stations",high,True
+B125_440_443,same,"pp.173–176 Methods, Results, and Conclusion: both seasonal pools use the same monthly protocol and the same temperature, pH, salinity, DO, BOD, TDS, TSS, nitrite, nitrate, phosphate, and ammonia suite",high,True
+B166_579_580,same,"pp.17–18 Methods and pp.19–27 Tables 1–8: white- and black-mangrove piezometers share the same pH, EC, nitrate, metals, COD, BOD5, and coliform examination suite",high,True
+B169_592_594,same,"p.290 Methods and p.292 Table 1: June and November 2024 sampling use the same 17-parameter CWQI at the same 12 stations; overall 71.24 and rainy-season 62.8 are aggregations, not suite changes",high,True
+B191_642_641,same,"p.70 Tables 3–4: Pond-wet and Pond-dry rows share temperature, salinity, turbidity, DO, pH, ammonia, nitrate, nitrite, and phosphate",high,True
+B222_700_701,same,"Mendeley DOI 10.17632/thy35b5nsy.1, Sheet1 E1:L1: estuary rows 27–47 and shelf rows 2–14 both report salinity, temperature, DO, DIC, TA, DOC, 223Ra, and 224Ra; article p.370 specifies the same analyses",high,True
+B222_702_699,same,"Article p.370 and p.373 Fig.2: neap and spring cycles use the same creek measurement suite; Mendeley Sheet1 rows 48–63, 75–87, and pooled rows 48–87 all span the same E–L parameters",high,True
+B107_396_395,same,"p.24, Table 1: both Low and High rows contain values for turbidity, TDS, TSS, temperature, EC, salinity, DO, pH, BOD, COD, and AN—identical 11-parameter suite",high,True
+B190_633_636,same,"p.8, Table 2: CN-Aug and BO-May both report density, SG, TURF, MAC, SND, Temp, Sal, pH, DO, N-NH4, N-NO2, N-NO3, DIN, SRP, and OM; e.g., OM is 1.40 versus 0.95, with no parameter absent from either row",high,True
+B200_654_652,same,"p.491, Materials and Methods: January–December monthly samples were explicitly “analysed and represented season wise” using the same regulating/supportive-parameter and phytoplankton-metric suite; pp.491–494 report both Post-monsoon and Pre-monsoon within that design",high,True

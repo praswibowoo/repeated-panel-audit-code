@@ -404,8 +404,8 @@
     },
     {
       "path": "code/verify_package.py",
-      "bytes": 29604,
-      "sha256": "687234c57e9051bd2054f45e094f50d1628a46dab0e98657bc22d1417878acef"
+      "bytes": 32218,
+      "sha256": "9a8c44b59f3d15a33db2af2901aeab4d947f34e02b3779bf97cea2e3cf6bb343"
     },
     {
       "path": "code/water_only_check.py",
@@ -419,13 +419,13 @@
     },
     {
       "path": "data/HUMAN_ADJUDICATION_README.md",
-      "bytes": 4106,
-      "sha256": "795b68bd4b9fc15bce3695d4a5d2b201e9a59458460acda4329931a4208b792f"
+      "bytes": 4375,
+      "sha256": "8379a12a69a4a74b43d59925f45a983850cfc6e7b534b6a5cdeba19207961a86"
     },
     {
       "path": "data/README.md",
-      "bytes": 5804,
-      "sha256": "0f80404f123a62d4eb87cb296866804a3d5dc8d6db3ef2db215ac501761cea33"
+      "bytes": 6734,
+      "sha256": "731821c72532d2488b5d386ca000e13dd7f05210df6d8c3a58d263b68da46ea7"
     },
     {
       "path": "data/all_paper_audit.json",
@@ -588,14 +588,39 @@
       "sha256": "4e9d6dbf6a630422295615b85daf9e5a95e6b61235cfc2aea81fc11be671190c"
     },
     {
+      "path": "data/duplicate_pair_configuration_impact_proposed_2026-11-27.csv",
+      "bytes": 2234,
+      "sha256": "80aac30959f5b75109e33ad0b3670553b0526af50e99411025f691cc3fea8f85"
+    },
+    {
+      "path": "data/duplicate_pair_coordinator_blind_audit_2026-11-27.csv",
+      "bytes": 4032,
+      "sha256": "1477e144933be0cc9dbc7ea71ad4bdc1dc0ae0c12ade125fd17add48661f2128"
+    },
+    {
       "path": "data/duplicate_pair_coordinator_resolution_partial_template_2026-11-26.csv",
       "bytes": 5544,
       "sha256": "664576feb2b22e4b097c48d6e4f8086500a7c85a9de8a5e28958bfaf35ac8269"
     },
     {
+      "path": "data/duplicate_pair_coordinator_resolution_proposed_2026-11-27.csv",
+      "bytes": 39342,
+      "sha256": "e4fd584426cfc58bc3d34661f4ef398c07a0c08aaca7980e64a3fd1d579d847e"
+    },
+    {
       "path": "data/duplicate_pair_coordinator_resolution_template_2026-11-27.csv",
       "bytes": 10244,
       "sha256": "1b2caffa9a0452ddcca03a689915495a96dd20b6b99f7c9c99c85e8468c816a4"
+    },
+    {
+      "path": "data/duplicate_pair_coordinator_review_memo_2026-11-27.md",
+      "bytes": 4473,
+      "sha256": "e1d2e49802b5896879d68d603026bfb9187bb7099a4ccccbd3bb16428d84c3f9"
+    },
+    {
+      "path": "data/duplicate_pair_coordinator_source_review_2026-11-27.csv",
+      "bytes": 16970,
+      "sha256": "043dffca1e084065da558c86f5286321708d9568a4cd33d652327cbf212eea5c"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_coder.xlsx",
@@ -696,6 +721,11 @@
       "path": "data/duplicate_pair_human_adjudication_summary_2026-11-27.json",
       "bytes": 2729,
       "sha256": "ceb3d68380d1e922c9c84f94f4c861c8422a3d42d8f1f63ba1134bd6056a7098"
+    },
+    {
+      "path": "data/duplicate_pair_proposed_cell_corrections_2026-11-27.csv",
+      "bytes": 7342,
+      "sha256": "f126629b006ad927dd19a2469b7748974e210f37b05ef5ecd3d2e6887c9d8b57"
     },
     {
       "path": "data/duplicate_pair_source_review.csv",
@@ -929,8 +959,8 @@
     },
     {
       "path": "docs/audit/REVISION_2026-11-26_AUDIT.md",
-      "bytes": 4807,
-      "sha256": "5b881762be9a021dadae7346dec7b537398e236016fcd1303edcdf15e7944fc5"
+      "bytes": 5496,
+      "sha256": "981c98b31287877787e0e4a783c4a2a46af7347c28906a1ec9fe0b1b6212d4ad"
     },
     {
       "path": "docs/extraction/corpus_manifest.csv",
