@@ -31,7 +31,8 @@ Release: `v1.8.0-2026-11-26`.
 - Source-review spot checks: B153 common station panel, B080 common station panel, and B186 undecidable depth-specific water quality supported the deposited labels.
 - `verify_package.py`: PASS (84 files).
 - Adjudication-package audit: PASS (recommended eight-column primary sheet, 56 primary / 62 second-coder assignments, six QC pairs, coder-workbook blinding, 56 source-PDF hyperlinks, source availability, and 10 mapped prior corrections confirmed zero in P2 matrix).
-- Importer mock tests: PASS for simple primary CSV, two-coder agreement, primary-only provisional import, coordinator resolution, and forced disagreement.
+- Partial primary submission processed: 31/56 pairs; 19 same, 5 different, 7 undecidable; 15 matrix matches, 9 matrix disagreements, 7 undecidable. Five prior-human-evidence conflicts and eight non-correction notes flagged. No matrix or manuscript estimates changed.
+- Importer mock tests: PASS for simple primary CSV, two-coder agreement, primary-only provisional import, coordinator resolution, forced disagreement, and partial input with missing metadata.
 - `SHA256SUMS`: all 223 manifested files verified.
 - Numerical manuscript/SI consistency script: PASS.
 - Figure parity between code and manuscript repositories: PASS.

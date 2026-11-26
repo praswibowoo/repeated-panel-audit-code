@@ -95,6 +95,11 @@ FILES = [
     "duplicate_pair_human_adjudication_primary_simple.xlsx",
     "duplicate_pair_human_adjudication_second_only.xlsx",
     "duplicate_pair_human_adjudication_coordinator.xlsx",
+    "duplicate_pair_human_adjudication_primary_completed_partial_2026-11-26.csv",
+    "duplicate_pair_human_adjudication_partial_results_2026-11-26.csv",
+    "duplicate_pair_human_adjudication_partial_summary_2026-11-26.json",
+    "duplicate_pair_human_adjudication_partial_review_flags_2026-11-26.csv",
+    "duplicate_pair_human_adjudication_partial_coordinator_notes_2026-11-26.md",
 ]
 
 POST_FILES = [
@@ -435,6 +440,10 @@ def main() -> int:
     check("adjudication primary pairs", adjud["counts"]["primary_required"], 56, 0)
     check("adjudication second-coder pairs", adjud["counts"]["second_coder_required"], 62, 0)
     check("adjudication prior-human conflicts", adjud["counts"]["prior_evidence_conflicts_with_ai_same"], 8, 0)
+    partial = json.load(open(os.path.join(DATA, "duplicate_pair_human_adjudication_partial_summary_2026-11-26.json"), encoding="utf-8"))
+    check("partial primary completed", partial["primary_rows"], 31, 0)
+    check("partial primary pending", partial["pending_primary_pairs"], 25, 0)
+    check("partial prior-human conflicts", partial["prior_evidence_conflicts"], 5, 0)
     for blind_name in ("duplicate_pair_human_adjudication_primary_blind.csv",
                        "duplicate_pair_human_adjudication_second_blind.csv"):
         blind = pd.read_csv(os.path.join(DATA, blind_name))

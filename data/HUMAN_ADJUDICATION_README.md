@@ -56,7 +56,28 @@ Fill only:
 
 Do not fill `human_match`; the coordinator computes it after unblinding. Do not edit the coverage matrix directly.
 
-## Import primary-only results
+## Process a partially completed workbook
+
+Extract the `Primary` sheet:
+
+```bash
+python3 code/extract_simple_adjudication_xlsx.py \
+  duplicate_pair_human_adjudication_primary_simple.xlsx \
+  primary_completed.csv
+```
+
+Process a partial file without rejecting missing rows or blank coder/date/evidence fields:
+
+```bash
+python3 code/import_duplicate_adjudication.py \
+  --primary primary_completed.csv \
+  --allow-partial \
+  --allow-missing-metadata
+```
+
+This produces provisional results and flags missing evidence, metadata, correction-format problems, matrix disagreements, AI disagreements, and prior-human-evidence conflicts. No labels are finalized and the coverage matrix is never edited.
+
+## Import completed primary-only results
 
 Save the completed `Primary` sheet as CSV UTF-8, then run:
 

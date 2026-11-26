@@ -1,0 +1,53 @@
+{
+  "primary_rows": 31,
+  "expected_primary_pairs": 56,
+  "pending_primary_pairs": 25,
+  "completed_relation_counts": {
+    "different": 5,
+    "same": 19,
+    "undecidable": 7
+  },
+  "completed_matrix_match_counts": {
+    "no": 9,
+    "undecidable": 7,
+    "yes": 15
+  },
+  "completed_ai_agreement": 20,
+  "evidence_missing": 5,
+  "coder_metadata_missing": 31,
+  "correction_format_warnings": 8,
+  "prior_evidence_conflicts": 5,
+  "matrix_disagreements": 9,
+  "ai_disagreements": 11,
+  "second_rows": 0,
+  "resolved_agreement": 0,
+  "resolved_coordinator": 0,
+  "coordinator_resolution_required": 0,
+  "primary_only": 31,
+  "second_coder_used": false,
+  "second_qc_only": 0,
+  "not_adjudicated": 52,
+  "resolved_relation_counts": {
+    "different": 0,
+    "same": 0,
+    "undecidable": 0
+  },
+  "matrix_identical_resolved": 0,
+  "matrix_distinct_resolved": 0,
+  "matrix_match_counts": {
+    "no": 0,
+    "undecidable": 0,
+    "yes": 0
+  },
+  "ai_agreement_resolved": 0,
+  "prior_evidence_conflicts_resolved": 0,
+  "qc_second_matrix_match": 0,
+  "qc_second_ai_agreement": 0,
+  "qc_second_relation_counts": {
+    "different": 0,
+    "same": 0,
+    "undecidable": 0
+  },
+  "coverage_matrix_modified": false,
+  "configuration_impact": "pending parameter-level correction log"
+}

@@ -18,7 +18,12 @@ This folder holds matrices, audit frames, event tables, and sensitivity summarie
 | `prior_human_cell_corrections.csv` | Thirteen P1 human-verified cell corrections, already incorporated in the P2 matrix. |
 | `prior_human_pair_evidence.csv` | Mapping of prior human corrections to the 13 affected P2 pairs. |
 | `duplicate_pair_adjudication_manifest.json` | Coordinator manifest: 56 primary pairs, 62 second-coder pairs, six QC pairs. |
-| `HUMAN_ADJUDICATION_README.md` | Coder instructions, file map, and import command. |
+| `HUMAN_ADJUDICATION_README.md` | Coder instructions, file map, partial-processing commands, and import workflow. |
+| `duplicate_pair_human_adjudication_primary_completed_partial_2026-11-26.csv` | Extracted 31-row partial primary submission. |
+| `duplicate_pair_human_adjudication_partial_results_2026-11-26.csv` | Provisional row-level processing results. |
+| `duplicate_pair_human_adjudication_partial_summary_2026-11-26.json` | Partial-processing counts and quality flags. |
+| `duplicate_pair_human_adjudication_partial_review_flags_2026-11-26.csv` | Completed rows requiring coordinator recheck. |
+| `duplicate_pair_human_adjudication_partial_coordinator_notes_2026-11-26.md` | Human-readable coordinator review notes. |
 | `duplicate_pair_human_adjudication_primary_blind.csv` | Blind 56-pair primary coding sheet. |
 | `duplicate_pair_human_adjudication_second_blind.csv` | Blind 62-pair independent second-coder sheet. |
 | `duplicate_pair_human_adjudication_coder.xlsx` | Coder workbook with Instructions, Primary, and Second sheets; no matrix/AI labels. |

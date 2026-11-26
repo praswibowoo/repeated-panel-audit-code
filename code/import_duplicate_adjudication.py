@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 
 import pandas as pd
@@ -23,7 +24,8 @@ MATCHES = {"yes", "no", "undecidable"}
 CONFIDENCE = {"high", "medium", "low"}
 
 
-def read_completed(path: Path, expected_ids: set[str], label: str) -> pd.DataFrame:
+def read_completed(path: Path, expected_ids: set[str], label: str,
+                   allow_partial: bool = False, allow_missing_metadata: bool = False) -> pd.DataFrame:
     df = pd.read_csv(path)
     if "relation" in df.columns and "human_relation" not in df.columns:
         simple_required = {"pair_id", "relation", "evidence", "coder", "date"}
@@ -51,26 +53,39 @@ def read_completed(path: Path, expected_ids: set[str], label: str) -> pd.DataFra
     if df.pair_id.duplicated().any():
         raise ValueError(f"{label}: duplicate pair_id values")
     got = set(df.pair_id)
-    if got != expected_ids:
+    missing_ids = expected_ids - got
+    unexpected_ids = got - expected_ids
+    if unexpected_ids or (missing_ids and not allow_partial):
         raise ValueError(
-            f"{label}: pair assignment mismatch; missing={sorted(expected_ids-got)[:10]}, "
-            f"unexpected={sorted(got-expected_ids)[:10]}"
+            f"{label}: pair assignment mismatch; missing={sorted(missing_ids)[:10]}, "
+            f"unexpected={sorted(unexpected_ids)[:10]}"
         )
+    if allow_partial:
+        df = df[df.human_relation.notna() & df.human_relation.astype(str).str.strip().ne("")].copy()
     if not df.human_relation.isin(RELATIONS).all():
         raise ValueError(f"{label}: invalid human_relation")
     if not df.confidence.isin(CONFIDENCE).all():
         raise ValueError(f"{label}: invalid confidence")
     for col in ("source_page_table", "coder_name", "coder_date"):
+        if allow_missing_metadata:
+            continue
         if df[col].isna().any() or (df[col].astype(str).str.strip() == "").any():
             raise ValueError(f"{label}: blank {col}")
     for row in df.itertuples(index=False):
-        if row.human_relation == "different":
+        if row.human_relation == "different" and not allow_missing_metadata:
             diffs = [getattr(row, c, "") for c in ("parameters_only_a", "parameters_only_b")]
             if not any(pd.notna(x) and str(x).strip() for x in diffs) and not str(row.notes).strip():
                 raise ValueError(f"{label}: {row.pair_id} different without parameter-level evidence")
-        if row.human_relation == "undecidable" and not str(row.notes).strip():
+        if row.human_relation == "undecidable" and not allow_missing_metadata and not str(row.notes).strip():
             raise ValueError(f"{label}: {row.pair_id} undecidable without reason")
     return df
+
+
+def looks_like_cell_correction(value) -> bool:
+    if pd.isna(value) or not str(value).strip():
+        return False
+    text = str(value)
+    return bool(re.search(r"(->|→)", text) and re.search(r"\d", text))
 
 
 def matrix_match(matrix_same: bool, relation: str) -> str:
@@ -86,6 +101,10 @@ def main() -> int:
                     help="Optional independent second-coder file")
     ap.add_argument("--resolution", type=Path, default=None,
                     help="Optional coordinator resolution CSV")
+    ap.add_argument("--allow-partial", action="store_true",
+                    help="Accept a subset of the assigned primary pairs")
+    ap.add_argument("--allow-missing-metadata", action="store_true",
+                    help="Accept blank coder/date/evidence fields and flag them")
     ap.add_argument("--out-dir", type=Path, default=DATA)
     args = ap.parse_args()
     args.out_dir.mkdir(parents=True, exist_ok=True)
@@ -93,8 +112,16 @@ def main() -> int:
     manifest = json.loads(MANIFEST.read_text())
     primary_ids = set(manifest["primary_pair_ids"])
     second_ids = set(manifest["second_coder_pair_ids"])
-    primary = read_completed(args.primary, primary_ids, "primary")
-    second = read_completed(args.second, second_ids, "second") if args.second else None
+    primary = read_completed(
+        args.primary, primary_ids, "primary",
+        allow_partial=args.allow_partial,
+        allow_missing_metadata=args.allow_missing_metadata,
+    )
+    second = read_completed(
+        args.second, second_ids, "second",
+        allow_partial=args.allow_partial,
+        allow_missing_metadata=args.allow_missing_metadata,
+    ) if args.second else None
 
     key = pd.read_csv(COORDINATOR)
     p = primary.rename(columns={
@@ -185,6 +212,23 @@ def main() -> int:
         (rel == ai) if pd.notna(rel) else None
         for rel, ai in zip(results.resolved_relation, results.reviewer_relation)
     ]
+    results["evidence_missing"] = results.primary_source.fillna("").astype(str).str.strip().eq("")
+    results["coder_metadata_missing"] = (
+        results.primary_coder.fillna("").astype(str).str.strip().eq("")
+        | results.primary_date.fillna("").astype(str).str.strip().eq("")
+    )
+    results["correction_format_warning"] = results.primary_proposed_corrections.apply(
+        lambda x: bool(pd.notna(x) and str(x).strip() and not looks_like_cell_correction(x))
+    )
+    results["prior_evidence_conflict"] = (
+        results.primary_relation.eq("same")
+        & results.prior_evidence_status.fillna("").str.contains("conflicts_with_ai_same")
+    )
+    results["matrix_disagreement"] = results.primary_match.eq("no")
+    results["ai_disagreement"] = (
+        results.primary_relation.notna()
+        & results.primary_relation.ne(results.reviewer_relation)
+    )
 
     results_path = args.out_dir / "duplicate_pair_human_adjudication_results.csv"
     results.to_csv(results_path, index=False)
@@ -217,8 +261,24 @@ def main() -> int:
 
     resolved_df = results[results.resolution_status.isin(["resolved_agreement", "resolved_coordinator"])]
     qc_df = results[results.resolution_status == "second_qc_only"]
+    completed_df = results[results.primary_relation.notna()]
     summary = {
         "primary_rows": len(primary),
+        "expected_primary_pairs": len(primary_ids),
+        "pending_primary_pairs": len(primary_ids) - len(primary),
+        "completed_relation_counts": {
+            k: int(completed_df.primary_relation.eq(k).sum()) for k in sorted(RELATIONS)
+        },
+        "completed_matrix_match_counts": {
+            k: int(completed_df.primary_match.eq(k).sum()) for k in sorted(MATCHES)
+        },
+        "completed_ai_agreement": int(completed_df.primary_relation.eq(completed_df.reviewer_relation).sum()),
+        "evidence_missing": int(completed_df.evidence_missing.sum()),
+        "coder_metadata_missing": int(completed_df.coder_metadata_missing.sum()),
+        "correction_format_warnings": int(completed_df.correction_format_warning.sum()),
+        "prior_evidence_conflicts": int(completed_df.prior_evidence_conflict.sum()),
+        "matrix_disagreements": int(completed_df.matrix_disagreement.sum()),
+        "ai_disagreements": int(completed_df.ai_disagreement.sum()),
         "second_rows": 0 if second is None else len(second),
         "resolved_agreement": int(results.resolution_status.eq("resolved_agreement").sum()),
         "resolved_coordinator": int(results.resolution_status.eq("resolved_coordinator").sum()),
@@ -261,6 +321,11 @@ def main() -> int:
             "row_b": needs.row_b,
             "primary_relation": needs.primary_relation,
             "second_relation": needs.second_relation,
+            "primary_evidence": needs.primary_source,
+            "primary_correction": needs.primary_proposed_corrections,
+            "matrix_hamming": needs.matrix_hamming,
+            "ai_relation": needs.reviewer_relation,
+            "prior_evidence_status": needs.prior_evidence_status,
             "issue": needs.resolution_status,
             "resolved_relation": "",
             "resolution_notes": "",

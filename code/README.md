@@ -15,7 +15,8 @@ Release: `v1.8.0-2026-11-26`. Run scripts from the repository root.
 | `render_fixed_values.py` | Render rounded manuscript values from deposited JSONs | `results/unit_revision_fixed/manuscript_values.json` |
 | `duplicate_pair_audit.py` | Verify frozen 100-record / 83-unique-unordered-pair frame | `data/duplicate_pair_audit_frame.csv` |
 | `prepare_duplicate_adjudication.py` | Generate recommended eight-column primary sheet, full coder workbooks, and coordinator key | `data/duplicate_pair_human_adjudication_*.csv/xlsx` |
-| `import_duplicate_adjudication.py` | Validate completed human labels and write proposed filled frame; never edits matrix | `data/duplicate_pair_human_adjudication_results.csv` |
+| `extract_simple_adjudication_xlsx.py` | Extract the Primary sheet from the simple workbook to CSV without Excel dependencies | `primary_completed.csv` |
+| `import_duplicate_adjudication.py` | Validate completed human labels and write proposed filled frame; supports partial/simple input; never edits matrix | `data/duplicate_pair_human_adjudication_results.csv` |
 | `make_fig_paired_contrast.py` | Main control-geometry figure | `figures/fig_paired_contrast.pdf` |
 | `make_fig_prisma.py` | Corpus provenance figure | `figures/figS1_prisma_flow.pdf` |
 
