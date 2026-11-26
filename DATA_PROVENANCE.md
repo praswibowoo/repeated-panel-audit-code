@@ -33,7 +33,7 @@ The manuscript has three main tables, one main figure, and SI Tables S1–S6. Th
 - Secondary fixed PCA A−Bblock, 92 single-configuration studies: 0.27 (0.22–0.36), 89% positive.
 - Fixed PCA A−C, 117: 0.29 (0.19–0.35).
 - Fixed 3-D PCA A−Bstudy, 91: 0.14 (0.09–0.32), 73% positive.
-- Duplicate-pair source review: 83 unique unordered pairs; 37/38 matrix-identical pairs reviewed same, one undecidable; 16/45 matrix-distinct pairs reviewed same. Human adjudication pending.
+- Duplicate-pair source review: 83 unique unordered pairs; 37/38 matrix-identical pairs reviewed same, one undecidable; 16/45 matrix-distinct pairs reviewed same. Eight of the 16 conflict with prior human cell corrections. Human pair-level adjudication pending.
 
 ## Audit frames
 
@@ -41,5 +41,9 @@ The manuscript has three main tables, one main figure, and SI Tables S1–S6. Th
 - `data/duplicate_pair_audit_frame.csv`: frozen 100 records representing 83 unique unordered pairs; human adjudication pending.
 - `data/duplicate_pair_source_review.csv`: independent AI-assisted blinded source-review labels; not human adjudication.
 - `data/duplicate_pair_source_review_summary.json`: source-review counts and comparison with matrix classes.
+- `data/prior_human_cell_corrections.csv`: 13 P1 human-verified cell corrections already incorporated in the P2 matrix.
+- `data/prior_human_pair_evidence.csv`: mapping of prior human corrections to 13 affected P2 pairs.
+- `data/duplicate_pair_human_adjudication_coder.xlsx`: blind primary/secondary coding workbook.
+- `data/duplicate_pair_human_adjudication_coordinator.xlsx`: coordinator key and prior-evidence workbook.
 
 The numeric water-quality value layer is restricted and is not included. All binary coverage matrices and code needed for the reported checks are present.

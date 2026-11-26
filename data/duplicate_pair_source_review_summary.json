@@ -77,6 +77,24 @@
       "B153",
       "B166"
     ],
-    "note": "Pairs are de-duplicated without regard to row order. Decidable metrics exclude three undecidable pairs; conservative metrics count undecidable as not matching the matrix class."
+    "note": "Pairs are de-duplicated without regard to row order. Decidable metrics exclude three undecidable pairs; conservative metrics count undecidable as not matching the matrix class. AI-flagged matrix-distinct/same pairs are not confirmed matrix errors; eight conflict with prior human cell corrections.",
+    "false_distinct_status": "ai_flagged_not_confirmed",
+    "prior_human_evidence_conflict_pairs": [
+      "B034_177_181",
+      "B034_183_181",
+      "B065_250_251",
+      "B069_260_263",
+      "B069_263_262",
+      "B092_355_356",
+      "B092_356_357",
+      "B166_579_580"
+    ],
+    "prior_human_evidence_consistent_pairs": [
+      "B065_251_252",
+      "B066_255_256",
+      "B066_258_255",
+      "B066_258_257",
+      "B066_259_257"
+    ]
   }
 }

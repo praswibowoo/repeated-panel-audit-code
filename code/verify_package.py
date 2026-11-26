@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+import zipfile
 
 import numpy as np
 import pandas as pd
@@ -79,6 +80,16 @@ FILES = [
     "duplicate_pair_audit_frame.csv",
     "duplicate_pair_source_review.csv",
     "duplicate_pair_source_review_summary.json",
+    "prior_human_cell_corrections.csv",
+    "prior_human_pair_evidence.csv",
+    "prior_human_cell_corrections_status.csv",
+    "duplicate_pair_adjudication_manifest.json",
+    "HUMAN_ADJUDICATION_README.md",
+    "duplicate_pair_human_adjudication_primary_blind.csv",
+    "duplicate_pair_human_adjudication_second_blind.csv",
+    "duplicate_pair_human_adjudication_coordinator_key.csv",
+    "duplicate_pair_human_adjudication_coder.xlsx",
+    "duplicate_pair_human_adjudication_coordinator.xlsx",
 ]
 
 POST_FILES = [
@@ -413,6 +424,22 @@ def main() -> int:
     check("duplicate source-review pairs", dup["total_pairs"], 83, 0)
     check("duplicate source-review same", dup["counts_by_relation"]["same"], 53, 0)
     check("duplicate source-review false-distinct", len(dup["matrix_comparison"]["false_distinct_pairs"]), 16, 0)
+    check("duplicate prior-human conflicts", len(dup["matrix_comparison"]["prior_human_evidence_conflict_pairs"]), 8, 0)
+    adjud = json.load(open(os.path.join(DATA, "duplicate_pair_adjudication_manifest.json"), encoding="utf-8"))
+    check("adjudication all pairs", adjud["counts"]["all_pairs"], 83, 0)
+    check("adjudication primary pairs", adjud["counts"]["primary_required"], 56, 0)
+    check("adjudication second-coder pairs", adjud["counts"]["second_coder_required"], 62, 0)
+    check("adjudication prior-human conflicts", adjud["counts"]["prior_evidence_conflicts_with_ai_same"], 8, 0)
+    for blind_name in ("duplicate_pair_human_adjudication_primary_blind.csv",
+                       "duplicate_pair_human_adjudication_second_blind.csv"):
+        blind = pd.read_csv(os.path.join(DATA, blind_name))
+        forbidden = {"audit_stratum", "matrix_hamming", "reviewer_relation", "priority_tier", "priority_reason"}
+        check(f"{blind_name} blind columns", bool(forbidden.isdisjoint(blind.columns)), True)
+    coder_book = os.path.join(DATA, "duplicate_pair_human_adjudication_coder.xlsx")
+    with zipfile.ZipFile(coder_book) as zf:
+        payload = b" ".join(zf.read(name) for name in zf.namelist() if name.endswith(".xml"))
+    for token in (b"matrix_identical", b"matrix_distinct", b"reviewer_relation", b"priority_tier", b"conflicts_with_ai_same"):
+        check(f"coder workbook excludes {token.decode()}", token not in payload, True)
 
     # The fresh core-revision output must agree with the deposited copy.
     fresh_path = os.path.join(ROOT, "results", "core_revision", "core_checks.json")

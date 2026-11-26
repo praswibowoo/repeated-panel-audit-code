@@ -38,6 +38,7 @@ python3 code/simulation_fixed.py
 python3 code/render_fixed_values.py
 python3 code/make_fig_paired_contrast.py
 python3 code/duplicate_pair_audit.py
+python3 code/prepare_duplicate_adjudication.py
 python3 code/verify_package.py
 ```
 
@@ -58,6 +59,8 @@ Use `python3 code/run_all.py --list` to inspect all available analyses. Manuscri
 | `results/post_audit/simulation_fixed.json` | Fixed-set clustered, planted, and independent-row benchmarks |
 | `data/duplicate_pair_audit_frame.csv` | Frozen 100-record / 83-unique-unordered-pair frame; human adjudication pending |
 | `data/duplicate_pair_source_review.csv` | Independent AI-assisted blinded source-review labels; not human adjudication |
+| `data/duplicate_pair_human_adjudication_coder.xlsx` | Blind 56-pair primary and 62-pair second-coder workbook |
+| `data/duplicate_pair_human_adjudication_coordinator.xlsx` | Coordinator key with matrix/AI labels and prior P1 human evidence |
 
 ## Interpretation
 

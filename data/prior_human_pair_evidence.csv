@@ -1,0 +1,14 @@
+pair_id,paper,corrected_row,parameter,current_value,prior_human_note,matrix_only_a,matrix_only_b,ai_relation,evidence_status,acceptance_record
+B034_177_181,B034,181,pH,0,pH (data not provided in this study),pH,,same,conflicts_with_ai_same,D54/D57 accepted 2026-10-01
+B034_183_181,B034,181,pH,0,pH (data not provided in this study),pH,,same,conflicts_with_ai_same,D54/D57 accepted 2026-10-01
+B065_250_251,B065,251,NO2 (mg/L),0,No result for both of them,NO2 (mg/L),,same,conflicts_with_ai_same,D54/D57 accepted 2026-10-01
+B065_251_252,B065,251,NO2 (mg/L),0,No result for both of them,NO3 (mg/L); NH4 (mg/L); PO4 (mg/L),,different,consistent_with_ai_different,D54/D57 accepted 2026-10-01
+B066_255_256,B066,255,DO (mg/L),0,There are no DO results,Cd (µg/L),DO (mg/L); Cu (µg/L),different,consistent_with_ai_different,D54/D57 accepted 2026-10-01
+B066_258_255,B066,255,DO (mg/L),0,There are no DO results,DO (mg/L); Zn (µg/L),Cd (µg/L),different,consistent_with_ai_different,D54/D57 accepted 2026-10-01
+B066_258_257,B066,257,DO (mg/L),0,There are no DO results,DO (mg/L); Zn (µg/L),Cr (µg/L),different,consistent_with_ai_different,D54/D57 accepted 2026-10-01
+B066_259_257,B066,257,DO (mg/L),0,There are no DO results,DO (mg/L),Cr (µg/L),different,consistent_with_ai_different,D54/D57 accepted 2026-10-01
+B069_260_263,B069,263,pH,0,There are no Salinity and Ph results,pH,,same,conflicts_with_ai_same,D54/D57 accepted 2026-10-01
+B069_263_262,B069,263,pH,0,There are no Salinity and Ph results,,pH,same,conflicts_with_ai_same,D54/D57 accepted 2026-10-01
+B092_355_356,B092,356,Secchi (m),0,There are no Secchi but there is Brightness parameter,Secchi (m),,same,conflicts_with_ai_same,D54/D57 accepted 2026-10-01
+B092_356_357,B092,356,Secchi (m),0,There are no Secchi but there is Brightness parameter,,Secchi (m),same,conflicts_with_ai_same,D54/D57 accepted 2026-10-01
+B166_579_580,B166,580,TSS (mg/L),0,Not see TSS,TSS (mg/L),,same,conflicts_with_ai_same,D54/D57 accepted 2026-10-01

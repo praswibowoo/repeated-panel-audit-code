@@ -53,7 +53,35 @@ Comparison with the matrix after blinding was removed:
 | Identical (n=38) | 37 | 0 | 1 |
 | Distinct (n=45) | 16 | 27 | 2 |
 
-Thus no matrix-identical pair was judged different, but 16 matrix-distinct pairs were judged to share the same examined-parameter suite. Those 16 pairs occurred only in multi-configuration studies. The matrix may therefore split some true repetitions; parameter-level correction requires human adjudication.
+Thus no matrix-identical pair was judged different by the AI-assisted review, but 16 matrix-distinct pairs were judged to share the same examined-parameter suite. Eight of those 16 conflict with prior P1 human-verified cell corrections already incorporated in the P2 matrix. They are therefore AI-flagged potential false-distinct pairs, not confirmed matrix errors. Pair-level human adjudication remains pending.
+
+## Prepared human-adjudication package
+
+Run:
+
+```bash
+python3 code/prepare_duplicate_adjudication.py
+```
+
+The package separates blind coder files from coordinator evidence:
+
+- Primary coder: 56 pairs = all 38 matrix-identical pairs + all 16 matrix-distinct/AI-same pairs + all 3 AI-undecidable pairs, with one overlap counted once.
+- Independent second coder: the same 56 pairs + 6 randomly selected agreed-distinct QC pairs = 62 pairs.
+- Coder workbook: `data/duplicate_pair_human_adjudication_coder.xlsx`; no matrix class, Hamming distance, AI relation, or priority reason is shown.
+- Coordinator workbook/key: `data/duplicate_pair_human_adjudication_coordinator.xlsx` and `duplicate_pair_human_adjudication_coordinator_key.csv`.
+- Prior P1 human corrections: `data/prior_human_cell_corrections.csv`; pair-level evidence map: `data/prior_human_pair_evidence.csv`.
+
+Prior human cell corrections affect 13 pairs: 8 conflict with an AI `same` label and 5 are consistent with an AI `different` label. They are evidence only and do not replace pair-level human labels.
+
+After coding, validate and import with:
+
+```bash
+python3 code/import_duplicate_adjudication.py \
+  --primary <completed_primary.csv> \
+  --second <completed_second.csv>
+```
+
+The importer never edits the coverage matrix. It writes a proposed human-filled frame, a results table, and a summary. Matrix corrections require a separate approved long-form correction log.
 
 ## Reporting after human adjudication
 

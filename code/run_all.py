@@ -40,6 +40,7 @@ STEPS: dict[str, tuple[str, str, str]] = {
     "pcoafixed": ("pcoa_fixed", "fixed-evaluation Jaccard PCoA sensitivity", "~35 min"),
     "figfixed": ("make_fig_paired_contrast", "fixed-evaluation primary figure", "~2 s"),
     "dupaudit": ("duplicate_pair_audit", "verify frozen duplicate-pair audit frame", "~2 s"),
+    "adjudicationprep": ("prepare_duplicate_adjudication", "prepare blind human-adjudication workbooks", "~3 s"),
     "types": ("build_matrix_types", "matrix-type map for the coverage rows", "~2 s"),
     "water": ("water_only_check", "water-only counts and audit", "~30 s"),
     "typesens": ("matrix_type_sensitivity", "summary-row exclusion sensitivity", "~1 min"),
@@ -80,7 +81,7 @@ STEPS: dict[str, tuple[str, str, str]] = {
     "verify": ("verify_package", "package self-check", "~10 s"),
 }
 
-ORDER = ["fixed", "fixed3d", "rmsfixed", "balancefixed", "pcoafixed", "figfixed", "dupaudit", "types", "water", "typesens", "panel", "evalset", "weighted", "pc2", "core", "allpaper", "simulation", "simfixed", "renderfixed",
+ORDER = ["fixed", "fixed3d", "rmsfixed", "balancefixed", "pcoafixed", "figfixed", "dupaudit", "adjudicationprep", "types", "water", "typesens", "panel", "evalset", "weighted", "pc2", "core", "allpaper", "simulation", "simfixed", "renderfixed",
          "multiconfig", "iidnull", "perturb", "pertclust", "pertdir", "coherence", "threed",
          "tail", "balance", "flagged", "tailperm", "tailglobal", "q95corpus", "leverage", "q95cal", "holdout",
          "dimsweep", "ca", "cmnull", "pcurve", "leave", "flagcis", "table", "rebuild", "check", "verify"]
@@ -124,7 +125,7 @@ def main() -> int:
         # keep the canonical order regardless of how the user listed them
         order = [s for s in ORDER if s in selected]
     elif args.quick:
-        order = ["dupaudit", "types", "panel", "pc2", "core", "allpaper", "simulation", "check", "verify"]
+        order = ["dupaudit", "adjudicationprep", "types", "panel", "pc2", "core", "allpaper", "simulation", "check", "verify"]
     else:
         order = list(ORDER)
 
