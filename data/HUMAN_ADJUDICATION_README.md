@@ -25,7 +25,7 @@ The simple primary file has eight columns:
 
 The primary file contains 56 priority pairs and no matrix class, Hamming distance, AI relation, priority reason, or answer key.
 
-Current submission status (2026-11-27): 56 rows are present, but only 55 relation labels are complete. `B200_654_652` still needs a relation and evidence. See `duplicate_pair_human_adjudication_coordinator_notes_2026-11-27.md` for all blocking issues and rechecks.
+Current submission status (2026-11-27): all 56 rows have `relation`, `evidence`, `coder`, and `date` populated. Strict structural import passes. Coordinator review remains required for 39 flagged rows; see `duplicate_pair_human_adjudication_coordinator_notes_2026-11-27.md`.
 
 Do not send the coordinator workbook/key, AI source-review files, or prior-evidence files before coding is complete.
 

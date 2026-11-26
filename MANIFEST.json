@@ -74,8 +74,8 @@
     },
     {
       "path": "code/build_adjudication_processing_report.py",
-      "bytes": 8091,
-      "sha256": "6ba783c83fdc065a1013141388b87d98d257237c002b70b0618f6104860a5091"
+      "bytes": 11923,
+      "sha256": "25159b2969a3443c0a889019cd778899f3de779e2c91ef37faec13e1b6224321"
     },
     {
       "path": "code/build_matrix_types.py",
@@ -404,8 +404,8 @@
     },
     {
       "path": "code/verify_package.py",
-      "bytes": 29381,
-      "sha256": "e8472bf201a9743bedab3bfee44c42b5d420899c80a62b7ef42b43210c7ce4a8"
+      "bytes": 29604,
+      "sha256": "687234c57e9051bd2054f45e094f50d1628a46dab0e98657bc22d1417878acef"
     },
     {
       "path": "code/water_only_check.py",
@@ -419,13 +419,13 @@
     },
     {
       "path": "data/HUMAN_ADJUDICATION_README.md",
-      "bytes": 4096,
-      "sha256": "048d67353b7ff4c6cfc9bfa59b7300b4424d2372e43a7d65fe4545f9a8c84439"
+      "bytes": 4106,
+      "sha256": "795b68bd4b9fc15bce3695d4a5d2b201e9a59458460acda4329931a4208b792f"
     },
     {
       "path": "data/README.md",
-      "bytes": 5890,
-      "sha256": "f84ecbed94762e7b3e8b4e45fba234c8b67c2031f66a01b6090fdc4329a28dbb"
+      "bytes": 5804,
+      "sha256": "0f80404f123a62d4eb87cb296866804a3d5dc8d6db3ef2db215ac501761cea33"
     },
     {
       "path": "data/all_paper_audit.json",
@@ -594,8 +594,8 @@
     },
     {
       "path": "data/duplicate_pair_coordinator_resolution_template_2026-11-27.csv",
-      "bytes": 10091,
-      "sha256": "9de313c75cad4146b956df5fbfce055b769e564aea68d5c9a9a37062ed175ad8"
+      "bytes": 10244,
+      "sha256": "1b2caffa9a0452ddcca03a689915495a96dd20b6b99f7c9c99c85e8468c816a4"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_coder.xlsx",
@@ -614,8 +614,8 @@
     },
     {
       "path": "data/duplicate_pair_human_adjudication_coordinator_notes_2026-11-27.md",
-      "bytes": 5036,
-      "sha256": "e06c296d485464092a0170f1a0e88add1f6629ddbd9433d926f59d562c3334de"
+      "bytes": 5858,
+      "sha256": "ba772bde9e33040551d42d74b86b413bc9ad21e82897a18288a97388087d25b9"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_partial_coordinator_notes_2026-11-26.md",
@@ -644,8 +644,8 @@
     },
     {
       "path": "data/duplicate_pair_human_adjudication_primary_completed_2026-11-27.csv",
-      "bytes": 11014,
-      "sha256": "b54105f88db9aedf7d5cfa2462365fd762ae8c8535fd07c7b3cb11bfd7ab73dc"
+      "bytes": 11119,
+      "sha256": "19a510cce485a610f647899268fa54fa365b2d54ce9f534146abfd043705b076"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_primary_completed_partial_2026-11-26.csv",
@@ -664,23 +664,23 @@
     },
     {
       "path": "data/duplicate_pair_human_adjudication_primary_simple.xlsx",
-      "bytes": 18150,
-      "sha256": "397234965020a2447cf9b638cbc90891a64d19cd0729e08b52dada8f20493447"
+      "bytes": 18175,
+      "sha256": "265cf1244061433a14dcedef6d8c9019d973fc4bd28b4496f02173a07929895e"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_processing_report_2026-11-27.csv",
-      "bytes": 26097,
-      "sha256": "e39c46e02d9afde3ffd826c7eaec924cc8d1439c53f1d0edd0122de3b752367f"
+      "bytes": 27826,
+      "sha256": "b8bada9a6bec321e47f5ab508d4f825afdbb59983adea2ba86703a29f685873d"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_results_2026-11-27.csv",
-      "bytes": 51265,
-      "sha256": "217663c588e5f81ae7408dd8ccf138473de975bc5ca2547ed6a909d0a60381b2"
+      "bytes": 51462,
+      "sha256": "ed3fc988620575c733326f9b74df8951b338b5a2d4e769e8ee6c379fbd7cca7e"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_review_flags_2026-11-27.csv",
-      "bytes": 18834,
-      "sha256": "6b9d6ba38579fe12fa2a8a0f361f7bf0520ec9af2de64d0bf4f4f3d702812b9c"
+      "bytes": 21902,
+      "sha256": "2018eec98292532e8a149fd767f5ffe4523dbb5862213a644578056efb82728b"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_second_blind.csv",
@@ -694,8 +694,8 @@
     },
     {
       "path": "data/duplicate_pair_human_adjudication_summary_2026-11-27.json",
-      "bytes": 2872,
-      "sha256": "c245caeb90dfc123f94a33474597224c40a1ed957c34e76468d58e1c4b90b13f"
+      "bytes": 2729,
+      "sha256": "ceb3d68380d1e922c9c84f94f4c861c8422a3d42d8f1f63ba1134bd6056a7098"
     },
     {
       "path": "data/duplicate_pair_source_review.csv",
@@ -929,8 +929,8 @@
     },
     {
       "path": "docs/audit/REVISION_2026-11-26_AUDIT.md",
-      "bytes": 4803,
-      "sha256": "c9119a3a1835b6fce074c4993f4c17e350e1821387b23ebdc1db803c3ee13074"
+      "bytes": 4807,
+      "sha256": "5b881762be9a021dadae7346dec7b537398e236016fcd1303edcdf15e7944fc5"
     },
     {
       "path": "docs/extraction/corpus_manifest.csv",

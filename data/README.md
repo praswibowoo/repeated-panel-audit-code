@@ -24,18 +24,18 @@ This folder holds matrices, audit frames, event tables, and sensitivity summarie
 | `duplicate_pair_human_adjudication_partial_summary_2026-11-26.json` | Partial-processing counts and quality flags. |
 | `duplicate_pair_human_adjudication_partial_review_flags_2026-11-26.csv` | Completed rows requiring coordinator recheck. |
 | `duplicate_pair_human_adjudication_partial_coordinator_notes_2026-11-26.md` | Human-readable coordinator review notes for the 31-row partial submission. |
-| `duplicate_pair_human_adjudication_primary_completed_2026-11-27.csv` | Extracted 56-row primary submission; 55 relation labels completed and `B200_654_652` pending. |
+| `duplicate_pair_human_adjudication_primary_completed_2026-11-27.csv` | Extracted 56-row primary submission; all relation labels completed. |
 | `duplicate_pair_human_adjudication_results_2026-11-27.csv` | Provisional row-level processing results for the current submission. |
-| `duplicate_pair_human_adjudication_summary_2026-11-27.json` | Current counts, blocking issues, disagreement lists, and strict-import readiness. |
+| `duplicate_pair_human_adjudication_summary_2026-11-27.json` | Current counts, disagreement lists, and strict-import readiness. |
 | `duplicate_pair_human_adjudication_processing_report_2026-11-27.csv` | All 56 primary rows with status, matrix differences, flags, and required actions. |
-| `duplicate_pair_human_adjudication_review_flags_2026-11-27.csv` | 35 rows requiring completion or coordinator review. |
+| `duplicate_pair_human_adjudication_review_flags_2026-11-27.csv` | 39 rows requiring coordinator review. |
 | `duplicate_pair_human_adjudication_coordinator_notes_2026-11-27.md` | Human-readable coordinator review notes for the current submission. |
 | `duplicate_pair_coordinator_resolution_template_2026-11-27.csv` | Provisional primary-only coordinator resolution template. |
 | `duplicate_pair_human_adjudication_primary_blind.csv` | Blind 56-pair primary coding sheet. |
 | `duplicate_pair_human_adjudication_second_blind.csv` | Blind 62-pair independent second-coder sheet. |
 | `duplicate_pair_human_adjudication_coder.xlsx` | Coder workbook with Instructions, Primary, and Second sheets; no matrix/AI labels. |
 | `duplicate_pair_human_adjudication_primary_simple.csv` | Recommended eight-column primary coding CSV. |
-| `duplicate_pair_human_adjudication_primary_simple.xlsx` | Eight-column primary workbook; current user submission dated 2026-11-27, with one relation still blank. |
+| `duplicate_pair_human_adjudication_primary_simple.xlsx` | Eight-column primary workbook; completed user submission dated 2026-11-27. |
 | `duplicate_pair_human_adjudication_primary_only.xlsx` | Full primary-only 56-pair coder workbook for advanced use. |
 | `duplicate_pair_human_adjudication_second_only.xlsx` | Optional 62-pair independent second-coder workbook. |
 | `duplicate_pair_human_adjudication_coordinator_key.csv` | Coordinator-only key linking pairs to matrix class, AI labels, priority, and prior evidence. |

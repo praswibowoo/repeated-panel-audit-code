@@ -3,53 +3,38 @@
 Processed: 2026-11-27
 Input: `duplicate_pair_human_adjudication_primary_simple.xlsx`
 Submission rows: **56**
-Completed relation labels: **55 / 56**
-Pending relation label: **1**
+Completed relation labels: **56 / 56**
+Strict structural import: **PASS**
 
 ## Relation counts
 
 - `same`: 34
-- `different`: 6
+- `different`: 7
 - `undecidable`: 15
 
 Against the deposited matrix:
 
 - match: 25
-- mismatch: 15
+- mismatch: 16
 - undecidable: 15
 
-All 55 labels remain provisional primary-only labels. None are finalized.
+All 56 labels remain provisional primary-only labels. None are finalized.
 
-## Blocking submission issues
+## Submission completeness
 
-### Missing relation and evidence
+- No blank `relation` cells.
+- No blank `evidence` cells.
+- No blank `coder` or `date` cells.
+- Coder: `A` throughout.
+- Date: `2026-11-27` throughout.
 
-- `B200_654_652` — `Post-monsoon` vs `Pre-monsoon`: `relation`, `evidence`, and `correction` are blank.
+Structural completeness does not establish evidentiary adequacy. The issues below still require coordinator review.
 
-Source check: B200 reports both seasons within the same water/phytoplankton monitoring programme (Results, pp. 491–493). The coder must still enter the relation and source evidence; no label was assigned automatically.
-
-### Missing coder/date
-
-- `B001_7_0` — `coder` and `date` are blank.
-
-### Missing evidence among completed labels
-
-- `B031_160_157`
-- `B050_211_212`
-- `B076_283_282`
-- `B083_302_301`
-- `B102_376_377`
-- `B221_697_695`
-- `B222_700_701`
-- `B222_702_699`
-
-For `undecidable` rows, state the specific source limitation. A blank evidence cell is not sufficient.
+## Priority coordinator rechecks
 
 ### Likely copied evidence
 
 - `B063_243_244` — current evidence lists the B062 water-quality panel. B063 Tables 1–2 and 8–9 instead report THB, total coliforms, pH, TDS, EC, oil/grease, Ni, Cd, Cr, Co, Cu, Pb, Zn, Fe, and As. Replace the evidence and reconfirm the relation.
-
-## Priority coordinator rechecks
 
 ### Prior human evidence conflicts
 
@@ -70,8 +55,13 @@ Also recheck `B166_579_580`: the primary label is `undecidable`, but the pair ha
 - `B036_184_187`
 - `B107_396_395`
 - `B190_633_636`
+- `B200_654_652`
 
-These would change configuration counts if confirmed. Current evidence/correction text does not identify an exact parameter-suite difference. Station/time aggregation alone does not establish `different`.
+These would change configuration counts if confirmed. Current evidence/correction text does not identify an exact parameter-suite difference.
+
+For `B200_654_652`, the source describes post- and pre-monsoon monitoring within the same programme, but `P.4-6` alone does not identify a differing parameter. The coder/coordinator must specify the exact difference or reconsider the label.
+
+Station/time aggregation alone does not establish `different`.
 
 ### Matrix-distinct pairs marked `same`
 
@@ -90,17 +80,45 @@ These would change configuration counts if confirmed. Current evidence/correctio
 
 The processing report lists the exact matrix parameters that differ. Explain why each difference is not a real examined-parameter difference, or revise the relation.
 
-### Matrix-distinct pairs marked `different`
+### Matrix-distinct pairs marked `different` without a documented decisive parameter
 
-- `B034_177_181` — pH
-- `B034_183_181` — pH
-- `B090_344_342` — NH4
+- `B034_177_181` — deposited matrix difference: pH
+- `B034_183_181` — deposited matrix difference: pH
+- `B090_344_342` — deposited matrix difference: NH4
 
-These agree with the matrix class but disagree with the automated source review. Confirm the parameter-level difference from the source.
+These agree with the matrix class but disagree with the automated source review. State the exact parameter-level difference and source location.
+
+### Undecidable labels without a stated reason
+
+The following 13 rows give a parameter list or table/figure pointer but do not explain why the source cannot support `same` or `different`:
+
+- `B057_236_238`
+- `B076_283_282`
+- `B083_302_301`
+- `B097_366_368`
+- `B102_376_377`
+- `B125_440_443`
+- `B166_579_580`
+- `B169_592_594`
+- `B186_615_617`
+- `B191_642_641`
+- `B221_697_695`
+- `B222_700_701`
+- `B222_702_699`
+
+Add the decisive source limitation to `evidence`. Notes such as `No Table`, `For phytoplankton`, and `have 12 sample` do not by themselves explain the uncertainty.
+
+### Same labels with vague evidence
+
+- `B208_669_670` — `Table 1-2`
+- `B213_681_683` — `P3 Table 2`
+- `B214_684_687` — `P.11 Table 3-4`
+
+Add the examined parameter suite; a table reference alone does not document why the configurations are the same.
 
 ### Automated source-review disagreements
 
-18 completed primary labels differ from the automated source-review label:
+19 completed primary labels differ from the automated source-review label:
 
 - `B031_160_157`
 - `B034_177_181`
@@ -118,6 +136,7 @@ These agree with the matrix class but disagree with the automated source review.
 - `B169_592_594`
 - `B190_633_636`
 - `B191_642_641`
+- `B200_654_652`
 - `B222_700_701`
 - `B222_702_699`
 
@@ -125,13 +144,14 @@ The automated label is not human evidence and does not override the primary code
 
 ## Correction entries that are notes, not matrix-cell corrections
 
-These 16 entries do not specify `row; parameter; current value -> new value` and must not be applied as matrix corrections:
+These 17 entries do not specify `row; parameter; current value -> new value; reason` and must not be applied as matrix corrections:
 
 - `B031_160_157`
 - `B034_177_181`
 - `B034_183_181`
 - `B036_184_187`
 - `B050_211_212`
+- `B076_283_282`
 - `B090_344_342`
 - `B097_366_368`
 - `B107_396_395`
@@ -148,10 +168,10 @@ Move scenario/aggregation comments into `evidence`. Use `correction` only for an
 
 ## Processing status
 
-- `coordinator_review`: 25
-- `incomplete_submission`: 9
-- `incomplete_relation`: 1
-- `provisional_no_flag`: 21
+- `coordinator_review`: 39
+- `provisional_no_flag`: 17
+- `incomplete_submission`: 0
+- `incomplete_relation`: 0
 
 `provisional_no_flag` means no row-specific automated/manual flag was found; it does not mean approved.
 
@@ -166,4 +186,4 @@ Move scenario/aggregation comments into `evidence`. Use `correction` only for an
 
 ## Status
 
-No labels have been approved. No coverage-matrix cells, configuration counts, manuscript estimates, or SI values were changed. Final strict import is blocked until `B200_654_652`, `B001_7_0`, and the eight missing-evidence rows are completed.
+Strict structural import passes because all required fields are populated. Coordinator resolution is still required for all 56 primary-only labels. No coverage-matrix cells, configuration counts, manuscript estimates, or SI values were changed.

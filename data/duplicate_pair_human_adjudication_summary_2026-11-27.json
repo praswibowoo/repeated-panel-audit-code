@@ -1,35 +1,33 @@
 {
-  "primary_rows": 55,
+  "primary_rows": 56,
   "expected_primary_pairs": 56,
-  "pending_primary_pairs": 1,
-  "pending_primary_pair_ids": [
-    "B200_654_652"
-  ],
+  "pending_primary_pairs": 0,
+  "pending_primary_pair_ids": [],
   "completed_relation_counts": {
-    "different": 6,
+    "different": 7,
     "same": 34,
     "undecidable": 15
   },
   "completed_matrix_match_counts": {
-    "no": 15,
+    "no": 16,
     "undecidable": 15,
     "yes": 25
   },
   "completed_ai_agreement": 37,
-  "evidence_missing": 8,
-  "coder_metadata_missing": 1,
-  "correction_format_warnings": 16,
+  "evidence_missing": 0,
+  "coder_metadata_missing": 0,
+  "correction_format_warnings": 17,
   "prior_evidence_conflicts": 5,
-  "matrix_disagreements": 15,
-  "ai_disagreements": 18,
+  "matrix_disagreements": 16,
+  "ai_disagreements": 19,
   "second_rows": 0,
   "resolved_agreement": 0,
   "resolved_coordinator": 0,
   "coordinator_resolution_required": 0,
-  "primary_only": 55,
+  "primary_only": 56,
   "second_coder_used": false,
   "second_qc_only": 0,
-  "not_adjudicated": 28,
+  "not_adjudicated": 27,
   "resolved_relation_counts": {
     "different": 0,
     "same": 0,
@@ -51,25 +49,15 @@
     "same": 0,
     "undecidable": 0
   },
-  "evidence_missing_pair_ids": [
-    "B031_160_157",
-    "B050_211_212",
-    "B076_283_282",
-    "B083_302_301",
-    "B102_376_377",
-    "B221_697_695",
-    "B222_700_701",
-    "B222_702_699"
-  ],
-  "coder_metadata_missing_pair_ids": [
-    "B001_7_0"
-  ],
+  "evidence_missing_pair_ids": [],
+  "coder_metadata_missing_pair_ids": [],
   "correction_format_warning_pair_ids": [
     "B031_160_157",
     "B034_177_181",
     "B034_183_181",
     "B036_184_187",
     "B050_211_212",
+    "B076_283_282",
     "B090_344_342",
     "B097_366_368",
     "B107_396_395",
@@ -104,7 +92,8 @@
     "B153_537_539",
     "B153_538_536",
     "B153_539_538",
-    "B190_633_636"
+    "B190_633_636",
+    "B200_654_652"
   ],
   "ai_disagreement_pair_ids": [
     "B031_160_157",
@@ -123,10 +112,11 @@
     "B169_592_594",
     "B190_633_636",
     "B191_642_641",
+    "B200_654_652",
     "B222_700_701",
     "B222_702_699"
   ],
-  "ready_for_strict_import": false,
+  "ready_for_strict_import": true,
   "coverage_matrix_modified": false,
   "configuration_impact": "pending parameter-level correction log"
 }

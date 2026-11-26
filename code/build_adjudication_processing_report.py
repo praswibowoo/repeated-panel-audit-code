@@ -19,16 +19,111 @@ KEY = DATA / "duplicate_pair_human_adjudication_coordinator_key.csv"
 MATRIX = DATA / "coverage_matrix.csv"
 
 MANUAL_FLAGS = {
+    "B034_177_181": (
+        "different_basis_missing",
+        "State the exact parameter difference and source location; the deposited "
+        "matrix difference is pH.",
+    ),
+    "B034_183_181": (
+        "different_basis_missing",
+        "State the exact parameter difference and source location; the deposited "
+        "matrix difference is pH.",
+    ),
+    "B057_236_238": (
+        "undecidable_reason_missing",
+        "State why the source cannot support same or different; a parameter list "
+        "alone is not an undecidable rationale.",
+    ),
     "B063_243_244": (
         "possible_copied_evidence",
         "Replace evidence with B063 Tables 1–2 and 8–9: THB, total coliforms, "
         "pH, TDS, EC, oil/grease, Ni, Cd, Cr, Co, Cu, Pb, Zn, Fe and As; then "
         "reconfirm the relation.",
     ),
+    "B076_283_282": (
+        "undecidable_reason_missing",
+        "State why Table 1a cannot support same or different; a table pointer "
+        "alone is not an undecidable rationale.",
+    ),
+    "B083_302_301": (
+        "undecidable_reason_missing",
+        "State why Table 1 cannot support same or different; a table pointer "
+        "alone is not an undecidable rationale.",
+    ),
+    "B090_344_342": (
+        "different_basis_missing",
+        "State the exact parameter difference and source location; the deposited "
+        "matrix difference is NH4.",
+    ),
+    "B097_366_368": (
+        "undecidable_reason_missing",
+        "State why the source cannot support same or different; the phytoplankton "
+        "note belongs in evidence and does not explain the uncertainty.",
+    ),
+    "B102_376_377": (
+        "undecidable_reason_missing",
+        "State why Figure 1–4 cannot support same or different; a figure pointer "
+        "alone is not an undecidable rationale.",
+    ),
+    "B125_440_443": (
+        "undecidable_reason_missing",
+        "State why the source cannot support same or different; move the No Table "
+        "reason from correction to evidence if that is the decisive limitation.",
+    ),
     "B166_579_580": (
-        "prior_human_evidence_unresolved",
-        "Resolve the accepted prior human TSS correction for row 580 before "
-        "finalizing the undecidable label.",
+        "undecidable_reason_missing; prior_human_evidence_unresolved",
+        "State why the source cannot support same or different and resolve the "
+        "accepted prior human TSS correction for row 580.",
+    ),
+    "B169_592_594": (
+        "undecidable_reason_missing",
+        "State why the source cannot support same or different; the 12-sample "
+        "note belongs in evidence and does not explain the uncertainty.",
+    ),
+    "B186_615_617": (
+        "undecidable_reason_missing",
+        "State why Table 1 cannot support same or different; a parameter list "
+        "alone is not an undecidable rationale.",
+    ),
+    "B191_642_641": (
+        "undecidable_reason_missing",
+        "State why the source cannot support same or different; the narrative "
+        "describes conditions but not the decisive limitation.",
+    ),
+    "B200_654_652": (
+        "different_basis_missing",
+        "P.4–6 gives no decisive parameter difference. Identify the exact "
+        "parameter or reconsider the different label.",
+    ),
+    "B208_669_670": (
+        "evidence_too_vague",
+        "Add the examined parameter suite; Table 1–2 alone does not document why "
+        "the configurations are the same.",
+    ),
+    "B213_681_683": (
+        "evidence_too_vague",
+        "Add the examined parameter suite; P3 Table 2 alone does not document "
+        "why the configurations are the same.",
+    ),
+    "B214_684_687": (
+        "evidence_too_vague",
+        "Add the examined parameter suite; P.11 Tables 3–4 alone do not document "
+        "why the configurations are the same.",
+    ),
+    "B221_697_695": (
+        "undecidable_reason_missing",
+        "State why Table 1 cannot support same or different; a table pointer "
+        "alone is not an undecidable rationale.",
+    ),
+    "B222_700_701": (
+        "undecidable_reason_missing",
+        "State why Table 1 cannot support same or different; a table pointer "
+        "alone is not an undecidable rationale.",
+    ),
+    "B222_702_699": (
+        "undecidable_reason_missing",
+        "State why Table 1 cannot support same or different; a table pointer "
+        "alone is not an undecidable rationale.",
     ),
 }
 
