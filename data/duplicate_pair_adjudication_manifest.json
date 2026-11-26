@@ -166,11 +166,14 @@
     "data/duplicate_pair_human_adjudication_coordinator_key.csv": "0027788c2228f9ed7a42ffefccf1f298b28172ca84e511658ad2523663e5ff71",
     "data/prior_human_pair_evidence.csv": "fa64bb061dcb8c6ea0bbeeda939c0a29eaee94b60c162fee5c00826672fd42ce",
     "data/prior_human_cell_corrections_status.csv": "b3101666f6a1e5d40e5367ee94144b421f91d30ed974dc49a170d22ad5352fba",
-    "data/duplicate_pair_human_adjudication_coder.xlsx": "85319a4e08592c83165d910cef2335f1a0a2cef950d7d928024e987511e86f25",
-    "data/duplicate_pair_human_adjudication_coordinator.xlsx": "0b809cfa68909390933310c3415c16210605ba20f317f95435ce5cdf1e6c9e04"
+    "data/duplicate_pair_human_adjudication_coder.xlsx": "8a1a5c54ce235845d9f66354ccb18d668f1123b658aa373671f237f616c3ccff",
+    "data/duplicate_pair_human_adjudication_primary_only.xlsx": "ca13516cf7b6e6174b1180e40a956a0ad72a41fcddc010b9bd0dd288f73e20ad",
+    "data/duplicate_pair_human_adjudication_second_only.xlsx": "1dea11f7d67f9ea5d6bb9c6a423e77e39542cc5760f0666ba1b4f70e3e3c9061",
+    "data/duplicate_pair_human_adjudication_coordinator.xlsx": "0ff977ba2117d71c411695a39279b2d61497519be1a0cf56c29fdbdb7959dd06"
   },
   "notes": [
     "Coder files are blind: no matrix class, Hamming distance, AI relation, or priority reason is shown.",
+    "For a primary-only workflow, send duplicate_pair_human_adjudication_primary_only.xlsx or the primary blind CSV.",
     "Prior P1 human cell corrections are evidence only; they do not replace pair-level human labels.",
     "Eight AI-same/matrix-distinct pairs conflict with prior human cell corrections and require explicit pair adjudication.",
     "The primary assignment is the union of all matrix-identical pairs, all matrix-distinct/AI-same pairs, and all undecidable pairs."

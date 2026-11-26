@@ -16,6 +16,7 @@ import json
 import os
 import sys
 import zipfile
+import xml.etree.ElementTree as ET
 
 import numpy as np
 import pandas as pd
@@ -89,6 +90,8 @@ FILES = [
     "duplicate_pair_human_adjudication_second_blind.csv",
     "duplicate_pair_human_adjudication_coordinator_key.csv",
     "duplicate_pair_human_adjudication_coder.xlsx",
+    "duplicate_pair_human_adjudication_primary_only.xlsx",
+    "duplicate_pair_human_adjudication_second_only.xlsx",
     "duplicate_pair_human_adjudication_coordinator.xlsx",
 ]
 
@@ -435,11 +438,19 @@ def main() -> int:
         blind = pd.read_csv(os.path.join(DATA, blind_name))
         forbidden = {"audit_stratum", "matrix_hamming", "reviewer_relation", "priority_tier", "priority_reason"}
         check(f"{blind_name} blind columns", bool(forbidden.isdisjoint(blind.columns)), True)
-    coder_book = os.path.join(DATA, "duplicate_pair_human_adjudication_coder.xlsx")
-    with zipfile.ZipFile(coder_book) as zf:
-        payload = b" ".join(zf.read(name) for name in zf.namelist() if name.endswith(".xml"))
-    for token in (b"matrix_identical", b"matrix_distinct", b"reviewer_relation", b"priority_tier", b"conflicts_with_ai_same"):
-        check(f"coder workbook excludes {token.decode()}", token not in payload, True)
+    for coder_name, expected_sheets in (
+        ("duplicate_pair_human_adjudication_coder.xlsx", {"Instructions", "Primary", "Second"}),
+        ("duplicate_pair_human_adjudication_primary_only.xlsx", {"Instructions", "Primary"}),
+        ("duplicate_pair_human_adjudication_second_only.xlsx", {"Instructions", "Second"}),
+    ):
+        coder_book = os.path.join(DATA, coder_name)
+        with zipfile.ZipFile(coder_book) as zf:
+            payload = b" ".join(zf.read(name) for name in zf.namelist() if name.endswith(".xml"))
+            workbook_xml = ET.fromstring(zf.read("xl/workbook.xml"))
+            sheet_names = {node.attrib["name"] for node in workbook_xml.findall(".//{http://schemas.openxmlformats.org/spreadsheetml/2006/main}sheet")}
+            check(f"{coder_name} sheets", sheet_names == expected_sheets, True)
+        for token in (b"matrix_identical", b"matrix_distinct", b"reviewer_relation", b"priority_tier", b"conflicts_with_ai_same"):
+            check(f"{coder_name} excludes {token.decode()}", token not in payload, True)
 
     # The fresh core-revision output must agree with the deposited copy.
     fresh_path = os.path.join(ROOT, "results", "core_revision", "core_checks.json")

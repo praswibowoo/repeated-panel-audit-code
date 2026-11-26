@@ -254,6 +254,14 @@ def main() -> None:
         {"Primary": primary, "Second": second}, instructions,
     )
     make_workbook(
+        DATA / "duplicate_pair_human_adjudication_primary_only.xlsx",
+        {"Primary": primary}, instructions,
+    )
+    make_workbook(
+        DATA / "duplicate_pair_human_adjudication_second_only.xlsx",
+        {"Second": second}, instructions,
+    )
+    make_workbook(
         DATA / "duplicate_pair_human_adjudication_coordinator.xlsx",
         {
             "Coordinator_Key": coordinator.sort_values("pair_id"),
@@ -272,6 +280,8 @@ def main() -> None:
         DATA / "prior_human_pair_evidence.csv",
         DATA / "prior_human_cell_corrections_status.csv",
         DATA / "duplicate_pair_human_adjudication_coder.xlsx",
+        DATA / "duplicate_pair_human_adjudication_primary_only.xlsx",
+        DATA / "duplicate_pair_human_adjudication_second_only.xlsx",
         DATA / "duplicate_pair_human_adjudication_coordinator.xlsx",
     ]
     manifest = {
@@ -305,6 +315,7 @@ def main() -> None:
         "files": {str(p.relative_to(ROOT)): sha256(p) for p in generated},
         "notes": [
             "Coder files are blind: no matrix class, Hamming distance, AI relation, or priority reason is shown.",
+            "For a primary-only workflow, send duplicate_pair_human_adjudication_primary_only.xlsx or the primary blind CSV.",
             "Prior P1 human cell corrections are evidence only; they do not replace pair-level human labels.",
             "Eight AI-same/matrix-distinct pairs conflict with prior human cell corrections and require explicit pair adjudication.",
             "The primary assignment is the union of all matrix-identical pairs, all matrix-distinct/AI-same pairs, and all undecidable pairs.",

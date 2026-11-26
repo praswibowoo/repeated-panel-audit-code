@@ -29,8 +29,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4226,
-      "sha256": "527178890c8716098b1835942dd197877b175940d3cbd80047093540be4fc9a0"
+      "bytes": 4359,
+      "sha256": "9cc87e77e77c7e9c71bc79657d4623d9a87ad93db9a8d272d7c40698483008bb"
     },
     {
       "path": "RELEASE_ID.txt",
@@ -144,8 +144,8 @@
     },
     {
       "path": "code/import_duplicate_adjudication.py",
-      "bytes": 10446,
-      "sha256": "0b0112268434f8348c0c4771a079f6652e3a076f72127452b801edcc44b726b9"
+      "bytes": 14153,
+      "sha256": "31638af5815324b5205c9a2fac9840c68b47bb03580d3bd54de914ed6f2994ba"
     },
     {
       "path": "code/leave_flagged_out.py",
@@ -249,8 +249,8 @@
     },
     {
       "path": "code/prepare_duplicate_adjudication.py",
-      "bytes": 16521,
-      "sha256": "68dd44c626328a74421967d18c3f49df094543540eb02da0e6860b2863f4a4db"
+      "bytes": 17062,
+      "sha256": "9232757717798116613e474d23d3d2618dc46cc4be9fad0e7745262072956c42"
     },
     {
       "path": "code/procrustes_holdout.py",
@@ -394,8 +394,8 @@
     },
     {
       "path": "code/verify_package.py",
-      "bytes": 24639,
-      "sha256": "b8d6b5faba0d9881f3fc2b7e56fbc517378297a5c5501dac517730ed9f847e3d"
+      "bytes": 25405,
+      "sha256": "596f1a8e7f9f9b3a3596c4adaed50d17cd7904745ccdc5a00f767ed1a4f64ca2"
     },
     {
       "path": "code/water_only_check.py",
@@ -409,13 +409,13 @@
     },
     {
       "path": "data/HUMAN_ADJUDICATION_README.md",
-      "bytes": 2195,
-      "sha256": "6ffaf5015695f720d5cb198abf98b5c3ca604391571af6f16de9c9f76e293a55"
+      "bytes": 2388,
+      "sha256": "62905fc4665e9584c1f9be9ca935d0d9c58711b1ca23587b6373014279c27d96"
     },
     {
       "path": "data/README.md",
-      "bytes": 3715,
-      "sha256": "675f7d189ea785082856f82aa9384b8f2215fafd0176637369f550ac38971790"
+      "bytes": 3967,
+      "sha256": "258b62f85969cc5adbb9cc230b0c06c00b87293a65ede2587f3fc4c4bc87be3f"
     },
     {
       "path": "data/all_paper_audit.json",
@@ -569,8 +569,8 @@
     },
     {
       "path": "data/duplicate_pair_adjudication_manifest.json",
-      "bytes": 4824,
-      "sha256": "ee11a9884b6a88365db48d3273c5d12153fc332e129acf58050bfb770167e3b0"
+      "bytes": 5206,
+      "sha256": "cefcf08b3f2d1526eeeebb07f0983cf3b81b25a9a1c1ec95db474f30086e8bbf"
     },
     {
       "path": "data/duplicate_pair_audit_frame.csv",
@@ -579,13 +579,13 @@
     },
     {
       "path": "data/duplicate_pair_human_adjudication_coder.xlsx",
-      "bytes": 22856,
-      "sha256": "85319a4e08592c83165d910cef2335f1a0a2cef950d7d928024e987511e86f25"
+      "bytes": 22857,
+      "sha256": "8a1a5c54ce235845d9f66354ccb18d668f1123b658aa373671f237f616c3ccff"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_coordinator.xlsx",
-      "bytes": 23636,
-      "sha256": "0b809cfa68909390933310c3415c16210605ba20f317f95435ce5cdf1e6c9e04"
+      "bytes": 23637,
+      "sha256": "0ff977ba2117d71c411695a39279b2d61497519be1a0cf56c29fdbdb7959dd06"
     },
     {
       "path": "data/duplicate_pair_human_adjudication_coordinator_key.csv",
@@ -598,9 +598,19 @@
       "sha256": "1dfb9d545eace95c80c3b956a84955a8629ea757cce181bbe5e83275576eafbe"
     },
     {
+      "path": "data/duplicate_pair_human_adjudication_primary_only.xlsx",
+      "bytes": 17043,
+      "sha256": "ca13516cf7b6e6174b1180e40a956a0ad72a41fcddc010b9bd0dd288f73e20ad"
+    },
+    {
       "path": "data/duplicate_pair_human_adjudication_second_blind.csv",
       "bytes": 20691,
       "sha256": "4f6828933d3020151eecfa2c2fb3b1cc2d6299f5ed37a1a5c452a99ac1259313"
+    },
+    {
+      "path": "data/duplicate_pair_human_adjudication_second_only.xlsx",
+      "bytes": 17946,
+      "sha256": "1dea11f7d67f9ea5d6bb9c6a423e77e39542cc5760f0666ba1b4f70e3e3c9061"
     },
     {
       "path": "data/duplicate_pair_source_review.csv",
@@ -834,8 +844,8 @@
     },
     {
       "path": "docs/audit/REVISION_2026-11-26_AUDIT.md",
-      "bytes": 3432,
-      "sha256": "9d8df24905a1ca533248a354aece3a9e5c84720e61bf5c5987014a69e9744ada"
+      "bytes": 3437,
+      "sha256": "c3a22df721a774f9150f7874b31163c260ae019431dc0961a6246e24d776537a"
     },
     {
       "path": "docs/extraction/corpus_manifest.csv",
@@ -894,8 +904,8 @@
     },
     {
       "path": "docs/verification/duplicate_pair_audit.md",
-      "bytes": 4551,
-      "sha256": "f115163c4ebae5c7265bf3bdd45ff6b773ab6075e1946b6202b1b0b09903d25a"
+      "bytes": 5029,
+      "sha256": "4493b5ff7de1cb1d331916de49434694fcb1696500a3060dabe8c77cffd22cac"
     },
     {
       "path": "docs/verification/stageA_fresh_summary.json",

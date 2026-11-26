@@ -66,7 +66,10 @@ def matrix_match(matrix_same: bool, relation: str) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--primary", type=Path, required=True)
-    ap.add_argument("--second", type=Path, required=True)
+    ap.add_argument("--second", type=Path, default=None,
+                    help="Optional independent second-coder file")
+    ap.add_argument("--resolution", type=Path, default=None,
+                    help="Optional coordinator resolution CSV")
     ap.add_argument("--out-dir", type=Path, default=DATA)
     args = ap.parse_args()
     args.out_dir.mkdir(parents=True, exist_ok=True)
@@ -75,7 +78,7 @@ def main() -> int:
     primary_ids = set(manifest["primary_pair_ids"])
     second_ids = set(manifest["second_coder_pair_ids"])
     primary = read_completed(args.primary, primary_ids, "primary")
-    second = read_completed(args.second, second_ids, "second")
+    second = read_completed(args.second, second_ids, "second") if args.second else None
 
     key = pd.read_csv(COORDINATOR)
     p = primary.rename(columns={
@@ -86,29 +89,54 @@ def main() -> int:
         "parameters_only_b": "primary_only_b",
         "proposed_matrix_corrections": "primary_proposed_corrections",
     })
-    s = second.rename(columns={
-        "human_relation": "second_relation",
-        "source_page_table": "second_source", "confidence": "second_confidence",
-        "coder_name": "second_coder", "coder_date": "second_date",
-        "notes": "second_notes", "parameters_only_a": "second_only_a",
-        "parameters_only_b": "second_only_b",
-        "proposed_matrix_corrections": "second_proposed_corrections",
-    })
+    if second is not None:
+        s = second.rename(columns={
+            "human_relation": "second_relation",
+            "source_page_table": "second_source", "confidence": "second_confidence",
+            "coder_name": "second_coder", "coder_date": "second_date",
+            "notes": "second_notes", "parameters_only_a": "second_only_a",
+            "parameters_only_b": "second_only_b",
+            "proposed_matrix_corrections": "second_proposed_corrections",
+        })
+    else:
+        s = pd.DataFrame(columns=["pair_id"])
     p = p[[
-        "pair_id", "paper", "row_a", "row_b", "scenario_a", "scenario_b",
+        "pair_id",
         "primary_relation", "primary_source", "primary_confidence",
         "primary_coder", "primary_date", "primary_notes", "primary_only_a",
         "primary_only_b", "primary_proposed_corrections",
     ]]
-    s = s[[
-        "pair_id", "paper", "row_a", "row_b", "scenario_a", "scenario_b",
-        "second_relation", "second_source", "second_confidence",
-        "second_coder", "second_date", "second_notes", "second_only_a",
-        "second_only_b", "second_proposed_corrections",
-    ]]
+    if second is not None:
+        s = s[[
+            "pair_id",
+            "second_relation", "second_source", "second_confidence",
+            "second_coder", "second_date", "second_notes", "second_only_a",
+            "second_only_b", "second_proposed_corrections",
+        ]]
     results = key.merge(p, on="pair_id", how="left", validate="one_to_one").merge(
         s, on="pair_id", how="left", validate="one_to_one"
     )
+    if second is None:
+        for col in ("second_relation", "second_source", "second_confidence",
+                    "second_coder", "second_date", "second_notes", "second_only_a",
+                    "second_only_b", "second_proposed_corrections"):
+            results[col] = pd.NA
+    if args.resolution:
+        resolution = pd.read_csv(args.resolution)
+        req_res = {"pair_id", "resolved_relation", "resolution_notes", "resolver", "resolution_date"}
+        if req_res - set(resolution.columns):
+            raise ValueError(f"resolution file missing columns {sorted(req_res-set(resolution.columns))}")
+        if resolution.pair_id.duplicated().any():
+            raise ValueError("resolution file has duplicate pair_id values")
+        if not set(resolution.pair_id).issubset(set(key.pair_id)):
+            raise ValueError("resolution file contains unknown pair_id values")
+        if not resolution.resolved_relation.isin(RELATIONS).all():
+            raise ValueError("resolution file has invalid resolved_relation")
+        resolution = resolution[["pair_id", "resolved_relation", "resolution_notes", "resolver", "resolution_date"]].rename(columns={"resolved_relation": "coordinator_relation"})
+        results = results.merge(resolution, on="pair_id", how="left", validate="one_to_one")
+    else:
+        for col in ("coordinator_relation", "resolution_notes", "resolver", "resolution_date"):
+            results[col] = pd.NA
     results["coder_agreement"] = (
         results.primary_relation.notna()
         & results.second_relation.notna()
@@ -117,10 +145,13 @@ def main() -> int:
     results["resolution_status"] = "not_adjudicated"
     both = results.primary_relation.notna() & results.second_relation.notna()
     results.loc[both & results.coder_agreement, "resolution_status"] = "resolved_agreement"
-    results.loc[both & ~results.coder_agreement, "resolution_status"] = "coordinator_resolution_required"
-    results.loc[results.primary_relation.notna() & results.second_relation.isna(), "resolution_status"] = "primary_only"
+    results.loc[both & ~results.coder_agreement & results.coordinator_relation.notna(), "resolution_status"] = "resolved_coordinator"
+    results.loc[both & ~results.coder_agreement & results.coordinator_relation.isna(), "resolution_status"] = "coordinator_resolution_required"
+    results.loc[results.primary_relation.notna() & results.second_relation.isna() & results.coordinator_relation.notna(), "resolution_status"] = "resolved_coordinator"
+    results.loc[results.primary_relation.notna() & results.second_relation.isna() & results.coordinator_relation.isna(), "resolution_status"] = "primary_only"
     results.loc[results.primary_relation.isna() & results.second_relation.notna(), "resolution_status"] = "second_qc_only"
     results["resolved_relation"] = results.primary_relation.where(results.coder_agreement)
+    results.loc[results.resolution_status == "resolved_coordinator", "resolved_relation"] = results.loc[results.resolution_status == "resolved_coordinator", "coordinator_relation"]
     results["matrix_same"] = results.matrix_hamming.eq(0)
     results["primary_match"] = [
         matrix_match(ms, rel) if pd.notna(rel) else ""
@@ -144,16 +175,21 @@ def main() -> int:
 
     # Proposed frame: fill only resolved pairs; preserve all original records.
     frame = pd.read_csv(FRAME)
-    resolved = results[results.resolution_status == "resolved_agreement"][
+    resolved = results[results.resolution_status.isin(["resolved_agreement", "resolved_coordinator"])][
         ["pair_id", "resolved_relation", "resolved_match", "primary_source", "second_source",
-         "primary_notes", "second_notes"]
+         "primary_notes", "second_notes", "resolver", "resolution_date", "resolution_notes"]
     ].copy()
-    resolved["notes"] = resolved.apply(
-        lambda r: " | ".join(str(x) for x in [
-            f"primary source: {r.primary_source}", f"second source: {r.second_source}",
-            f"primary note: {r.primary_notes}", f"second note: {r.second_notes}",
-        ] if pd.notna(x) and str(x) != "nan"), axis=1
-    )
+    if resolved.empty:
+        resolved["notes"] = pd.Series(dtype=str)
+    else:
+        resolved["notes"] = resolved.apply(
+            lambda r: " | ".join(str(x) for x in [
+                f"primary source: {r.primary_source}", f"second source: {r.second_source}",
+                f"primary note: {r.primary_notes}", f"second note: {r.second_notes}",
+                f"coordinator: {r.resolver} {r.resolution_date}",
+                f"coordinator note: {r.resolution_notes}",
+            ] if pd.notna(x) and str(x) != "nan"), axis=1
+        )
     proposed = frame.drop(columns=["human_relation", "match", "notes"]).merge(
         resolved[["pair_id", "resolved_relation", "resolved_match", "notes"]],
         on="pair_id", how="left", validate="many_to_one",
@@ -163,13 +199,16 @@ def main() -> int:
     proposed = proposed[frame.columns]
     proposed.to_csv(args.out_dir / "duplicate_pair_audit_frame_human_filled.csv", index=False)
 
-    resolved_df = results[results.resolution_status == "resolved_agreement"]
+    resolved_df = results[results.resolution_status.isin(["resolved_agreement", "resolved_coordinator"])]
     qc_df = results[results.resolution_status == "second_qc_only"]
     summary = {
         "primary_rows": len(primary),
-        "second_rows": len(second),
-        "resolved_agreement": len(resolved_df),
+        "second_rows": 0 if second is None else len(second),
+        "resolved_agreement": int(results.resolution_status.eq("resolved_agreement").sum()),
+        "resolved_coordinator": int(results.resolution_status.eq("resolved_coordinator").sum()),
         "coordinator_resolution_required": int(results.resolution_status.eq("coordinator_resolution_required").sum()),
+        "primary_only": int(results.resolution_status.eq("primary_only").sum()),
+        "second_coder_used": second is not None,
         "second_qc_only": len(qc_df),
         "not_adjudicated": int(results.resolution_status.eq("not_adjudicated").sum()),
         "resolved_relation_counts": {
@@ -196,6 +235,23 @@ def main() -> int:
         json.dumps(summary, indent=2) + "\n"
     )
 
+    resolution_template = args.out_dir / "duplicate_pair_coordinator_resolution_template.csv"
+    if not resolution_template.exists():
+        needs = results[results.resolution_status.isin(["primary_only", "coordinator_resolution_required"])]
+        pd.DataFrame({
+            "pair_id": needs.pair_id,
+            "paper": needs.paper,
+            "row_a": needs.row_a,
+            "row_b": needs.row_b,
+            "primary_relation": needs.primary_relation,
+            "second_relation": needs.second_relation,
+            "issue": needs.resolution_status,
+            "resolved_relation": "",
+            "resolution_notes": "",
+            "resolver": "",
+            "resolution_date": "",
+        }).to_csv(resolution_template, index=False)
+
     correction_template = args.out_dir / "duplicate_pair_proposed_cell_corrections.csv"
     if not correction_template.exists():
         pd.DataFrame(columns=[
@@ -212,6 +268,7 @@ def main() -> int:
     print(json.dumps(summary, indent=2))
     print(f"wrote {results_path}")
     print(f"wrote {args.out_dir / 'duplicate_pair_audit_frame_human_filled.csv'}")
+    print(f"wrote {resolution_template}")
     return 0
 
 

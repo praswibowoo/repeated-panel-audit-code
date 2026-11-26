@@ -1,25 +1,27 @@
 # Human duplicate-pair adjudication package
 
-## Files to send coders
+## Primary-only workflow
 
-- `duplicate_pair_human_adjudication_coder.xlsx`
-  - `Primary` sheet: 56 priority pairs.
-  - `Second` sheet: 62 pairs for independent second coding.
-- Or use the blind CSVs:
-  - `duplicate_pair_human_adjudication_primary_blind.csv`
-  - `duplicate_pair_human_adjudication_second_blind.csv`
+Send the primary coder **only**:
 
-Coder files contain no matrix class, Hamming distance, AI relation, or priority reason.
+- `duplicate_pair_human_adjudication_primary_only.xlsx`
 
-## Coordinator-only files
+Or, if Excel is not needed:
 
-- `duplicate_pair_human_adjudication_coordinator.xlsx`
-- `duplicate_pair_human_adjudication_coordinator_key.csv`
-- `prior_human_pair_evidence.csv`
-- `prior_human_cell_corrections.csv`
-- `duplicate_pair_adjudication_manifest.json`
+- `duplicate_pair_human_adjudication_primary_blind.csv`
 
-Do not send coordinator files to coders before independent coding is complete.
+The primary file contains 56 priority pairs and no matrix class, Hamming distance, AI relation, priority reason, or answer key.
+
+Do not send the coordinator workbook/key, AI source-review files, or prior-evidence files before coding is complete.
+
+## Optional independent second coder
+
+If a second coder is used later, send only:
+
+- `duplicate_pair_human_adjudication_second_only.xlsx`
+- or `duplicate_pair_human_adjudication_second_blind.csv`
+
+The second file contains 62 pairs: the 56 priority pairs plus 6 QC pairs.
 
 ## Coding rule
 
@@ -31,15 +33,47 @@ For each pair, work from the source paper:
 
 Examined or examined-absent = `1`; not reported = `0`. Normalize parameter names to the manuscript's 44-parameter schema.
 
-Record page/table/figure locators and parameter-level differences. The coordinator computes `human_match` against the matrix after blinding is removed. Do not edit the coverage matrix directly.
+Fill:
 
-## Priority design
+- `human_relation`
+- `parameters_only_a` / `parameters_only_b`
+- `proposed_matrix_corrections`
+- `source_page_table`
+- `confidence`
+- `coder_name`
+- `coder_date`
+- `notes`
 
-- Primary: all 38 matrix-identical pairs + all 16 matrix-distinct/AI-same pairs + all 3 AI-undecidable pairs, with one overlap counted once = 56 pairs.
-- Second coder: same 56 + 6 deterministic agreed-distinct QC pairs = 62 pairs.
-- Prior P1 human cell corrections affect 13 pairs; 8 conflict with AI `same` labels. These corrections are evidence only, not pair-level human labels.
+Do not fill `human_match`; the coordinator computes it after unblinding. Do not edit the coverage matrix directly.
 
-## Import completed files
+## Import primary-only results
+
+Save the completed `Primary` sheet as CSV UTF-8, then run:
+
+```bash
+python3 code/import_duplicate_adjudication.py \
+  --primary <completed_primary.csv>
+```
+
+The importer writes:
+
+- `duplicate_pair_human_adjudication_results.csv`
+- `duplicate_pair_human_adjudication_summary.json`
+- `duplicate_pair_audit_frame_human_filled.csv`
+- `duplicate_pair_coordinator_resolution_template.csv`
+- correction and configuration-impact templates
+
+Primary-only labels are **provisional** until coordinator review. Fill the resolution template, then rerun:
+
+```bash
+python3 code/import_duplicate_adjudication.py \
+  --primary <completed_primary.csv> \
+  --resolution <completed_resolution.csv>
+```
+
+The importer never edits `coverage_matrix.csv`.
+
+## Import with an optional second coder
 
 ```bash
 python3 code/import_duplicate_adjudication.py \
@@ -47,11 +81,4 @@ python3 code/import_duplicate_adjudication.py \
   --second <completed_second.csv>
 ```
 
-The importer validates assignments and required fields, compares coders, and writes:
-
-- `duplicate_pair_human_adjudication_results.csv`
-- `duplicate_pair_human_adjudication_summary.json`
-- `duplicate_pair_audit_frame_human_filled.csv`
-- correction and configuration-impact templates
-
-It never edits `coverage_matrix.csv`.
+Coder disagreements are flagged for coordinator resolution.
