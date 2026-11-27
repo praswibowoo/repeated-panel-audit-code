@@ -10,9 +10,11 @@ than individual cells:
 * 20 nearest distinct pairs (Hamming distance <= 3 where available).
 
 The frame is reproducible from coverage_matrix.csv. It contains 100 records
-representing 83 unique unordered pairs. Human source-text adjudication remains separate;
-independent AI-assisted source-review labels are stored alongside the frozen
-frame. Run without --force to verify the frozen frame.
+representing 83 unique unordered pairs. The 56 priority pairs now have
+user-approved coordinator resolutions; the remaining 27 pairs are not part of
+the primary-only adjudication. Independent AI-assisted source-review labels
+remain stored alongside the frozen frame. Run without --force to verify the
+frozen frame.
 """
 from __future__ import annotations
 
@@ -128,9 +130,15 @@ def main() -> None:
             raise SystemExit("frozen duplicate-pair frame has unexpected structure")
         if old.reviewer_relation.isna().any():
             raise SystemExit("frozen duplicate-pair frame lacks AI-assisted source-review labels")
-        if old.human_relation.notna().any() or old["match"].notna().any():
-            raise SystemExit("human adjudication fields are no longer blank; update documentation")
+        resolved = old_ordered.dropna(subset=["human_relation"]).drop_duplicates(["paper", "row_lo", "row_hi"])
+        if len(resolved) != 56 or not old["match"].notna().sum() == old.human_relation.notna().sum():
+            raise SystemExit("approved human-adjudication fields have unexpected structure")
+        if not resolved.human_relation.isin({"same", "different", "undecidable"}).all():
+            raise SystemExit("approved human-adjudication fields contain invalid labels")
+        if resolved.human_relation.value_counts().to_dict() != {"same": 53, "undecidable": 3}:
+            raise SystemExit("approved human-adjudication counts changed unexpectedly")
         print(f"verified frozen duplicate-pair frame: {len(old)} records, {len(unique)} unique unordered pairs")
+        print(f"approved primary resolutions: {len(resolved)} unique pairs")
         print(f"sha256={hashlib.sha256(open(path, 'rb').read()).hexdigest()}")
         return
     out = draw_frame()

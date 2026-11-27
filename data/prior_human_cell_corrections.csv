@@ -1,14 +1,14 @@
 paper,scenario,parameter,prior_human_note,source_repo,source_file,acceptance_record,p2_matrix_status
-B034,Pom-rainy,pH,pH (data not provided in this study),p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
-B065,"Group B - offshore / island edge (GX03,12,13)",NO2 (mg/L),No result for both of them,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
-B065,"Group D - Beihai Bay north (GX07,08,09,10,11,14)",Chlorophyll-a (mg/m3),No result for both of them,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
-B066,Cd bioassay (216-h static),DO (mg/L),There are no DO results,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
-B066,Cr (VI) bioassay (216-h static),DO (mg/L),There are no DO results,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
-B069,Station IV - nearshore coastal waters,pH,There are no Salinity and Ph results,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
-B069,All stations (Sep 2015; 3 pts each),Salinity (ppt/‰),There are no Salinity and Ph results,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
-B092,Station 2 (ship mooring area),Secchi (m),There are no Secchi but there is Brightness parameter,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
-B137,St2-rain,Secchi (m),There are no Secchi result,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
-B182,Sedati-coast,Secchi (m),"There are 3 Station; No precise Result, only ranging",p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
-B182,Sedati-coast,PO4 (mg/L),"There are 3 Station; No precise Result, only ranging",p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
-B182,Sedati-coast,Salinity (ppt/‰),"There are 3 Station; No precise Result, only ranging",p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
-B166,Zone B - black mangrove (MB) piezometers,TSS (mg/L),Not see TSS,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,to_be_checked
+B034,Pom-rainy,pH,pH (data not provided in this study),p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,superseded_by_user_approved_2026-11-27_correction
+B065,"Group B - offshore / island edge (GX03,12,13)",NO2 (mg/L),No result for both of them,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,superseded_by_user_approved_2026-11-27_correction
+B065,"Group D - Beihai Bay north (GX07,08,09,10,11,14)",Chlorophyll-a (mg/m3),No result for both of them,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,applied_zero
+B066,Cd bioassay (216-h static),DO (mg/L),There are no DO results,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,applied_zero
+B066,Cr (VI) bioassay (216-h static),DO (mg/L),There are no DO results,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,applied_zero
+B069,Station IV - nearshore coastal waters,pH,There are no Salinity and Ph results,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,superseded_by_user_approved_2026-11-27_correction
+B069,All stations (Sep 2015; 3 pts each),Salinity (ppt/‰),There are no Salinity and Ph results,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,applied_zero
+B092,Station 2 (ship mooring area),Secchi (m),There are no Secchi but there is Brightness parameter,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,applied_zero
+B137,St2-rain,Secchi (m),There are no Secchi result,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,applied_zero
+B182,Sedati-coast,Secchi (m),"There are 3 Station; No precise Result, only ranging",p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,scenario_not_in_curated_matrix
+B182,Sedati-coast,PO4 (mg/L),"There are 3 Station; No precise Result, only ranging",p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,scenario_not_in_curated_matrix
+B182,Sedati-coast,Salinity (ppt/‰),"There are 3 Station; No precise Result, only ranging",p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,scenario_not_in_curated_matrix
+B166,Zone B - black mangrove (MB) piezometers,TSS (mg/L),Not see TSS,p1-family-diagnostic,docs/verification/corrections_from_verification.json,D54/D57 accepted 2026-10-01,superseded_by_user_approved_2026-11-27_correction

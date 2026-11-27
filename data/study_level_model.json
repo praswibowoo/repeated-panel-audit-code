@@ -1,15 +1,15 @@
 {
   "curated": {
-    "median": 1.4160349965734413,
-    "ci_lo": 1.2439360057919193,
-    "ci_hi": 1.6052761178967234,
+    "median": 1.414795868271061,
+    "ci_lo": 1.241176185523966,
+    "ci_hi": 1.5927502732325007,
     "n": 117,
     "model": "log(d) ~ 1 + log(rows_c) + block; study-cluster bootstrap"
   },
   "all_paper": {
-    "median": 1.4209275212092694,
-    "ci_lo": 1.2624470776750334,
-    "ci_hi": 1.5989299218113895,
+    "median": 1.418893738622302,
+    "ci_lo": 1.2589522183751263,
+    "ci_hi": 1.600511301843677,
     "n": 122,
     "model": "log(d) ~ 1 + log(rows_c) + block; study-cluster bootstrap"
   }

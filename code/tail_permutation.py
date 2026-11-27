@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Independent permutation null for the collapsed audit.
 
-Study labels are permuted across the 151 unique coverage configurations while
+Study labels are permuted across the 145 unique coverage configurations while
 preserving each paper's number of unique configurations. For every permutation
 the collapsed block/matched ratio is recomputed with 20 matched draws per
 paper. The pooled per-paper ratios form the null distribution; the permutation
@@ -91,8 +91,14 @@ def main() -> None:
 
     # Observed primary collapsed audit on its own retained rows.
     data = data_dir()
-    cb = pd.read_csv(os.path.join(data, "collapsed_block.csv"))
-    cm = pd.read_csv(os.path.join(data, "collapsed_matched.csv"))
+    rebuild_path = os.path.join(ROOT, "results", "rebuild", "collapsed_events_rebuilt.csv")
+    if os.path.exists(rebuild_path):
+        events = pd.read_csv(rebuild_path)
+        cb = events[events.arm == "block"]
+        cm = events[events.arm == "matched"]
+    else:
+        cb = pd.read_csv(os.path.join(data, "collapsed_block.csv"))
+        cm = pd.read_csv(os.path.join(data, "collapsed_matched.csv"))
     block = cb[cb.arm == "block"].set_index("paper")["med_drift"]
     matched = cm[cm.arm == "matched"].groupby("paper")["med_drift"].median()
     observed = (block / matched).dropna()
@@ -110,7 +116,7 @@ def main() -> None:
 
     out = {
         "method": (
-            "study labels permuted across the 151 unique configurations, "
+            "study labels permuted across the 145 unique configurations, "
             "preserving each paper's configuration count; collapsed "
             "block/matched ratio with 20 matched draws per paper"
         ),

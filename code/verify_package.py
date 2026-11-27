@@ -113,6 +113,13 @@ FILES = [
     "duplicate_pair_proposed_cell_corrections_2026-11-27.csv",
     "duplicate_pair_configuration_impact_proposed_2026-11-27.csv",
     "duplicate_pair_coordinator_review_memo_2026-11-27.md",
+    "duplicate_pair_approved_cell_corrections_2026-11-27.csv",
+    "duplicate_pair_coordinator_resolution_approved_2026-11-27.csv",
+    "duplicate_pair_cell_correction_application_audit_2026-11-27.json",
+    "duplicate_pair_human_adjudication_results_approved_2026-11-27.csv",
+    "duplicate_pair_human_adjudication_summary_approved_2026-11-27.json",
+    "duplicate_pair_audit_frame_human_approved_2026-11-27.csv",
+    "duplicate_pair_coordinator_review_memo_approved_2026-11-27.md",
 ]
 
 POST_FILES = [
@@ -138,6 +145,7 @@ POST_FILES = [
     "flagged_study_cis.json",
     "tail_global_test.json",
     "tail_global_null.npz",
+    "hamming_collapse_review.json",
 ]
 
 EXCLUDED = ("B175", "B111", "B095", "B182", "B239")
@@ -201,9 +209,9 @@ def main() -> int:
 
     patterns = cur[p].astype(int).astype(str).agg("".join, axis=1)
     per_paper = cur.assign(pat=patterns).groupby("paper")["pat"].nunique()
-    check("unique configurations", int(per_paper.sum()), 151)
-    check("single-config papers", int((per_paper == 1).sum()), 97)
-    check("duplicate rows", len(cur) - int(per_paper.sum()), 565)
+    check("unique configurations", int(per_paper.sum()), 145)
+    check("single-config papers", int((per_paper == 1).sum()), 98)
+    check("duplicate rows", len(cur) - int(per_paper.sum()), 571)
 
     rebuilt = allp[~allp.paper.isin(EXCLUDED)].reset_index(drop=True)
     check("curated = all-paper minus five papers (papers)",
@@ -258,20 +266,20 @@ def main() -> int:
 
     cc = load_json("core_checks.json")
     check("exact subset n", cc["exact"]["n"], 21)
-    check("exact volume", cc["exact"]["volume_all"]["median"], 0.8056, 1e-3)
-    check("coarsened control", cc["coarsened"]["all"]["median"], 1.1380, 1e-3)
+    check("exact volume", cc["exact"]["volume_all"]["median"], 0.8291, 1e-3)
+    check("coarsened control", cc["coarsened"]["all"]["median"], 1.1427, 1e-3)
 
     dec = json.load(open(os.path.join(POST, "panel_decomposition.json"), encoding="utf-8"))
     d = dec["decomposition"]
-    check("decomposition full/all", d["full_all"]["median"], 1.36, 5e-3)
-    check("decomposition full/unique", d["full_unique"]["median"], 1.3291, 1e-3)
-    check("decomposition weighted/unique", d["weighted_unique"]["median"], 1.5863, 1e-3)
-    check("decomposition collapsed", d["collapsed_unique"]["median"], 0.9714, 1e-3)
-    check("density-matched", dec["density_matched_collapsed"]["median"], 0.9575, 1e-3)
+    check("decomposition full/all", d["full_all"]["median"], 1.3942, 5e-3)
+    check("decomposition full/unique", d["full_unique"]["median"], 1.4166, 1e-3)
+    check("decomposition weighted/unique", d["weighted_unique"]["median"], 1.4795, 1e-3)
+    check("decomposition collapsed", d["collapsed_unique"]["median"], 0.9775, 1e-3)
+    check("density-matched", dec["density_matched_collapsed"]["median"], 0.9673, 1e-3)
 
     pc2 = json.load(open(os.path.join(POST, "pc2_density_check.json"), encoding="utf-8"))
-    check("PC2 density-matched p", pc2["pc2"]["wilcoxon_p"], 0.0141, 1e-3)
-    check("PC2 positive share", pc2["pc2"]["pct_positive"], 42.74, 5e-2)
+    check("PC2 density-matched p", pc2["pc2"]["wilcoxon_p"], 0.3564, 1e-3)
+    check("PC2 positive share", pc2["pc2"]["pct_positive"], 40.17, 5e-2)
 
     sim = json.load(open(os.path.join(POST, "simulation_validation.json"), encoding="utf-8"))
     check("H0 full", sim["H0_repeated_panels_only"]["full_ratio"]["median"], 1.5813, 1e-3)
@@ -284,13 +292,13 @@ def main() -> int:
     check("flip 5%", mc["flip_0.05"]["H0_repeated_panels_only"]["collapsed_ratio"]["median"], 1.3375, 1e-3)
 
     ap = json.load(open(os.path.join(POST, "all_paper_audit.json"), encoding="utf-8"))
-    check("all-paper ratio", ap["paired_ratio"]["median"], 1.3428, 1e-3)
-    check("all-paper CI low", ap["paired_ratio"]["ci_lo"], 1.1096, 5e-3)
-    check("all-paper CI high", ap["paired_ratio"]["ci_hi"], 1.5957, 5e-3)
+    check("all-paper ratio", ap["paired_ratio"]["median"], 1.4015, 1e-3)
+    check("all-paper CI low", ap["paired_ratio"]["ci_lo"], 1.1374, 5e-3)
+    check("all-paper CI high", ap["paired_ratio"]["ci_hi"], 1.5831, 5e-3)
 
     water = load_json("water_only_check.json")
-    check("water full", water["full"]["median"], 1.4127, 1e-3)
-    check("water collapsed", water["collapsed"]["median"], 0.9268, 1e-3)
+    check("water full", water["full"]["median"], 1.3825, 1e-3)
+    check("water collapsed", water["collapsed"]["median"], 0.9442, 1e-3)
 
     pcoa = load_json("pcoa_summary.json")
     pcoa_c = load_json("pcoa_collapsed_summary.json")
@@ -307,61 +315,61 @@ def main() -> int:
     ps = tail["panel_structure"]
     check("tail papers", ps["n_papers"], 117)
     check("tail rows", ps["n_rows"], 716)
-    check("tail unique configs", ps["n_unique_configs"], 151)
-    check("tail single-config", ps["n_single_config_papers"], 97)
-    check("tail multi-config", ps["n_multi_config_papers"], 20)
+    check("tail unique configs", ps["n_unique_configs"], 145)
+    check("tail single-config", ps["n_single_config_papers"], 98)
+    check("tail multi-config", ps["n_multi_config_papers"], 19)
 
     ham = tail["hamming"]
-    check("hamming pairs", ham["pairs"], 54)
-    check("hamming one-bit", ham["distribution"]["1"], 16)
-    check("hamming two-bit", ham["distribution"]["2"], 11)
-    check("hamming three-bit", ham["distribution"]["3"], 5)
-    check("hamming le 3", ham["pairs_le_3"], 32)
+    check("hamming pairs", ham["pairs"], 41)
+    check("hamming one-bit", ham["distribution"]["1"], 12)
+    check("hamming two-bit", ham["distribution"]["2"], 7)
+    check("hamming three-bit", ham["distribution"]["3"], 4)
+    check("hamming le 3", ham["pairs_le_3"], 23)
 
-    check("collapsed >2", tail["tail"]["collapsed"][">2.0"]["n"], 19)
-    check("two-level collapsed median", tail["two_level_bootstrap"]["collapsed"]["median"], 1.0340, 1e-3)
+    check("collapsed >2", tail["tail"]["collapsed"][">2.0"]["n"], 20)
+    check("two-level collapsed median", tail["two_level_bootstrap"]["collapsed"]["median"], 0.9767, 1e-3)
     draws = json.load(open(os.path.join(POST, "panel_decomposition_draws.json"), encoding="utf-8"))
     check("draws collapsed papers", len(draws["collapsed_unique"]), 117)
     check("draws density papers", len(draws["density_matched"]), 117)
     check("two-level common-evaluation median",
-          tail["two_level_bootstrap"]["common_evaluation"]["median"], 0.9857, 1e-3)
+          tail["two_level_bootstrap"]["common_evaluation"]["median"], 0.9748, 1e-3)
     check("two-level density median",
-          tail["two_level_bootstrap"]["density_matched"]["median"], 0.9604, 1e-3)
-    check("density-matched >2", tail["tail"]["density_matched"][">2.0"]["n"], 14)
-    check("multi-config median", tail["subgroup"]["multi_config"]["median"], 1.0973, 1e-3)
-    check("one-config median", tail["subgroup"]["one_config"]["median"], 1.0265, 1e-3)
+          tail["two_level_bootstrap"]["density_matched"]["median"], 0.9673, 1e-3)
+    check("density-matched >2", tail["tail"]["density_matched"][">2.0"]["n"], 17)
+    check("multi-config median", tail["subgroup"]["multi_config"]["median"], 1.2736, 1e-3)
+    check("one-config median", tail["subgroup"]["one_config"]["median"], 0.8968, 1e-3)
     check("exact mean rows", tail["exact_subset"]["exact"]["mean_rows"], 4.5238, 1e-3)
     check("other mean rows", tail["exact_subset"]["other"]["mean_rows"], 6.4688, 1e-3)
     check("exact mean duplicate fraction",
-          tail["exact_subset"]["exact"]["mean_duplicate_fraction"], 0.5773, 1e-3)
+          tail["exact_subset"]["exact"]["mean_duplicate_fraction"], 0.6543, 1e-3)
     check("other mean duplicate fraction",
-          tail["exact_subset"]["other"]["mean_duplicate_fraction"], 0.7384, 1e-3)
-    check("block percentile q25", tail["block_percentile"]["q25"], 30.0, 0.5)
+          tail["exact_subset"]["other"]["mean_duplicate_fraction"], 0.7390, 1e-3)
+    check("block percentile q25", tail["block_percentile"]["q25"], 29.0, 0.5)
     check("block percentile q75", tail["block_percentile"]["q75"], 98.0, 0.5)
     check("study-level curated", tail["study_level_model"]["curated"]["median"],
-          1.4160, 1e-3)
+          1.4148, 1e-3)
     check("study-level all-paper", tail["study_level_model"]["all_paper"]["median"],
-          1.4209, 1e-3)
+          1.4189, 1e-3)
 
     pc2 = json.load(open(os.path.join(POST, "pc2_density_check.json"), encoding="utf-8"))
-    check("PC2 density mean", pc2["pc2"]["mean_diff"], 0.9857, 1e-3)
-    check("PC2 density mean CI lo", pc2["pc2"]["mean_ci_lo"], 0.4207, 1e-3)
-    check("PC2 density mean CI hi", pc2["pc2"]["mean_ci_hi"], 1.6489, 1e-3)
+    check("PC2 density mean", pc2["pc2"]["mean_diff"], 0.7999, 1e-3)
+    check("PC2 density mean CI lo", pc2["pc2"]["mean_ci_lo"], 0.1753, 1e-3)
+    check("PC2 density mean CI hi", pc2["pc2"]["mean_ci_hi"], 1.5228, 1e-3)
 
     ho = json.load(open(os.path.join(POST, "procrustes_holdout.json"), encoding="utf-8"))
-    check("held-out full", ho["full"]["median"], 1.3279, 1e-3)
-    check("held-out collapsed", ho["collapsed"]["median"], 1.0367, 1e-3)
+    check("held-out full", ho["full"]["median"], 1.3579, 1e-3)
+    check("held-out collapsed", ho["collapsed"]["median"], 0.9749, 1e-3)
 
     ds = json.load(open(os.path.join(POST, "dimension_sweep.json"), encoding="utf-8"))
-    check("dimension 2-D full", ds["full"]["2"]["median"], 1.363, 1e-3)
-    check("dimension 3-D full", ds["full"]["3"]["median"], 1.090, 1e-3)
-    check("dimension 4-D full", ds["full"]["4"]["median"], 1.310, 1e-3)
-    check("dimension 5-D full", ds["full"]["5"]["median"], 1.279, 1e-3)
-    check("dimension 2-D collapsed", ds["collapsed"]["2"]["median"], 1.039, 1e-3)
+    check("dimension 2-D full", ds["full"]["2"]["median"], 1.4020, 1e-3)
+    check("dimension 3-D full", ds["full"]["3"]["median"], 1.1293, 1e-3)
+    check("dimension 4-D full", ds["full"]["4"]["median"], 1.2836, 1e-3)
+    check("dimension 5-D full", ds["full"]["5"]["median"], 1.2535, 1e-3)
+    check("dimension 2-D collapsed", ds["collapsed"]["2"]["median"], 0.9674, 1e-3)
 
     leave = json.load(open(os.path.join(POST, "leave_flagged_out.json"), encoding="utf-8"))
-    check("leave-six-out full", leave["full"]["median"], 1.3121, 1e-3)
-    check("leave-six-out collapsed", leave["collapsed"]["median"], 1.0715, 1e-3)
+    check("leave-six-out full", leave["full"]["median"], 1.2665, 1e-3)
+    check("leave-six-out collapsed", leave["collapsed"]["median"], 1.0327, 1e-3)
 
     fcis = json.load(open(os.path.join(POST, "flagged_study_cis.json"), encoding="utf-8"))
     check("flagged B063 collapsed", fcis["rows"][0]["collapsed_ratio"], 6.566, 1e-3)
@@ -373,29 +381,29 @@ def main() -> int:
     check("tail null shape", tn["null"].shape, (200, 117))
 
     coh = json.load(open(os.path.join(POST, "coherence_control.json"), encoding="utf-8"))
-    check("coherence n", coh["n_papers"], 20)
-    check("coherence median", coh["median"], 1.0103, 1e-3)
-    check("coherence B063", coh["per_paper"]["B063"]["coherence_ratio"], 8.9499, 1e-3)
-    check("coherence B166", coh["per_paper"]["B166"]["coherence_ratio"], 7.2859, 1e-3)
-    check("coherence B201", coh["per_paper"]["B201"]["coherence_ratio"], 3.3990, 1e-3)
+    check("coherence n", coh["n_papers"], 19)
+    check("coherence median", coh["median"], 1.0849, 1e-3)
+    check("coherence B063", coh["per_paper"]["B063"]["coherence_ratio"], 6.7845, 1e-3)
+    check("coherence B166 removed after correction", "B166" in coh["per_paper"], False)
+    check("coherence B201", coh["per_paper"]["B201"]["coherence_ratio"], 3.7444, 1e-3)
 
     three = pd.read_csv(os.path.join(DATA, "coverage_3d_models.csv"))
     check("3-D curated", float(three.loc[three.set == "curated", "block_at_mean_volume"].iloc[0]),
-          1.1669, 1e-3)
+          1.1512, 1e-3)
     check("3-D all-paper", float(three.loc[three.set == "all_paper", "block_at_mean_volume"].iloc[0]),
-          1.1866, 1e-3)
+          1.1657, 1e-3)
     check("3-D include-standard",
           float(three.loc[three.set == "include_standard", "block_at_mean_volume"].iloc[0]),
-          1.0999, 1e-3)
+          1.0878, 1e-3)
 
     # Fixed-evaluation primary audit.
     fixed = json.load(open(fixed_path, encoding="utf-8"))
-    check("fixed A", fixed["designs"]["A"]["median"], 1.3291, 1e-3)
+    check("fixed A", fixed["designs"]["A"]["median"], 1.3967, 1e-3)
     check("fixed C", fixed["designs"]["C"]["median"], 0.9819, 1e-3)
-    check("fixed AC", fixed["contrasts"]["AC"]["median"], 0.2926, 1e-3)
-    check("fixed ABblock", fixed["contrasts"]["ABblock"]["median"], 0.2637, 1e-3)
-    check("fixed ABstudy", fixed["contrasts"]["ABstudy"]["median"], 0.3523, 2e-3)
-    check("fixed Bstudy", fixed["designs"]["Bstudy"]["median"], 0.9405, 2e-3)
+    check("fixed AC", fixed["contrasts"]["AC"]["median"], 0.2372, 1e-3)
+    check("fixed ABblock", fixed["contrasts"]["ABblock"]["median"], 0.1796, 1e-3)
+    check("fixed ABstudy", fixed["contrasts"]["ABstudy"]["median"], 0.1654, 2e-3)
+    check("fixed Bstudy", fixed["designs"]["Bstudy"]["median"], 1.0526, 2e-3)
     check("fixed Bstudy donor enumeration", all(
         m["bstudy_donors_enumerated"] == m["whole_study_donors"]
         for m in fixed["meta"].values()
@@ -404,31 +412,31 @@ def main() -> int:
         len(set(values)) == 1
         for values in fixed["per_paper_draws"]["Bstudy"].values()
     ), True)
-    check("fixed single ABstudy", fixed["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.3523, 2e-3)
-    check("fixed single A", fixed["subgroups"]["single"]["designs"]["A"]["median"], 1.3657, 1e-3)
-    check("fixed single C", fixed["subgroups"]["single"]["designs"]["C"]["median"], 0.9607, 1e-3)
-    check("fixed single Bblock", fixed["subgroups"]["single"]["designs"]["Bblock"]["median"], 0.9744, 1e-3)
-    check("fixed multi H", fixed["subgroups"]["multi"]["designs"]["H"]["median"], 0.9477, 1e-3)
-    check("legacy B max donor configs", fixed["legacy_B_matching"]["donor_config_count_max"], 12)
+    check("fixed single ABstudy", fixed["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.1654, 2e-3)
+    check("fixed single A", fixed["subgroups"]["single"]["designs"]["A"]["median"], 1.4158, 1e-3)
+    check("fixed single C", fixed["subgroups"]["single"]["designs"]["C"]["median"], 0.8746, 1e-3)
+    check("fixed single Bblock", fixed["subgroups"]["single"]["designs"]["Bblock"]["median"], 0.9682, 1e-3)
+    check("fixed multi H", fixed["subgroups"]["multi"]["designs"]["H"]["median"], 1.0184, 1e-3)
+    check("legacy B max donor configs", fixed["legacy_B_matching"]["donor_config_count_max"], 13)
     if "availability" in fixed:
-        check("single exact donors", fixed["availability"]["single_has_exact_donor"]["n"], 92)
+        check("single exact donors", fixed["availability"]["single_has_exact_donor"]["n"], 93)
         check("single missing donors", fixed["availability"]["single_no_exact_donor"]["n"], 5)
-        check("single whole-study donors", fixed["availability"]["single_has_whole_study_donor"]["n"], 91)
+        check("single whole-study donors", fixed["availability"]["single_has_whole_study_donor"]["n"], 92)
         check("single missing whole-study donors", fixed["availability"]["single_no_whole_study_donor"]["n"], 6)
     pcoa = json.load(open(os.path.join(fixed_dir, "pcoa_contrast.json"), encoding="utf-8"))
-    check("fixed PCoA A", pcoa["designs"]["A"]["median"], 1.3362, 1e-3)
-    check("fixed PCoA Bstudy", pcoa["designs"]["Bstudy"]["median"], 0.9813, 1e-3)
-    check("fixed PCoA ABstudy", pcoa["contrasts"]["ABstudy"]["median"], 0.3863, 2e-3)
-    check("fixed PCoA ABblock", pcoa["contrasts"]["ABblock"]["median"], 0.2946, 1e-3)
+    check("fixed PCoA A", pcoa["designs"]["A"]["median"], 1.3046, 1e-3)
+    check("fixed PCoA Bstudy", pcoa["designs"]["Bstudy"]["median"], 1.0380, 1e-3)
+    check("fixed PCoA ABstudy", pcoa["contrasts"]["ABstudy"]["median"], 0.2680, 2e-3)
+    check("fixed PCoA ABblock", pcoa["contrasts"]["ABblock"]["median"], 0.2662, 1e-3)
     rms = json.load(open(os.path.join(fixed_dir, "rms_sensitivity.json"), encoding="utf-8"))
-    check("fixed RMS ABblock", rms["contrasts"]["ABblock"]["median"], 0.2930, 1e-3)
-    check("fixed RMS single ABblock", rms["subgroups"]["single"]["contrasts"]["ABblock"]["median"], 0.3229, 1e-3)
-    check("fixed RMS ABstudy", rms["contrasts"]["ABstudy"]["median"], 0.4707, 2e-3)
-    check("fixed RMS single ABstudy", rms["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.4707, 2e-3)
+    check("fixed RMS ABblock", rms["contrasts"]["ABblock"]["median"], 0.2213, 1e-3)
+    check("fixed RMS single ABblock", rms["subgroups"]["single"]["contrasts"]["ABblock"]["median"], 0.2361, 1e-3)
+    check("fixed RMS ABstudy", rms["contrasts"]["ABstudy"]["median"], 0.2779, 2e-3)
+    check("fixed RMS single ABstudy", rms["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.2779, 2e-3)
     f3 = json.load(open(os.path.join(fixed_dir, "fixed3d_contrast.json"), encoding="utf-8"))
-    check("fixed 3-D ABstudy", f3["contrasts"]["ABstudy"]["median"], 0.1425, 2e-3)
-    check("fixed 3-D Bstudy", f3["designs"]["Bstudy"]["median"], 0.9940, 2e-3)
-    check("fixed 3-D single ABstudy", f3["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.1425, 2e-3)
+    check("fixed 3-D ABstudy", f3["contrasts"]["ABstudy"]["median"], 0.0630, 2e-3)
+    check("fixed 3-D Bstudy", f3["designs"]["Bstudy"]["median"], 0.9855, 2e-3)
+    check("fixed 3-D single ABstudy", f3["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.0630, 2e-3)
     sim_fixed = json.load(open(os.path.join(POST, "simulation_fixed.json"), encoding="utf-8"))
     check("fixed synthetic corpora", sim_fixed["design"]["replicates"], 100)
     check("fixed synthetic H0 full", sim_fixed["H0_repeated"]["full_ratio"]["median"], 1.5565, 1e-3)
@@ -436,17 +444,28 @@ def main() -> int:
     check("fixed synthetic IID full", sim_fixed["IID_rows"]["full_ratio"]["median"], 0.9894, 1e-3)
     ex1 = json.load(open(os.path.join(fixed_dir, "sensitivity_no_B208.json"), encoding="utf-8"))
     ex2 = json.load(open(os.path.join(fixed_dir, "sensitivity_no_unsure_substitutes.json"), encoding="utf-8"))
-    check("no-B208 ABstudy", ex1["contrasts"]["ABstudy"]["median"], 0.3578, 2e-3)
-    check("no-unsure ABstudy", ex2["contrasts"]["ABstudy"]["median"], 0.1509, 2e-3)
+    check("no-B208 ABstudy", ex1["contrasts"]["ABstudy"]["median"], 0.1238, 2e-3)
+    check("no-unsure ABstudy", ex2["contrasts"]["ABstudy"]["median"], 0.0900, 2e-3)
     iid = json.load(open(os.path.join(POST, "simulation_iid_null.json"), encoding="utf-8"))
     check("IID row-count median", iid["row_count_ratio"]["median"], 1.0008, 1e-3)
 
     dup = load_json("duplicate_pair_source_review_summary.json")
     dup_frame = pd.read_csv(os.path.join(DATA, "duplicate_pair_audit_frame.csv"))
-    check("duplicate human fields blank", bool(dup_frame.human_relation.isna().all() and dup_frame["match"].isna().all()), True)
+    dup_ordered = dup_frame.assign(
+        row_lo=dup_frame[["row_a", "row_b"]].min(axis=1),
+        row_hi=dup_frame[["row_a", "row_b"]].max(axis=1),
+    ).drop_duplicates(["paper", "row_lo", "row_hi"])
+    dup_resolved = dup_ordered.dropna(subset=["human_relation"])
+    check("duplicate approved records", int(dup_frame.human_relation.notna().sum()), 61, 0)
+    check("duplicate approved unique pairs", len(dup_resolved), 56, 0)
+    check("duplicate approved same", int(dup_resolved.human_relation.eq("same").sum()), 53, 0)
+    check("duplicate approved undecidable", int(dup_resolved.human_relation.eq("undecidable").sum()), 3, 0)
     check("duplicate source-review pairs", dup["total_pairs"], 83, 0)
     check("duplicate source-review same", dup["counts_by_relation"]["same"], 53, 0)
-    check("duplicate source-review false-distinct", len(dup["matrix_comparison"]["false_distinct_pairs"]), 16, 0)
+    check("duplicate matrix identical", dup["matrix_comparison"]["matrix_identical_n"], 55, 0)
+    check("duplicate matrix distinct", dup["matrix_comparison"]["matrix_distinct_n"], 28, 0)
+    check("duplicate source-review false-distinct", len(dup["matrix_comparison"]["false_distinct_pairs"]), 0, 0)
+    check("duplicate source-review false-identical", dup["matrix_comparison"]["false_identical_pairs"], ["B222_702_700"])
     check("duplicate prior-human conflicts", len(dup["matrix_comparison"]["prior_human_evidence_conflict_pairs"]), 8, 0)
     adjud = json.load(open(os.path.join(DATA, "duplicate_pair_adjudication_manifest.json"), encoding="utf-8"))
     check("adjudication all pairs", adjud["counts"]["all_pairs"], 83, 0)
@@ -503,6 +522,18 @@ def main() -> int:
     impact = pd.read_csv(os.path.join(DATA, "duplicate_pair_configuration_impact_proposed_2026-11-27.csv"))
     check("proposed impact papers", len(impact), 15, 0)
     check("proposed impact net change", int((impact.configuration_count_after - impact.configuration_count_before).sum()), -6, 0)
+    approved_corrections = pd.read_csv(os.path.join(DATA, "duplicate_pair_approved_cell_corrections_2026-11-27.csv")).fillna("")
+    check("approved cell-correction rows", len(approved_corrections), 42, 0)
+    check("approved cell corrections approved", bool(approved_corrections.coordinator_approval.eq("approved").all()), True)
+    check("approved cell corrections applied", bool(approved_corrections.application_status.eq("applied").all()), True)
+    application = load_json("duplicate_pair_cell_correction_application_audit_2026-11-27.json")
+    check("applied cell count", application["cells_applied"], 42, 0)
+    check("applied configuration count", application["configuration_count_after"], 145, 0)
+    approved_summary = load_json("duplicate_pair_human_adjudication_summary_approved_2026-11-27.json")
+    check("approved resolved pairs", approved_summary["resolved_coordinator"], 56, 0)
+    check("approved resolved same", approved_summary["resolved_relation_counts"]["same"], 53, 0)
+    check("approved resolved undecidable", approved_summary["resolved_relation_counts"]["undecidable"], 3, 0)
+    check("approved matrix matches", approved_summary["matrix_match_counts"]["yes"], 53, 0)
     for blind_name in ("duplicate_pair_human_adjudication_primary_blind.csv",
                        "duplicate_pair_human_adjudication_second_blind.csv"):
         blind = pd.read_csv(os.path.join(DATA, blind_name))

@@ -12,7 +12,8 @@ Adds the checks that the main audit's median-based summary does not expose:
 7. the study-level block factor (curated and all-paper).
 
 The point of the file is that every number in the manuscript's tail discussion
-and in Table 4's study-level/3-D rows is backed by a deposited artifact.
+and in Table 4's study-level/3-D rows is backed by a deposited artifact. When
+available, current-matrix event rebuilds are preferred over archived event tables.
 
 Writes:
     results/post_audit/tail_audit.json
@@ -180,10 +181,20 @@ def main() -> None:
     # ------------------------------------------------------------------
     # Event tables
     # ------------------------------------------------------------------
-    bb = pd.read_csv(os.path.join(DATA, "baseline_block.csv"))
-    bm = pd.read_csv(os.path.join(DATA, "baseline_matched.csv"))
-    cb = pd.read_csv(os.path.join(DATA, "collapsed_block.csv"))
-    cm = pd.read_csv(os.path.join(DATA, "collapsed_matched.csv"))
+    rebuild_full = os.path.join(POST, "..", "rebuild", "baseline_events_rebuilt.csv")
+    rebuild_coll = os.path.join(POST, "..", "rebuild", "collapsed_events_rebuilt.csv")
+    if os.path.exists(rebuild_full) and os.path.exists(rebuild_coll):
+        full_events = pd.read_csv(rebuild_full)
+        coll_events = pd.read_csv(rebuild_coll)
+    else:
+        full_events = pd.concat([pd.read_csv(os.path.join(DATA, "baseline_block.csv")),
+                                 pd.read_csv(os.path.join(DATA, "baseline_matched.csv"))])
+        coll_events = pd.concat([pd.read_csv(os.path.join(DATA, "collapsed_block.csv")),
+                                 pd.read_csv(os.path.join(DATA, "collapsed_matched.csv"))])
+    bb = full_events[full_events.arm == "block"]
+    bm = full_events[full_events.arm == "matched"]
+    cb = coll_events[coll_events.arm == "block"]
+    cm = coll_events[coll_events.arm == "matched"]
     block_full = bb[bb.arm == "block"].set_index("paper")["med_drift"]
     match_full = bm[bm.arm == "matched"].groupby("paper")["med_drift"].median()
     block_coll = cb[cb.arm == "block"].set_index("paper")["med_drift"]

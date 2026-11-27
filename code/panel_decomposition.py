@@ -41,7 +41,7 @@ def run_decomposition(X, rho, paper):
     n = len(X)
     papers = sorted(set(paper))
     uni = unique_mask(X, paper)
-    assert uni.sum() == 151, uni.sum()
+    assert uni.sum() == 145, uni.sum()
 
     S_full = fit(X)
     w = row_weights(X, paper)

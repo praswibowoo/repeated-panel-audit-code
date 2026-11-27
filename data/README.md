@@ -2,6 +2,8 @@
 
 This folder holds matrices, audit frames, event tables, and sensitivity summaries used by the manuscript. The canonical SI map is `../SI_SOURCE_INDEX.md`.
 
+The deposited legacy `baseline_*` and `collapsed_*` event tables remain archived. After the approved 2026-11-27 corrections, current-matrix event rebuilds are under `results/rebuild/`, and the fixed-evaluation outputs under `results/unit_revision_fixed/` are authoritative for the revised manuscript.
+
 ## Primary data and audit frames
 
 | File | Role |
@@ -12,11 +14,11 @@ This folder holds matrices, audit frames, event tables, and sensitivity summarie
 | `coverage_matrix_types.csv` | Water/non-water row map. |
 | `corpus_manifest.csv` | 138-paper manifest and extraction status. |
 | `cell_level_sample.csv`, `cell_level_coded.csv`, `cell_level_triage.csv` | Targeted 351-cell audit frame and coding. |
-| `duplicate_pair_audit_frame.csv` | Frozen 100-record / 83-unique-unordered-pair frame; human adjudication pending. |
+| `duplicate_pair_audit_frame.csv` | Frozen 100-record / 83-unique-unordered-pair frame; 56 priority pairs have user-approved coordinator resolutions. |
 | `duplicate_pair_source_review.csv` | Independent AI-assisted blinded source-review labels; not human adjudication. |
-| `duplicate_pair_source_review_summary.json` | Source-review counts and matrix comparison. |
-| `prior_human_cell_corrections.csv` | Thirteen P1 human-verified cell corrections, already incorporated in the P2 matrix. |
-| `prior_human_pair_evidence.csv` | Mapping of prior human corrections to the 13 affected P2 pairs. |
+| `duplicate_pair_source_review_summary.json` | Source-review counts and post-correction matrix comparison. |
+| `prior_human_cell_corrections.csv` | Thirteen historical P1 human-verified cell corrections; four are superseded by the approved 2026-11-27 review. |
+| `prior_human_pair_evidence.csv` | Mapping of prior human corrections to affected pairs, with post-correction values and resolution status. |
 | `duplicate_pair_adjudication_manifest.json` | Coordinator manifest: 56 primary pairs, 62 second-coder pairs, six QC pairs. |
 | `HUMAN_ADJUDICATION_README.md` | Coder instructions, file map, partial-processing commands, and import workflow. |
 | `duplicate_pair_human_adjudication_primary_completed_partial_2026-11-26.csv` | Extracted 31-row partial primary submission. |
@@ -37,6 +39,13 @@ This folder holds matrices, audit frames, event tables, and sensitivity summarie
 | `duplicate_pair_proposed_cell_corrections_2026-11-27.csv` | 42 unique pending binary-cell corrections; none approved or applied. |
 | `duplicate_pair_configuration_impact_proposed_2026-11-27.csv` | Provisional in-memory configuration impact: 151 to 145 across 15 papers if all corrections are approved. |
 | `duplicate_pair_coordinator_review_memo_2026-11-27.md` | Review memo covering proposed relations, prior-correction conflicts, unresolved cells, and approval sequence. |
+| `duplicate_pair_approved_cell_corrections_2026-11-27.csv` | User-approved 42-cell correction log; all cells applied. |
+| `duplicate_pair_coordinator_resolution_approved_2026-11-27.csv` | User-approved resolutions: 53 same, 3 undecidable. |
+| `duplicate_pair_cell_correction_application_audit_2026-11-27.json` | Application audit with before/after hashes and configuration counts. |
+| `duplicate_pair_human_adjudication_results_approved_2026-11-27.csv` | Final approved row-level adjudication results. |
+| `duplicate_pair_human_adjudication_summary_approved_2026-11-27.json` | Final approved counts and matrix agreement. |
+| `duplicate_pair_audit_frame_human_approved_2026-11-27.csv` | Approved human-filled audit frame. |
+| `duplicate_pair_coordinator_review_memo_approved_2026-11-27.md` | Approval/application memo, superseded prior corrections, residual issues, and downstream status. |
 | `duplicate_pair_human_adjudication_primary_blind.csv` | Blind 56-pair primary coding sheet. |
 | `duplicate_pair_human_adjudication_second_blind.csv` | Blind 62-pair independent second-coder sheet. |
 | `duplicate_pair_human_adjudication_coder.xlsx` | Coder workbook with Instructions, Primary, and Second sheets; no matrix/AI labels. |
@@ -66,6 +75,7 @@ These files are under `source/results/unit_revision_fixed/` in the release:
 | File | Role |
 |---|---|
 | `source/results/post_audit/simulation_fixed.json` | Fixed-set clustered, planted, and independent-row benchmarks. |
+| `source/results/post_audit/hamming_collapse_review.json` | Post-correction own-row Hamming-collapse ratios and configuration counts. |
 | `reproducibility/ca_sensitivity.json` | Legacy own-row correspondence-analysis sensitivity. |
 | `reproducibility/water_only_check.json` | Legacy own-row water-only sensitivity. |
 | `source/results/post_audit/dimension_sweep.json` | Legacy own-row 2–5 component sweep. |

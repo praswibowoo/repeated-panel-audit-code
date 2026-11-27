@@ -1,7 +1,7 @@
 paper,rows,unique_configs,density,matrix_types,year,journal,title,doi,full_ratio,collapsed_ratio,density_ratio,composition_ratio,coherence_ratio,min_hamming
 B063,7,2,0.302,water 5; sediment 1; biota 1,2010,Journal of Applied Sciences and Environmental Management,"Physicochemical Characteristics and Microbial Quality of an Oil Polluted Site in Gokana, Rivers State.",10.4314/jasem.v13i3.55373,9.47,6.57,4.02,5.45,8.95,1
-B166,5,2,0.427,water 3; summary 2,2025,Agro Productividad,Physicochemical and microbiological evaluation of water in the mangroves,10.32854/fbx2bz83,5.04,5.53,2.79,1.74,7.29,1
+B166,5,1,0.432,water 3; summary 2,2025,Agro Productividad,Physicochemical and microbiological evaluation of water in the mangroves,10.32854/fbx2bz83,5.04,5.53,2.79,1.74,7.29,
 B201,5,2,0.218,water 4; summary 1,2010,Khulna University Studies,"WATER CHEMISTRY IN AND AROUND THE SUNDARBANS MANGROVE FOREST, SOUTHWEST BANGLADESH",10.53808/kus.si.sesb.2010.9-20-se,3.07,4.62,5.16,1.93,3.4,18
-B102,3,1,0.159,water 3,2012,Environmental Practice,Research Article: Evaluation of the Levels of Selected Heavy Metals in Mangrove Ecosystem and Roadside Topsoil in Ghana,10.1017/s1466046612000191,5.67,4.14,6.83,10.69,,
+B102,3,2,0.174,water 3,2012,Environmental Practice,Research Article: Evaluation of the Levels of Selected Heavy Metals in Mangrove Ecosystem and Roadside Topsoil in Ghana,10.1017/s1466046612000191,5.67,4.14,6.83,10.69,,1
 B213,3,1,0.273,water 3,2026,BIO Web of Conferences,Environmental and sediment characteristics of the Ophisternon bengalense habitat in the waters of Belawan Pulau Sicanang,10.1051/bioconf/202624501014,3.05,4.65,2.74,2.42,,
-B208,6,1,0.477,water 6,2026,Data in Brief,Dataset on ecological health and microbial communities of coastal aquaculture ponds from surrounding region of Sundarban mangroves,10.1016/j.dib.2026.112542,4.97,4.53,2.67,1.06,,
+B208,6,2,0.492,water 6,2026,Data in Brief,Dataset on ecological health and microbial communities of coastal aquaculture ponds from surrounding region of Sundarban mangroves,10.1016/j.dib.2026.112542,4.97,4.53,2.67,1.06,,2

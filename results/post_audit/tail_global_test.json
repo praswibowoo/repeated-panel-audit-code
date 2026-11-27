@@ -1,5 +1,5 @@
 {
-  "method": "study labels permuted across the 151 unique configurations, preserving each paper's configuration count; collapsed block/matched ratio with 20 matched draws per paper; two-sample Cram\u00e9r--von Mises statistic; leave-one-out calibration of the permutation null",
+  "method": "study labels permuted across the 145 unique configurations, preserving each paper's configuration count; collapsed block/matched ratio with 20 matched draws per paper; two-sample Cram\u00e9r--von Mises statistic; leave-one-out calibration of the permutation null",
   "n_permutations": 200,
   "draws_per_paper": 20,
   "seed": 20261116,
@@ -7,35 +7,35 @@
     "all": {
       "n_observed": 117,
       "n_null": 23400,
-      "cvm": 0.0002935811139965417,
-      "p_permutation": 0.8656716417910447,
-      "p_permutation_loo": 0.8656716417910447,
-      "p_permutation_self": 0.8606965174129353,
-      "null_cvm_median": 0.0004962963606300662,
-      "null_cvm_median_self": 0.0004911618975131267,
-      "null_cvm_q95": 0.0011665717421372737
+      "cvm": 0.0008192491032042997,
+      "p_permutation": 0.1691542288557214,
+      "p_permutation_loo": 0.1691542288557214,
+      "p_permutation_self": 0.15920398009950248,
+      "null_cvm_median": 0.000476493385137673,
+      "null_cvm_median_self": 0.0004714559752996896,
+      "null_cvm_q95": 0.0010250106571793106
     },
     "single": {
-      "n_observed": 97,
-      "n_null": 19400,
-      "cvm": 0.00036107672052993655,
-      "p_permutation": 0.8805970149253731,
-      "p_permutation_loo": 0.8805970149253731,
-      "p_permutation_self": 0.8805970149253731,
-      "null_cvm_median": 0.000754648160077065,
-      "null_cvm_median_self": 0.0007472893529330359,
-      "null_cvm_q95": 0.0024091522863227415
+      "n_observed": 98,
+      "n_null": 19600,
+      "cvm": 0.0022099748034661157,
+      "p_permutation": 0.03980099502487562,
+      "p_permutation_loo": 0.03980099502487562,
+      "p_permutation_self": 0.03980099502487562,
+      "null_cvm_median": 0.0007458470751676627,
+      "null_cvm_median_self": 0.0007383068413901645,
+      "null_cvm_q95": 0.0020652844057054633
     },
     "multi": {
-      "n_observed": 20,
-      "n_null": 4000,
-      "cvm": 0.006807157291666667,
-      "p_permutation": 0.3333333333333333,
-      "p_permutation_loo": 0.3333333333333333,
-      "p_permutation_self": 0.32338308457711445,
-      "null_cvm_median": 0.005304660867149818,
-      "null_cvm_median_self": 0.005249845670087065,
-      "null_cvm_q95": 0.018721847301835792
+      "n_observed": 19,
+      "n_null": 3800,
+      "cvm": 0.022482802400738692,
+      "p_permutation": 0.05472636815920398,
+      "p_permutation_loo": 0.05472636815920398,
+      "p_permutation_self": 0.05472636815920398,
+      "null_cvm_median": 0.0060550098178447954,
+      "null_cvm_median_self": 0.006008798223491088,
+      "null_cvm_q95": 0.021599938906557304
     }
   }
 }

@@ -18,6 +18,8 @@ Release: `v1.8.0-2026-11-26`. Run scripts from the repository root.
 | `extract_simple_adjudication_xlsx.py` | Extract the Primary sheet from the simple workbook to CSV without Excel dependencies; converts Excel date serials | `primary_completed.csv` |
 | `import_duplicate_adjudication.py` | Validate human labels and write provisional results, strict-import readiness, pending IDs, and disagreement flags; supports partial/simple input; never edits matrix | `data/duplicate_pair_human_adjudication_results.csv` |
 | `build_adjudication_processing_report.py` | Build all-row and flagged coordinator reports with exact matrix differences and required actions; never assigns labels | `data/duplicate_pair_human_adjudication_processing_report_YYYY-MM-DD.csv` |
+| `apply_approved_duplicate_pair_corrections.py` | Validate and apply user-approved cell corrections to curated/all-paper/full-extraction/stage-A layers; refresh rho and write audit | `data/duplicate_pair_cell_correction_application_audit_YYYY-MM-DD.json` |
+| `refresh_duplicate_pair_matrix_fields.py` | Refresh pair Hamming/density/configuration fields and source-review matrix comparison after approved corrections | updated frame/key/summary/manifest |
 | `make_fig_paired_contrast.py` | Main control-geometry figure | `figures/fig_paired_contrast.pdf` |
 | `make_fig_prisma.py` | Corpus provenance figure | `figures/figS1_prisma_flow.pdf` |
 

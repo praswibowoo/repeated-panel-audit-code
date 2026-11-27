@@ -13,7 +13,7 @@ B       legacy greedy exact-volume whole-configuration control, full row fit
 Bblock  one uniformly sampled donor configuration with exactly the focal row
         volume, full row fit (available for 112/117 studies)
 Bstudy  all exact-size whole single-configuration donor studies enumerated,
-         full row fit (primary for 91/97 single-configuration studies)
+         full row fit (primary for 92/98 single-configuration studies)
 C       pooled configuration-count control, collapsed fit
 H       exploratory donor-study configuration control, collapsed
         fit (multi-configuration studies only; not coherence-balanced)
@@ -229,7 +229,7 @@ def main() -> int:
             fallback = False
 
         # Enumerate every eligible whole-study donor. The donor pools are small
-        # (median 12, maximum 18), so exhaustive enumeration removes Monte Carlo
+        # (median 12, maximum 19), so exhaustive enumeration removes Monte Carlo
         # error from the primary Bstudy control.
         study_control_drifts = []
         for j in exact_study:

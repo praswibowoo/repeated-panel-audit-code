@@ -1,14 +1,14 @@
 paper,scenario,parameter,row,current_value,status
-B034,Pom-rainy,pH,181.0,0.0,applied_zero
-B065,"Group B - offshore / island edge (GX03,12,13)",NO2 (mg/L),251.0,0.0,applied_zero
+B034,Pom-rainy,pH,181.0,1.0,superseded_by_user_approved_2026-11-27_correction
+B065,"Group B - offshore / island edge (GX03,12,13)",NO2 (mg/L),251.0,1.0,superseded_by_user_approved_2026-11-27_correction
 B065,"Group D - Beihai Bay north (GX07,08,09,10,11,14)",Chlorophyll-a (mg/m3),253.0,0.0,applied_zero
 B066,Cd bioassay (216-h static),DO (mg/L),255.0,0.0,applied_zero
 B066,Cr (VI) bioassay (216-h static),DO (mg/L),257.0,0.0,applied_zero
-B069,Station IV - nearshore coastal waters,pH,263.0,0.0,applied_zero
+B069,Station IV - nearshore coastal waters,pH,263.0,1.0,superseded_by_user_approved_2026-11-27_correction
 B069,All stations (Sep 2015; 3 pts each),Salinity (ppt/‰),264.0,0.0,applied_zero
 B092,Station 2 (ship mooring area),Secchi (m),356.0,0.0,applied_zero
 B137,St2-rain,Secchi (m),494.0,0.0,applied_zero
 B182,Sedati-coast,Secchi (m),,,scenario_not_in_curated_matrix
 B182,Sedati-coast,PO4 (mg/L),,,scenario_not_in_curated_matrix
 B182,Sedati-coast,Salinity (ppt/‰),,,scenario_not_in_curated_matrix
-B166,Zone B - black mangrove (MB) piezometers,TSS (mg/L),580.0,0.0,applied_zero
+B166,Zone B - black mangrove (MB) piezometers,TSS (mg/L),580.0,1.0,superseded_by_user_approved_2026-11-27_correction

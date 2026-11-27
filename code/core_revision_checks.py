@@ -170,7 +170,9 @@ def main():
     uniq = sorted(set(paper))
     S_full = fit(X)
 
-    events = pd.read_csv(os.path.join(RESULTS, "coverage_events.csv"))
+    rebuild_events = os.path.join(ROOT, "results", "rebuild", "baseline_events_rebuilt.csv")
+    events_path = rebuild_events if os.path.exists(rebuild_events) else os.path.join(RESULTS, "coverage_events.csv")
+    events = pd.read_csv(events_path)
     block = events[events["arm"] == "block"].set_index("paper")
     matched = events[events["arm"] == "matched"].groupby("paper")["med_drift"].median()
     assert len(block) == 117

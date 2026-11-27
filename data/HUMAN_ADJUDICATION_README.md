@@ -25,9 +25,9 @@ The simple primary file has eight columns:
 
 The primary file contains 56 priority pairs and no matrix class, Hamming distance, AI relation, priority reason, or answer key.
 
-Current submission status (2026-11-27): all 56 rows have `relation`, `evidence`, `coder`, and `date` populated. Strict structural import passes. Coordinator review remains required for 39 flagged rows; see `duplicate_pair_human_adjudication_coordinator_notes_2026-11-27.md`.
+Current submission status (2026-11-27): all 56 rows have `relation`, `evidence`, `coder`, and `date` populated. The user approved the coordinator resolution: 53 `same`, 3 `undecidable`. All 42 approved cell corrections were applied; the curated configuration count is now 145. See `duplicate_pair_human_adjudication_summary_approved_2026-11-27.json` and `duplicate_pair_cell_correction_application_audit_2026-11-27.json`.
 
-A proposed source-based coordinator package is also available: 53 `same`, 3 `undecidable`, 19 changed primary labels independently rechecked, and 42 pending cell corrections. It is not human-approved. Start with `duplicate_pair_coordinator_review_memo_2026-11-27.md`.
+The earlier proposed package remains deposited for provenance: 19 changed primary labels independently rechecked and four prior-correction conflicts explicitly approved. Start with `duplicate_pair_coordinator_review_memo_2026-11-27.md`.
 
 Do not send the coordinator workbook/key, AI source-review files, or prior-evidence files before coding is complete.
 

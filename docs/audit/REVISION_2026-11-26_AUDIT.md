@@ -24,7 +24,8 @@ Release: `v1.8.0-2026-11-26`.
 - Added Excel date-serial conversion to the simple-workbook extractor and detailed pending/disagreement identifiers to the importer summary.
 - Added a reproducible all-row adjudication-report builder with exact matrix differences, row-level flags, and required actions.
 - Processed the completed 2026-11-27 primary submission: all 56 relation labels populated; 34 same, 7 different, 15 undecidable. Strict structural import passes. Produced all-row processing and coordinator-review reports without changing the matrix or manuscript estimates.
-- Completed a proposed source-based coordinator review of all 56 pairs: 53 same, 3 undecidable, 19 changed primary labels independently rechecked, and 42 pending cell corrections. Four proposed cells conflict with prior accepted human corrections. Provisional in-memory configuration impact is 151 to 145 across 15 papers; no matrix or analysis output was changed.
+- Completed a proposed source-based coordinator review of all 56 pairs: 53 same, 3 undecidable, 19 changed primary labels independently rechecked, and 42 pending cell corrections. Four proposed cells conflict with prior accepted human corrections. Provisional in-memory configuration impact was 151 to 145 across 15 papers; no matrix or analysis output was changed at proposal stage.
+- User approved all 42 corrections. Applied them to the curated, all-paper, full-extraction, and canonical stage-A presence layers; refreshed rho, duplicate-pair matrix fields, approved audit-frame labels, and source-review comparisons. Curated configuration count is now 145. Matrix-dependent analyses were queued for full rerun.
 - Updated code/data release to v1.8.0-2026-11-26.
 
 ## Verification
@@ -33,13 +34,15 @@ Release: `v1.8.0-2026-11-26`.
 - Frozen duplicate-pair frame: 100 records / 83 unique unordered pairs; AI-assisted review labels present.
 - Exhaustive Bstudy output matches an independent enumeration script for all 91 eligible studies (maximum absolute difference 0).
 - Source-review spot checks: B153 common station panel, B080 common station panel, and B186 undecidable depth-specific water quality supported the deposited labels.
-- `verify_package.py`: PASS (106 files).
+- `verify_package.py`: PASS (114 files).
 - Adjudication-package audit: PASS (recommended eight-column primary sheet, 56 primary / 62 second-coder assignments, six QC pairs, coder-workbook blinding, 56 source-PDF hyperlinks, source availability, and 10 mapped prior corrections confirmed zero in P2 matrix).
 - Partial primary submission processed: 31/56 pairs; 19 same, 5 different, 7 undecidable; 15 matrix matches, 9 matrix disagreements, 7 undecidable. Five prior-human-evidence conflicts and eight non-correction notes flagged. No matrix or manuscript estimates changed.
 - Current primary submission processed: 56/56 labels; 34 same, 7 different, 15 undecidable; 25 matrix matches, 16 matrix disagreements, 15 undecidable. No missing evidence or coder metadata. Seventeen non-correction notes, five prior-human-evidence conflicts, and 19 automated source-review disagreements flagged; 39 rows require coordinator review. Strict structural import passes. No matrix or manuscript estimates changed.
-- Proposed coordinator review validated: 56 source-review rows, 19/19 blinded changed-label agreements, 42 unique pending cell corrections, and all 53 proposed same pairs matrix-identical after in-memory corrections. Four proposed cells conflict with prior accepted human corrections. No correction was approved or applied.
+- Proposed coordinator review validated: 56 source-review rows, 19/19 blinded changed-label agreements, 42 unique pending cell corrections, and all 53 proposed same pairs matrix-identical after in-memory corrections. Four proposed cells conflict with prior accepted human corrections. No correction was approved or applied at proposal stage.
+- User-approved correction application audited: 42 cells applied across 15 papers; curated/all-paper/full-extraction/stage-A values agree; rho refreshed; configuration count 151 to 145; 56 unique priority-pair resolutions written to the audit frame.
+- Post-correction primary fixed 2-D PCA: A$-$Bstudy 0.17 (0.07--0.37), 79\% positive, $n=92$; fixed 3-D 0.06 (0.02--0.18); RMS 0.28 (0.19--0.51). Larger exclusion A$-$Bstudy 0.09 ($-$0.01--0.17). Manuscript/SI numerical refresh in progress.
 - Importer mock tests: PASS for simple primary CSV, two-coder agreement, primary-only provisional import, coordinator resolution, forced disagreement, and partial input with missing metadata.
-- `SHA256SUMS`: all 260 manifested files verified.
+- `SHA256SUMS`: all 271 manifested files verified.
 - Numerical manuscript/SI consistency script: PASS.
 - Figure parity between code and manuscript repositories: PASS.
 - `make check`: clean; main 21 pages, SI 9 pages, title page 1 page; no undefined references/citations or overfull boxes in final logs.

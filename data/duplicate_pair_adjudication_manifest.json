@@ -164,14 +164,14 @@
     "data/duplicate_pair_human_adjudication_primary_blind.csv": "1dfb9d545eace95c80c3b956a84955a8629ea757cce181bbe5e83275576eafbe",
     "data/duplicate_pair_human_adjudication_primary_simple.csv": "1af7eaeef41df7b91392f16c7533a5bd16de5c2045c1d2f6f17acba33bc47e0f",
     "data/duplicate_pair_human_adjudication_second_blind.csv": "4f6828933d3020151eecfa2c2fb3b1cc2d6299f5ed37a1a5c452a99ac1259313",
-    "data/duplicate_pair_human_adjudication_coordinator_key.csv": "0027788c2228f9ed7a42ffefccf1f298b28172ca84e511658ad2523663e5ff71",
-    "data/prior_human_pair_evidence.csv": "fa64bb061dcb8c6ea0bbeeda939c0a29eaee94b60c162fee5c00826672fd42ce",
-    "data/prior_human_cell_corrections_status.csv": "b3101666f6a1e5d40e5367ee94144b421f91d30ed974dc49a170d22ad5352fba",
+    "data/duplicate_pair_human_adjudication_coordinator_key.csv": "6dbc03e9a5c3c9841ab1ebd1ec4df8ec1755a26a304b90aa4a2a41f0ef502f19",
+    "data/prior_human_pair_evidence.csv": "e23d391b6211f004efd41246a4786b04faecf4a3e18137016e3fe79216fcd637",
+    "data/prior_human_cell_corrections_status.csv": "baaeebd9bb66e2977d2791b87c38450da125126fec8b489a9c532a5930e2619c",
     "data/duplicate_pair_human_adjudication_coder.xlsx": "74df7c33ed72015e91b7d53c13bacecaf83a9b956096ab0fb72f4865f18f7123",
     "data/duplicate_pair_human_adjudication_primary_only.xlsx": "eda0919acc9bee433b0252bec5d155e793078fb4456d1d34cf95337a4e8b5f00",
     "data/duplicate_pair_human_adjudication_primary_simple.xlsx": "7c4192740dba2d6925a0a7943f09375a2c7625f9a89a6beba3e7e0148e88604a",
     "data/duplicate_pair_human_adjudication_second_only.xlsx": "91b57813cdd42c5d129c4eb0054b1b26b1f010e89fa8f5b16ee8b719666c0520",
-    "data/duplicate_pair_human_adjudication_coordinator.xlsx": "43db983ee5b0316ecb0578a8e6ab48281fd9d55903c54f158e6b26701658ebf3"
+    "data/duplicate_pair_human_adjudication_coordinator.xlsx": "e8069735ba0aa64a5343fd6f796772408ecd0a2884dceb1fddd9c397d5764d73"
   },
   "notes": [
     "Coder files are blind: no matrix class, Hamming distance, AI relation, or priority reason is shown.",
@@ -179,6 +179,20 @@
     "The simple sheet has eight columns; pair_id links to the source PDF and yellow columns are the only fields to complete.",
     "Prior P1 human cell corrections are evidence only; they do not replace pair-level human labels.",
     "Eight AI-same/matrix-distinct pairs conflict with prior human cell corrections and require explicit pair adjudication.",
-    "The primary assignment is the union of all matrix-identical pairs, all matrix-distinct/AI-same pairs, and all undecidable pairs."
-  ]
+    "The primary assignment is the union of all matrix-identical pairs, all matrix-distinct/AI-same pairs, and all undecidable pairs.",
+    "Coordinator key, prior-evidence files, and coordinator workbook refreshed after user-approved 2026-11-27 corrections; blind coder files remain unchanged."
+  ],
+  "post_approved_correction": {
+    "date": "2026-11-27",
+    "approved_by": "user",
+    "cells_applied": 42,
+    "matrix_identical": 55,
+    "matrix_distinct": 28,
+    "false_distinct_pairs": [],
+    "false_identical_pairs": [
+      "B222_702_700"
+    ],
+    "prior_human_evidence_conflicts_resolved": 8,
+    "configuration_count": 145
+  }
 }

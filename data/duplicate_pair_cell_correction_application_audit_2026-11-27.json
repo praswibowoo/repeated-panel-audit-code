@@ -1,0 +1,93 @@
+{
+  "approval_date": "2026-11-27",
+  "approved_by": "user",
+  "correction_file": "data/duplicate_pair_approved_cell_corrections_2026-11-27.csv",
+  "cells_applied": 42,
+  "papers_changed": 15,
+  "configuration_count_before": 151,
+  "configuration_count_after": 145,
+  "configuration_counts_by_paper": {
+    "B034": {
+      "before": 2,
+      "after": 1
+    },
+    "B065": {
+      "before": 4,
+      "after": 3
+    },
+    "B069": {
+      "before": 3,
+      "after": 2
+    },
+    "B080": {
+      "before": 3,
+      "after": 1
+    },
+    "B090": {
+      "before": 2,
+      "after": 1
+    },
+    "B092": {
+      "before": 2,
+      "after": 1
+    },
+    "B096": {
+      "before": 2,
+      "after": 3
+    },
+    "B097": {
+      "before": 1,
+      "after": 2
+    },
+    "B102": {
+      "before": 1,
+      "after": 2
+    },
+    "B153": {
+      "before": 4,
+      "after": 1
+    },
+    "B166": {
+      "before": 2,
+      "after": 1
+    },
+    "B199": {
+      "before": 1,
+      "after": 2
+    },
+    "B206": {
+      "before": 1,
+      "after": 2
+    },
+    "B208": {
+      "before": 1,
+      "after": 2
+    },
+    "B222": {
+      "before": 3,
+      "after": 2
+    }
+  },
+  "files_updated": [
+    "data/coverage_matrix.csv",
+    "data/coverage_matrix_all_paper.csv",
+    "data/coverage_matrix_full_extraction.csv",
+    "docs/extraction/stageA/matrix_presence_v2.csv"
+  ],
+  "sha256_before": {
+    "data/coverage_matrix.csv": "4e028f479144f4646815dc8b80176ee8c7fcfec363da3567f1f7cc6e59b3be96",
+    "data/coverage_matrix_all_paper.csv": "44a5be812f3f4f46c1de56d694c247b7840252b4785091f4e18c562f636aae52",
+    "data/coverage_matrix_full_extraction.csv": "d7a5fb5f1de9b2623532508712f042f23a89d62f67b7ee49864ee06634b61dd3",
+    "docs/extraction/stageA/matrix_presence_v2.csv": "269cfe7e037e4b72baa867602318aa405fcc8d9ca943cc4813174fdbaf3afcad"
+  },
+  "sha256_after": {
+    "data/coverage_matrix.csv": "63ec9c37a5321ef2e9afb3e51c7bd2eb876a8d9129995edc9a4dad7712e31024",
+    "data/coverage_matrix_all_paper.csv": "3ad97a71f4097dd63d4cc162db6348c28bcb31fe2f239074f264b9bea6bc311d",
+    "data/coverage_matrix_full_extraction.csv": "5f4163a2ce9be2e9a5186d41e0f39b1d557ae1143acba4a298403db50d562cf6",
+    "docs/extraction/stageA/matrix_presence_v2.csv": "a6d2a6e91cb26cc87218a40260e493f866b66e2904e0ae5c3b5d005107b1be0c"
+  },
+  "curated_all_paper_invariant": true,
+  "rho_refreshed": true,
+  "all_paper_configuration_count_after": 150,
+  "full_extraction_configuration_count_after": 167
+}

@@ -4,7 +4,7 @@
 The paper reports tail counts at 1.5/2/3/4.  This script replaces those
 threshold-by-threshold statements with one distributional test:
 
-  * permute study labels across the 151 unique configurations, preserving each
+  * permute study labels across the 145 unique configurations, preserving each
     paper's configuration count;
   * recompute the collapsed block/matched ratio with 20 draws per paper;
   * compare the observed 117-ratio distribution with the pooled permutation
@@ -89,8 +89,14 @@ def main() -> None:
     S_full = fit(Xc)
 
     data = data_dir()
-    cb = pd.read_csv(os.path.join(data, "collapsed_block.csv"))
-    cm = pd.read_csv(os.path.join(data, "collapsed_matched.csv"))
+    rebuild_path = os.path.join(ROOT, "results", "rebuild", "collapsed_events_rebuilt.csv")
+    if os.path.exists(rebuild_path):
+        events = pd.read_csv(rebuild_path)
+        cb = events[events.arm == "block"]
+        cm = events[events.arm == "matched"]
+    else:
+        cb = pd.read_csv(os.path.join(data, "collapsed_block.csv"))
+        cm = pd.read_csv(os.path.join(data, "collapsed_matched.csv"))
     block = cb[cb.arm == "block"].set_index("paper")["med_drift"]
     matched = cm[cm.arm == "matched"].groupby("paper")["med_drift"].median()
     observed = (block / matched).dropna()
@@ -124,7 +130,7 @@ def main() -> None:
 
     out = {
         "method": (
-            "study labels permuted across the 151 unique configurations, "
+            "study labels permuted across the 145 unique configurations, "
             "preserving each paper's configuration count; collapsed "
             "block/matched ratio with 20 matched draws per paper; "
             "two-sample Cramér--von Mises statistic; leave-one-out "

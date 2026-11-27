@@ -95,7 +95,7 @@ def run_step(name: str) -> None:
     saved_argv = sys.argv
     try:
         sys.argv = [saved_argv[0]]  # keep child parsers from seeing run_all flags
-        result = module.main()
+        result = module.run() if name in {"fixed3d", "rmsfixed"} else module.main()
     finally:
         sys.argv = saved_argv
     if name == "check" and result not in (None, 0):

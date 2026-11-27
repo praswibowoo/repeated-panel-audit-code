@@ -39,46 +39,20 @@
   ],
   "output_csv": "data/duplicate_pair_source_review.csv",
   "matrix_comparison": {
-    "matrix_identical_n": 38,
-    "matrix_identical_review_same": 37,
-    "matrix_distinct_n": 45,
-    "matrix_distinct_review_different": 27,
-    "matrix_distinct_review_same": 16,
-    "matrix_identical_sensitivity_decidable": 1.0,
-    "matrix_identical_sensitivity_conservative": 0.9736842105263158,
-    "matrix_distinct_specificity_decidable": 0.627906976744186,
-    "matrix_distinct_specificity_conservative": 0.6,
-    "overall_agreement_decidable": 0.8,
-    "false_distinct_pairs": [
-      "B069_260_263",
-      "B153_538_536",
-      "B092_356_357",
-      "B092_355_356",
-      "B080_300_299",
-      "B153_537_539",
-      "B153_539_538",
-      "B034_183_181",
-      "B090_344_342",
-      "B069_263_262",
-      "B153_536_537",
-      "B080_298_299",
-      "B166_579_580",
-      "B153_537_538",
-      "B065_250_251",
-      "B034_177_181"
-    ],
-    "false_distinct_papers": [
-      "B034",
-      "B065",
-      "B069",
-      "B080",
-      "B090",
-      "B092",
-      "B153",
-      "B166"
-    ],
-    "note": "Pairs are de-duplicated without regard to row order. Decidable metrics exclude three undecidable pairs; conservative metrics count undecidable as not matching the matrix class. AI-flagged matrix-distinct/same pairs are not confirmed matrix errors; eight conflict with prior human cell corrections.",
-    "false_distinct_status": "ai_flagged_not_confirmed",
+    "matrix_identical_n": 55,
+    "matrix_identical_review_same": 53,
+    "matrix_distinct_n": 28,
+    "matrix_distinct_review_different": 26,
+    "matrix_distinct_review_same": 0,
+    "matrix_identical_sensitivity_decidable": 0.9814814814814815,
+    "matrix_identical_sensitivity_conservative": 0.9636363636363636,
+    "matrix_distinct_specificity_decidable": 1.0,
+    "matrix_distinct_specificity_conservative": 0.9285714285714286,
+    "overall_agreement_decidable": 0.9875,
+    "false_distinct_pairs": [],
+    "false_distinct_papers": [],
+    "note": "Matrix comparison refreshed after user-approved 2026-11-27 cell corrections. The historical prior-human conflict list is retained for provenance; all eight conflicted pairs are resolved by the approved corrections.",
+    "false_distinct_status": "resolved_by_user_approved_cell_corrections",
     "prior_human_evidence_conflict_pairs": [
       "B034_177_181",
       "B034_183_181",
@@ -95,6 +69,21 @@
       "B066_258_255",
       "B066_258_257",
       "B066_259_257"
-    ]
+    ],
+    "prior_human_evidence_conflict_resolved_pairs": [
+      "B034_177_181",
+      "B034_183_181",
+      "B065_250_251",
+      "B069_260_263",
+      "B069_263_262",
+      "B092_355_356",
+      "B092_356_357",
+      "B166_579_580"
+    ],
+    "matrix_identical_review_different": 1,
+    "false_identical_pairs": [
+      "B222_702_700"
+    ],
+    "false_identical_status": "matrix_identical_but_automated_review_different"
   }
 }
