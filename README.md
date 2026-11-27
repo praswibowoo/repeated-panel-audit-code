@@ -8,7 +8,7 @@ Code, data, and result archive for:
 >
 > *Environmental and Ecological Statistics*.
 
-Release: `v1.8.0-2026-11-26` (canonical tag: https://github.com/praswibowoo/repeated-panel-audit-code/tree/v1.8.0-2026-11-26). The default `main` branch is historical and has diverged; use the tag for this release.
+Release: `v1.9.0-2026-11-27` (canonical tag: https://github.com/praswibowoo/repeated-panel-audit-code/tree/v1.9.0-2026-11-27). The default `main` branch is historical and has diverged; use the tag for this release.
 
 ## Contents
 
@@ -57,18 +57,18 @@ Use `python3 code/run_all.py --list` to inspect all available analyses. Manuscri
 | `results/unit_revision_fixed/sensitivity_no_B208.json` | Fixed exclusion of B208 |
 | `results/unit_revision_fixed/sensitivity_no_unsure_substitutes.json` | Fixed exclusion of 13 unsure records and two substitutes |
 | `results/post_audit/simulation_fixed.json` | Fixed-set clustered, planted, and independent-row benchmarks |
-| `data/duplicate_pair_audit_frame.csv` | Frozen 100-record / 83-unique-unordered-pair frame; human adjudication pending |
+| `data/duplicate_pair_audit_frame.csv` | Frozen 100-record / 83-unique-unordered-pair frame; 56 priority pairs have user-approved resolutions |
 | `data/duplicate_pair_source_review.csv` | Independent AI-assisted blinded source-review labels; not human adjudication |
 | `data/duplicate_pair_human_adjudication_coder.xlsx` | Blind 56-pair primary and 62-pair second-coder workbook |
-| `data/duplicate_pair_human_adjudication_primary_simple.xlsx` | Recommended eight-column primary workbook; send this to the primary coder |
+| `data/duplicate_pair_human_adjudication_primary_simple.xlsx` | Completed eight-column primary submission dated 2026-11-27 |
 | `data/duplicate_pair_human_adjudication_coordinator.xlsx` | Coordinator key with matrix/AI labels and prior P1 human evidence |
 
 ## Interpretation
 
-- A−Bstudy is the primary whole-study control contrast for 91 eligible single-configuration studies; all eligible whole-study donors are enumerated.
+- A−Bstudy is the primary whole-study control contrast for 92 eligible single-configuration studies; all eligible whole-study donors are enumerated.
 - A−Bblock is a secondary configuration-donor contrast; donor configurations may be embedded in multi-configuration studies.
 - A−C is a secondary protocol contrast that changes fit weighting, control geometry, reference ordination, and normalization.
-- Bstudy is available for 91/97 single-configuration studies; six lack a whole-study donor.
+- Bstudy is available for 92/98 single-configuration studies; six lack a whole-study donor.
 - H is an exploratory donor-study control, not a validated coherence match.
 - Configuration collapse is recommended only for a configuration-weighted target.
 - Per-study ratios are descriptive, not calibrated outlier scores.

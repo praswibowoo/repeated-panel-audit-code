@@ -1,6 +1,6 @@
 # Post-correction audit — 2026-11-27
 
-Status: analysis and manuscript rerun complete locally; no release tag or push.
+Status: release `v1.9.0-2026-11-27` prepared; annotated tags and branch pushes authorized.
 
 ## Approved correction application
 
@@ -63,6 +63,7 @@ Status: analysis and manuscript rerun complete locally; no release tag or push.
 
 ## Release status
 
+- Release: `v1.9.0-2026-11-27`.
 - Manifest and checksums regenerated locally.
 - Code and manuscript changes committed locally.
-- No push, release tag, or public release created.
+- Annotated tags and branch pushes authorized.

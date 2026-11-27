@@ -1,6 +1,6 @@
 # Code map
 
-Release: `v1.8.0-2026-11-26`. Run scripts from the repository root.
+Release: `v1.9.0-2026-11-27`. Run scripts from the repository root.
 
 ## Primary analyses
 

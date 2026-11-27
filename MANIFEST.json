@@ -1,6 +1,6 @@
 {
-  "release": "v1.8.0-2026-11-26",
-  "date": "2026-11-26",
+  "release": "v1.9.0-2026-11-27",
+  "date": "2026-11-27",
   "files": [
     {
       "path": ".gitignore",
@@ -19,8 +19,8 @@
     },
     {
       "path": "DATA_PROVENANCE.md",
-      "bytes": 4085,
-      "sha256": "1f7db01a44bc0e2f53daf08ac6c1d3d6815b1bf6b768e567a021b00b814d5f7f"
+      "bytes": 4059,
+      "sha256": "fa89ea6b6736d4e2004388730d076144a2ccb88f2df4475a34fd1c471ed278d2"
     },
     {
       "path": "LICENSE",
@@ -29,8 +29,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4367,
-      "sha256": "fc459f1acff9daf22583164f728961283f0f91fc21ee3f1246e5e3b781da240f"
+      "bytes": 4374,
+      "sha256": "196dcec4e9ab230abe4f593ea91cd78b1c6f74ae5e13f38a60bb5ea4a6a0b9ba"
     },
     {
       "path": "RELEASE_ID.txt",
@@ -39,8 +39,8 @@
     },
     {
       "path": "RELEASE_UPLOAD.md",
-      "bytes": 2000,
-      "sha256": "be0ba250523428723faad62c1635dd014deae33e6eb7ddeb23aaa8397f9a2b7b"
+      "bytes": 1848,
+      "sha256": "a3c4a57fdacb549dcacc1fac93c99fc8040c47d1b5c463f31badff62ac61b077"
     },
     {
       "path": "ZENODO_UPDATE.md",
@@ -50,7 +50,7 @@
     {
       "path": "code/README.md",
       "bytes": 4083,
-      "sha256": "d6abed851faf71a01395b0b6719e8bc7aa0e39433d912c8e381aac251c5d0bec"
+      "sha256": "f37183e356cd140068b81f31e91729d4649643b192a71e700c6f43bb272baa56"
     },
     {
       "path": "code/all_paper_audit.py",
@@ -649,8 +649,8 @@
     },
     {
       "path": "data/duplicate_pair_coordinator_review_memo_approved_2026-11-27.md",
-      "bytes": 2310,
-      "sha256": "78afbdf3364bb5e42193c230c779e949d26e06011bd6f75cf90919f44c470638"
+      "bytes": 2300,
+      "sha256": "493f059d5df96b0f4fc1202cdf84fbbaddb2e102aefc89392775dfcdf121b917"
     },
     {
       "path": "data/duplicate_pair_coordinator_source_review_2026-11-27.csv",
@@ -999,8 +999,8 @@
     },
     {
       "path": "docs/audit/POST_CORRECTION_2026-11-27_AUDIT.md",
-      "bytes": 3097,
-      "sha256": "7c3f6cf4e2e3ed3b08e34899e706732314507596a8317418d99367a9f3aa83e0"
+      "bytes": 3136,
+      "sha256": "fa6b576e831afc64afe9dc9f4d05586f6ebfe1bfb0de7e65ab6f128c03c45c0e"
     },
     {
       "path": "docs/audit/REVISION_2026-11-25_AUDIT.md",

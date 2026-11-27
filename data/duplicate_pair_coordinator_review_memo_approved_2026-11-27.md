@@ -48,4 +48,4 @@ The fixed 2-D PCA rerun gives A$-$Bstudy = **0.17 (0.07--0.37)** across 92 eligi
 
 ## Downstream status
 
-The full matrix-dependent analysis suite and manuscript/SI numerical refresh are complete. `verify_package.py` passes, the final LaTeX build is clean, and changes are committed locally. No release tag or push has been created.
+The full matrix-dependent analysis suite and manuscript/SI numerical refresh are complete. `verify_package.py` passes, the final LaTeX build is clean, and release `v1.9.0-2026-11-27` is prepared for tagging and push.
