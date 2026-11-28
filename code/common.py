@@ -17,6 +17,7 @@ from __future__ import annotations
 import os
 import zlib
 from collections import Counter
+from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
@@ -52,6 +53,32 @@ COVERAGE_CANDIDATES = (
     os.path.join(ROOT, "data", "coverage_matrix.csv"),
     os.path.join(ROOT, "manuscript", "ees", "reproducibility", "coverage_matrix.csv"),
 )
+PRIMARY_COVERAGE = os.path.join(ROOT, "data", "coverage_matrix_primary.csv")
+
+
+@dataclass(frozen=True)
+class LoadedMatrix:
+    """Coverage matrix plus active-parameter provenance."""
+
+    X: np.ndarray
+    rho: np.ndarray
+    paper: np.ndarray
+    parameters: tuple[str, ...]
+    empty_parameters: tuple[str, ...]
+    source: str
+    corpus: str
+    excluded_papers: tuple[str, ...]
+
+    def metadata(self) -> dict:
+        return {
+            "corpus": self.corpus,
+            "matrix_path": os.path.relpath(self.source, ROOT),
+            "active_parameters": list(self.parameters),
+            "n_active_parameters": len(self.parameters),
+            "empty_parameters_dropped": list(self.empty_parameters),
+            "loader_excluded_papers": list(self.excluded_papers),
+            "rho_definition": "row mean over active (populated) parameter columns",
+        }
 
 
 def fit(X: np.ndarray, dims: int = 2) -> np.ndarray:
@@ -158,18 +185,60 @@ def seed_for(paper_id: str, salt: int = 0) -> int:
     return SEED + salt + zlib.crc32(paper_id.encode()) % 100000
 
 
-def load_matrix(path: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Load a coverage matrix as X, rho, paper."""
+def _load_matrix_data(
+    path: str,
+    corpus: str,
+    excluded_papers: tuple[str, ...] = (),
+) -> LoadedMatrix:
     frame = pd.read_csv(path)
-    params = [c for c in frame.columns if c not in ("paper", "row", "rho")]
-    X = frame[params].to_numpy(float)
+    nominal = [c for c in frame.columns if c not in ("paper", "row", "rho")]
+    values = frame[nominal].to_numpy(float)
+    active_mask = np.any(values != 0, axis=0)
+    parameters = tuple(c for c, keep in zip(nominal, active_mask) if keep)
+    empty_parameters = tuple(c for c, keep in zip(nominal, active_mask) if not keep)
+    if not parameters:
+        raise ValueError(f"no populated parameter columns in {path}")
+    X = frame[list(parameters)].to_numpy(float)
     rho = X.mean(axis=1)
     paper = frame["paper"].to_numpy()
-    return X, rho, paper
+    if excluded_papers:
+        keep = ~np.isin(paper, excluded_papers)
+        X, rho, paper = X[keep], rho[keep], paper[keep]
+    return LoadedMatrix(
+        X=X,
+        rho=rho,
+        paper=paper,
+        parameters=parameters,
+        empty_parameters=empty_parameters,
+        source=os.path.abspath(path),
+        corpus=corpus,
+        excluded_papers=excluded_papers,
+    )
 
 
-def load_curated(path: str | None = None) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Load the 716-row / 117-paper curated matrix."""
+def load_matrix(path: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Load X, recomputed rho, and paper after dropping all-zero parameters."""
+    loaded = _load_matrix_data(path, corpus="custom")
+    return loaded.X, loaded.rho, loaded.paper
+
+
+def _validate_shape(loaded: LoadedMatrix, rows: int, papers: int, parameters: int) -> None:
+    if loaded.X.shape != (rows, parameters):
+        raise ValueError(
+            f"expected {rows} x {parameters} populated {loaded.corpus} matrix, "
+            f"found {loaded.X.shape}"
+        )
+    n_papers = len(set(loaded.paper))
+    if n_papers != papers:
+        raise ValueError(f"expected {papers} papers, found {n_papers}")
+
+
+def load_curated(
+    path: str | None = None,
+    *,
+    return_metadata: bool = False,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray] | LoadedMatrix:
+    """Load the full 716-row / 117-paper / 42-active-parameter sensitivity corpus."""
     if path is None:
         for candidate in COVERAGE_CANDIDATES:
             if os.path.exists(candidate):
@@ -179,11 +248,22 @@ def load_curated(path: str | None = None) -> tuple[np.ndarray, np.ndarray, np.nd
         raise FileNotFoundError(
             "coverage_matrix.csv not found; expected data/coverage_matrix.csv"
         )
-    X, rho, paper = load_matrix(path)
-    keep = ~np.isin(paper, EXCLUDED)
-    X, rho, paper = X[keep], rho[keep], paper[keep]
-    if X.shape != (716, 44):
-        raise ValueError(f"expected 716 x 44 curated matrix, found {X.shape}")
-    if len(set(paper)) != 117:
-        raise ValueError(f"expected 117 papers, found {len(set(paper))}")
-    return X, rho, paper
+    loaded = _load_matrix_data(path, corpus="full_curated", excluded_papers=EXCLUDED)
+    _validate_shape(loaded, rows=716, papers=117, parameters=42)
+    if return_metadata:
+        return loaded
+    return loaded.X, loaded.rho, loaded.paper
+
+
+def load_primary(
+    path: str | None = None,
+    *,
+    return_metadata: bool = False,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray] | LoadedMatrix:
+    """Load the 555-row / 87-paper / 42-active-parameter primary corpus."""
+    path = path or PRIMARY_COVERAGE
+    loaded = _load_matrix_data(path, corpus="primary")
+    _validate_shape(loaded, rows=555, papers=87, parameters=42)
+    if return_metadata:
+        return loaded
+    return loaded.X, loaded.rho, loaded.paper

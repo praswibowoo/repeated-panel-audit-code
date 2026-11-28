@@ -6,68 +6,74 @@
     "draws": 30,
     "replicates": 100,
     "seed": 20261125,
-    "estimator": "fixed nonfocal configuration set with out-of-fit projection"
+    "estimator": "ratio_of_medians",
+    "estimator_formula": "R_s = block_drift_s / median(control_drifts_s)",
+    "evaluation": "fixed nonfocal configuration set with out-of-fit projection",
+    "empirical_bblock_enumeration": "exhaustive in unit_revision_fixed.py and pcoa_fixed.py",
+    "simulation_bblock_enumeration": "sampled",
+    "simulation_bblock_draws": 30,
+    "caption_metadata": "Synthetic Bblock uses sampled exact-size donor configurations to bound runtime; empirical Bblock is exhaustive. All ratios are block drift divided by the median control drift."
   },
   "H0_repeated": {
     "full_ratio": {
-      "median": 1.5565226878861647,
-      "q025": 1.28257129889062,
-      "q975": 1.8125528581738388,
-      "mean": 1.551819698815029
+      "median": 1.5564716173564264,
+      "q025": 1.2814770571661094,
+      "q975": 1.810426647999977,
+      "mean": 1.5510688959018546
     },
     "whole_configuration_ratio": {
-      "median": 0.9929804600465526,
-      "q025": 0.899134320172583,
-      "q975": 1.074818751026682,
-      "mean": 0.9910922282166021
+      "median": 0.9926365652349258,
+      "q025": 0.8986708083601945,
+      "q975": 1.0730072779293554,
+      "mean": 0.98852892835626
     },
     "collapsed_ratio": {
-      "median": 0.9785942250847621,
-      "q025": 0.9093259797582213,
-      "q975": 1.0891058683300028,
-      "mean": 0.9808707251670893
+      "median": 0.9751613637358757,
+      "q025": 0.9067861093316624,
+      "q975": 1.0867746535354137,
+      "mean": 0.9788879364895543
     }
   },
   "H1_planted": {
     "full_ratio": {
-      "median": 1.5075637120053669,
-      "q025": 1.1680995019614853,
-      "q975": 1.7953987759496255,
-      "mean": 1.4942697241743401
+      "median": 1.5072090023488094,
+      "q025": 1.1662679756709229,
+      "q975": 1.7928912270964608,
+      "mean": 1.4935694497918093
     },
     "whole_configuration_ratio": {
-      "median": 0.967878710594479,
-      "q025": 0.8903239192475212,
-      "q975": 1.0750153062895096,
-      "mean": 0.9707808773050515
+      "median": 0.9639045901715271,
+      "q025": 0.8901343468659797,
+      "q975": 1.074309988551041,
+      "mean": 0.9689965883710999
     },
     "collapsed_ratio": {
-      "median": 0.979753126352723,
-      "q025": 0.8886111917564989,
-      "q975": 1.0963348568073663,
-      "mean": 0.9851002058556334
+      "median": 0.9774970196120126,
+      "q025": 0.8881707160691754,
+      "q975": 1.0958433321514245,
+      "mean": 0.9828054385672479
     },
     "planted_collapsed_ratio": {
-      "median": 3.9880183505898863,
-      "q025": 1.3878112864349277,
-      "q975": 11.094782375599785,
-      "mean": 4.864882675464946
+      "median": 3.9488147237639133,
+      "q025": 1.377918407530436,
+      "q975": 11.078504420388024,
+      "mean": 4.8520020951481975
     },
     "planted_top1_pct": 47.0,
     "planted_above_2x_pct": 90.0
   },
   "IID_rows": {
     "full_ratio": {
-      "median": 0.9894113520905284,
-      "q025": 0.8865144036067275,
-      "q975": 1.0859026526010886,
-      "mean": 0.9885580250544157
+      "median": 0.9890704380616909,
+      "q025": 0.8860563208242043,
+      "q975": 1.0858625994189524,
+      "mean": 0.9880790345446158
     },
     "collapsed_ratio": {
-      "median": 0.981282328377104,
-      "q025": 0.8761473993057659,
-      "q975": 1.092918887311064,
-      "mean": 0.9853136803818905
+      "median": 0.9812322526691897,
+      "q025": 0.8753253852992466,
+      "q975": 1.092831370686059,
+      "mean": 0.9846442742420884
     }
   }
 }

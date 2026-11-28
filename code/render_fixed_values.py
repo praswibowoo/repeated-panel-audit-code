@@ -5,8 +5,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import numpy as np
-
 ROOT = Path(__file__).resolve().parent.parent
 FIXED = ROOT / "results" / "unit_revision_fixed" / "common_contrast.json"
 PCOA = ROOT / "results" / "unit_revision_fixed" / "pcoa_contrast.json"
@@ -20,6 +18,8 @@ def pair(x: dict) -> str:
 
 
 def parts(x: dict, prefix: str) -> dict[str, str]:
+    if x.get("median") is None:
+        return {prefix: "NA", prefix + "_LO": "NA", prefix + "_HI": "NA"}
     return {
         prefix: f"{x['median']:.2f}",
         prefix + "_LO": f"{x['ci_lo']:.2f}",
@@ -38,6 +38,15 @@ def rep_parts(x: dict, prefix: str) -> dict[str, str]:
 def main() -> None:
     d = json.loads(FIXED.read_text())
     vals: dict[str, str] = {}
+    vals["PRIMARY_PAPERS"] = str(d["design"]["studies"])
+    vals["PRIMARY_ROWS"] = str(d["design"]["rows"])
+    vals["PRIMARY_CONFIGURATIONS"] = str(d["design"]["configurations"])
+    vals["ACTIVE_PARAMETERS"] = str(d["design"]["n_active_parameters"])
+    vals["SINGLE_CONFIG_N"] = str(d["subgroups"]["single"]["n"])
+    vals["MULTI_CONFIG_BACKGROUND_N"] = str(d["subgroups"]["multi"]["n"])
+    vals["BSTUDY_ELIGIBLE_N"] = str(d["availability"]["single_has_whole_study_donor"]["n"])
+    vals["BBLOCK_ELIGIBLE_N"] = str(d["availability"]["single_has_exact_donor"]["n"])
+    vals["ESTIMATOR"] = d["estimator"]["name"]
     vals.update(parts(d["designs"]["A"], "A_ALL"))
     vals.update(parts(d["designs"]["Bblock"], "BLOCK_ALL"))
     vals.update(parts(d["designs"]["C"], "C_ALL"))
@@ -67,7 +76,6 @@ def main() -> None:
     vals.update(parts(m["designs"]["C"], "C_MULTI"))
     vals.update(parts(m["contrasts"]["ABblock"], "AB_MULTI"))
     vals.update(parts(m["contrasts"]["AC"], "AC_MULTI"))
-    vals.update(parts(m["designs"]["H"], "H_MULTI"))
 
     if "availability" in d:
         vals["ALL_HAS_DONOR_N"] = str(d["availability"]["all_has_exact_donor"]["n"])
@@ -80,22 +88,18 @@ def main() -> None:
         vals.update(parts(d["availability"]["all_has_exact_donor"]["designs"]["A"], "A_HAS_DONOR"))
         vals.update(parts(d["availability"]["single_has_exact_donor"]["designs"]["A"], "A_SINGLE_HAS_DONOR"))
 
-    for label, lo, hi in (("2_5", 2, 5), ("6_10", 6, 10), ("11_PLUS", 11, 10**6)):
-        papers = [
-            p for p, m in d["meta"].items()
-            if m["n_configs"] == 1 and m["whole_study_donors"] > 0
-            and lo <= m["n_rows"] <= hi
-        ]
-        x = np.asarray([d["per_paper"]["ABstudy"][p] for p in papers], float)
-        rng = np.random.default_rng(42)
-        boot = np.asarray([
-            np.median(x[rng.integers(0, len(x), len(x))]) for _ in range(10000)
-        ])
+    for label, stratum_key in (
+        ("2_5", "2-5"), ("6_10", "6-10"), ("11_PLUS", ">=11")
+    ):
+        stratum = d["block_size_strata"][stratum_key]
+        x = stratum["contrasts"]["ABstudy"]
         prefix = f"ABSTUDY_BLOCK_{label}"
-        vals[prefix] = f"{np.median(x):.2f}"
-        vals[prefix + "_LO"] = f"{np.quantile(boot, 0.025):.2f}"
-        vals[prefix + "_HI"] = f"{np.quantile(boot, 0.975):.2f}"
-        vals[prefix + "_N"] = str(len(x))
+        vals.update(parts(x, prefix))
+        vals[prefix + "_N"] = str(x["n"])
+        vals[prefix + "_SINGLE_TOTAL_N"] = str(stratum["n_single_configuration"])
+        block = stratum["contrasts"]["ABblock"]
+        vals.update(parts(block, f"ABBLOCK_BLOCK_{label}"))
+        vals[f"ABBLOCK_BLOCK_{label}_N"] = str(block["n"])
 
     if PCOA.exists():
         p = json.loads(PCOA.read_text())

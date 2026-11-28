@@ -1,61 +1,47 @@
-# Upload instructions — v1.9.2-2026-11-28
+# Release preparation — v1.10.0-2026-11-28
 
-## 1. Code/data repository
+Status: release candidate prepared; commit, annotated tag, and push are authorized for `v1.10.0-2026-11-28`.
 
-Repository: https://github.com/praswibowoo/repeated-panel-audit-code
-
-Release branch: `revision/q1-scope`
+## Verification before tagging
 
 ```bash
-cd p2-deletion-audit-code
+python3 code/build_primary_corpus.py
+python3 code/unit_revision_fixed.py --draws 100
+python3 code/fixed3d_sensitivity.py
+python3 code/pcoa_fixed.py --draws 100
+python3 code/rms_fixed_sensitivity.py
+python3 code/control_balance_fixed.py
+python3 code/render_fixed_values.py
+python3 code/make_fig_paired_contrast.py
+python3 code/make_fig_prisma.py
+python3 code/export_strata.py
+python3 code/compare_convergence.py
 python3 code/refresh_release_hashes.py
 python3 code/verify_package.py
 shasum -a 256 -c SHA256SUMS
-git status
+```
+
+The 500-draw run is optional for routine reproduction and is deposited as
+`results/unit_revision_fixed/convergence_500.json`.
+
+## Author-approved release actions
+
+Only after the working tree and audit are approved:
+
+```bash
 git add .
-git commit -m "Release v1.9.2-2026-11-28: refresh control balance and strengthen verifier"
+git commit -m "Release v1.10.0-2026-11-28: eligibility-qualified primary corpus and exhaustive nested controls"
+git tag -a v1.10.0-2026-11-28 -m "Eligibility-qualified deletion-unit audit"
 git push origin HEAD
-git tag -a v1.9.2-2026-11-28 -m "Control-balance refresh and cross-file verification"
-git push origin v1.9.2-2026-11-28
+git push origin v1.10.0-2026-11-28
 ```
 
-Verify:
+Then verify the raw GitHub URLs for `code/unit_revision_fixed.py`,
+`data/coverage_matrix_primary.csv`, and
+`results/unit_revision_fixed/common_contrast.json`.
 
-```bash
-curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.2-2026-11-28/code/unit_revision_fixed.py
-curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.2-2026-11-28/results/unit_revision_fixed/common_contrast.json
-curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.2-2026-11-28/data/coverage_matrix.csv
-```
+## Manuscript package
 
-## 2. Manuscript repository
-
-Repository: https://github.com/praswibowoo/repeated-panel-audit
-
-Release branch: `revision/q1-scope`
-
-```bash
-cd p2-deletion-audit
-(cd source/manuscript/ees && make check)
-git add README.md source/figures source/manuscript/ees
-git commit -m "Release v1.9.2-2026-11-28: update release links"
-git push origin HEAD
-git tag -a v1.9.2-2026-11-28 -m "Release-link update for control-balance patch"
-git push origin v1.9.2-2026-11-28
-```
-
-Build check:
-
-```bash
-cd source/manuscript/ees
-make check
-```
-
-## 3. Submission files
-
-Upload `main.pdf`, `main_supplementary.pdf`, the corresponding LaTeX sources, required figures/style files, and `cover_letter.pdf` through the journal submission system.
-
-## 4. Archival DOI
-
-A Zenodo software DOI is recommended after the GitHub tags are verified. The existing corpus DOI remains separate:
-
-https://doi.org/10.5281/zenodo.23973301
+Upload `main.pdf`, `main_supplementary.pdf`, `cover_letter.pdf`, corresponding
+LaTeX sources, figures, and style files. The manuscript links to the immutable
+`v1.10.0-2026-11-28` code-release tag.

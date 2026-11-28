@@ -1,19 +1,26 @@
 # Reproducibility deposit — key map
 
-This folder holds matrices, audit frames, event tables, and sensitivity summaries used by the manuscript. The canonical SI map is `../SI_SOURCE_INDEX.md`.
+This folder holds matrices, audit frames, event tables, and sensitivity summaries used by the manuscript. The canonical SI map is `SI_SOURCE_INDEX.md` in the manuscript repository.
 
-The deposited legacy `baseline_*` and `collapsed_*` event tables remain archived. After the approved 2026-11-27 corrections, current-matrix event rebuilds are under `results/rebuild/`, and the fixed-evaluation outputs under `results/unit_revision_fixed/` are authoritative for the revised manuscript.
+The deposited legacy `baseline_*` and `collapsed_*` event tables remain archived. After the approved 2026-11-27 corrections, current-matrix event rebuilds are under `results/rebuild/`, and the fixed-evaluation outputs under `results/unit_revision_fixed/` are authoritative for the revised manuscript. Stored `rho` values in all coverage matrices are row means over the 42 populated parameter columns, not the 44 nominal columns.
 
 ## Primary data and audit frames
 
 | File | Role |
 |---|---|
-| `coverage_matrix.csv` | Curated 716-row / 117-study binary coverage matrix. |
+| `coverage_matrix_primary.csv` | Eligibility-qualified primary corpus: 87 papers, 555 rows, 93 configurations, 81 single-configuration papers. |
+| `corpus_manifest_primary.csv` | Eligibility-qualified manifest rows for the primary corpus. |
+| `corpus_manifest_audit.csv` | All-paper manifest with screening, substitution, eligibility, exclusion reasons, and pair IDs. |
+| `primary_corpus_exclusions.csv` | Paper-level primary exclusion reasons and pair-level traceability. |
+| `parameter_dictionary.csv` | Definitions and units for the 44 nominal parameters. |
+| `substitute_intake_log.csv` | Substitute-paper provenance. |
+| `primary_corpus_summary.json` | Primary/full-curated counts, exclusion reasons, and coder concordance. |
+| `coverage_matrix.csv` | Full curated sensitivity corpus: 716 rows / 117 papers; not the default primary matrix. |
 | `coverage_matrix_all_paper.csv` | 730-row / 122-study all-paper sensitivity. |
 | `coverage_matrix_full_extraction.csv` | 764-row / 122-study full extraction. |
 | `coverage_matrix_types.csv` | Water/non-water row map. |
 | `corpus_manifest.csv` | 138-paper manifest and extraction status. |
-| `cell_level_sample.csv`, `cell_level_coded.csv`, `cell_level_triage.csv` | Targeted 351-cell audit frame and coding. |
+| `cell_level_sample.csv`, `cell_level_coded.csv`, `cell_level_triage.csv` | 351-cell automated text-triage and targeted snippet-review audit; not independent page-checking of every cell. |
 | `duplicate_pair_audit_frame.csv` | Frozen 100-record / 83-unique-unordered-pair frame; 56 priority pairs have author-approved coordinator resolutions. |
 | `duplicate_pair_source_review.csv` | Independent AI-assisted blinded source-review labels; not human adjudication. |
 | `duplicate_pair_source_review_summary.json` | Source-review counts and post-correction matrix comparison. |
@@ -58,28 +65,32 @@ The deposited legacy `baseline_*` and `collapsed_*` event tables remain archived
 
 ## Fixed-evaluation outputs
 
-These files are under `source/results/unit_revision_fixed/` in the release:
+These files are under `results/unit_revision_fixed/` in this package:
 
 | File | Role |
 |---|---|
-| `common_contrast.json` | Primary PCA designs, contrasts, configuration strata, donor availability, and per-study draws. |
-| `pcoa_contrast.json` | Fixed-set two-dimensional Jaccard PCoA sensitivity. |
-| `rms_sensitivity.json` | Fixed-set PCA sensitivity using RMS event drift. |
-| `control_balance.json` | Bstudy/Bblock balance, donor composition, and missing-donor studies. |
-| `sensitivity_no_B208.json` | Fixed-set exclusion of B208. |
-| `sensitivity_no_unsure_substitutes.json` | Fixed-set exclusion of 13 unsure records and the two substitutes retained in the curated set. |
+| `common_contrast.json` | Current primary ratio-of-medians PCA audit with exhaustive Bstudy/Bblock, strata, nested-pool diagnostics, block drifts, and control-drift lists. |
+| `fixed3d_contrast.json` | Current fixed-set 3-D PCA sensitivity. |
+| `pcoa_contrast.json` | Current fixed-set two-dimensional Jaccard PCoA sensitivity. |
+| `rms_sensitivity.json` | Current fixed-set PCA sensitivity using RMS event drift. |
+| `control_balance.json` | Current Bstudy/Bblock balance, donor composition, and missing-donor studies. |
+| `sensitivity_full_curated.json` | Current estimator applied to the full 117-paper curated sensitivity corpus. |
 | `manuscript_values.json` | Rounded values used by checks. |
+| `strata_sensitivity.csv` | Flat block-size results across 2-D, 3-D, PCoA, RMS, and full-curated sensitivity. |
+| `donor_pool_by_focal.csv` | Per-focal Bstudy/Bblock donor counts and nesting. |
+| `convergence_100_vs_500.json` | 100-versus-500 draw convergence audit. |
+| `sensitivity_no_B208.json`, `sensitivity_no_unsure_substitutes.json` | Legacy full-curated exclusion outputs; provenance only. |
 
 ## Synthetic and sensitivity outputs
 
 | File | Role |
 |---|---|
-| `source/results/post_audit/simulation_fixed.json` | Fixed-set clustered, planted, and independent-row benchmarks. |
-| `source/results/post_audit/hamming_collapse_review.json` | Post-correction own-row Hamming-collapse ratios and configuration counts. |
-| `reproducibility/ca_sensitivity.json` | Legacy own-row correspondence-analysis sensitivity. |
-| `reproducibility/water_only_check.json` | Legacy own-row water-only sensitivity. |
-| `source/results/post_audit/dimension_sweep.json` | Legacy own-row 2–5 component sweep. |
-| `source/results/post_audit/procrustes_holdout.json` | Legacy own-row held-out alignment sensitivity. |
-| `source/results/post_audit/leave_flagged_out.json` | Legacy own-row leave-six-out sensitivity. |
+| `../results/post_audit/simulation_fixed.json` | Fixed-set clustered and independent-row benchmarks; planted result retained in JSON but not reported in the manuscript. |
+| `../results/post_audit/hamming_collapse_review.json` | Post-correction own-row Hamming-collapse ratios and configuration counts. |
+| `ca_sensitivity.json` | Legacy own-row correspondence-analysis sensitivity. |
+| `water_only_check.json` | Legacy own-row water-only sensitivity. |
+| `../results/post_audit/dimension_sweep.json` | Legacy own-row 2–5 component sweep. |
+| `../results/post_audit/procrustes_holdout.json` | Legacy own-row held-out alignment sensitivity. |
+| `../results/post_audit/leave_flagged_out.json` | Legacy own-row leave-six-out sensitivity. |
 
 Legacy event tables and archived analyses remain in the release for continuity but are not used for the manuscript's current claims.

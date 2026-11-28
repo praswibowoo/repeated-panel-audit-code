@@ -15,9 +15,11 @@ H1 planted study:
 IID rows:
     Independent Bernoulli(0.30) rows assigned to study blocks.
 
-Outputs are median per-study ratios across 100 synthetic corpora. The clustered
-benchmarks report row-count, whole-configuration, and collapsed ratios.
-Intervals are 2.5--97.5% across corpora, not bootstrap confidence intervals.
+Outputs are median per-study ratios across 100 synthetic corpora. Each ratio is
+block drift divided by median control drift. The clustered benchmarks report
+row-count, sampled whole-configuration, and collapsed ratios; empirical Bblock
+in the main audit is exhaustive. Intervals are 2.5--97.5% across corpora, not
+bootstrap confidence intervals.
 """
 from __future__ import annotations
 
@@ -30,7 +32,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from common import unique_mask  # noqa: E402
-from unit_revision_fixed import fit_pca, median_drift  # noqa: E402
+from unit_revision_fixed import fit_pca, median_drift, ratio_of_medians  # noqa: E402
 
 SEED = 20261125
 S = 60
@@ -105,31 +107,31 @@ def audit(X: np.ndarray, paper: np.ndarray, rng: np.random.Generator):
         donors = np.where(keep_block)[0]
         donors_c = np.where(keep_block_c)[0]
         exact_block = [j for j in donors_c if config_size[j] == n_p]
-        rA, rB, rC = [], [], []
+        drift_A, drift_B, drift_C = [], [], []
         for _ in range(DRAWS):
             drop_A = rng.choice(donors, size=n_p, replace=False)
             keep_A = np.ones(n, bool)
             keep_A[drop_A] = False
             P_A = fit_pca(X[keep_A])
-            rA.append(d_block / median_drift(ref, P_A.transform(X[reps])))
+            drift_A.append(median_drift(ref, P_A.transform(X[reps])))
 
             if exact_block:
                 j = exact_block[int(rng_b.integers(0, len(exact_block)))]
                 keep_B = np.ones(n, bool)
                 keep_B[config_rows[j]] = False
                 P_B = fit_pca(X[keep_B])
-                rB.append(d_block / median_drift(ref, P_B.transform(X[reps])))
+                drift_B.append(median_drift(ref, P_B.transform(X[reps])))
 
             drop_C = rng.choice(donors_c, size=nu, replace=False)
             keep_C = np.ones(nc, bool)
             keep_C[drop_C] = False
             P_C = fit_pca(Xc[keep_C])
-            rC.append(d_block_c / median_drift(ref_c, P_C.transform(Xc[E])))
+            drift_C.append(median_drift(ref_c, P_C.transform(Xc[E])))
 
-        A[p] = float(np.median(rA))
-        if rB:
-            Bblock[p] = float(np.median(rB))
-        C[p] = float(np.median(rC))
+        A[p] = ratio_of_medians(d_block, drift_A)
+        if drift_B:
+            Bblock[p] = ratio_of_medians(d_block, drift_B)
+        C[p] = ratio_of_medians(d_block_c, drift_C)
     return A, Bblock, C
 
 
@@ -153,7 +155,17 @@ def main() -> None:
             "draws": DRAWS,
             "replicates": REPS,
             "seed": SEED,
-            "estimator": "fixed nonfocal configuration set with out-of-fit projection",
+            "estimator": "ratio_of_medians",
+            "estimator_formula": "R_s = block_drift_s / median(control_drifts_s)",
+            "evaluation": "fixed nonfocal configuration set with out-of-fit projection",
+            "empirical_bblock_enumeration": "exhaustive in unit_revision_fixed.py and pcoa_fixed.py",
+            "simulation_bblock_enumeration": "sampled",
+            "simulation_bblock_draws": DRAWS,
+            "caption_metadata": (
+                "Synthetic Bblock uses sampled exact-size donor configurations to bound "
+                "runtime; empirical Bblock is exhaustive. All ratios are block drift "
+                "divided by the median control drift."
+            ),
         },
         "H0_repeated": {},
         "H1_planted": {},

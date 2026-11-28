@@ -1,7 +1,7 @@
 cff-version: 1.2.1
 message: "If you use this code, cite the paper and this release."
-title: "Deletion-unit choice in leave-one-study-out audits of repeated binary coverage rows"
-abstract: "Fixed-evaluation whole-study and configuration-donor LOSO audit for pooled binary parameter-coverage matrices."
+title: "Row-count versus whole-study controls for repeated single-configuration blocks in binary coverage audits"
+abstract: "Eligibility-qualified fixed-evaluation ratio-of-medians audit with exhaustive nested whole-paper and configuration donor pools."
 type: software
 authors:
   - family-names: Wibowo
@@ -12,13 +12,13 @@ authors:
     orcid: "https://orcid.org/0000-0001-8400-7469"
   - family-names: Kiyoki
     given-names: Yasushi
-version: 1.9.2
+version: 1.10.0
 date-released: "2026-11-28"
 license: MIT
 url: "https://github.com/praswibowoo/repeated-panel-audit-code"
 repository-code: "https://github.com/praswibowoo/repeated-panel-audit-code"
 keywords:
   - ordination stability
-  - cluster deletion
+  - cluster resampling
   - Procrustes analysis
   - coverage matrices

@@ -1,0 +1,4 @@
+batch_id,cand_id,source,provider,sha256,size_kb,status,timestamp
+B240,C4,quarantined-probe-PDF (identity verified: published DOI = 10.14710/jil.16.135-43 matches PDF citation line),JIL/UNDIP (diamond OA),e6e3dd1af7d92f00ba8a324cc4d1b7e364c860fbda4d2dd22bcfeeb8ba4ac5cd,219,PDF-OK,2026-10-02 06:55 UTC
+B238,C3,https://link.springer.com/content/pdf/10.1007/s13201-019-1034-5.pdf,Applied Water Science (Springer),0d180fdbf5d651db98ebf1b3f8f24c624e214aa28e505842cf1f89b619c55c42,1228,PDF-OK,2026-10-02 06:55 UTC
+B239,C2,https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2020.00648/pdf,Frontiers in Marine Science,cc5f5a47c09f8257ae5d05c4dd8f614acd004202dff3c308d0d599b4c0db20b5,3601,PDF-OK,2026-10-02 06:55 UTC

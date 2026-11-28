@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the fixed-evaluation PCA audit with RMS event drift."""
+"""Run the primary ratio-of-medians PCA audit with RMS event drift."""
 from __future__ import annotations
 
 import os

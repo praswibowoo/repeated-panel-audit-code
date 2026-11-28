@@ -1,0 +1,45 @@
+parameter,unit,definition
+DO (mg/L),mg/L,Dissolved oxygen
+pH,pH units,Water acidity/alkalinity
+H2S (µg/L),µg/L,Hydrogen sulfide
+NO2 (mg/L),mg/L,Nitrite
+NO3 (mg/L),mg/L,Nitrate
+NH4 (mg/L),mg/L,Ammonium
+NH3 (µg/L),µg/L,Ammoniacal nitrogen
+TN (mg/L),mg/L,Total nitrogen
+TOC (mg/L),mg/L,Total organic carbon
+Salinity (ppt/‰),ppt or ‰,Salinity
+TDS,as reported,Total dissolved solids
+EC (µS/cm),µS/cm,Electrical conductivity
+Temperature (°C),°C,Water temperature
+ORP (mV),mV,Oxidation-reduction potential
+Turbidity (NTU),NTU,Turbidity
+COD (mg/L),mg/L,Chemical oxygen demand
+Cl- (ppt),ppt,Chloride
+SAR,dimensionless,Sodium adsorption ratio
+Hardness (mg/L),mg/L,Total hardness
+PO4 (mg/L),mg/L,Orthophosphate/phosphate
+As (µg/L),µg/L,Arsenic
+Cd (µg/L),µg/L,Cadmium
+Cr (µg/L),µg/L,Chromium
+Cu (µg/L),µg/L,Copper
+Fe (µg/L),µg/L,Iron
+Hg (µg/L),µg/L,Mercury
+Mn (µg/L),µg/L,Manganese
+Ni (µg/L),µg/L,Nickel
+Pb (µg/L),µg/L,Lead
+Zn (µg/L),µg/L,Zinc
+BOD (mg/L),mg/L,Biochemical oxygen demand
+TSS (mg/L),mg/L,Total suspended solids
+Total Coliform (CFU/100mL),CFU/100mL,Total coliform count
+Fecal Coliform (CFU/100mL),CFU/100mL,Fecal coliform count
+Alkalinity (mg/L),mg/L,Total alkalinity
+Oil & Grease (mg/L),mg/L,Oil and grease
+Chlorophyll-a (mg/m3),mg/m3,Chlorophyll-a concentration
+Si (µmol/L),µmol/L,Silicate/silicon
+TP (mg/L),mg/L,Total phosphorus
+Secchi (m),m,Secchi depth/transparency
+DOC (mg/L),mg/L,Dissolved organic carbon
+Al (µg/L),µg/L,Aluminum
+E. coli (CFU/100mL),CFU/100mL,Escherichia coli count
+Co (µg/L),µg/L,Cobalt

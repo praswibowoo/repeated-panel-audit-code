@@ -33,12 +33,19 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "code"))
 
 STEPS: dict[str, tuple[str, str, str]] = {
-    "fixed": ("unit_revision_fixed", "fixed-evaluation stratified primary audit", "~10 min"),
+    "primarycorpus": ("build_primary_corpus", "build eligibility-qualified 87-paper primary corpus", "~2 s"),
+    "correctionimpact": ("audit_correction_impact", "audit approved cell-correction impact", "~2 s"),
+    "fixed": ("unit_revision_fixed", "primary fixed-evaluation ratio-of-medians audit", "~10 min"),
+    "fixedfull": ("unit_revision_fixed", "full-curated 117-paper sensitivity audit", "~12 min"),
     "fixed3d": ("fixed3d_sensitivity", "fixed-evaluation 3-D PCA sensitivity", "~10 min"),
     "rmsfixed": ("rms_fixed_sensitivity", "fixed-evaluation RMS drift sensitivity", "~8 min"),
     "balancefixed": ("control_balance_fixed", "fixed-control balance and donor availability", "~2 s"),
     "pcoafixed": ("pcoa_fixed", "fixed-evaluation Jaccard PCoA sensitivity", "~35 min"),
     "figfixed": ("make_fig_paired_contrast", "fixed-evaluation primary figure", "~2 s"),
+    "figprisma": ("make_fig_prisma", "corpus provenance figure", "~2 s"),
+    "convergence500": ("unit_revision_fixed", "500-draw convergence run", "~50 min"),
+    "strataexport": ("export_strata", "flat stratum and donor-pool exports", "~2 s"),
+    "convergencecompare": ("compare_convergence", "100-versus-500 draw comparison", "~2 s"),
     "dupaudit": ("duplicate_pair_audit", "verify frozen duplicate-pair audit frame", "~2 s"),
     "adjudicationprep": ("prepare_duplicate_adjudication", "prepare blind human-adjudication workbooks", "~3 s"),
     "types": ("build_matrix_types", "matrix-type map for the coverage rows", "~2 s"),
@@ -81,7 +88,7 @@ STEPS: dict[str, tuple[str, str, str]] = {
     "verify": ("verify_package", "package self-check", "~10 s"),
 }
 
-ORDER = ["fixed", "fixed3d", "rmsfixed", "balancefixed", "pcoafixed", "figfixed", "dupaudit", "adjudicationprep", "types", "water", "typesens", "panel", "evalset", "weighted", "pc2", "core", "allpaper", "simulation", "simfixed", "renderfixed",
+ORDER = ["primarycorpus", "correctionimpact", "fixed", "fixedfull", "fixed3d", "rmsfixed", "balancefixed", "pcoafixed", "figfixed", "figprisma", "convergence500", "strataexport", "convergencecompare", "dupaudit", "adjudicationprep", "types", "water", "typesens", "panel", "evalset", "weighted", "pc2", "core", "allpaper", "simulation", "simfixed", "renderfixed",
          "multiconfig", "iidnull", "perturb", "pertclust", "pertdir", "coherence", "threed",
          "tail", "balance", "flagged", "tailperm", "tailglobal", "q95corpus", "leverage", "q95cal", "holdout",
          "dimsweep", "ca", "cmnull", "pcurve", "leave", "flagcis", "table", "rebuild", "check", "verify"]
@@ -95,6 +102,22 @@ def run_step(name: str) -> None:
     saved_argv = sys.argv
     try:
         sys.argv = [saved_argv[0]]  # keep child parsers from seeing run_all flags
+        if name == "fixedfull":
+            sys.argv += [
+                "--matrix", os.path.join(ROOT, "data", "coverage_matrix.csv"),
+                "--out", os.path.join(
+                    ROOT, "results", "unit_revision_fixed",
+                    "sensitivity_full_curated.json",
+                ),
+            ]
+        elif name == "convergence500":
+            sys.argv += [
+                "--draws", "500",
+                "--out", os.path.join(
+                    ROOT, "results", "unit_revision_fixed",
+                    "convergence_500.json",
+                ),
+            ]
         result = module.run() if name in {"fixed3d", "rmsfixed"} else module.main()
     finally:
         sys.argv = saved_argv

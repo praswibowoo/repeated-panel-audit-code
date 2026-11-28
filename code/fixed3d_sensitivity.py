@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the fixed-evaluation PCA audit in three dimensions."""
+"""Run the primary fixed-evaluation ratio-of-medians PCA audit in 3-D."""
 from __future__ import annotations
 
 import os

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """verify_package.py — self-check for the P2 check package.
 
-Verifies that every deposited data file is present, that the three coverage
-matrices agree with each other and with the manuscript's panel structure, that
-release identifiers are synchronized, and that the committed summaries carry
-the values reported in the paper. If the sibling manuscript repository is
-present, selected TeX/cover-letter consistency checks are also run.
+Verifies required files, primary/full-curated corpus structure, active-parameter
+loaders, release identifiers, current fixed-audit estimator identities,
+exhaustive nested donor pools, removed Design H, and deposited summaries.
+Legacy own-row checks remain provenance checks; manuscript-tree checks are not
+performed by this standalone package.
 
 This is not a substitute for rerunning the analyses; it is the fast check a
 reader can run before doing so.
@@ -26,13 +26,20 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import data_dir  # noqa: E402
+from common import data_dir, load_curated, load_primary  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = data_dir()
 POST = os.path.join(ROOT, "results", "post_audit")
 
 FILES = [
+    "coverage_matrix_primary.csv",
+    "corpus_manifest_primary.csv",
+    "corpus_manifest_audit.csv",
+    "primary_corpus_exclusions.csv",
+    "primary_corpus_summary.json",
+    "parameter_dictionary.csv",
+    "substitute_intake_log.csv",
     "coverage_matrix.csv",
     "coverage_matrix_all_paper.csv",
     "coverage_matrix_full_extraction.csv",
@@ -120,6 +127,7 @@ FILES = [
     "duplicate_pair_approved_cell_corrections_2026-11-27.csv",
     "duplicate_pair_coordinator_resolution_approved_2026-11-27.csv",
     "duplicate_pair_cell_correction_application_audit_2026-11-27.json",
+    "duplicate_pair_correction_impact_audit.json",
     "duplicate_pair_human_adjudication_results_approved_2026-11-27.csv",
     "duplicate_pair_human_adjudication_summary_approved_2026-11-27.json",
     "duplicate_pair_audit_frame_human_approved_2026-11-27.csv",
@@ -168,6 +176,70 @@ def load_json(path: str) -> dict:
         return json.load(fh)
 
 
+def verify_fixed_audit(name: str, obj: dict, expected: dict) -> None:
+    design = obj["design"]
+    check(f"{name} corpus", design["corpus"], expected["corpus"])
+    check(f"{name} rows", design["rows"], expected["rows"], 0)
+    check(f"{name} papers", design["studies"], expected["papers"], 0)
+    check(f"{name} configurations", design["configurations"], expected["configurations"], 0)
+    check(f"{name} single", design["single_configuration_studies"], expected["single"], 0)
+    check(f"{name} active parameters", design["n_active_parameters"], 42, 0)
+    check(f"{name} estimator", obj["estimator"]["name"], "ratio_of_medians")
+    check(f"{name} primary population", design["primary_focal_population"], "single_configuration_studies_only")
+    check(f"{name} multi role", design["multi_configuration_role"], "background_only")
+    check(f"{name} removes H design", "H" in obj["designs"] or "H" in obj["per_paper"], False)
+    check(f"{name} removes CminusH", "CminusH" in obj["contrasts"] or "CminusH" in obj["per_paper"], False)
+
+    for key, values in obj["per_paper"].items():
+        if key in obj["designs"]:
+            check(f"{name} {key} median", obj["designs"][key]["median"], float(np.median(list(values.values()))), 1e-12)
+    for key in ("Bstudy", "Bblock"):
+        if key not in obj["per_paper"]:
+            continue
+        check(f"{name} {key} exhaustive metadata", obj["designs"][key]["enumeration"], "exhaustive")
+        check(f"{name} {key} fixed bootstrap median", obj["designs"][key]["two_level"]["resamples_control_drifts"], False)
+        for p, value in obj["per_paper"][key].items():
+            drifts = obj["per_paper_control_drifts"][key][p]
+            block = obj["per_paper_block_drift"][key][p]
+            check(f"{name} {key} ratio identity {p}", value, block / float(np.median(drifts)), 1e-12)
+            count_key = "whole_study_donors" if key == "Bstudy" else "exact_block_donors"
+            check(f"{name} {key} enumerated count {p}", len(drifts), obj["meta"][p][count_key], 0)
+    for key in ("A", "C"):
+        check(f"{name} {key} Monte Carlo metadata", obj["designs"][key]["enumeration"], "monte_carlo")
+        check(f"{name} {key} drift bootstrap", obj["designs"][key]["two_level"]["resamples_control_drifts"], True)
+        for p, value in obj["per_paper"][key].items():
+            drifts = obj["per_paper_control_drifts"][key][p]
+            block = obj["per_paper_block_drift"][key][p]
+            check(f"{name} {key} ratio identity {p}", value, block / float(np.median(drifts)), 1e-12)
+            check(f"{name} {key} draw count {p}", len(drifts), design["draws"], 0)
+
+    for contrast, (left, right) in {
+        "AB": ("A", "B"), "AC": ("A", "C"), "BC": ("B", "C"),
+        "ABblock": ("A", "Bblock"), "ABstudy": ("A", "Bstudy"),
+        "ACsingle": ("A", "C"), "ACmulti": ("A", "C"),
+    }.items():
+        if contrast not in obj["per_paper"]:
+            continue
+        errors = [
+            abs(obj["per_paper"][contrast][p]
+                - (obj["per_paper"][left][p] - obj["per_paper"][right][p]))
+            for p in obj["per_paper"][contrast]
+        ]
+        check(f"{name} {contrast} paired identity", max(errors), 0.0, 1e-12)
+        check(f"{name} {contrast} median", obj["contrasts"][contrast]["median"], float(np.median(list(obj["per_paper"][contrast].values()))), 1e-12)
+
+    check(f"{name} nested pools", obj["donor_pool_nesting"]["all_nested"], True)
+    check(f"{name} nested violations", obj["donor_pool_nesting"]["violations"], [])
+    strata_single = sum(v["n_single_configuration"] for v in obj["block_size_strata"].values())
+    one_row_boundary = sum(
+        1 for meta in obj["meta"].values()
+        if meta["n_configs"] == 1 and meta["n_rows"] < 2
+    )
+    check(f"{name} strata single total", strata_single + one_row_boundary, expected["single"], 0)
+    check(f"{name} Bstudy single only", all(obj["meta"][p]["n_configs"] == 1 for p in obj["per_paper"].get("Bstudy", {})), True)
+    check(f"{name} ABblock single only", all(obj["meta"][p]["n_configs"] == 1 for p in obj["per_paper"].get("ABblock", {})), True)
+
+
 def main() -> int:
     missing = [f for f in FILES if not os.path.exists(os.path.join(DATA, f))]
     missing += [f"results/post_audit/{f}" for f in POST_FILES
@@ -181,8 +253,11 @@ def main() -> int:
         "pcoa_contrast.json",
         "rms_sensitivity.json",
         "manuscript_values.json",
-        "sensitivity_no_B208.json",
-        "sensitivity_no_unsure_substitutes.json",
+        "sensitivity_full_curated.json",
+        "convergence_500.json",
+        "convergence_100_vs_500.json",
+        "strata_sensitivity.csv",
+        "donor_pool_by_focal.csv",
     ):
         if not os.path.exists(os.path.join(fixed_dir, name)):
             missing.append(f"results/unit_revision_fixed/{name}")
@@ -253,6 +328,30 @@ def main() -> int:
           list(rebuilt.paper) == list(cur.paper), True)
     check("curated = all-paper minus five papers (cells)",
           bool((rebuilt[p].values == cur[p].values).all()), True)
+
+    # --- eligibility-qualified primary corpus and active parameters ----
+    primary = pd.read_csv(os.path.join(DATA, "coverage_matrix_primary.csv"))
+    loaded_primary = load_primary(return_metadata=True)
+    loaded_curated = load_curated(return_metadata=True)
+    check("primary rows", len(primary), 555, 0)
+    check("primary papers", primary.paper.nunique(), 87, 0)
+    check("primary active parameters", len(loaded_primary.parameters), 42, 0)
+    check("primary empty parameters", list(loaded_primary.empty_parameters), ["SAR", "Al (µg/L)"])
+    check("primary rho recomputed", bool(np.allclose(loaded_primary.rho, loaded_primary.X.mean(axis=1))), True)
+    check("primary stored rho uses active columns", bool(np.allclose(primary.rho, loaded_primary.X.mean(axis=1), atol=1e-6)), True)
+    check("curated active parameters", len(loaded_curated.parameters), 42, 0)
+    check("curated rho recomputed", bool(np.allclose(loaded_curated.rho, loaded_curated.X.mean(axis=1))), True)
+    check("curated stored rho uses active columns", bool(np.allclose(cur.rho, loaded_curated.X.mean(axis=1), atol=1e-6)), True)
+    primary_patterns = pd.DataFrame(loaded_primary.X.astype(int).astype(str)).agg("".join, axis=1)
+    primary_configs = pd.DataFrame({"paper": loaded_primary.paper, "pattern": primary_patterns}).groupby("paper")["pattern"].nunique()
+    check("primary configurations", int(primary_configs.sum()), 93, 0)
+    check("primary single-config papers", int((primary_configs == 1).sum()), 81, 0)
+    check("primary multi-config papers", int((primary_configs > 1).sum()), 6, 0)
+    primary_summary = load_json("primary_corpus_summary.json")
+    check("primary summary papers", primary_summary["primary"]["papers"], 87, 0)
+    check("primary summary rows", primary_summary["primary"]["rows"], 555, 0)
+    check("primary summary configurations", primary_summary["primary"]["configurations"], 93, 0)
+    check("primary exclusion count", len(primary_summary["excluded"]["papers"]), 30, 0)
 
     # --- primary audit from the event tables ----------------------------
     bb = pd.read_csv(os.path.join(DATA, "baseline_block.csv"))
@@ -431,9 +530,20 @@ def main() -> int:
           float(three.loc[three.set == "include_standard", "block_at_mean_volume"].iloc[0]),
           1.0878, 1e-3)
 
-    # Fixed-evaluation primary audit.
+    # Current fixed-evaluation audits.
+    expected_primary = {
+        "corpus": "primary", "rows": 555, "papers": 87,
+        "configurations": 93, "single": 81,
+    }
+    expected_full = {
+        "corpus": "full_curated", "rows": 716, "papers": 117,
+        "configurations": 145, "single": 98,
+    }
     fixed = json.load(open(fixed_path, encoding="utf-8"))
+    verify_fixed_audit("fixed", fixed, expected_primary)
     balance = json.load(open(os.path.join(fixed_dir, "control_balance.json"), encoding="utf-8"))
+    check("balance corpus", balance["design"]["corpus"], "primary")
+    check("balance active parameters", balance["design"]["n_active_parameters"], 42, 0)
     for group in ("bblock_missing_single", "bstudy_missing_single"):
         for rec in balance[group]:
             p = rec["paper"]
@@ -443,35 +553,32 @@ def main() -> int:
             check(f"balance {group} {p} AC", rec["AC"], fixed["per_paper"]["AC"][p], 1e-9)
             if rec.get("Bblock") is not None:
                 check(f"balance {group} {p} Bblock", rec["Bblock"], fixed["per_paper"]["Bblock"][p], 1e-9)
+
     rendered = json.load(open(os.path.join(fixed_dir, "manuscript_values.json"), encoding="utf-8"))
-    for label, median, lo, hi, n in (
-        ("2_5", "0.05", "0.02", "0.07", "57"),
-        ("6_10", "0.87", "0.75", "1.02", "26"),
-        ("11_PLUS", "1.06", "0.36", "1.56", "9"),
-    ):
+    for key, want in {
+        "PRIMARY_PAPERS": "87", "PRIMARY_ROWS": "555",
+        "PRIMARY_CONFIGURATIONS": "93", "ACTIVE_PARAMETERS": "42",
+        "SINGLE_CONFIG_N": "81", "MULTI_CONFIG_BACKGROUND_N": "6",
+        "ESTIMATOR": "ratio_of_medians",
+    }.items():
+        check(f"rendered {key}", rendered.get(key), want)
+    check("rendered removes H", any(k.startswith("H_") or k == "H_MULTI" for k in rendered), False)
+    for label, stratum_key in (("2_5", "2-5"), ("6_10", "6-10"), ("11_PLUS", ">=11")):
+        x = fixed["block_size_strata"][stratum_key]["contrasts"]["ABstudy"]
         prefix = f"ABSTUDY_BLOCK_{label}"
         for suffix, want in (
-            ("", median), ("_LO", lo), ("_HI", hi), ("_N", n),
+            ("", f"{x['median']:.2f}"), ("_LO", f"{x['ci_lo']:.2f}"),
+            ("_HI", f"{x['ci_hi']:.2f}"), ("_N", str(x["n"])),
+            ("_SINGLE_TOTAL_N", str(fixed["block_size_strata"][stratum_key]["n_single_configuration"])),
         ):
-            key = prefix + suffix
-            got = rendered.get(key)
-            if got is None:
-                failures.append(f"rendered key missing: {key}")
-            else:
-                check(f"rendered {key}", got, want)
-    check("fixed A", fixed["designs"]["A"]["median"], 1.3967, 1e-3)
-    check("fixed C", fixed["designs"]["C"]["median"], 0.9819, 1e-3)
-    check("fixed AC", fixed["contrasts"]["AC"]["median"], 0.2843, 1e-3)
-    check("fixed ABblock", fixed["contrasts"]["ABblock"]["median"], 0.2103, 1e-3)
-    check("fixed ABstudy", fixed["contrasts"]["ABstudy"]["median"], 0.1654, 2e-3)
+            check(f"rendered {prefix}{suffix}", rendered.get(prefix + suffix), want)
     log_summary = fixed.get("sensitivities", {}).get("ABstudy_log")
     if log_summary is None:
         failures.append("fixed ABstudy log sensitivity missing")
     else:
-        check("fixed ABstudy log", log_summary["median"], 0.2065, 2e-3)
-    check("rendered ABstudy log", rendered.get("ABSTUDY_LOG"), "0.21")
-    check("rendered ABstudy log low", rendered.get("ABSTUDY_LOG_LO"), "0.08")
-    check("rendered ABstudy log high", rendered.get("ABSTUDY_LOG_HI"), "0.33")
+        check("rendered ABstudy log", rendered.get("ABSTUDY_LOG"), f"{log_summary['median']:.2f}")
+        check("rendered ABstudy log low", rendered.get("ABSTUDY_LOG_LO"), f"{log_summary['ci_lo']:.2f}")
+        check("rendered ABstudy log high", rendered.get("ABSTUDY_LOG_HI"), f"{log_summary['ci_hi']:.2f}")
     if fixed["per_paper"].get("ABstudy_log"):
         log_errors = [
             abs(fixed["per_paper"]["ABstudy_log"][p]
@@ -481,68 +588,23 @@ def main() -> int:
         check("fixed ABstudy log per-study identity", max(log_errors), 0.0, 1e-12)
     else:
         failures.append("fixed ABstudy per-study log values missing")
-    for contrast, key_j, key_k in (
-        ("AB", "A", "B"), ("AC", "A", "C"), ("BC", "B", "C"),
-        ("ABblock", "A", "Bblock"), ("ABstudy", "A", "Bstudy"),
-        ("ACsingle", "A", "C"), ("ACmulti", "A", "C"),
-        ("CminusH", "C", "H"),
+
+    for name, filename in (
+        ("pcoa", "pcoa_contrast.json"),
+        ("rms", "rms_sensitivity.json"),
+        ("fixed3d", "fixed3d_contrast.json"),
     ):
-        errors = [
-            abs(fixed["per_paper"][contrast][p]
-                - (fixed["per_paper"][key_j][p] - fixed["per_paper"][key_k][p]))
-            for p in fixed["per_paper"][contrast]
-        ]
-        check(f"fixed {contrast} uses difference of medians", max(errors), 0.0, 1e-12)
-    check("fixed Bstudy", fixed["designs"]["Bstudy"]["median"], 1.0526, 2e-3)
-    check("fixed Bstudy donor enumeration", all(
-        m["bstudy_donors_enumerated"] == m["whole_study_donors"]
-        for m in fixed["meta"].values()
-    ), True)
-    check("fixed Bstudy draw invariance", all(
-        len(set(values)) == 1
-        for values in fixed["per_paper_draws"]["Bstudy"].values()
-    ), True)
-    check("fixed single ABstudy", fixed["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.1654, 2e-3)
-    check("fixed single A", fixed["subgroups"]["single"]["designs"]["A"]["median"], 1.4158, 1e-3)
-    check("fixed single C", fixed["subgroups"]["single"]["designs"]["C"]["median"], 0.8746, 1e-3)
-    check("fixed single Bblock", fixed["subgroups"]["single"]["designs"]["Bblock"]["median"], 0.9682, 1e-3)
-    check("fixed multi H", fixed["subgroups"]["multi"]["designs"]["H"]["median"], 1.0184, 1e-3)
-    check("legacy B max donor configs", fixed["legacy_B_matching"]["donor_config_count_max"], 13)
-    if "availability" in fixed:
-        check("single exact donors", fixed["availability"]["single_has_exact_donor"]["n"], 93)
-        check("single missing donors", fixed["availability"]["single_no_exact_donor"]["n"], 5)
-        check("single whole-study donors", fixed["availability"]["single_has_whole_study_donor"]["n"], 92)
-        check("single missing whole-study donors", fixed["availability"]["single_no_whole_study_donor"]["n"], 6)
-    pcoa = json.load(open(os.path.join(fixed_dir, "pcoa_contrast.json"), encoding="utf-8"))
-    check("fixed PCoA A", pcoa["designs"]["A"]["median"], 1.3046, 1e-3)
-    check("fixed PCoA Bstudy", pcoa["designs"]["Bstudy"]["median"], 1.0380, 1e-3)
-    check("fixed PCoA ABstudy", pcoa["contrasts"]["ABstudy"]["median"], 0.2680, 2e-3)
-    check("fixed PCoA ABblock", pcoa["contrasts"]["ABblock"]["median"], 0.2452, 1e-3)
-    check("fixed PCoA AC", pcoa["contrasts"]["AC"]["median"], 0.4145, 1e-3)
-    rms = json.load(open(os.path.join(fixed_dir, "rms_sensitivity.json"), encoding="utf-8"))
-    check("fixed RMS ABblock", rms["contrasts"]["ABblock"]["median"], 0.2684, 1e-3)
-    check("fixed RMS single ABblock", rms["subgroups"]["single"]["contrasts"]["ABblock"]["median"], 0.2924, 1e-3)
-    check("fixed RMS AC", rms["contrasts"]["AC"]["median"], 0.3154, 1e-3)
-    check("fixed RMS ABstudy", rms["contrasts"]["ABstudy"]["median"], 0.2779, 2e-3)
-    check("fixed RMS single ABstudy", rms["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.2779, 2e-3)
-    f3 = json.load(open(os.path.join(fixed_dir, "fixed3d_contrast.json"), encoding="utf-8"))
-    check("fixed 3-D ABstudy", f3["contrasts"]["ABstudy"]["median"], 0.0630, 2e-3)
-    check("fixed 3-D ABblock", f3["contrasts"]["ABblock"]["median"], 0.0500, 2e-3)
-    check("fixed 3-D Bstudy", f3["designs"]["Bstudy"]["median"], 0.9855, 2e-3)
-    check("fixed 3-D single ABstudy", f3["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.0630, 2e-3)
+        obj = json.load(open(os.path.join(fixed_dir, filename), encoding="utf-8"))
+        verify_fixed_audit(name, obj, expected_primary)
+    full = json.load(open(os.path.join(fixed_dir, "sensitivity_full_curated.json"), encoding="utf-8"))
+    verify_fixed_audit("full_curated", full, expected_full)
+
     sim_fixed = json.load(open(os.path.join(POST, "simulation_fixed.json"), encoding="utf-8"))
     check("fixed synthetic corpora", sim_fixed["design"]["replicates"], 100)
-    check("fixed synthetic H0 full", sim_fixed["H0_repeated"]["full_ratio"]["median"], 1.5565, 1e-3)
-    check("fixed synthetic H0 Bblock", sim_fixed["H0_repeated"]["whole_configuration_ratio"]["median"], 0.9930, 1e-3)
-    check("fixed synthetic IID full", sim_fixed["IID_rows"]["full_ratio"]["median"], 0.9894, 1e-3)
-    ex1 = json.load(open(os.path.join(fixed_dir, "sensitivity_no_B208.json"), encoding="utf-8"))
-    ex2 = json.load(open(os.path.join(fixed_dir, "sensitivity_no_unsure_substitutes.json"), encoding="utf-8"))
-    check("no-B208 ABstudy", ex1["contrasts"]["ABstudy"]["median"], 0.1238, 2e-3)
-    check("no-B208 single ABblock", ex1["subgroups"]["single"]["contrasts"]["ABblock"]["median"], 0.2300, 2e-3)
-    check("no-B208 AC", ex1["contrasts"]["AC"]["median"], 0.2744, 2e-3)
-    check("no-unsure ABstudy", ex2["contrasts"]["ABstudy"]["median"], 0.0900, 2e-3)
-    check("no-unsure single ABblock", ex2["subgroups"]["single"]["contrasts"]["ABblock"]["median"], 0.0739, 2e-3)
-    check("no-unsure AC", ex2["contrasts"]["AC"]["median"], 0.2688, 2e-3)
+    if "estimator" in sim_fixed["design"]:
+        check("fixed synthetic estimator", sim_fixed["design"]["estimator"], "ratio_of_medians")
+        check("fixed synthetic Bblock label", sim_fixed["design"]["simulation_bblock_enumeration"], "sampled")
+
     iid = json.load(open(os.path.join(POST, "simulation_iid_null.json"), encoding="utf-8"))
     check("IID row-count median", iid["row_count_ratio"]["median"], 1.0008, 1e-3)
 
@@ -626,6 +688,34 @@ def main() -> int:
     application = load_json("duplicate_pair_cell_correction_application_audit_2026-11-27.json")
     check("applied cell count", application["cells_applied"], 42, 0)
     check("applied configuration count", application["configuration_count_after"], 145, 0)
+    correction_impact = load_json("duplicate_pair_correction_impact_audit.json")
+    primary_impact = correction_impact["primary_impact"]
+    check("primary correction cells", primary_impact["cells_applied"], 28, 0)
+    check("primary correction papers", primary_impact["papers_changed"], 8, 0)
+    check("primary configurations before", primary_impact["configurations_before"], 96, 0)
+    check("primary configurations after", primary_impact["configurations_after"], 93, 0)
+    check("primary persistent single papers", primary_impact["persistent_single_configuration_papers"], 77, 0)
+    check("primary papers with donor-count change", primary_impact["papers_with_any_donor_count_change"], 36, 0)
+    check(
+        "primary donor availability change",
+        [(x["paper"], x["donor_type"], x["before"], x["after"]) for x in primary_impact["availability_changes_among_papers_single_before_and_after"]],
+        [("B052", "bstudy_donors", 1, 0), ("B052", "bblock_donors", 1, 0)],
+    )
+    from audit_correction_impact import configuration_meta  # noqa: E402
+    _, full_current_eligibility = configuration_meta(cur, params(cur))
+    _, primary_current_eligibility = configuration_meta(primary, params(primary))
+    full_fixed = json.load(open(
+        os.path.join(ROOT, "results", "unit_revision_fixed", "sensitivity_full_curated.json"),
+        encoding="utf-8",
+    ))
+    for label, eligibility, canonical in (
+        ("full", full_current_eligibility, full_fixed),
+        ("primary", primary_current_eligibility, fixed),
+    ):
+        for paper, item in eligibility.items():
+            meta = canonical["meta"][paper]
+            check(f"{label} {paper} Bstudy count", item["bstudy_donors"], meta["whole_study_donors"], 0)
+            check(f"{label} {paper} Bblock count", item["bblock_donors"], meta["exact_block_donors"], 0)
     approved_summary = load_json("duplicate_pair_human_adjudication_summary_approved_2026-11-27.json")
     check("approved resolved pairs", approved_summary["resolved_coordinator"], 56, 0)
     check("approved resolved same", approved_summary["resolved_relation_counts"]["same"], 53, 0)
@@ -665,26 +755,6 @@ def main() -> int:
               cc["exact"]["volume_all"]["median"], 1e-9)
         check("fresh core coarsened", fresh["coarsened"]["all"]["median"],
               cc["coarsened"]["all"]["median"], 1e-9)
-
-    # --- optional manuscript/package semantic checks --------------------
-    manuscript_dir = os.path.join(
-        os.path.dirname(ROOT), "p2-deletion-audit", "source", "manuscript", "ees"
-    )
-    if os.path.isdir(manuscript_dir):
-        main_tex = open(os.path.join(manuscript_dir, "main.tex"), encoding="utf-8").read()
-        cover = open(os.path.join(manuscript_dir, "cover_letter.md"), encoding="utf-8").read()
-        si_index = open(os.path.join(manuscript_dir, "SI_SOURCE_INDEX.md"), encoding="utf-8").read()
-        check("manuscript title", "Deletion-unit choice in leave-one-study-out audits" in main_tex, True)
-        check("manuscript distinct patterns", "Distinct patterns & 131" in main_tex, True)
-        check("manuscript Bstudy n", "remaining 92 studies" in main_tex, True)
-        check("manuscript donor range", "1--19 studies" in main_tex, True)
-        for token in ("other 91", "1--18", "19 of 20", "136; 8", "the user approved", "isotropic"):
-            check(f"manuscript excludes stale token {token}", token not in main_tex, True)
-        check("cover letter release", release_id in cover, True)
-        check("cover letter primary n", "92 eligible single-configuration studies" in cover, True)
-        check("cover letter primary contrast", "contrast was 0.17" in cover, True)
-        check("SI index release", release_id in si_index, True)
-        check("SI index excludes pending adjudication", "adjudication remains pending" not in si_index, True)
 
     if failures:
         print("FAIL — %d mismatch(es):" % len(failures))

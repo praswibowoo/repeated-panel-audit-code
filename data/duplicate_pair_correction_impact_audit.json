@@ -1,0 +1,937 @@
+{
+  "cells_applied": 42,
+  "papers_changed": 15,
+  "configurations_before": 151,
+  "configurations_after": 145,
+  "single_configuration_papers_before": 97,
+  "single_configuration_papers_after": 98,
+  "single_multi_status_changes": [
+    {
+      "paper": "B034",
+      "before": "multi",
+      "after": "single"
+    },
+    {
+      "paper": "B080",
+      "before": "multi",
+      "after": "single"
+    },
+    {
+      "paper": "B090",
+      "before": "multi",
+      "after": "single"
+    },
+    {
+      "paper": "B092",
+      "before": "multi",
+      "after": "single"
+    },
+    {
+      "paper": "B097",
+      "before": "single",
+      "after": "multi"
+    },
+    {
+      "paper": "B102",
+      "before": "single",
+      "after": "multi"
+    },
+    {
+      "paper": "B153",
+      "before": "multi",
+      "after": "single"
+    },
+    {
+      "paper": "B166",
+      "before": "multi",
+      "after": "single"
+    },
+    {
+      "paper": "B199",
+      "before": "single",
+      "after": "multi"
+    },
+    {
+      "paper": "B206",
+      "before": "single",
+      "after": "multi"
+    },
+    {
+      "paper": "B208",
+      "before": "single",
+      "after": "multi"
+    }
+  ],
+  "persistent_single_configuration_papers": 92,
+  "donor_count_changes": {
+    "bstudy_donors": [
+      {
+        "paper": "B004",
+        "before": 8,
+        "after": 7
+      },
+      {
+        "paper": "B014",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B015",
+        "before": 8,
+        "after": 7
+      },
+      {
+        "paper": "B020",
+        "before": 2,
+        "after": 1
+      },
+      {
+        "paper": "B030",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B036",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B050",
+        "before": 3,
+        "after": 4
+      },
+      {
+        "paper": "B052",
+        "before": 2,
+        "after": 1
+      },
+      {
+        "paper": "B054",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B062",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B070",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B071",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B075",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B076",
+        "before": 3,
+        "after": 4
+      },
+      {
+        "paper": "B078",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B089",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B107",
+        "before": 3,
+        "after": 4
+      },
+      {
+        "paper": "B109",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B110",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B115",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B125",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B126",
+        "before": 8,
+        "after": 7
+      },
+      {
+        "paper": "B131",
+        "before": 8,
+        "after": 7
+      },
+      {
+        "paper": "B133",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B138",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B139",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B141",
+        "before": 8,
+        "after": 7
+      },
+      {
+        "paper": "B148",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B154",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B156",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B158",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B159",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B161",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B168",
+        "before": 18,
+        "after": 19
+      },
+      {
+        "paper": "B169",
+        "before": 3,
+        "after": 4
+      },
+      {
+        "paper": "B173",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B176",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B180",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B181",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B186",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B200",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B203",
+        "before": 8,
+        "after": 7
+      },
+      {
+        "paper": "B211",
+        "before": 8,
+        "after": 7
+      },
+      {
+        "paper": "B213",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B214",
+        "before": 8,
+        "after": 7
+      },
+      {
+        "paper": "B223",
+        "before": 15,
+        "after": 16
+      },
+      {
+        "paper": "B238",
+        "before": 15,
+        "after": 16
+      }
+    ],
+    "bblock_donors": [
+      {
+        "paper": "B004",
+        "before": 9,
+        "after": 7
+      },
+      {
+        "paper": "B014",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B015",
+        "before": 9,
+        "after": 7
+      },
+      {
+        "paper": "B020",
+        "before": 3,
+        "after": 2
+      },
+      {
+        "paper": "B030",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B036",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B048",
+        "before": 16,
+        "after": 18
+      },
+      {
+        "paper": "B050",
+        "before": 3,
+        "after": 5
+      },
+      {
+        "paper": "B052",
+        "before": 3,
+        "after": 2
+      },
+      {
+        "paper": "B054",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B062",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B070",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B071",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B075",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B076",
+        "before": 3,
+        "after": 5
+      },
+      {
+        "paper": "B078",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B083",
+        "before": 16,
+        "after": 18
+      },
+      {
+        "paper": "B089",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B093",
+        "before": 16,
+        "after": 18
+      },
+      {
+        "paper": "B107",
+        "before": 3,
+        "after": 5
+      },
+      {
+        "paper": "B109",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B110",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B115",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B119",
+        "before": 16,
+        "after": 18
+      },
+      {
+        "paper": "B120",
+        "before": 16,
+        "after": 18
+      },
+      {
+        "paper": "B125",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B126",
+        "before": 9,
+        "after": 7
+      },
+      {
+        "paper": "B127",
+        "before": 16,
+        "after": 18
+      },
+      {
+        "paper": "B131",
+        "before": 9,
+        "after": 7
+      },
+      {
+        "paper": "B133",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B138",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B139",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B141",
+        "before": 9,
+        "after": 7
+      },
+      {
+        "paper": "B148",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B149",
+        "before": 34,
+        "after": 23
+      },
+      {
+        "paper": "B154",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B156",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B158",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B159",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B161",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B168",
+        "before": 21,
+        "after": 23
+      },
+      {
+        "paper": "B169",
+        "before": 3,
+        "after": 5
+      },
+      {
+        "paper": "B173",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B176",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B180",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B181",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B186",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B200",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B203",
+        "before": 9,
+        "after": 7
+      },
+      {
+        "paper": "B211",
+        "before": 9,
+        "after": 7
+      },
+      {
+        "paper": "B213",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B214",
+        "before": 9,
+        "after": 7
+      },
+      {
+        "paper": "B223",
+        "before": 18,
+        "after": 20
+      },
+      {
+        "paper": "B237",
+        "before": 16,
+        "after": 18
+      },
+      {
+        "paper": "B238",
+        "before": 18,
+        "after": 20
+      }
+    ]
+  },
+  "papers_with_any_donor_count_change": 55,
+  "papers_with_any_donor_count_change_ids": [
+    "B004",
+    "B014",
+    "B015",
+    "B020",
+    "B030",
+    "B036",
+    "B048",
+    "B050",
+    "B052",
+    "B054",
+    "B062",
+    "B070",
+    "B071",
+    "B075",
+    "B076",
+    "B078",
+    "B083",
+    "B089",
+    "B093",
+    "B107",
+    "B109",
+    "B110",
+    "B115",
+    "B119",
+    "B120",
+    "B125",
+    "B126",
+    "B127",
+    "B131",
+    "B133",
+    "B138",
+    "B139",
+    "B141",
+    "B148",
+    "B149",
+    "B154",
+    "B156",
+    "B158",
+    "B159",
+    "B161",
+    "B168",
+    "B169",
+    "B173",
+    "B176",
+    "B180",
+    "B181",
+    "B186",
+    "B200",
+    "B203",
+    "B211",
+    "B213",
+    "B214",
+    "B223",
+    "B237",
+    "B238"
+  ],
+  "availability_changes_among_papers_single_before_and_after": [],
+  "primary_impact": {
+    "cells_applied": 28,
+    "papers_changed": 8,
+    "configurations_before": 96,
+    "configurations_after": 93,
+    "single_configuration_papers_before": 81,
+    "single_configuration_papers_after": 81,
+    "single_multi_status_changes": [
+      {
+        "paper": "B080",
+        "before": "multi",
+        "after": "single"
+      },
+      {
+        "paper": "B092",
+        "before": "multi",
+        "after": "single"
+      },
+      {
+        "paper": "B097",
+        "before": "single",
+        "after": "multi"
+      },
+      {
+        "paper": "B102",
+        "before": "single",
+        "after": "multi"
+      },
+      {
+        "paper": "B153",
+        "before": "multi",
+        "after": "single"
+      },
+      {
+        "paper": "B166",
+        "before": "multi",
+        "after": "single"
+      },
+      {
+        "paper": "B199",
+        "before": "single",
+        "after": "multi"
+      },
+      {
+        "paper": "B206",
+        "before": "single",
+        "after": "multi"
+      }
+    ],
+    "persistent_single_configuration_papers": 77,
+    "donor_count_changes": {
+      "bstudy_donors": [
+        {
+          "paper": "B030",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B052",
+          "before": 1,
+          "after": 0
+        },
+        {
+          "paper": "B062",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B075",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B078",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B110",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B125",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B133",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B138",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B139",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B148",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B154",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B156",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B159",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B161",
+          "before": 14,
+          "after": 15
+        },
+        {
+          "paper": "B168",
+          "before": 14,
+          "after": 15
+        }
+      ],
+      "bblock_donors": [
+        {
+          "paper": "B014",
+          "before": 12,
+          "after": 13
+        },
+        {
+          "paper": "B048",
+          "before": 6,
+          "after": 9
+        },
+        {
+          "paper": "B050",
+          "before": 2,
+          "after": 3
+        },
+        {
+          "paper": "B052",
+          "before": 1,
+          "after": 0
+        },
+        {
+          "paper": "B076",
+          "before": 2,
+          "after": 3
+        },
+        {
+          "paper": "B083",
+          "before": 6,
+          "after": 9
+        },
+        {
+          "paper": "B089",
+          "before": 12,
+          "after": 13
+        },
+        {
+          "paper": "B093",
+          "before": 6,
+          "after": 9
+        },
+        {
+          "paper": "B109",
+          "before": 12,
+          "after": 13
+        },
+        {
+          "paper": "B115",
+          "before": 12,
+          "after": 13
+        },
+        {
+          "paper": "B119",
+          "before": 6,
+          "after": 9
+        },
+        {
+          "paper": "B120",
+          "before": 6,
+          "after": 9
+        },
+        {
+          "paper": "B127",
+          "before": 6,
+          "after": 9
+        },
+        {
+          "paper": "B158",
+          "before": 12,
+          "after": 13
+        },
+        {
+          "paper": "B169",
+          "before": 2,
+          "after": 3
+        },
+        {
+          "paper": "B173",
+          "before": 12,
+          "after": 13
+        },
+        {
+          "paper": "B176",
+          "before": 12,
+          "after": 13
+        },
+        {
+          "paper": "B180",
+          "before": 12,
+          "after": 13
+        },
+        {
+          "paper": "B181",
+          "before": 12,
+          "after": 13
+        },
+        {
+          "paper": "B213",
+          "before": 12,
+          "after": 13
+        },
+        {
+          "paper": "B223",
+          "before": 12,
+          "after": 13
+        }
+      ]
+    },
+    "papers_with_any_donor_count_change": 36,
+    "papers_with_any_donor_count_change_ids": [
+      "B014",
+      "B030",
+      "B048",
+      "B050",
+      "B052",
+      "B062",
+      "B075",
+      "B076",
+      "B078",
+      "B083",
+      "B089",
+      "B093",
+      "B109",
+      "B110",
+      "B115",
+      "B119",
+      "B120",
+      "B125",
+      "B127",
+      "B133",
+      "B138",
+      "B139",
+      "B148",
+      "B154",
+      "B156",
+      "B158",
+      "B159",
+      "B161",
+      "B168",
+      "B169",
+      "B173",
+      "B176",
+      "B180",
+      "B181",
+      "B213",
+      "B223"
+    ],
+    "availability_changes_among_papers_single_before_and_after": [
+      {
+        "paper": "B052",
+        "donor_type": "bstudy_donors",
+        "before": 1,
+        "after": 0
+      },
+      {
+        "paper": "B052",
+        "donor_type": "bblock_donors",
+        "before": 1,
+        "after": 0
+      }
+    ]
+  },
+  "note": "Full-curated and primary-corpus impacts are reported separately. All current donor pools use the corrected matrices."
+}

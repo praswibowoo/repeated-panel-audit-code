@@ -1,0 +1,87 @@
+{
+  "base_draws": 100,
+  "extended_draws": 500,
+  "prefix_100_draws_exact": {
+    "A": true,
+    "B": true,
+    "C": true
+  },
+  "exhaustive_designs_identical": {
+    "Bstudy": true,
+    "Bblock": true
+  },
+  "shifts": [
+    {
+      "quantity": "A",
+      "n": 87,
+      "median_absolute_shift": 0.031156842008577934,
+      "max_absolute_shift": 0.37195770918661086,
+      "median_signed_shift": 0.007760385269069747,
+      "base_aggregate_median": 1.3137269051376776,
+      "extended_aggregate_median": 1.3111213795592942
+    },
+    {
+      "quantity": "B",
+      "n": 87,
+      "median_absolute_shift": 0.024114739384577866,
+      "max_absolute_shift": 0.2843855552506591,
+      "median_signed_shift": 0.0,
+      "base_aggregate_median": 1.026973122351885,
+      "extended_aggregate_median": 1.0138805969793598
+    },
+    {
+      "quantity": "C",
+      "n": 87,
+      "median_absolute_shift": 0.06051933905564688,
+      "max_absolute_shift": 1.4695724558323082,
+      "median_signed_shift": 0.00023682512261674615,
+      "base_aggregate_median": 1.023469220506303,
+      "extended_aggregate_median": 0.9572293803720647
+    },
+    {
+      "quantity": "Bstudy",
+      "n": 74,
+      "median_absolute_shift": 0.0,
+      "max_absolute_shift": 0.0,
+      "median_signed_shift": 0.0,
+      "base_aggregate_median": 1.023600886415935,
+      "extended_aggregate_median": 1.023600886415935
+    },
+    {
+      "quantity": "Bblock",
+      "n": 80,
+      "median_absolute_shift": 0.0,
+      "max_absolute_shift": 0.0,
+      "median_signed_shift": 0.0,
+      "base_aggregate_median": 1.0341619986883082,
+      "extended_aggregate_median": 1.0341619986883082
+    },
+    {
+      "quantity": "ABstudy",
+      "n": 74,
+      "median_absolute_shift": 0.031669968245389424,
+      "max_absolute_shift": 0.37195770918661086,
+      "median_signed_shift": 0.003469378994202632,
+      "base_aggregate_median": 0.11571266487271026,
+      "extended_aggregate_median": 0.13257387720129316
+    },
+    {
+      "quantity": "ABblock",
+      "n": 74,
+      "median_absolute_shift": 0.031669968245389424,
+      "max_absolute_shift": 0.37195770918661086,
+      "median_signed_shift": 0.003469378994202632,
+      "base_aggregate_median": 0.05718011104488263,
+      "extended_aggregate_median": 0.04978190225827661
+    },
+    {
+      "quantity": "AC",
+      "n": 87,
+      "median_absolute_shift": 0.10175111538709258,
+      "max_absolute_shift": 1.2929767097105818,
+      "median_signed_shift": -0.004117223999771602,
+      "base_aggregate_median": 0.40043936778132827,
+      "extended_aggregate_median": 0.425462324118854
+    }
+  ]
+}

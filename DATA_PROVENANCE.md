@@ -1,50 +1,71 @@
 # Data provenance — manuscript map
 
-**Manuscript:** *Deletion-unit choice in leave-one-study-out audits of repeated binary coverage rows*
+**Manuscript:** *Row-count versus whole-study controls for repeated single-configuration blocks in binary coverage audits*
 
-**Release:** `v1.9.2-2026-11-28`
+**Release:** `v1.10.0-2026-11-28`.
 
-The manuscript has three main tables, one main figure, and SI Tables S1–S6. This file maps each item to the code and deposited outputs in this repository.
+This file maps manuscript items to current code and deposited outputs. Legacy files are identified explicitly and are not current primary evidence.
 
 ## Main manuscript
 
 | Item | Content | Primary scripts / files |
 |---|---|---|
-| Table 1 | Corpus and matrix-defined configuration structure | `code/verify_package.py`, `data/coverage_matrix.csv`, `data/corpus_manifest.csv` |
-| Table 2 | Primary whole-study control, secondary configuration-donor control, and protocol contrasts | `code/unit_revision_fixed.py`, `results/unit_revision_fixed/common_contrast.json` |
-| Table 3 | Two-axis reporting protocol: fit weighting versus control benchmark | Derived from Table 2 and SI Tables S2–S5 |
-| Fig. 1 | Full-fit A versus Bstudy for 92 eligible single-configuration studies, with block-size strata | `code/make_fig_paired_contrast.py`, `results/unit_revision_fixed/common_contrast.json` |
+| Table 1 | Eligibility-qualified primary corpus and full-curated sensitivity corpus | `code/build_primary_corpus.py`, `data/coverage_matrix_primary.csv`, `data/primary_corpus_summary.json`, `data/coverage_matrix.csv` |
+| Table 2 | Block-size-conditional A−Bstudy contrast; secondary A−Bblock and A−C contrasts; sensitivity medians | `code/unit_revision_fixed.py`, `results/unit_revision_fixed/common_contrast.json`, `results/unit_revision_fixed/strata_sensitivity.csv` |
+| Table 3 | Three-factor framework: fit weighting × deletion unit × donor-sampling distribution | Current Table 2 and SI Tables S2–S5 |
+| Fig. 1 | A versus exhaustive Bstudy on 74 eligible papers; continuous block-size view and donor-count encoding | `code/make_fig_paired_contrast.py`, `results/unit_revision_fixed/common_contrast.json` |
 
 ## Supplementary information
 
 | SI item | Content | Primary scripts / files |
 |---|---|---|
-| S1 | Corpus construction, verification, and approved priority-pair adjudication | `docs/prisma_log.csv`, `docs/screening/`, `docs/verification/`, `data/duplicate_pair_audit_frame.csv` |
-| S2 | Fixed designs, median-ratio contrasts, donor availability, and two-level sensitivity | `code/unit_revision_fixed.py`, `results/unit_revision_fixed/common_contrast.json` |
-| S3 | Bstudy/Bblock balance, donor composition, density gaps, and H implementation status | `code/control_balance_fixed.py`, `code/unit_revision_fixed.py`, `results/unit_revision_fixed/control_balance.json`, `results/unit_revision_fixed/common_contrast.json` |
-| S4 | Fixed-set synthetic benchmarks including Bblock | `code/simulation_fixed.py`, `results/post_audit/simulation_fixed.json` |
-| S5 | Fixed 3-D PCA, PCoA/RMS, and labeled own-row sensitivities | `code/fixed3d_sensitivity.py`, `code/pcoa_fixed.py`, `code/rms_fixed_sensitivity.py`, `code/ca_sensitivity.py`, `code/water_only_check.py`, `code/dimension_sweep.py`, `code/procrustes_holdout.py`, `code/revision/hamming_audit.py` |
-| S6 | Fixed corpus sensitivities | `results/unit_revision_fixed/sensitivity_no_B208.json`, `results/unit_revision_fixed/sensitivity_no_unsure_substitutes.json` |
+| Figure S1 | Provenance through the 87-paper primary corpus | `code/make_fig_prisma.py`, `data/primary_corpus_summary.json` |
+| Table S1 | Eligibility, exclusions, verification, and coder concordance | `code/build_primary_corpus.py`, `data/corpus_manifest_audit.csv`, `data/primary_corpus_exclusions.csv`, `data/primary_corpus_summary.json` |
+| Table S2 | Fixed designs, ratio-of-medians contrasts, donor availability, pool sizes, and two-level sensitivity | `code/unit_revision_fixed.py`, `results/unit_revision_fixed/common_contrast.json` |
+| Table S3 | Bstudy/Bblock balance and donor composition | `code/control_balance_fixed.py`, `results/unit_revision_fixed/control_balance.json` |
+| Table S4 | Fixed-set synthetic benchmarks | `code/simulation_fixed.py`, `results/post_audit/simulation_fixed.json` |
+| Table S5 | Fixed 3-D PCA, PCoA, and RMS sensitivities | `code/fixed3d_sensitivity.py`, `code/pcoa_fixed.py`, `code/rms_fixed_sensitivity.py` |
+| Table S6 | Full-curated corpus sensitivity and 100-versus-500 draw convergence | `results/unit_revision_fixed/sensitivity_full_curated.json`, `results/unit_revision_fixed/convergence_100_vs_500.json` |
+| Table S7 | Parameter dictionary and scenario-coding rules | `data/parameter_dictionary.csv`, `docs/scenario_coding_rules.md`, `docs/primary_corpus.md` |
 
-## Core reported values
+## Current corpus and estimator facts
 
-- Curated corpus: 117 papers, 716 rows, 145 matrix-defined within-study configurations, 131 distinct patterns; 571 repeated rows.
-- Primary fixed PCA A−Bstudy, 92 single-configuration studies: 0.17 (0.07–0.37), 79% positive.
-- Secondary fixed PCA A−Bblock, 93 single-configuration studies: 0.23 (0.14–0.33), 82% positive.
-- Fixed PCA A−C, 117: 0.28 (0.19–0.39).
-- Canonical A−B and A−C contrasts are differences of per-study median ratios. The log-ratio is a separate control-only sensitivity.
-- Fixed 3-D PCA A−Bstudy, 92: 0.06 (0.02–0.18), 62% positive.
-- Duplicate-pair adjudication: 56 priority pairs resolved (53 same, three undecidable); 42 approved cell corrections applied. The 27 nonprimary pairs remain without approved coordinator adjudication.
+- Primary corpus: 87 papers, 555 rows, 93 configurations; 81 single-configuration focal papers and six background multi-configuration papers.
+- Full-curated sensitivity corpus: 117 papers, 716 rows, 145 configurations.
+- Both loaders drop all-zero `SAR` and `Al (µg/L)` columns, retain 42 active parameters, and recompute `rho` over active columns.
+- Estimator: `R_s = block_drift_s / median(control_drifts_s)`.
+- A and C use 100 Monte Carlo draws. Bstudy and Bblock enumerate complete donor pools.
+- On the shared 74-paper primary set, every Bstudy donor pool is nested within Bblock.
+- Two-level bootstrap resamples papers and A/C control drifts; exhaustive Bstudy/Bblock medians remain fixed within paper resamples.
+- Primary focal claims use single-configuration papers only. Multi-configuration papers are background. Design H is removed.
+- Overall A−Bstudy is primary; 2–5/6–10/≥11 row strata are exploratory because cut points were not prespecified.
+- Primary exclusions: unresolved duplicate pairs, decidable primary/coordinator disagreements, ambiguous scenario identity, unsure papers, retained substitutes, and B149.
+- Blinded-primary/unblinded-coordinator concordance is 37/56 (66.1%; κ = 0.17). No completed human second-coder file is available.
+
+## Current numerical source of truth
+
+- `results/unit_revision_fixed/common_contrast.json`: primary 2-D estimates, strata, donor-pool distributions, nesting, per-paper ratios, block drifts, and control drifts.
+- `results/unit_revision_fixed/fixed3d_contrast.json`, `pcoa_contrast.json`, `rms_sensitivity.json`: fixed sensitivities.
+- `results/unit_revision_fixed/sensitivity_full_curated.json`: full-curated sensitivity.
+- `results/unit_revision_fixed/convergence_500.json` and `convergence_100_vs_500.json`: draw-convergence check.
+- `results/unit_revision_fixed/strata_sensitivity.csv` and `donor_pool_by_focal.csv`: flat audit exports.
+- `results/unit_revision_fixed/manuscript_values.json`: rounded renderings only.
+
+## Legacy provenance
+
+- `results/unit_revision/`: archived own-row/common-evaluation audit.
+- `results/unit_revision_fixed/sensitivity_no_B208.json` and `sensitivity_no_unsure_substitutes.json`: historical full-curated exclusion runs.
+- `results/post_audit/simulation_validation.json`, `simulation_iid_null.json`, and own-row sensitivity summaries: historical methods and corpora.
+- `docs/archive/DATA_PROVENANCE_ARCHIVE.md`: archived manuscript map.
 
 ## Audit frames
 
-- `data/cell_level_sample.csv`, `data/cell_level_coded.csv`, `data/cell_level_triage.csv`: targeted 351-cell audit.
-- `data/duplicate_pair_audit_frame.csv`: frozen 100 records representing 83 unique unordered pairs; 56 priority pairs have author-approved coordinator resolutions.
-- `data/duplicate_pair_source_review.csv`: independent AI-assisted blinded source-review labels; not human adjudication.
-- `data/duplicate_pair_source_review_summary.json`: source-review counts and post-correction matrix comparison.
-- `data/prior_human_cell_corrections.csv`: 13 historical P1 human corrections; four are superseded by the approved 2026-11-27 review.
-- `data/prior_human_pair_evidence.csv`: prior correction mapping with post-correction values and resolution status.
-- `data/duplicate_pair_human_adjudication_coder.xlsx`: blind primary/secondary coding workbook.
-- `data/duplicate_pair_human_adjudication_coordinator.xlsx`: coordinator key and prior-evidence workbook.
+- `data/cell_level_sample.csv`, `cell_level_coded.csv`, `cell_level_triage.csv`: 351-cell automated text-triage and targeted snippet-review audit; not 351 independent human page checks.
+- `data/duplicate_pair_audit_frame.csv`: frozen 100 records representing 83 unique pairs; 56 priority pairs have coordinator dispositions.
+- `data/duplicate_pair_source_review.csv`: AI-assisted blinded source-review labels; not human adjudication.
+- `data/duplicate_pair_human_adjudication_results_approved_2026-11-27.csv`: primary and coordinator labels used for concordance and exclusions.
+- `data/duplicate_pair_correction_impact_audit.json`: full-curated and primary-specific configuration, status, and donor-count impact of the 42 approved corrections.
+- `data/corpus_manifest_audit.csv`: paper-level screening, substitution, eligibility, exclusion reasons, and pair IDs.
+- `docs/ai/`: exact screening and extraction prompts used by the AI-assisted workflow.
 
-The numeric water-quality value layer is restricted and is not included. All binary coverage matrices and code needed for the reported checks are present.
+The numeric water-quality value layer is restricted and was not analyzed here. All binary matrices and code needed for the reported checks are present.

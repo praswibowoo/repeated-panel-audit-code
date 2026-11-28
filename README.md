@@ -2,24 +2,31 @@
 
 Code, data, and result archive for:
 
-> **Deletion-unit choice in leave-one-study-out audits of repeated binary coverage rows**
+> **Row-count versus whole-study controls for repeated single-configuration blocks in binary coverage audits**
 >
 > Wibowo, P., Veesommai Sillberg, C., & Kiyoki, Y. (2026).
 >
 > *Environmental and Ecological Statistics*.
 
-Release: `v1.9.2-2026-11-28` (canonical tag: https://github.com/praswibowoo/repeated-panel-audit-code/tree/v1.9.2-2026-11-28). The default `main` branch is historical and has diverged; use the tag for this release.
+Release: `v1.10.0-2026-11-28`. The default `main` branch is historical; use the release tag or `revision/q1-scope` for the current manuscript analysis.
 
-`v1.9.1-2026-11-28` is superseded because `control_balance.json` retained pre-harmonization A−C values.
+## Current corpus and estimator
+
+- **Primary corpus:** 87 eligibility-qualified papers, 555 rows, 93 matrix-defined configurations; 81 single-configuration papers and six background multi-configuration papers.
+- **Active parameters:** 42 populated columns. All-zero `SAR` and `Al (µg/L)` columns are dropped by the loaders; `rho` is recomputed over active columns.
+- **Sensitivity corpus:** `data/coverage_matrix.csv` remains the full curated 117-paper / 716-row matrix.
+- **Estimator:** `R_s = block_drift_s / median(control_drifts_s)`.
+- **Controls:** A and C remain Monte Carlo; Bstudy and Bblock enumerate every eligible donor. Bstudy is nested within Bblock.
+- **Scope:** primary focal claims use single-configuration studies only. Multi-configuration studies are background. Design H is removed from current code and outputs.
 
 ## Contents
 
 | Path | Purpose |
 |---|---|
-| `code/` | Analysis and figure-generation scripts |
-| `data/` | Curated/all-paper/full-extraction coverage matrices, event tables, audit frames, and sensitivity summaries |
-| `results/unit_revision_fixed/` | Primary fixed-set PCA, RMS, PCoA, balance, and corpus-exclusion outputs |
-| `results/post_audit/` | Synthetic benchmarks and labeled legacy/own-row sensitivities |
+| `code/` | Current analysis and figure scripts; legacy scripts remain labeled |
+| `data/` | Primary/full-curated matrices, manifests, exclusions, event tables, audit frames, and provenance |
+| `results/unit_revision_fixed/` | Current primary fixed-set PCA, RMS, PCoA, balance, strata, and full-curated sensitivity |
+| `results/post_audit/` | Current fixed simulation and labeled legacy/own-row sensitivities |
 | `docs/` | Corpus provenance, screening, verification, and revision audit |
 | `figures/` | Generated main and SI figure PDFs |
 | `DATA_PROVENANCE.md` | Manuscript-to-source map |
@@ -32,50 +39,68 @@ The numeric water-quality value layer is restricted and is not included. All bin
 conda env create -f environment.yml
 conda activate p2-deletion-audit
 
+python3 code/build_primary_corpus.py
+python3 code/audit_correction_impact.py
 python3 code/unit_revision_fixed.py --draws 100
 python3 code/fixed3d_sensitivity.py
-python3 code/rms_fixed_sensitivity.py
 python3 code/pcoa_fixed.py --draws 100
-python3 code/simulation_fixed.py
+python3 code/rms_fixed_sensitivity.py
+python3 code/control_balance_fixed.py
 python3 code/render_fixed_values.py
 python3 code/make_fig_paired_contrast.py
-python3 code/duplicate_pair_audit.py
-python3 code/prepare_duplicate_adjudication.py
+python3 code/export_strata.py
 python3 code/verify_package.py
 ```
 
-Use `python3 code/run_all.py --list` to inspect all available analyses. Manuscript-specific LaTeX checks are not part of this standalone repository.
+Full-curated sensitivity:
+
+```bash
+python3 code/unit_revision_fixed.py --draws 100 \
+  --matrix data/coverage_matrix.csv \
+  --out results/unit_revision_fixed/sensitivity_full_curated.json
+```
+
+Use `python3 code/run_all.py --list` to inspect all available analyses. The
+500-draw convergence run is intentionally separate. Manuscript-specific LaTeX
+checks are not part of this standalone repository.
 
 ## Primary outputs
 
 | File | Role |
 |---|---|
-| `results/unit_revision_fixed/common_contrast.json` | Primary fixed-set covariance-PCA audit, including the control-only log-ratio sensitivity |
+| `data/coverage_matrix_primary.csv` | Eligibility-qualified primary corpus |
+| `data/primary_corpus_summary.json` | Counts, exclusion reasons, and coder concordance |
+| `results/unit_revision_fixed/common_contrast.json` | Primary fixed-set PCA, ratio-of-medians contrasts, strata, nested donor diagnostics, and drift-level bootstrap inputs |
 | `results/unit_revision_fixed/fixed3d_contrast.json` | Fixed-set 3-D PCA sensitivity |
 | `results/unit_revision_fixed/rms_sensitivity.json` | Fixed-set RMS event-drift sensitivity |
-| `results/unit_revision_fixed/manuscript_values.json` | Rounded manuscript values rendered from deposited outputs |
 | `results/unit_revision_fixed/pcoa_contrast.json` | Fixed-set two-dimensional Jaccard PCoA |
-| `results/unit_revision_fixed/control_balance.json` | Bblock balance and missing-donor studies |
-| `results/unit_revision_fixed/sensitivity_no_B208.json` | Fixed exclusion of B208 |
-| `results/unit_revision_fixed/sensitivity_no_unsure_substitutes.json` | Fixed exclusion of 13 unsure records and two substitutes |
-| `results/post_audit/simulation_fixed.json` | Fixed-set clustered, planted, and independent-row benchmarks |
-| `data/duplicate_pair_audit_frame.csv` | Frozen 100-record / 83-unique-unordered-pair frame; 56 priority pairs have author-approved resolutions |
-| `data/duplicate_pair_source_review.csv` | Independent AI-assisted blinded source-review labels; not human adjudication |
-| `data/duplicate_pair_human_adjudication_coder.xlsx` | Blind 56-pair primary and 62-pair second-coder workbook |
-| `data/duplicate_pair_human_adjudication_primary_simple.xlsx` | Completed eight-column primary submission dated 2026-11-27 |
-| `data/duplicate_pair_human_adjudication_coordinator.xlsx` | Coordinator key with matrix/AI labels and prior P1 human evidence |
+| `results/unit_revision_fixed/control_balance.json` | Bstudy/Bblock balance and missing-donor studies |
+| `results/unit_revision_fixed/sensitivity_full_curated.json` | Full 117-paper curated sensitivity using the current estimator |
+| `results/unit_revision_fixed/manuscript_values.json` | Rounded values rendered from current outputs |
+| `results/unit_revision_fixed/strata_sensitivity.csv` | Flat block-size sensitivity export |
+| `results/unit_revision_fixed/donor_pool_by_focal.csv` | Per-focal exhaustive donor-pool sizes |
+| `results/unit_revision_fixed/convergence_100_vs_500.json` | Draw-convergence audit |
+| `results/post_audit/simulation_fixed.json` | Fixed-set synthetic benchmarks; simulation Bblock sampling is explicitly labeled |
+| `figures/fig_paired_contrast.pdf` | Primary paired-contrast figure |
 
 ## Interpretation
 
-- Canonical A−B and A−C contrasts are differences of per-study median ratios; raw draw-level differences are retained only as diagnostics. The log-ratio is a separate control-only sensitivity.
-- A−Bstudy is the primary whole-study control contrast for 92 eligible single-configuration studies; all eligible whole-study donors are enumerated.
-- A−Bblock is a secondary configuration-donor contrast; donor configurations may be embedded in multi-configuration studies.
-- A−C is a secondary protocol contrast that changes fit weighting, control geometry, reference ordination, and normalization.
-- Bstudy is available for 92/98 single-configuration studies; six lack a whole-study donor.
-- H is an exploratory donor-study control, not a validated coherence match.
-- Configuration collapse is recommended only for a configuration-weighted target.
+- Canonical contrasts are differences of per-study ratio-of-medians estimates. Conditional study-bootstrap ranges are preserved.
+- A−Bstudy is the primary whole-study control contrast on eligible single-configuration studies; every eligible whole-study donor is enumerated.
+- The 2–5, 6–10, and ≥11 row strata are exploratory descriptive summaries; their cut points were not prespecified.
+- A−Bblock is the secondary configuration-donor contrast; every exact-size donor configuration is enumerated, including configurations embedded in multi-configuration studies.
+- Two-level bootstrap resamples studies and A/B/C control drifts, then recomputes median control drift and the ratio. Exhaustive Bstudy/Bblock medians stay fixed within study resamples.
+- A−C is a protocol contrast that changes fit weighting, control geometry, reference ordination, and normalization.
 - Per-study ratios are descriptive, not calibrated outlier scores.
+
+## Legacy provenance
+
+`results/unit_revision/`, `results/unit_revision_fixed/sensitivity_no_B208.json`,
+`results/unit_revision_fixed/sensitivity_no_unsure_substitutes.json`, and
+own-row scripts/results are retained for provenance only. They are not current
+primary outputs and may use the full curated corpus, median-of-ratios, sampled
+Bblock, or Design H.
 
 ## Manuscript map
 
-The final manuscript has three main tables, one main figure, and SI Tables S1–S6. See `DATA_PROVENANCE.md` for the exact file/script mapping.
+The final manuscript has three main tables, one main figure, Figure S1, and SI Tables S1–S7. See `DATA_PROVENANCE.md` for the exact file/script mapping and `docs/audit/REVISION_2026-11-28_Q1_AUDIT.md` for the completed revision audit.

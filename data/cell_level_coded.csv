@@ -1,4 +1,4 @@
-paper,row,parameter,matrix_value,text_value,evidence,confidence,human_value,match,coding
+paper,row,parameter,matrix_value,text_value,evidence,confidence,human_value,match,coding,notes
 B001,3,NO3 (mg/L),1,1,"of nutrients viz. nitrate (0.23 to 7.26 µM), nitrite (0.04 to 0.87µM), phosphate (0.13 to 3.12 µM) and reactive silicate (4.23 to 19.02 µM) also varied",high,0,yes,manual_snippet
 B001,10,TP (mg/L),1,REVIEW,,review,1,yes,manual_snippet
 B001,10,Chlorophyll-a (mg/m3),0,0,,high,0,yes,manual_snippet
@@ -130,7 +130,7 @@ B083,301,Temperature (°C),1,REVIEW,,review,1,yes,manual_snippet
 B083,301,TSS (mg/L),0,0,,high,0,yes,manual_snippet
 B084,308,TSS (mg/L),1,1,TSS (mg/L)                             4       2.315186          0.145175       2        230.9433              8.4021E-08,high,0,yes,manual_snippet
 B084,305,TSS (mg/L),1,1,TSS (mg/L)                             4       2.315186          0.145175       2        230.9433              8.4021E-08,high,0,yes,manual_snippet
-B084,317,Cu (µg/L),0,REVIEW,Cu (mg/L)                                                   4                   3.046612                  0.084233        2                  4.873277                   0.041296,review,1,no,manual_snippet
+B084,317,Cu (µg/L),0,REVIEW,Cu (mg/L)                                                   4                   3.046612                  0.084233        2                  4.873277                   0.041296,review,1,no,manual_snippet,"Scenario-inapplicable text match: Cu occurs only in waterlogged-soil Table 2; B084 rows are water scenarios, so matrix Cu=0 is retained."
 B085,323,NO3 (mg/L),1,1,Nitrate                                                          1     0.91**     0.35      0.40    -0.44             0.18,high,0,yes,manual_snippet
 B085,329,Secchi (m),1,REVIEW,,review,1,yes,manual_snippet
 B085,329,Alkalinity (mg/L),1,1,Lakshmanan et al. 17 observed nitrate value in Cochin backwater     C/m3/day. Highest primary productivity was 3597 mg C/m3/day,high,0,yes,manual_snippet

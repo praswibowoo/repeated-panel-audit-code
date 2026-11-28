@@ -159,7 +159,8 @@ def main() -> int:
 
     for frame in (curated, all_paper, full):
         params = [c for c in frame.columns if c not in ("paper", "row", "rho")]
-        frame["rho"] = (frame[params].sum(axis=1) / len(params)).round(6)
+        active = [c for c in params if frame[c].fillna(0).ne(0).any()]
+        frame["rho"] = (frame[active].sum(axis=1) / len(active)).round(6)
 
     # Preserve the curated = all-paper minus five papers invariant.
     params = [c for c in curated.columns if c not in ("paper", "row", "rho")]

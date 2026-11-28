@@ -25,11 +25,16 @@ def main() -> None:
     manifest["release"] = release_id
     manifest["date"] = release_date
 
-    paths = [item["path"] for item in manifest["files"]]
-    if GENERATOR not in paths:
-        paths.append(GENERATOR)
+    listed = subprocess.check_output(
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+        cwd=ROOT,
+    ).decode("utf-8").split("\0")
+    rels = sorted({
+        rel for rel in listed
+        if rel and rel not in {"MANIFEST.json", "SHA256SUMS", ".DS_Store"}
+    } | {GENERATOR})
     manifest["files"] = []
-    for rel in paths:
+    for rel in rels:
         path = ROOT / rel
         if not path.is_file():
             raise FileNotFoundError(path)
@@ -40,12 +45,6 @@ def main() -> None:
         })
     MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
-    listed = subprocess.check_output(
-        ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
-        cwd=ROOT,
-    ).decode("utf-8").split("\0")
-    rels = sorted({rel for rel in listed if rel and rel != "SHA256SUMS"})
-    rels = sorted(set(rels) | {GENERATOR})
     lines = [f"{sha256(ROOT / rel)}  {rel}" for rel in rels]
     SHA256SUMS.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"updated {MANIFEST.name} and {SHA256SUMS.name} for {release_id}")

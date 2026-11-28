@@ -11,7 +11,7 @@ import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from common import data_dir, load_curated, unique_mask  # noqa: E402
+from common import data_dir, load_primary, unique_mask  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "results", "unit_revision_fixed", "control_balance.json")
@@ -36,7 +36,8 @@ def summarize_pool(df: pd.DataFrame, donor_col: str, focal_col: str) -> dict:
 
 
 def main() -> None:
-    X, rho, paper = load_curated()
+    loaded = load_primary(return_metadata=True)
+    X, rho, paper = loaded.X, loaded.rho, loaded.paper
     papers = sorted(set(paper))
     uni = unique_mask(X, paper)
     Xc, pc = X[uni], paper[uni]
@@ -50,7 +51,7 @@ def main() -> None:
     config_size = np.asarray(config_size)
     n_u = {p: int(np.sum(uni & (paper == p))) for p in papers}
 
-    cov = pd.read_csv(os.path.join(data_dir(), "coverage_matrix.csv"))[["paper", "row"]]
+    cov = pd.read_csv(loaded.source)[["paper", "row"]]
     types = pd.read_csv(os.path.join(data_dir(), "coverage_matrix_types.csv"))
     water = cov.merge(
         types[["paper", "row", "water_only"]], on=["paper", "row"], how="left"
@@ -110,6 +111,13 @@ def main() -> None:
     study_missing = [p for p, m in meta.items() if m["n_configs"] == 1 and m["whole_study_donors"] == 0]
 
     out = {
+        "design": {
+            **loaded.metadata(),
+            "estimator": fixed.get("estimator"),
+            "primary_focal_population": "single_configuration_studies_only",
+            "multi_configuration_role": "background_only",
+        },
+        "donor_pool_nesting": fixed.get("donor_pool_nesting"),
         "bblock_single_eligible": {
             **summarize_pool(block, "bblock_density_mean", "focal_density"),
             "focal_recurrence_fraction": float(block.focal_recurrence.mean()),
