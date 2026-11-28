@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Apply the user-approved duplicate-pair cell corrections.
+"""Apply the author-approved duplicate-pair cell corrections.
 
 The approved log is the only input. The script validates every current value in
 the curated matrix, all-paper matrix, full-extraction matrix, and canonical
@@ -150,7 +150,7 @@ def main() -> int:
         stage.loc[stage_idx, parameter] = "Y" if new == 1 else "NE"
         note_key = (str(corr.paper), scenario)
         if note_key in PROVENANCE_NOTES:
-            marker = "[2026-11-27 user-approved review:"
+            marker = "[2026-11-27 author-approved review:"
             existing = str(stage.loc[stage_idx, "cause_effect_note"])
             if marker not in existing:
                 stage.loc[stage_idx, "cause_effect_note"] = (

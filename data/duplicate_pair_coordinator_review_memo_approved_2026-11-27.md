@@ -1,7 +1,7 @@
 # Approved duplicate-pair correction application
 
 Approval date: 2026-11-27
-Approved by: user
+Approved by: corresponding author
 Scope: all 42 proposed cell corrections
 
 ## Applied changes
@@ -28,7 +28,7 @@ Scope: all 42 proposed cell corrections
 
 ## Prior corrections
 
-Four prior accepted human corrections were explicitly superseded by the user-approved review:
+Four prior accepted human corrections were explicitly superseded by the author-approved review:
 
 - B034 row 181 pH: `0 -> 1`
 - B065 row 251 NO2: `0 -> 1`
@@ -48,4 +48,4 @@ The fixed 2-D PCA rerun gives A$-$Bstudy = **0.17 (0.07--0.37)** across 92 eligi
 
 ## Downstream status
 
-The full matrix-dependent analysis suite and manuscript/SI numerical refresh are complete. `verify_package.py` passes, the final LaTeX build is clean, and release `v1.9.0-2026-11-27` is prepared for tagging and push.
+The full matrix-dependent analysis suite and manuscript/SI numerical refresh are complete. `verify_package.py` passes, the final LaTeX build is clean, and release `v1.9.0-2026-11-27` is prepared for tagging and push. Subsequent patch release `v1.9.1-2026-11-28` harmonizes secondary contrasts and synchronizes submission documentation.

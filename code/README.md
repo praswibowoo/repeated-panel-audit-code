@@ -1,12 +1,12 @@
 # Code map
 
-Release: `v1.9.0-2026-11-27`. Run scripts from the repository root.
+Release: `v1.9.1-2026-11-28`. Run scripts from the repository root.
 
 ## Primary analyses
 
 | Script | Purpose | Output |
 |---|---|---|
-| `unit_revision_fixed.py` | Fixed-set PCA; A/exhaustive Bstudy/Bblock/C/H, donor availability, paired contrasts, optional exclusions/dimensions | `results/unit_revision_fixed/common_contrast.json` |
+| `unit_revision_fixed.py` | Fixed-set PCA; A/exhaustive Bstudy/Bblock/C/H, donor availability, median-ratio contrasts, optional exclusions/dimensions | `results/unit_revision_fixed/common_contrast.json` |
 | `fixed3d_sensitivity.py` | Fixed-set 3-D PCA sensitivity | `results/unit_revision_fixed/fixed3d_contrast.json` |
 | `rms_fixed_sensitivity.py` | Fixed-set PCA with RMS event drift | `results/unit_revision_fixed/rms_sensitivity.json` |
 | `control_balance_fixed.py` | Bstudy/Bblock balance, donor composition, and missing-donor summary | `results/unit_revision_fixed/control_balance.json` |
@@ -18,7 +18,7 @@ Release: `v1.9.0-2026-11-27`. Run scripts from the repository root.
 | `extract_simple_adjudication_xlsx.py` | Extract the Primary sheet from the simple workbook to CSV without Excel dependencies; converts Excel date serials | `primary_completed.csv` |
 | `import_duplicate_adjudication.py` | Validate human labels and write provisional results, strict-import readiness, pending IDs, and disagreement flags; supports partial/simple input; never edits matrix | `data/duplicate_pair_human_adjudication_results.csv` |
 | `build_adjudication_processing_report.py` | Build all-row and flagged coordinator reports with exact matrix differences and required actions; never assigns labels | `data/duplicate_pair_human_adjudication_processing_report_YYYY-MM-DD.csv` |
-| `apply_approved_duplicate_pair_corrections.py` | Validate and apply user-approved cell corrections to curated/all-paper/full-extraction/stage-A layers; refresh rho and write audit | `data/duplicate_pair_cell_correction_application_audit_YYYY-MM-DD.json` |
+| `apply_approved_duplicate_pair_corrections.py` | Validate and apply author-approved cell corrections to curated/all-paper/full-extraction/stage-A layers; refresh rho and write audit | `data/duplicate_pair_cell_correction_application_audit_YYYY-MM-DD.json` |
 | `refresh_duplicate_pair_matrix_fields.py` | Refresh pair Hamming/density/configuration fields and source-review matrix comparison after approved corrections | updated frame/key/summary/manifest |
 | `make_fig_paired_contrast.py` | Main control-geometry figure | `figures/fig_paired_contrast.pdf` |
 | `make_fig_prisma.py` | Corpus provenance figure | `figures/figS1_prisma_flow.pdf` |
@@ -48,5 +48,6 @@ python3 code/unit_revision_fixed.py --draws 100 \
 | `simulation_iid_null.py` | Archived own-row independent-row benchmark |
 | `balance_diagnostics.py` | Archived own-row balance summary |
 | `verify_package.py` | File inventory and numerical self-check |
+| `refresh_release_hashes.py` | Regenerate `MANIFEST.json` and `SHA256SUMS` for the current release |
 
 Manuscript-specific LaTeX/package checks remain in the editable manuscript source tree and are not required to reproduce the analysis outputs in this repository.

@@ -106,7 +106,7 @@ def main() -> None:
         (ys[2], "Records removed at pre-screen\nn = 5,718;\n37-param term scoring"),
         (ys[3], "Screening pilots consumed\n138 of 375 frame titles"),
         (ys[4], "Records excluded\nn = 89"),
-        (ys[5] + 0.040, "Metadata validation\n117 DOI confirmed · 25 verified\nDOI-less · 3 year fixes"),
+        (ys[5] + 0.040, "Metadata validation\n117 DOI confirmed · 25 DOI-less\n6 manual checks · 3 year fixes"),
         (ys[5] - 0.040, "Records removed at intake (n = 13)\noff-topic 8 · not processed 5"),
         (ys[6], "Reports not retrieved (n = 16)\nILL-pending; 119/135 PDFs (88%)"),
     ]

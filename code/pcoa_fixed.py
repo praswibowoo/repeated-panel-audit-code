@@ -20,6 +20,9 @@ Primary outputs
 A-Bstudy paired whole-study contrast for eligible single-configuration studies
 A-Bblock paired configuration-donor contrast
 A-C paired protocol contrast
+
+All contrasts are differences of per-study median ratios. Raw draw-level
+differences are retained only as deposited diagnostics.
 """
 from __future__ import annotations
 
@@ -42,6 +45,7 @@ from unit_revision_fixed import (  # noqa: E402
     mean_pairwise_hamming,
     study_bootstrap,
     two_level_bootstrap,
+    two_level_contrast_bootstrap,
 )
 
 
@@ -213,10 +217,28 @@ def main() -> int:
                 draws["Bstudy"].append(r_study)
                 draws["ABstudy"].append(rA - r_study)
 
-        for k in keys:
+        design_keys = ("A", "Bblock", "Bstudy", "C")
+        for k in design_keys:
             if draws[k]:
                 per_paper[k][p] = float(np.median(draws[k]))
                 per_paper_draws[k][p] = [float(v) for v in draws[k]]
+
+        contrast_pairs = {
+            "ABblock": ("A", "Bblock"),
+            "ABstudy": ("A", "Bstudy"),
+            "AC": ("A", "C"),
+            "ACsingle": ("A", "C"),
+            "ACmulti": ("A", "C"),
+        }
+        for k, (key_j, key_k) in contrast_pairs.items():
+            if k == "ACsingle" and nu != 1:
+                continue
+            if k == "ACmulti" and nu <= 1:
+                continue
+            if p in per_paper[key_j] and p in per_paper[key_k]:
+                per_paper[k][p] = per_paper[key_j][p] - per_paper[key_k][p]
+                if draws[k]:
+                    per_paper_draws[k][p] = [float(v) for v in draws[k]]
 
         meta[p] = {
             "n_rows": n_p,
@@ -241,12 +263,22 @@ def main() -> int:
         summary["two_level"] = two_level_bootstrap(per_paper_draws[k])
         designs[k] = summary
 
+    contrast_specs = {
+        "ABblock": ("A", "Bblock", papers),
+        "ABstudy": ("A", "Bstudy", papers),
+        "AC": ("A", "C", papers),
+        "ACsingle": ("A", "C", single),
+        "ACmulti": ("A", "C", multi),
+    }
     contrasts = {}
     for k in ("ABblock", "ABstudy", "AC", "ACsingle", "ACmulti"):
         vals = [per_paper[k][p] for p in papers if p in per_paper[k]]
         summary = describe(vals)
         summary.update(study_bootstrap(vals))
-        summary["two_level"] = two_level_bootstrap(per_paper_draws[k])
+        key_j, key_k, bootstrap_papers = contrast_specs[k]
+        summary["two_level"] = two_level_contrast_bootstrap(
+            per_paper_draws, bootstrap_papers, key_j, key_k
+        )
         contrasts[k] = summary
 
     subgroups = {

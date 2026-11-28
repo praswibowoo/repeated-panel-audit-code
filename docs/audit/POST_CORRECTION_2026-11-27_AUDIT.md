@@ -1,10 +1,10 @@
 # Post-correction audit — 2026-11-27
 
-Status: release `v1.9.0-2026-11-27` prepared; annotated tags and branch pushes authorized.
+Status: historical audit for release `v1.9.0-2026-11-27`; superseded by `v1.9.1-2026-11-28`. Secondary contrasts below use the earlier draw-level estimator.
 
 ## Approved correction application
 
-- User approved all 42 proposed binary-cell corrections.
+- The corresponding author approved all 42 proposed binary-cell corrections.
 - Applied to:
   - `data/coverage_matrix.csv`
   - `data/coverage_matrix_all_paper.csv`
@@ -59,7 +59,7 @@ Status: release `v1.9.0-2026-11-27` prepared; annotated tags and branch pushes a
 - Final LaTeX build: clean (main 21 pages, SI 9 pages, title page 1 page).
 - Current-matrix panel decomposition, core checks, rebuilt-event tail checks, permutation nulls, PCoA, RMS, 3-D, exclusions, synthetic, perturbation, coherence, three-set, and own-row sensitivity outputs refreshed.
 - `verify_package.py`: PASS (114 files).
-- Manuscript/value/matrix/figure consistency check: PASS.
+- Manuscript/value/matrix/figure consistency check: PASS for the then-current v1.9.0 package. A later audit found documentation and secondary-estimator drift corrected in v1.9.1.
 
 ## Release status
 

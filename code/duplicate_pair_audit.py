@@ -11,7 +11,7 @@ than individual cells:
 
 The frame is reproducible from coverage_matrix.csv. It contains 100 records
 representing 83 unique unordered pairs. The 56 priority pairs now have
-user-approved coordinator resolutions; the remaining 27 pairs are not part of
+author-approved coordinator resolutions; the remaining 27 pairs are not part of
 the primary-only adjudication. Independent AI-assisted source-review labels
 remain stored alongside the frozen frame. Run without --force to verify the
 frozen frame.

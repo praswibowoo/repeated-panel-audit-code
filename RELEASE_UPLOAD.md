@@ -1,4 +1,4 @@
-# Upload instructions — v1.9.0-2026-11-27
+# Upload instructions — v1.9.1-2026-11-28
 
 ## 1. Code/data repository
 
@@ -8,22 +8,23 @@ Release branch: `revision/q1-scope`
 
 ```bash
 cd p2-deletion-audit-code
+python3 code/refresh_release_hashes.py
 python3 code/verify_package.py
 shasum -a 256 -c SHA256SUMS
 git status
 git add .
-git commit -m "Release v1.9.0-2026-11-27: approved duplicate-pair corrections and analysis rerun"
+git commit -m "Release v1.9.1-2026-11-28: harmonize contrasts and synchronize package"
 git push origin HEAD
-git tag -a v1.9.0-2026-11-27 -m "Approved duplicate-pair corrections and full analysis rerun"
-git push origin v1.9.0-2026-11-27
+git tag -a v1.9.1-2026-11-28 -m "Harmonized contrasts and synchronized release package"
+git push origin v1.9.1-2026-11-28
 ```
 
 Verify:
 
 ```bash
-curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.0-2026-11-27/code/unit_revision_fixed.py
-curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.0-2026-11-27/results/unit_revision_fixed/common_contrast.json
-curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.0-2026-11-27/data/coverage_matrix.csv
+curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.1-2026-11-28/code/unit_revision_fixed.py
+curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.1-2026-11-28/results/unit_revision_fixed/common_contrast.json
+curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.1-2026-11-28/data/coverage_matrix.csv
 ```
 
 ## 2. Manuscript repository
@@ -34,11 +35,12 @@ Release branch: `revision/q1-scope`
 
 ```bash
 cd p2-deletion-audit
-git add source/figures/fig_paired_contrast.pdf source/manuscript/ees
-git commit -m "Release v1.9.0-2026-11-27: revised manuscript and SI"
+(cd source/manuscript/ees && make check)
+git add README.md source/figures source/manuscript/ees
+git commit -m "Release v1.9.1-2026-11-28: revised manuscript and SI"
 git push origin HEAD
-git tag -a v1.9.0-2026-11-27 -m "Revised manuscript and SI for approved matrix corrections"
-git push origin v1.9.0-2026-11-27
+git tag -a v1.9.1-2026-11-28 -m "Deletion-unit revision and harmonized contrasts"
+git push origin v1.9.1-2026-11-28
 ```
 
 Build check:

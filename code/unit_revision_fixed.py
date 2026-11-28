@@ -26,6 +26,10 @@ ABblock  A minus Bblock, single-configuration studies with an exact-size donor
 ACmulti  A minus C, multi-configuration studies
 CminusH  C minus H, multi-configuration studies
 
+Canonical A-B and A-C contrasts are differences of per-study median ratios.
+Raw draw-level differences are retained only as deposited diagnostics. The
+Bstudy log-ratio is a separate control-only sensitivity.
+
 The legacy B design is retained only as an algorithmic sensitivity.
 """
 from __future__ import annotations
@@ -100,6 +104,44 @@ def two_level_bootstrap(per_draw: dict, n_boot: int = 5000, seed: int = SEED) ->
     }
 
 
+def two_level_contrast_bootstrap(
+    per_paper_draws: dict,
+    papers: list[str],
+    key_j: str,
+    key_k: str,
+    n_boot: int = 5000,
+    seed: int = SEED,
+) -> dict:
+    """Resample studies and each design's draws, then difference median ratios."""
+    papers = [
+        p for p in papers
+        if p in per_paper_draws.get(key_j, {})
+        and p in per_paper_draws.get(key_k, {})
+    ]
+    if not papers:
+        return {"n": 0, "median": None, "ci_lo": None, "ci_hi": None}
+    rng = np.random.default_rng(seed)
+    boot = np.empty(n_boot)
+    for b in range(n_boot):
+        selected = rng.integers(0, len(papers), len(papers))
+        vals = []
+        for i in selected:
+            p = papers[i]
+            arr_j = np.asarray(per_paper_draws[key_j][p], float)
+            arr_k = np.asarray(per_paper_draws[key_k][p], float)
+            med_j = np.median(rng.choice(arr_j, len(arr_j), replace=True))
+            med_k = np.median(rng.choice(arr_k, len(arr_k), replace=True))
+            vals.append(med_j - med_k)
+        boot[b] = np.median(vals)
+    return {
+        "n": len(papers),
+        "median": float(np.median(boot)),
+        "ci_lo": float(np.quantile(boot, 0.025)),
+        "ci_hi": float(np.quantile(boot, 0.975)),
+        "n_boot": int(n_boot),
+    }
+
+
 def describe(values) -> dict:
     x = np.asarray(values, float)
     if not len(x):
@@ -148,6 +190,14 @@ def main() -> int:
     drift_fn = median_drift if args.drift_summary == "median" else rms_drift
 
     excluded = [x.strip() for x in args.exclude.split(",") if x.strip()]
+    if args.out is None and (
+        args.draws != 100 or args.dims != 2
+        or args.drift_summary != "median" or excluded
+    ):
+        ap.error(
+            "--out is required when draw count, dimensions, drift summary, "
+            "or exclusions differ from the primary defaults"
+        )
     X, rho, paper = load_curated()
     if excluded:
         missing = sorted(set(excluded) - set(paper))
@@ -177,7 +227,7 @@ def main() -> int:
     S_full_c = full_c.transform(Xc)
 
     keys = ("A", "B", "Bblock", "Bstudy", "C", "H", "AB", "AC", "BC",
-            "ABblock", "ABstudy", "ACsingle", "ACmulti", "CminusH")
+            "ABblock", "ABstudy", "ABstudy_log", "ACsingle", "ACmulti", "CminusH")
     per_paper = {k: {} for k in keys}
     per_paper_draws = {k: {} for k in keys}
     meta = {}
@@ -324,10 +374,38 @@ def main() -> int:
                 draws["ACmulti"].append(rA - rC)
                 draws["CminusH"].append(rC - rH)
 
-        for k in keys:
+        design_keys = ("A", "B", "Bblock", "Bstudy", "C", "H")
+        for k in design_keys:
             if draws[k]:
                 per_paper[k][p] = float(np.median(draws[k]))
                 per_paper_draws[k][p] = [float(v) for v in draws[k]]
+
+        # Canonical contrasts are differences of per-study median ratios.
+        # Raw draw-level differences remain deposited for transparency but are
+        # not the reported estimand because control draws are not paired.
+        contrast_pairs = {
+            "AB": ("A", "B"),
+            "AC": ("A", "C"),
+            "BC": ("B", "C"),
+            "ABblock": ("A", "Bblock"),
+            "ABstudy": ("A", "Bstudy"),
+            "ACsingle": ("A", "C"),
+            "ACmulti": ("A", "C"),
+            "CminusH": ("C", "H"),
+        }
+        for k, (key_j, key_k) in contrast_pairs.items():
+            if k == "ACsingle" and nu != 1:
+                continue
+            if k == "ACmulti" and nu <= 1:
+                continue
+            if p in per_paper[key_j] and p in per_paper[key_k]:
+                per_paper[k][p] = per_paper[key_j][p] - per_paper[key_k][p]
+                if draws[k]:
+                    per_paper_draws[k][p] = [float(v) for v in draws[k]]
+        if p in per_paper["A"] and p in per_paper["Bstudy"]:
+            per_paper["ABstudy_log"][p] = float(
+                np.log(per_paper["A"][p] / per_paper["Bstudy"][p])
+            )
 
         meta[p] = {
             "n_rows": n_p,
@@ -354,13 +432,34 @@ def main() -> int:
         summary["two_level"] = two
         designs[k] = summary
 
+    contrast_specs = {
+        "AB": ("A", "B", papers),
+        "AC": ("A", "C", papers),
+        "BC": ("B", "C", papers),
+        "ABblock": ("A", "Bblock", papers),
+        "ABstudy": ("A", "Bstudy", papers),
+        "ACsingle": ("A", "C", single),
+        "ACmulti": ("A", "C", multi),
+        "CminusH": ("C", "H", multi),
+    }
     contrasts = {}
     for k in ("AB", "AC", "BC", "ABblock", "ABstudy", "ACsingle", "ACmulti", "CminusH"):
         vals = [per_paper[k][p] for p in papers if p in per_paper[k]]
         summary = describe(vals)
         summary.update(study_bootstrap(vals))
-        summary["two_level"] = two_level_bootstrap(per_paper_draws[k])
+        key_j, key_k, bootstrap_papers = contrast_specs[k]
+        summary["two_level"] = two_level_contrast_bootstrap(
+            per_paper_draws, bootstrap_papers, key_j, key_k
+        )
         contrasts[k] = summary
+
+    log_values = list(per_paper["ABstudy_log"].values())
+    sensitivities = {
+        "ABstudy_log": {
+            **describe(log_values),
+            **study_bootstrap(log_values),
+        }
+    }
 
     subgroups = {
         "single": {
@@ -371,7 +470,7 @@ def main() -> int:
             },
             "contrasts": {
                 k: subset_summary(per_paper, single, k)
-                for k in ("AB", "AC", "ABblock", "ABstudy")
+                for k in ("AB", "AC", "ABblock", "ABstudy", "ABstudy_log")
             },
         },
         "multi": {
@@ -430,7 +529,7 @@ def main() -> int:
             },
             "contrasts": {
                 k: subset_summary(per_paper, single_study_has, k)
-                for k in ("ABstudy", "AC")
+                for k in ("ABstudy", "ABstudy_log", "AC")
             },
         },
         "single_no_whole_study_donor": {
@@ -477,6 +576,7 @@ def main() -> int:
         },
         "designs": designs,
         "contrasts": contrasts,
+        "sensitivities": sensitivities,
         "subgroups": subgroups,
         "availability": availability,
         "legacy_B_matching": {

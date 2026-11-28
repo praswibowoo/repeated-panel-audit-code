@@ -53,7 +53,7 @@ Comparison with the matrix after blinding was removed:
 | Identical (n=38) | 37 | 0 | 1 |
 | Distinct (n=45) | 16 | 27 | 2 |
 
-Thus no matrix-identical pair was judged different by the AI-assisted review, but 16 matrix-distinct pairs were judged to share the same examined-parameter suite. Eight of those 16 conflict with prior P1 human-verified cell corrections already incorporated in the P2 matrix. They are therefore AI-flagged potential false-distinct pairs, not confirmed matrix errors. Pair-level human adjudication remains pending.
+Thus no matrix-identical pair was judged different by the AI-assisted review, but 16 matrix-distinct pairs were judged to share the same examined-parameter suite. Eight of those 16 conflict with prior P1 human-verified cell corrections already incorporated in the P2 matrix. They are therefore AI-flagged potential false-distinct pairs, not confirmed matrix errors. The subsequent 2026-11-27 coordinator review adjudicated all 56 priority pairs; the 27 nonprimary pairs remain without approved coordinator adjudication.
 
 ## Prepared human-adjudication package
 

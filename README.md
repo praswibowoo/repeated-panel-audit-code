@@ -2,13 +2,13 @@
 
 Code, data, and result archive for:
 
-> **Control-unit dependence in leave-one-study-out audits of repeated binary coverage rows**
+> **Deletion-unit choice in leave-one-study-out audits of repeated binary coverage rows**
 >
 > Wibowo, P., Veesommai Sillberg, C., & Kiyoki, Y. (2026).
 >
 > *Environmental and Ecological Statistics*.
 
-Release: `v1.9.0-2026-11-27` (canonical tag: https://github.com/praswibowoo/repeated-panel-audit-code/tree/v1.9.0-2026-11-27). The default `main` branch is historical and has diverged; use the tag for this release.
+Release: `v1.9.1-2026-11-28` (canonical tag: https://github.com/praswibowoo/repeated-panel-audit-code/tree/v1.9.1-2026-11-28). The default `main` branch is historical and has diverged; use the tag for this release.
 
 ## Contents
 
@@ -48,7 +48,7 @@ Use `python3 code/run_all.py --list` to inspect all available analyses. Manuscri
 
 | File | Role |
 |---|---|
-| `results/unit_revision_fixed/common_contrast.json` | Primary fixed-set covariance-PCA audit |
+| `results/unit_revision_fixed/common_contrast.json` | Primary fixed-set covariance-PCA audit, including the control-only log-ratio sensitivity |
 | `results/unit_revision_fixed/fixed3d_contrast.json` | Fixed-set 3-D PCA sensitivity |
 | `results/unit_revision_fixed/rms_sensitivity.json` | Fixed-set RMS event-drift sensitivity |
 | `results/unit_revision_fixed/manuscript_values.json` | Rounded manuscript values rendered from deposited outputs |
@@ -57,7 +57,7 @@ Use `python3 code/run_all.py --list` to inspect all available analyses. Manuscri
 | `results/unit_revision_fixed/sensitivity_no_B208.json` | Fixed exclusion of B208 |
 | `results/unit_revision_fixed/sensitivity_no_unsure_substitutes.json` | Fixed exclusion of 13 unsure records and two substitutes |
 | `results/post_audit/simulation_fixed.json` | Fixed-set clustered, planted, and independent-row benchmarks |
-| `data/duplicate_pair_audit_frame.csv` | Frozen 100-record / 83-unique-unordered-pair frame; 56 priority pairs have user-approved resolutions |
+| `data/duplicate_pair_audit_frame.csv` | Frozen 100-record / 83-unique-unordered-pair frame; 56 priority pairs have author-approved resolutions |
 | `data/duplicate_pair_source_review.csv` | Independent AI-assisted blinded source-review labels; not human adjudication |
 | `data/duplicate_pair_human_adjudication_coder.xlsx` | Blind 56-pair primary and 62-pair second-coder workbook |
 | `data/duplicate_pair_human_adjudication_primary_simple.xlsx` | Completed eight-column primary submission dated 2026-11-27 |
@@ -65,6 +65,7 @@ Use `python3 code/run_all.py --list` to inspect all available analyses. Manuscri
 
 ## Interpretation
 
+- Canonical A−B and A−C contrasts are differences of per-study median ratios; raw draw-level differences are retained only as diagnostics. The log-ratio is a separate control-only sensitivity.
 - A−Bstudy is the primary whole-study control contrast for 92 eligible single-configuration studies; all eligible whole-study donors are enumerated.
 - A−Bblock is a secondary configuration-donor contrast; donor configurations may be embedded in multi-configuration studies.
 - A−C is a secondary protocol contrast that changes fit weighting, control geometry, reference ordination, and normalization.

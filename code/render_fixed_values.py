@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import numpy as np
+
 ROOT = Path(__file__).resolve().parent.parent
 FIXED = ROOT / "results" / "unit_revision_fixed" / "common_contrast.json"
 PCOA = ROOT / "results" / "unit_revision_fixed" / "pcoa_contrast.json"
@@ -41,6 +43,8 @@ def main() -> None:
     vals.update(parts(d["designs"]["C"], "C_ALL"))
     vals.update(parts(d["contrasts"]["ABblock"], "AB_ALL"))
     vals.update(parts(d["contrasts"]["ABstudy"], "ABSTUDY_ALL"))
+    if "sensitivities" in d and "ABstudy_log" in d["sensitivities"]:
+        vals.update(parts(d["sensitivities"]["ABstudy_log"], "ABSTUDY_LOG"))
     vals.update(parts(d["contrasts"]["AC"], "AC_ALL"))
     vals["AB_ALL_POS"] = f"{100*d['contrasts']['ABblock']['frac_positive']:.0f}"
     vals["AC_POS"] = f"{100*d['contrasts']['AC']['frac_positive']:.0f}"
@@ -75,6 +79,23 @@ def main() -> None:
         vals.update(parts(d["availability"]["single_has_whole_study_donor"]["contrasts"]["ABstudy"], "ABSTUDY_SINGLE_DONOR"))
         vals.update(parts(d["availability"]["all_has_exact_donor"]["designs"]["A"], "A_HAS_DONOR"))
         vals.update(parts(d["availability"]["single_has_exact_donor"]["designs"]["A"], "A_SINGLE_HAS_DONOR"))
+
+    for label, lo, hi in (("2_5", 2, 5), ("6_10", 6, 10), ("11_PLUS", 11, 10**6)):
+        papers = [
+            p for p, m in d["meta"].items()
+            if m["n_configs"] == 1 and m["whole_study_donors"] > 0
+            and lo <= m["n_rows"] <= hi
+        ]
+        x = np.asarray([d["per_paper"]["ABstudy"][p] for p in papers], float)
+        rng = np.random.default_rng(42)
+        boot = np.asarray([
+            np.median(x[rng.integers(0, len(x), len(x))]) for _ in range(10000)
+        ])
+        prefix = f"ABSTUDY_BLOCK_{label}"
+        vals[prefix] = f"{np.median(x):.2f}"
+        vals[prefix + "_LO"] = f"{np.quantile(boot, 0.025):.2f}"
+        vals[prefix + "_HI"] = f"{np.quantile(boot, 0.975):.2f}"
+        vals[prefix + "_N"] = str(len(x))
 
     if PCOA.exists():
         p = json.loads(PCOA.read_text())

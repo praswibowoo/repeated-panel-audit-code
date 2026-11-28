@@ -2,7 +2,7 @@
 """Primary figure for the fixed-evaluation whole-study control audit.
 
 (a) Per-study row-count ratio versus exact-size whole single-configuration
-donor-study ratio for the 91 eligible single-configuration focal studies.
+donor-study ratio for the 92 eligible single-configuration focal studies.
 (b) Paired A-Bstudy differences overall and by focal row-count stratum, with
 all study points shown.
 """

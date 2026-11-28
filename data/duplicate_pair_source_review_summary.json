@@ -51,7 +51,7 @@
     "overall_agreement_decidable": 0.9875,
     "false_distinct_pairs": [],
     "false_distinct_papers": [],
-    "note": "Matrix comparison refreshed after user-approved 2026-11-27 cell corrections. The historical prior-human conflict list is retained for provenance; all eight conflicted pairs are resolved by the approved corrections.",
+    "note": "Matrix comparison refreshed after author-approved 2026-11-27 cell corrections. The historical prior-human conflict list is retained for provenance; all eight conflicted pairs are resolved by the approved corrections.",
     "false_distinct_status": "resolved_by_user_approved_cell_corrections",
     "prior_human_evidence_conflict_pairs": [
       "B034_177_181",

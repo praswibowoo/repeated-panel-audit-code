@@ -2,8 +2,10 @@
 """verify_package.py — self-check for the P2 check package.
 
 Verifies that every deposited data file is present, that the three coverage
-matrices agree with each other and with the manuscript's panel structure, and
-that the committed summaries carry the values reported in the paper.
+matrices agree with each other and with the manuscript's panel structure, that
+release identifiers are synchronized, and that the committed summaries carry
+the values reported in the paper. If the sibling manuscript repository is
+present, selected TeX/cover-letter consistency checks are also run.
 
 This is not a substitute for rerunning the analyses; it is the fast check a
 reader can run before doing so.
@@ -12,8 +14,10 @@ Run: python3 code/verify_package.py
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import re
 import sys
 import zipfile
 import xml.etree.ElementTree as ET
@@ -186,6 +190,35 @@ def main() -> int:
         print("MISSING:", ", ".join(missing))
         return 1
 
+    # --- release identity ------------------------------------------------
+    manifest = json.load(open(os.path.join(ROOT, "MANIFEST.json"), encoding="utf-8"))
+    release_id = open(os.path.join(ROOT, "RELEASE_ID.txt"), encoding="utf-8").read().strip()
+    cff = open(os.path.join(ROOT, "CITATION.cff"), encoding="utf-8").read()
+    cff_version = re.search(r"^version:\s*(.+)$", cff, re.M).group(1).strip()
+    cff_date = re.search(r'^date-released:\s*"([^"]+)"', cff, re.M).group(1)
+    release_match = re.fullmatch(r"v(\d+\.\d+\.\d+)-(\d{4}-\d{2}-\d{2})", release_id)
+    if release_match is None:
+        failures.append(f"release ID format: {release_id!r}")
+        release_version, release_date = release_id, ""
+    else:
+        release_version, release_date = release_match.groups()
+    check("manifest release", manifest["release"], release_id)
+    check("manifest date", manifest["date"], release_date)
+    check("citation version", cff_version, release_version)
+    check("citation date", cff_date, release_date)
+    for item in manifest["files"]:
+        path = os.path.join(ROOT, item["path"])
+        if not os.path.exists(path):
+            failures.append(f"manifest file missing: {item['path']}")
+            continue
+        payload = open(path, "rb").read()
+        check(f"manifest bytes {item['path']}", len(payload), item["bytes"], 0)
+        check(
+            f"manifest sha256 {item['path']}",
+            hashlib.sha256(payload).hexdigest(),
+            item["sha256"],
+        )
+
     params = lambda df: [c for c in df.columns if c not in ("paper", "row", "rho")]
 
     # --- corpus and panel structure -------------------------------------
@@ -211,6 +244,8 @@ def main() -> int:
     per_paper = cur.assign(pat=patterns).groupby("paper")["pat"].nunique()
     check("unique configurations", int(per_paper.sum()), 145)
     check("single-config papers", int((per_paper == 1).sum()), 98)
+    check("multi-config papers", int((per_paper > 1).sum()), 19)
+    check("global distinct patterns", int(patterns.nunique()), 131)
     check("duplicate rows", len(cur) - int(per_paper.sum()), 571)
 
     rebuilt = allp[~allp.paper.isin(EXCLUDED)].reset_index(drop=True)
@@ -398,11 +433,56 @@ def main() -> int:
 
     # Fixed-evaluation primary audit.
     fixed = json.load(open(fixed_path, encoding="utf-8"))
+    rendered = json.load(open(os.path.join(fixed_dir, "manuscript_values.json"), encoding="utf-8"))
+    for label, median, lo, hi, n in (
+        ("2_5", "0.05", "0.02", "0.07", "57"),
+        ("6_10", "0.87", "0.75", "1.02", "26"),
+        ("11_PLUS", "1.06", "0.36", "1.56", "9"),
+    ):
+        prefix = f"ABSTUDY_BLOCK_{label}"
+        for suffix, want in (
+            ("", median), ("_LO", lo), ("_HI", hi), ("_N", n),
+        ):
+            key = prefix + suffix
+            got = rendered.get(key)
+            if got is None:
+                failures.append(f"rendered key missing: {key}")
+            else:
+                check(f"rendered {key}", got, want)
     check("fixed A", fixed["designs"]["A"]["median"], 1.3967, 1e-3)
     check("fixed C", fixed["designs"]["C"]["median"], 0.9819, 1e-3)
-    check("fixed AC", fixed["contrasts"]["AC"]["median"], 0.2372, 1e-3)
-    check("fixed ABblock", fixed["contrasts"]["ABblock"]["median"], 0.1796, 1e-3)
+    check("fixed AC", fixed["contrasts"]["AC"]["median"], 0.2843, 1e-3)
+    check("fixed ABblock", fixed["contrasts"]["ABblock"]["median"], 0.2103, 1e-3)
     check("fixed ABstudy", fixed["contrasts"]["ABstudy"]["median"], 0.1654, 2e-3)
+    log_summary = fixed.get("sensitivities", {}).get("ABstudy_log")
+    if log_summary is None:
+        failures.append("fixed ABstudy log sensitivity missing")
+    else:
+        check("fixed ABstudy log", log_summary["median"], 0.2065, 2e-3)
+    check("rendered ABstudy log", rendered.get("ABSTUDY_LOG"), "0.21")
+    check("rendered ABstudy log low", rendered.get("ABSTUDY_LOG_LO"), "0.08")
+    check("rendered ABstudy log high", rendered.get("ABSTUDY_LOG_HI"), "0.33")
+    if fixed["per_paper"].get("ABstudy_log"):
+        log_errors = [
+            abs(fixed["per_paper"]["ABstudy_log"][p]
+                - np.log(fixed["per_paper"]["A"][p] / fixed["per_paper"]["Bstudy"][p]))
+            for p in fixed["per_paper"]["ABstudy_log"]
+        ]
+        check("fixed ABstudy log per-study identity", max(log_errors), 0.0, 1e-12)
+    else:
+        failures.append("fixed ABstudy per-study log values missing")
+    for contrast, key_j, key_k in (
+        ("AB", "A", "B"), ("AC", "A", "C"), ("BC", "B", "C"),
+        ("ABblock", "A", "Bblock"), ("ABstudy", "A", "Bstudy"),
+        ("ACsingle", "A", "C"), ("ACmulti", "A", "C"),
+        ("CminusH", "C", "H"),
+    ):
+        errors = [
+            abs(fixed["per_paper"][contrast][p]
+                - (fixed["per_paper"][key_j][p] - fixed["per_paper"][key_k][p]))
+            for p in fixed["per_paper"][contrast]
+        ]
+        check(f"fixed {contrast} uses difference of medians", max(errors), 0.0, 1e-12)
     check("fixed Bstudy", fixed["designs"]["Bstudy"]["median"], 1.0526, 2e-3)
     check("fixed Bstudy donor enumeration", all(
         m["bstudy_donors_enumerated"] == m["whole_study_donors"]
@@ -427,14 +507,17 @@ def main() -> int:
     check("fixed PCoA A", pcoa["designs"]["A"]["median"], 1.3046, 1e-3)
     check("fixed PCoA Bstudy", pcoa["designs"]["Bstudy"]["median"], 1.0380, 1e-3)
     check("fixed PCoA ABstudy", pcoa["contrasts"]["ABstudy"]["median"], 0.2680, 2e-3)
-    check("fixed PCoA ABblock", pcoa["contrasts"]["ABblock"]["median"], 0.2662, 1e-3)
+    check("fixed PCoA ABblock", pcoa["contrasts"]["ABblock"]["median"], 0.2452, 1e-3)
+    check("fixed PCoA AC", pcoa["contrasts"]["AC"]["median"], 0.4145, 1e-3)
     rms = json.load(open(os.path.join(fixed_dir, "rms_sensitivity.json"), encoding="utf-8"))
-    check("fixed RMS ABblock", rms["contrasts"]["ABblock"]["median"], 0.2213, 1e-3)
-    check("fixed RMS single ABblock", rms["subgroups"]["single"]["contrasts"]["ABblock"]["median"], 0.2361, 1e-3)
+    check("fixed RMS ABblock", rms["contrasts"]["ABblock"]["median"], 0.2684, 1e-3)
+    check("fixed RMS single ABblock", rms["subgroups"]["single"]["contrasts"]["ABblock"]["median"], 0.2924, 1e-3)
+    check("fixed RMS AC", rms["contrasts"]["AC"]["median"], 0.3154, 1e-3)
     check("fixed RMS ABstudy", rms["contrasts"]["ABstudy"]["median"], 0.2779, 2e-3)
     check("fixed RMS single ABstudy", rms["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.2779, 2e-3)
     f3 = json.load(open(os.path.join(fixed_dir, "fixed3d_contrast.json"), encoding="utf-8"))
     check("fixed 3-D ABstudy", f3["contrasts"]["ABstudy"]["median"], 0.0630, 2e-3)
+    check("fixed 3-D ABblock", f3["contrasts"]["ABblock"]["median"], 0.0500, 2e-3)
     check("fixed 3-D Bstudy", f3["designs"]["Bstudy"]["median"], 0.9855, 2e-3)
     check("fixed 3-D single ABstudy", f3["subgroups"]["single"]["contrasts"]["ABstudy"]["median"], 0.0630, 2e-3)
     sim_fixed = json.load(open(os.path.join(POST, "simulation_fixed.json"), encoding="utf-8"))
@@ -445,7 +528,11 @@ def main() -> int:
     ex1 = json.load(open(os.path.join(fixed_dir, "sensitivity_no_B208.json"), encoding="utf-8"))
     ex2 = json.load(open(os.path.join(fixed_dir, "sensitivity_no_unsure_substitutes.json"), encoding="utf-8"))
     check("no-B208 ABstudy", ex1["contrasts"]["ABstudy"]["median"], 0.1238, 2e-3)
+    check("no-B208 single ABblock", ex1["subgroups"]["single"]["contrasts"]["ABblock"]["median"], 0.2300, 2e-3)
+    check("no-B208 AC", ex1["contrasts"]["AC"]["median"], 0.2744, 2e-3)
     check("no-unsure ABstudy", ex2["contrasts"]["ABstudy"]["median"], 0.0900, 2e-3)
+    check("no-unsure single ABblock", ex2["subgroups"]["single"]["contrasts"]["ABblock"]["median"], 0.0739, 2e-3)
+    check("no-unsure AC", ex2["contrasts"]["AC"]["median"], 0.2688, 2e-3)
     iid = json.load(open(os.path.join(POST, "simulation_iid_null.json"), encoding="utf-8"))
     check("IID row-count median", iid["row_count_ratio"]["median"], 1.0008, 1e-3)
 
@@ -569,14 +656,35 @@ def main() -> int:
         check("fresh core coarsened", fresh["coarsened"]["all"]["median"],
               cc["coarsened"]["all"]["median"], 1e-9)
 
+    # --- optional manuscript/package semantic checks --------------------
+    manuscript_dir = os.path.join(
+        os.path.dirname(ROOT), "p2-deletion-audit", "source", "manuscript", "ees"
+    )
+    if os.path.isdir(manuscript_dir):
+        main_tex = open(os.path.join(manuscript_dir, "main.tex"), encoding="utf-8").read()
+        cover = open(os.path.join(manuscript_dir, "cover_letter.md"), encoding="utf-8").read()
+        si_index = open(os.path.join(manuscript_dir, "SI_SOURCE_INDEX.md"), encoding="utf-8").read()
+        check("manuscript title", "Deletion-unit choice in leave-one-study-out audits" in main_tex, True)
+        check("manuscript distinct patterns", "Distinct patterns & 131" in main_tex, True)
+        check("manuscript Bstudy n", "remaining 92 studies" in main_tex, True)
+        check("manuscript donor range", "1--19 studies" in main_tex, True)
+        for token in ("other 91", "1--18", "19 of 20", "136; 8", "the user approved", "isotropic"):
+            check(f"manuscript excludes stale token {token}", token not in main_tex, True)
+        check("cover letter release", release_id in cover, True)
+        check("cover letter primary n", "92 eligible single-configuration studies" in cover, True)
+        check("cover letter primary contrast", "contrast was 0.17" in cover, True)
+        check("SI index release", release_id in si_index, True)
+        check("SI index excludes pending adjudication", "adjudication remains pending" not in si_index, True)
+
     if failures:
         print("FAIL — %d mismatch(es):" % len(failures))
         for f in failures:
             print("  -", f)
         return 1
 
-    print(f"PASS — {len(FILES) + len(POST_FILES)} files present; "
-          "panel structure, event-table ratios, and all summaries match")
+    print(f"PASS — {len(manifest['files'])} manifest files and "
+          f"{len(FILES) + len(POST_FILES)} required analysis files present; "
+          "release identity, manifest hashes, panel structure, event-table ratios, and summaries match")
     return 0
 
 

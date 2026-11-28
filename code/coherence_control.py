@@ -7,7 +7,7 @@ Hamming distance after matching configuration count where possible. Achieved
 coherence is not guaranteed; the control is not treated as a validated
 coherence match.
 
-Applied to the 20 multi-configuration papers; one-configuration papers have no
+Applied to the 19 multi-configuration papers; one-configuration papers have no
 within-paper coherence to match.
 
 Writes results/post_audit/coherence_control.json.

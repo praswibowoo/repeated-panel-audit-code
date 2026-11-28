@@ -180,7 +180,7 @@
     "Prior P1 human cell corrections are evidence only; they do not replace pair-level human labels.",
     "Eight AI-same/matrix-distinct pairs conflict with prior human cell corrections and require explicit pair adjudication.",
     "The primary assignment is the union of all matrix-identical pairs, all matrix-distinct/AI-same pairs, and all undecidable pairs.",
-    "Coordinator key, prior-evidence files, and coordinator workbook refreshed after user-approved 2026-11-27 corrections; blind coder files remain unchanged."
+    "Coordinator key, prior-evidence files, and coordinator workbook refreshed after author-approved 2026-11-27 corrections; blind coder files remain unchanged."
   ],
   "post_approved_correction": {
     "date": "2026-11-27",

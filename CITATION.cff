@@ -1,6 +1,6 @@
 cff-version: 1.2.1
 message: "If you use this code, cite the paper and this release."
-title: "Control-unit dependence in leave-one-study-out audits of repeated binary coverage rows"
+title: "Deletion-unit choice in leave-one-study-out audits of repeated binary coverage rows"
 abstract: "Fixed-evaluation whole-study and configuration-donor LOSO audit for pooled binary parameter-coverage matrices."
 type: software
 authors:
@@ -12,8 +12,8 @@ authors:
     orcid: "https://orcid.org/0000-0001-8400-7469"
   - family-names: Kiyoki
     given-names: Yasushi
-version: 1.8.0
-date-released: "2026-11-26"
+version: 1.9.1
+date-released: "2026-11-28"
 license: MIT
 url: "https://github.com/praswibowoo/repeated-panel-audit-code"
 repository-code: "https://github.com/praswibowoo/repeated-panel-audit-code"

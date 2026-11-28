@@ -107,7 +107,7 @@ def main() -> int:
         "false_identical_status": "matrix_identical_but_automated_review_different",
         "false_distinct_status": "resolved_by_user_approved_cell_corrections",
         "note": (
-            "Matrix comparison refreshed after user-approved 2026-11-27 cell corrections. "
+            "Matrix comparison refreshed after author-approved 2026-11-27 cell corrections. "
             "The historical prior-human conflict list is retained for provenance; all eight "
             "conflicted pairs are resolved by the approved corrections."
         ),
