@@ -1,4 +1,4 @@
-# Upload instructions — v1.9.1-2026-11-28
+# Upload instructions — v1.9.2-2026-11-28
 
 ## 1. Code/data repository
 
@@ -13,18 +13,18 @@ python3 code/verify_package.py
 shasum -a 256 -c SHA256SUMS
 git status
 git add .
-git commit -m "Release v1.9.1-2026-11-28: harmonize contrasts and synchronize package"
+git commit -m "Release v1.9.2-2026-11-28: refresh control balance and strengthen verifier"
 git push origin HEAD
-git tag -a v1.9.1-2026-11-28 -m "Harmonized contrasts and synchronized release package"
-git push origin v1.9.1-2026-11-28
+git tag -a v1.9.2-2026-11-28 -m "Control-balance refresh and cross-file verification"
+git push origin v1.9.2-2026-11-28
 ```
 
 Verify:
 
 ```bash
-curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.1-2026-11-28/code/unit_revision_fixed.py
-curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.1-2026-11-28/results/unit_revision_fixed/common_contrast.json
-curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.1-2026-11-28/data/coverage_matrix.csv
+curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.2-2026-11-28/code/unit_revision_fixed.py
+curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.2-2026-11-28/results/unit_revision_fixed/common_contrast.json
+curl -I https://raw.githubusercontent.com/praswibowoo/repeated-panel-audit-code/v1.9.2-2026-11-28/data/coverage_matrix.csv
 ```
 
 ## 2. Manuscript repository
@@ -37,10 +37,10 @@ Release branch: `revision/q1-scope`
 cd p2-deletion-audit
 (cd source/manuscript/ees && make check)
 git add README.md source/figures source/manuscript/ees
-git commit -m "Release v1.9.1-2026-11-28: revised manuscript and SI"
+git commit -m "Release v1.9.2-2026-11-28: update release links"
 git push origin HEAD
-git tag -a v1.9.1-2026-11-28 -m "Deletion-unit revision and harmonized contrasts"
-git push origin v1.9.1-2026-11-28
+git tag -a v1.9.2-2026-11-28 -m "Release-link update for control-balance patch"
+git push origin v1.9.2-2026-11-28
 ```
 
 Build check:

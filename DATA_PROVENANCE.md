@@ -2,7 +2,7 @@
 
 **Manuscript:** *Deletion-unit choice in leave-one-study-out audits of repeated binary coverage rows*
 
-**Release:** `v1.9.1-2026-11-28`
+**Release:** `v1.9.2-2026-11-28`
 
 The manuscript has three main tables, one main figure, and SI Tables S1–S6. This file maps each item to the code and deposited outputs in this repository.
 

@@ -12,7 +12,7 @@ authors:
     orcid: "https://orcid.org/0000-0001-8400-7469"
   - family-names: Kiyoki
     given-names: Yasushi
-version: 1.9.1
+version: 1.9.2
 date-released: "2026-11-28"
 license: MIT
 url: "https://github.com/praswibowoo/repeated-panel-audit-code"

@@ -433,6 +433,16 @@ def main() -> int:
 
     # Fixed-evaluation primary audit.
     fixed = json.load(open(fixed_path, encoding="utf-8"))
+    balance = json.load(open(os.path.join(fixed_dir, "control_balance.json"), encoding="utf-8"))
+    for group in ("bblock_missing_single", "bstudy_missing_single"):
+        for rec in balance[group]:
+            p = rec["paper"]
+            check(f"balance {group} {p} rows", rec["rows"], fixed["meta"][p]["n_rows"], 0)
+            check(f"balance {group} {p} A", rec["A"], fixed["per_paper"]["A"][p], 1e-9)
+            check(f"balance {group} {p} C", rec["C"], fixed["per_paper"]["C"][p], 1e-9)
+            check(f"balance {group} {p} AC", rec["AC"], fixed["per_paper"]["AC"][p], 1e-9)
+            if rec.get("Bblock") is not None:
+                check(f"balance {group} {p} Bblock", rec["Bblock"], fixed["per_paper"]["Bblock"][p], 1e-9)
     rendered = json.load(open(os.path.join(fixed_dir, "manuscript_values.json"), encoding="utf-8"))
     for label, median, lo, hi, n in (
         ("2_5", "0.05", "0.02", "0.07", "57"),

@@ -1,6 +1,6 @@
 # Post-correction audit — 2026-11-27
 
-Status: historical audit for release `v1.9.0-2026-11-27`; superseded by `v1.9.1-2026-11-28`. Secondary contrasts below use the earlier draw-level estimator.
+Status: historical audit for release `v1.9.0-2026-11-27`; superseded by `v1.9.2-2026-11-28`. Secondary contrasts below use the earlier draw-level estimator.
 
 ## Approved correction application
 
@@ -59,7 +59,7 @@ Status: historical audit for release `v1.9.0-2026-11-27`; superseded by `v1.9.1-
 - Final LaTeX build: clean (main 21 pages, SI 9 pages, title page 1 page).
 - Current-matrix panel decomposition, core checks, rebuilt-event tail checks, permutation nulls, PCoA, RMS, 3-D, exclusions, synthetic, perturbation, coherence, three-set, and own-row sensitivity outputs refreshed.
 - `verify_package.py`: PASS (114 files).
-- Manuscript/value/matrix/figure consistency check: PASS for the then-current v1.9.0 package. A later audit found documentation and secondary-estimator drift corrected in v1.9.1.
+- Manuscript/value/matrix/figure consistency check: PASS for the then-current v1.9.0 package. Later audits found documentation, secondary-estimator, and control-balance drift corrected in v1.9.2.
 
 ## Release status
 

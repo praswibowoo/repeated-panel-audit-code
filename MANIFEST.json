@@ -1,5 +1,5 @@
 {
-  "release": "v1.9.1-2026-11-28",
+  "release": "v1.9.2-2026-11-28",
   "date": "2026-11-28",
   "files": [
     {
@@ -15,12 +15,12 @@
     {
       "path": "CITATION.cff",
       "bytes": 888,
-      "sha256": "43494b6c2b911a621c216e3c690bad4091b1e4c540fa9403db0690dd73d4ad55"
+      "sha256": "e52e30b91fefc7c6d2f9ffa161b00209b8831dba505566475589103c7bf10eef"
     },
     {
       "path": "DATA_PROVENANCE.md",
       "bytes": 4326,
-      "sha256": "724835f5c665d8f8c7b45786bc31ad00b3fc5f84e52d59618bfaee16235630e2"
+      "sha256": "63493b6fd6976a659cb89137d274dac111e500aab46d10750e60064aa455cf78"
     },
     {
       "path": "LICENSE",
@@ -29,18 +29,18 @@
     },
     {
       "path": "README.md",
-      "bytes": 4620,
-      "sha256": "e0598dedfd50041ba15743c27b74da3a81c661ceb063c81fc1b2516fa3570a9d"
+      "bytes": 4727,
+      "sha256": "c5301fc2f1094667a5a514940fbe05ceaa61ea1c3d5fc123bab97796ef212cda"
     },
     {
       "path": "RELEASE_ID.txt",
       "bytes": 18,
-      "sha256": "9bb75b38b576ea15a71ed1b15e9a49fc0de2742e020b6cb525814e1ee0747b80"
+      "sha256": "01a3d93a6b9af39ed4ffb9dfb6e17a57c9f42e34a4a773eceb609f1b398c5cc4"
     },
     {
       "path": "RELEASE_UPLOAD.md",
-      "bytes": 1887,
-      "sha256": "8974b15017d74caeda0b3f060259824453b2a9b711b7741a276429377aebd338"
+      "bytes": 1882,
+      "sha256": "ef5f2693c19a3f86627762e532899718d7f734611e43b621b7d82fa6b82d551f"
     },
     {
       "path": "ZENODO_UPDATE.md",
@@ -50,7 +50,7 @@
     {
       "path": "code/README.md",
       "bytes": 4193,
-      "sha256": "d312edb9210e28800476fde8bda04fd52c7eb4267fc4638a75005ac5971882de"
+      "sha256": "025f5a23f67bf624e44ddea9c69c695b5bbc1be922b0e2f49b7d39f0383ae005"
     },
     {
       "path": "code/all_paper_audit.py",
@@ -414,8 +414,8 @@
     },
     {
       "path": "code/verify_package.py",
-      "bytes": 40898,
-      "sha256": "377578a8ce5e974de2e9888aaaefdb3841b2ed98e7df67e638686edf01458a75"
+      "bytes": 41639,
+      "sha256": "6392c010c43e8d5648fcaf27799ab0104c54a574a5a367c64d485154ff7a0eae"
     },
     {
       "path": "code/water_only_check.py",
@@ -649,8 +649,8 @@
     },
     {
       "path": "data/duplicate_pair_coordinator_review_memo_approved_2026-11-27.md",
-      "bytes": 2437,
-      "sha256": "4becc2a1045531f4d1e8ede03d91821261201e03be88913b12f9f7a7021c386c"
+      "bytes": 2505,
+      "sha256": "0d1ff013465306eeba1c232c2a2ce1c2e1cd1794e53817b19f266b13b1f35121"
     },
     {
       "path": "data/duplicate_pair_coordinator_source_review_2026-11-27.csv",
@@ -999,8 +999,8 @@
     },
     {
       "path": "docs/audit/POST_CORRECTION_2026-11-27_AUDIT.md",
-      "bytes": 3343,
-      "sha256": "b2adbbf5c65072d8a075be0608d416c250ec36ab88bc56ab394625a0d82c4936"
+      "bytes": 3360,
+      "sha256": "692f319ac10442269ac721895397217604f7d50dec4109ebf1348487657c01de"
     },
     {
       "path": "docs/audit/REVISION_2026-11-25_AUDIT.md",
@@ -1325,7 +1325,7 @@
     {
       "path": "results/unit_revision_fixed/control_balance.json",
       "bytes": 59017,
-      "sha256": "fb8429943e12d161085fa5536f37c7376789ef774352b69e8b9bcc74eedf6324"
+      "sha256": "3da4a28a3c020b253cb2356d9b3aea70c335519aaaf202229d930fbe38c959e8"
     },
     {
       "path": "results/unit_revision_fixed/fixed3d_contrast.json",

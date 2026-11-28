@@ -8,7 +8,9 @@ Code, data, and result archive for:
 >
 > *Environmental and Ecological Statistics*.
 
-Release: `v1.9.1-2026-11-28` (canonical tag: https://github.com/praswibowoo/repeated-panel-audit-code/tree/v1.9.1-2026-11-28). The default `main` branch is historical and has diverged; use the tag for this release.
+Release: `v1.9.2-2026-11-28` (canonical tag: https://github.com/praswibowoo/repeated-panel-audit-code/tree/v1.9.2-2026-11-28). The default `main` branch is historical and has diverged; use the tag for this release.
+
+`v1.9.1-2026-11-28` is superseded because `control_balance.json` retained pre-harmonization A−C values.
 
 ## Contents
 
